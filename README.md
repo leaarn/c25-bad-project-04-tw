@@ -62,6 +62,7 @@
     - [ ] any csv / xlsx file to store the data
 
 - [ ] public 
+     - [ ] assets
      - [ ] js
         - [ ] index.js
      - [ ] css
