@@ -46,7 +46,7 @@
     require("ts-node/register");
     require("./app.ts");
     ' > index.js
-=======
+
 ## Folder setup
 
 - [ ] utils
@@ -62,9 +62,13 @@
     - [ ] any csv / xlsx file to store the data
 
 - [ ] public 
+     - [ ] assets
      - [ ] js
         - [ ] index.js
      - [ ] css
         - [ ] index.css
      - [ ] index.html
      - [ ] 404.html
+
+hihi I'm Julia, test push
+yannes test
