@@ -1,1 +1,2 @@
- require("ts-node/register"); require("./app.ts"); 
+require("ts-node/register"); 
+require("./app.ts"); 
