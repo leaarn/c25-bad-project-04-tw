@@ -46,9 +46,6 @@
     require("ts-node/register");
     require("./app.ts");
     ' > index.js
-
-<<<<<<< HEAD
-    ()
 =======
 ## Folder setup
 
@@ -71,4 +68,5 @@
         - [ ] index.css
      - [ ] index.html
      - [ ] 404.html
->>>>>>> bd4da77b5b0a069e676257e16fd807b4ecc04a79
+
+hihi I'm Julia, test push
