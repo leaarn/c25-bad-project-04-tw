@@ -59,6 +59,6 @@
     - [ ] tbc...
 
 - [ ] db
-    -[ ] any csv / xlsx file to store the data
+    - [ ] any csv / xlsx file to store the data
 
 - [ ] public 
