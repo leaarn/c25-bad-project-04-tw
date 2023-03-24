@@ -46,3 +46,19 @@
     require("ts-node/register");
     require("./app.ts");
     ' > index.js
+
+## Folder setup
+
+- [ ] utils
+    - [ ] logger.ts
+    - [ ] hash.ts
+
+- [ ] routers
+    - [ ] personalAuthRoutes.ts
+    - [ ] driverAuthRoutes.ts
+    - [ ] tbc...
+
+- [ ] db
+    -[ ] any csv / xlsx file to store the data
+
+- [ ] public 
