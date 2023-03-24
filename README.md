@@ -46,7 +46,7 @@
     require("ts-node/register");
     require("./app.ts");
     ' > index.js
-=======
+
 ## Folder setup
 
 - [ ] utils
