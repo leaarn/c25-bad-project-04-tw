@@ -68,5 +68,3 @@
         - [ ] index.css
      - [ ] index.html
      - [ ] 404.html
-
-hihi I'm Julia, test push

@@ -1,0 +1,28 @@
+{
+  "name": "c25-wsp-project-02-tw",
+  "version": "1.0.0",
+  "description": "- [ ] npm init --y",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuliaWLC/c25-wsp-project-02-tw.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JuliaWLC/c25-wsp-project-02-tw/issues"
+  },
+  "homepage": "https://github.com/JuliaWLC/c25-wsp-project-02-tw#readme",
+  "dependencies": {
+    "app.ts": "^0.1.0",
+    "ts-node-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.7",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.2"
+  }
+}
