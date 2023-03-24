@@ -62,3 +62,9 @@
     - [ ] any csv / xlsx file to store the data
 
 - [ ] public 
+     - [ ] js
+        - [ ] index.js
+     - [ ] css
+        - [ ] index.css
+     - [ ] index.html
+     - [ ] 404.html
