@@ -102,11 +102,28 @@ async function main() {
   );
 
   await client.connect();
+  await client.query(/*SQL*/ `DELETE FROM users`);
+  for (const userRow of userRows) {
+    const userSql = /*SQL*/ `INSERT INTO users (email, password) VALUES ($1, $2, $3)`;
+    let hashed = await hashPassword(userRow.password);
+    await client.query(userSql, [userRow.email, hashed]);
+  }
 
-  
+  await client.query(/*SQL*/ `DELETE FROM drivers`);
+  let driversSql = `INSERT INTO drivers (content) VALUES `;
+  for (let i = 0; i < driversRow.length; i++) {
+    if (i < driversRow.length - 1) driversSql += `($${i + 1}),`;
+    else driversSql += `($${i + 1})`;
+  }
+  console.log(driversSql);
+  await client.query(
+    driversSql,
+    driversRow.map((row) => row.content)
+  );
+
 
   await client.end();
 }
 
 main();
-console.log("hi");
+
