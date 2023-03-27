@@ -140,9 +140,19 @@ async function main() {
       row.car_type,
     ])
   );
+  await client.query(/*SQL*/ `DELETE FROM orders`);
+  let ordersSql = `INSERT INTO orders (pick_up_date, pick_up_time, pick_up_district, pick_up_address, pick_up_coordinates, deliver_district, deliver_address, deliver_coordinates, distance_km, distance_price, reference_code, orders_status, token, remarks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`;
+  for (let i = 0; i < ordersRow.length; i++) {
+    if (i < ordersRow.length - 1) ordersSql += `($${i + 1}),`;
+    else ordersSql += `($${i + 1})`;
+  }
+  console.log(ordersSql);
+  await client.query(
+    ordersSql,
+    ordersRow.map((row) => [row.pick_up_date, row.pick_up_time, row.pick_up_district, row.pick_up_address, row.pick_up_coordinates, row.deliver_district, row.deliver_address, row.deliver_coordinates, row.distance_km, row.distance_price, row.reference_code, row.order_status, row.token, row.remarks])
+  );
 
   await client.end();
 }
 
 main();
-

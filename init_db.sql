@@ -50,7 +50,7 @@ CREATE TABLE orders (
 	distance_km INTEGER NOT NULL,
     distance_price INTEGER NOT NULL,
     reference_code UUID NOT NULL,
-    order_status VARCHAR(255) NULL,
+    orders_status VARCHAR(255) NULL,
     token VARCHAR(255) NULL,
     remarks VARCHAR(255) NULL,
     created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
