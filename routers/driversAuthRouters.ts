@@ -39,7 +39,6 @@ async function login(req:express.Request, res:express.Response){
 }
 
 async function loginGoogle(req: express.Request, res: express.Response) {
-    
+    const accessToken = 
 }
 
-)
