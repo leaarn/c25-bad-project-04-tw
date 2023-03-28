@@ -60,6 +60,7 @@ app.use((req, _res, next) => {
 
 // Section 2: Route Handlers
 
+
 // Section 3: Serve
 app.use(express.static(path.join(__dirname, "public")));
 const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
