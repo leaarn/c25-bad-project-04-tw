@@ -1,6 +1,10 @@
 import express from "express";
-
+import {logger} from "./utils/logger";
 const app = express();
+
+app.use((req, res,next)=>{
+    logger.debug(`Request - Method: ${req.method} \t Path: ${req.path}`);
+})
 
 app.get("/", (req, res) => {
   res.send("hello,world");
@@ -9,5 +13,6 @@ app.get("/", (req, res) => {
 const PORT = 8080;
 
 app.listen(PORT, () => {
-  console.log(`listening at http://localhost:${PORT}`);
+  logger.info(`listening at http://localhost:${PORT}`);
 });
+
