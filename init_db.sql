@@ -14,9 +14,7 @@ CREATE TABLE users (
     contact_num INTEGER NOT NULL,
     default_district VARCHAR(255) NOT NULL,
     default_address VARCHAR(255) NOT NULL,
-    default_coordinates POINT NOT NULL,
-    created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-    updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
+    default_coordinates POINT
 );
 
 DROP TABLE IF EXISTS drivers;
@@ -29,9 +27,7 @@ CREATE TABLE drivers (
     password VARCHAR(255) NOT NULL,
     contact_num INTEGER NOT NULL,
     car_license_num VARCHAR(255) NOT NULL,
-    car_type VARCHAR(255) NOT NULL,
-	created_at TIMESTAMP DEFAULT NOW(),
-	updated_at TIMESTAMP DEFAULT NOW()
+    car_type VARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS orders;
@@ -41,10 +37,10 @@ CREATE TABLE orders (
 	pick_up_time TIME(0) WITHOUT TIME ZONE NOT NULL,
     pick_up_district VARCHAR(255) NOT NULL,
     pick_up_address VARCHAR(255) NOT NULL,
-    pick_up_coordinates POINT NOT NULL,
+    pick_up_coordinates POINT,
     deliver_district VARCHAR(255) NOT NULL, 
     deliver_address VARCHAR(255) NOT NULL,
-    deliver_coordinates POINT NOT NULL,
+    deliver_coordinates POINT,
     users_id INTEGER,
 	FOREIGN KEY (users_id) REFERENCES users(id),
     drivers_id INTEGER,
@@ -88,7 +84,6 @@ CREATE TABLE animals (
 	id SERIAL PRIMARY KEY,
 	animals_name VARCHAR(255) NOT NULL,
     price INTEGER NOT NULL
-
 );
 
 
