@@ -96,14 +96,6 @@ async function main() {
       ]);
     };
 
-  await client.query(/*SQL*/ `DELETE FROM car_types`);
-  for (const carTypeRow of carTypesRow) {
-    let carTypesSql = /*SQL*/ `INSERT INTO car_types (car_type) VALUES ($1)`;
-    await client.query(carTypesSql, [
-      carTypeRow.car_type,
-    ]);
-  };
-
   await client.query(/*SQL*/ `DELETE FROM payment_method`);
   for (const paymentRow of paymentMethodRow) {
     let paymentMethodSql = /*SQL*/ `INSERT INTO payment_method (method) VALUES ($1)`;

@@ -55,11 +55,6 @@ CREATE TABLE orders (
 	updated_at TIMESTAMP DEFAULT NOW()
 );
 
-DROP TABLE IF EXISTS car_types;
-CREATE TABLE car_types (
-	id SERIAL PRIMARY KEY,
-	car_type VARCHAR(255) NOT NULL
-);
 
 DROP TABLE IF EXISTS payment_method;
 CREATE TABLE payment_method (
@@ -85,9 +80,6 @@ CREATE TABLE order_animals(
     animals_amount INTEGER NOT NULL,
     animals_unit_price INTEGER NOT NULL
 );
-
-
-
 
 
 
