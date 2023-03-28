@@ -65,7 +65,7 @@ async function main() {
   }
 
   await client.query(/*SQL*/ `DELETE FROM drivers`);
-  let driversSql = `INSERT INTO drivers (last_name, first_name, title, email, password, contact_num, car_license_num, car_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) `;
+  let driversSql = `INSERT INTO drivers (last_name, first_name, title, email, password, contact_num, car_license_num, car_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
   for (let i = 0; i < driversRow.length; i++) {
     if (i < driversRow.length - 1) driversSql += `($${i + 1}),`;
     else driversSql += `($${i + 1})`;
@@ -75,7 +75,7 @@ async function main() {
     driversSql,
     driversRow.map((row) => [
       row.last_name,
-      row.last_name,
+      row.first_name,
       row.first_name,
       row.title,
       row.email,
