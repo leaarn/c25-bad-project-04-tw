@@ -9,6 +9,7 @@ import { PaymentMethodRow } from "../model";
 import { OrderAnimalsRow } from "../model";
 import { AnimalsRow } from "../model";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 async function main() {
@@ -18,7 +19,7 @@ async function main() {
       password: process.env.DB_PASSWORD,
     });
     
-  const filepath = path.join(__dirname,"db", "data_base.xlsx");
+  const filepath = path.join(__dirname, "data_base.xlsx");
   const workbook = xlsx.readFile(filepath);
 
   const userRows = xlsx.utils.sheet_to_json<UsersRow>(workbook.Sheets["users"]);

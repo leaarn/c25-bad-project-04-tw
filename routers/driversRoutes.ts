@@ -1,13 +1,13 @@
 import express from "express";
 import type { Request, Response } from "express";
-import { OrdersRow, OrderAnimalsRow } from "../model";
+import { OrdersRow } from "../model";
 import { dbClient } from "../app";
 
 export const driversRoutes = express.Router();
 
 driversRoutes.get("/", getDistricts);
 driversRoutes.get("/", getAllOrders);
-driversRoutes.put ("/", getAllOrders);
+driversRoutes.put ("/:oid", getAllOrders);
 
 async function getDistricts(req: Request, res: Response) {
   const queryResult = await dbClient.query<OrdersRow>(
@@ -25,16 +25,16 @@ async function getAllOrders(req: Request, res: Response) {
   res.json(queryResult.rows); // pass array into res.json()
 }
 
-async function updateOrders(req: Request, res: Response) {
-    const memoId = +req.params.mid;
-    const newContent = req.body.content;
+// async function updateOrders(req: Request, res: Response) {
+//     const ordersId = +req.params.mid;
+//     const newContent = req.body.content;
   
-    if (isNaN(memoId)) {
-      res.status(400).json({ message: "invalid memo id" });
-      return;
-    }
+//     if (isNaN(memoId)) {
+//       res.status(400).json({ message: "invalid memo id" });
+//       return;
+//     }
   
-    await dbClient.query(/*SQL*/ `UPDATE memos SET content = $1 WHERE id = $2`, [newContent, memoId]);
-    res.json({ message: "success" });
-  }
+//     await dbClient.query(/*SQL*/ `UPDATE memos SET content = $1 WHERE id = $2`, [newContent, memoId]);
+//     res.json({ message: "success" });
+//   }
 

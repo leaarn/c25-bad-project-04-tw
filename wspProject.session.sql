@@ -55,7 +55,40 @@ VALUES (
   );
 
 
-
+INSERT INTO orders (
+    pick_up_date,
+    pick_up_time,
+    pick_up_district,
+    pick_up_address,
+    pick_up_coordinates,
+    deliver_district,
+    deliver_address,
+    deliver_coordinates,
+    users_id,
+    drivers_id,
+    distance_km,
+    distance_price,
+    orders_status,
+    remarks,
+    created_at
+  )
+VALUES (
+    '2023-03-30',
+    '13:00',
+    'Tsuen_Wan',
+    '20B, TML Tower',
+    '(1, 2)',
+    'Tuen_Mun',
+    '15A, Tower 1, Sun Tuen Mun Center',
+    '(2, 3)',
+    1,
+    1,
+    25,
+    10,
+    '1 pending',
+    'DLLM',
+    NOW()
+  );
 
 
 

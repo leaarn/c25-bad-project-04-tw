@@ -27,7 +27,7 @@ CREATE TABLE drivers (
     password VARCHAR(255) NOT NULL,
     contact_num INTEGER NOT NULL,
     car_license_num VARCHAR(255) NOT NULL,
-    car_type VARCHAR(255) NOT NULL
+    car_type VARCHAR(255) DEFAULT 'Van'
 );
 
 DROP TABLE IF EXISTS orders;
@@ -46,10 +46,10 @@ CREATE TABLE orders (
     drivers_id INTEGER,
 	FOREIGN KEY (drivers_id) REFERENCES drivers(id),
 	distance_km INTEGER NOT NULL,
-    distance_price INTEGER NOT NULL,
-    reference_code UUID,
+    distance_price INTEGER DEFAULT 10,
+    reference_code UUID DEFAULT gen_random_uuid(),
     orders_status VARCHAR(255) NULL,
-    token VARCHAR(255) NULL,
+    token UUID DEFAULT gen_random_uuid(),
     remarks VARCHAR(255) NULL,
     created_at TIMESTAMP(0) WITHOUT TIME ZONE,
 	updated_at TIMESTAMP DEFAULT NOW()
@@ -59,7 +59,7 @@ CREATE TABLE orders (
 DROP TABLE IF EXISTS payment_method;
 CREATE TABLE payment_method (
 	id SERIAL PRIMARY KEY,
-	method VARCHAR NOT NULL
+	method VARCHAR(255) DEFAULT 'VISA'
 );
 
 DROP TABLE IF EXISTS animals;
