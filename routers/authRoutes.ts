@@ -1,35 +1,18 @@
-import express from "express";
-import type { Request, Response, NextFunction } from "express";
-import path from "path";
-import expressSession from "express-session";
+import { dbClient } from "./../app";
 import { UsersLogin } from "../model";
 import { DriversLogin } from "../model";
+import { checkPassword, hashPassword } from "../utils/hash";
+import crypto from "crypto";
+import express from "express";
+
 export const authRoutes = express.Router();
-import { Client } from "pg";
-import dotenv from "dotenv";
-dotenv.config();
-// pendind import to app.ts
-// import { authRoutes } from "./routers/authRoutes";
 
-// Section 1: Middleware
-authRoutes.use(express.urlencoded({ extended: true }));
-authRoutes.use(express.json())
-authRoutes.use(
-  expressSession({
-    secret: "project 2",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+authRoutes.post("/usersLogin", login);
+authRoutes.post("/driversLogin", login);
+authRoutes.get("/usersLogin/google", loginGoogle);
+authRoutes.get("/driversLogin/google", loginGoogle);
 
-declare module "express-session" {
-  interface SessionData {
-    isLoggedIn?: boolean;
-  }
-}
-
-// logging 用 middleware
-authRoutes.post("/usersLogin", async (req, res) => {
+async function login(req: express.Request, res: express.Response) {
   const username: string = req.body.username;
   const password: string = req.body.password;
   if (!username || !password) {
@@ -37,26 +20,57 @@ authRoutes.post("/usersLogin", async (req, res) => {
     return;
   }
 
-  const users: Array<UsersLogin> = await client.query(
-    /*SQL*/ `DELETE FROM order_animals`
+  const queryResult = await dbClient.query<UsersLogin>(
+    /*SQL*/ `SELECT id, email, password FROM users WHERE email = $1 `,
+    [username]
   );
-  const foundUser = users.find(
-    (u) => u.username === username && u.password === password
-  );
+  // queryResult.rows -> Array of Result Row
+  const foundUser = queryResult.rows[0];
+
   if (!foundUser) {
-    res.status(400).json({ message: "invalid username or password" });
+    res.status(400).json({ message: "invalid username " });
+    return;
+  }
+
+  if (!(await checkPassword(password, foundUser.password))) {
+    res.status(400).json({ message: "invalid password" });
     return;
   }
 
   req.session.isLoggedIn = true;
-  res.redirect("/admin.html");
-});
+  res.json({ message: "login success" });
+}
 
-// Section 3: Serve
-authRoutes.use(express.static(path.join(__dirname, "public")));
-const guardMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  if (req.session.isLoggedIn) next();
-  else res.redirect("/");
-};
-authRoutes.use(guardMiddleware, express.static(path.join(__dirname, "private")));
+async function loginGoogle(req: express.Request, res: express.Response) {
+  const accessToken = req.session?.["grant"].response.access_token;
 
+  const fetchRes = await fetch(
+    "https://www.googleapis.com/oauth2/v2/userinfo",
+    {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  const result = await fetchRes.json();
+  const queryResult = await dbClient.query<UsersLogin>(
+    /*SQL*/ `SELECT id, username FROM users WHERE username = $1 `,
+    [result.email]
+  );
+
+  // console.log(queryResult.rows[0])
+  if (!queryResult.rows[0]) {
+    console.log("no such user,create one ");
+    const tempPass = crypto.randomBytes(20).toString("hex");
+    const hashedPassword = await hashPassword(tempPass);
+    await dbClient.query(
+      `insert into "users" (username,password) values ($1,$2)`,
+      [result.email, hashedPassword]
+    );
+  }
+
+  req.session.isLoggedIn = true;
+  res.json({ message: "OAuth login success" });
+}

@@ -5,7 +5,6 @@ import { Client } from "pg";
 import { UsersRow } from "./model";
 import { DriversRow } from "./model";
 import { OrdersRow } from "./model";
-import { CarTypesRow } from "./model";
 import { PaymentMethodRow } from "./model";
 import { OrderAnimalsRow } from "./model";
 import { AnimalsRow } from "./model";
@@ -13,12 +12,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 async function main() {
-  const client = new Client({
-    database: process.env.DB_NAME,
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-  });
-
+    const client = new Client({
+      database: process.env.DB_NAME,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+    });
+    
   const filepath = path.join(__dirname,"db", "data_base.xlsx");
   const workbook = xlsx.readFile(filepath);
 
@@ -28,9 +27,6 @@ async function main() {
   );
   const ordersRow = xlsx.utils.sheet_to_json<OrdersRow>(
     workbook.Sheets["orders"]
-  );
-  const carTypesRow = xlsx.utils.sheet_to_json<CarTypesRow>(
-    workbook.Sheets["car_types"]
   );
   const paymentMethodRow = xlsx.utils.sheet_to_json<PaymentMethodRow>(
     workbook.Sheets["payment_method"]
@@ -43,6 +39,7 @@ async function main() {
   );
 
   await client.connect();
+
   await client.query(/*SQL*/ `DELETE FROM users`);
   for (const userRow of userRows) {
     const userSql = /*SQL*/ `INSERT INTO users (last_name, first_name, title, email, password, contact_num, default_district, default_address, default_coordinates) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
