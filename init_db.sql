@@ -34,7 +34,7 @@ DROP TABLE IF EXISTS orders;
 CREATE TABLE orders (
 	id SERIAL PRIMARY KEY,
 	pick_up_date DATE,
-	pick_up_time TIME(0) WITHOUT TIME ZONE NOT NULL,
+	pick_up_time TIME(0) WITHOUT TIME ZONE ,
     pick_up_district VARCHAR(255) NOT NULL,
     pick_up_address VARCHAR(255) NOT NULL,
     pick_up_coordinates POINT,
