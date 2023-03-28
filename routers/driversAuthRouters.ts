@@ -39,6 +39,36 @@ async function login(req:express.Request, res:express.Response){
 }
 
 async function loginGoogle(req: express.Request, res: express.Response) {
-    const accessToken = 
+    const accessToken = req.session?.["grant"].response.access_token;
+
+    const fetchRes = await fetch(
+    "https://www.googleapis.com/oauth2/v2/userinfo",
+    {
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  const result = await fetchRes.json();
+  const queryResult = await dbClient.query<driversLogin>(
+    /*SQL*/ `SELECT id, username FROM users WHERE username = $1 `,
+    [result.email]
+  );
+
+
+  if (!queryResult.rows[0]) {
+    console.log("no such driver,create one ");
+    const tempPass = crypto.randomBytes(20).toString("hex");
+    const hashedPassword = await hashPassword(tempPass);
+    await dbClient.query(
+      `insert into "drivers" (username,password) values ($1,$2)`,
+      [result.email, hashedPassword]
+    );
+  }
+
+  req.session.userIsLoggedIn = true;
+  res.json({ message: "OAuth login success" });
 }
 
