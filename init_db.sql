@@ -47,36 +47,19 @@ CREATE TABLE orders (
 	FOREIGN KEY (drivers_id) REFERENCES drivers(id),
 	distance_km INTEGER NOT NULL,
     distance_price INTEGER NOT NULL,
-    reference_code UUID NOT NULL,
+    reference_code UUID,
     orders_status VARCHAR(255) NULL,
     token VARCHAR(255) NULL,
     remarks VARCHAR(255) NULL,
-    created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+    created_at TIMESTAMP(0) WITHOUT TIME ZONE,
 	updated_at TIMESTAMP DEFAULT NOW()
 );
 
-DROP TABLE IF EXISTS car_types;
-CREATE TABLE car_types (
-	id SERIAL PRIMARY KEY,
-	car_type VARCHAR(255) NOT NULL
-);
 
 DROP TABLE IF EXISTS payment_method;
 CREATE TABLE payment_method (
 	id SERIAL PRIMARY KEY,
 	method VARCHAR NOT NULL
-);
-
-DROP TABLE IF EXISTS order_animals;
-CREATE TABLE order_animals(
-	id SERIAL PRIMARY KEY,
-    orders_id INTEGER,
-	FOREIGN KEY (orders_id) REFERENCES orders(id),
-    animals_id INTEGER,
-	FOREIGN KEY (animals_id) REFERENCES animals(id),
-    animals_amount INTEGER NOT NULL,
-    animals_unit_price INTEGER NOT NULL
-
 );
 
 DROP TABLE IF EXISTS animals;
@@ -87,6 +70,16 @@ CREATE TABLE animals (
 );
 
 
+DROP TABLE IF EXISTS order_animals;
+CREATE TABLE order_animals(
+	id SERIAL PRIMARY KEY,
+    orders_id INTEGER,
+	FOREIGN KEY (orders_id) REFERENCES orders(id),
+    animals_id INTEGER,
+	FOREIGN KEY (animals_id) REFERENCES animals(id),
+    animals_amount INTEGER NOT NULL,
+    animals_unit_price INTEGER NOT NULL
+);
 
 
 

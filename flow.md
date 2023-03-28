@@ -40,15 +40,10 @@ google login -> login
 -> pick up district & address 從bd user_district user_address取出來
 -> 其他資訊入db orders table
 -> *animal type & amount 要可以加同減****
-
     /orderhistory
 
-
-
-
-
 ### drivers personal page
-/driverssmain
+/driversmain
      /orderhistory
 
 

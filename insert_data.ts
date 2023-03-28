@@ -5,24 +5,19 @@ import { Client } from "pg";
 import { UsersRow } from "./model";
 import { DriversRow } from "./model";
 import { OrdersRow } from "./model";
-import { CarTypesRow } from "./model";
 import { PaymentMethodRow } from "./model";
 import { OrderAnimalsRow } from "./model";
 import { AnimalsRow } from "./model";
-
-
 import dotenv from "dotenv";
 dotenv.config();
 
-
-
 async function main() {
-  const client = new Client({
-    database: process.env.DB_NAME,
-    user: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-  });
-
+    const client = new Client({
+      database: process.env.DB_NAME,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+    });
+    
   const filepath = path.join(__dirname,"db", "data_base.xlsx");
   const workbook = xlsx.readFile(filepath);
 
@@ -32,9 +27,6 @@ async function main() {
   );
   const ordersRow = xlsx.utils.sheet_to_json<OrdersRow>(
     workbook.Sheets["orders"]
-  );
-  const carTypesRow = xlsx.utils.sheet_to_json<CarTypesRow>(
-    workbook.Sheets["car_types"]
   );
   const paymentMethodRow = xlsx.utils.sheet_to_json<PaymentMethodRow>(
     workbook.Sheets["payment_method"]
@@ -47,6 +39,7 @@ async function main() {
   );
 
   await client.connect();
+
   await client.query(/*SQL*/ `DELETE FROM users`);
   for (const userRow of userRows) {
     const userSql = /*SQL*/ `INSERT INTO users (last_name, first_name, title, email, password, contact_num, default_district, default_address, default_coordinates) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
@@ -81,7 +74,7 @@ async function main() {
 
     await client.query(/*SQL*/ `DELETE FROM orders`);
     for (const orderRow of ordersRow) {
-      let ordersSql = `INSERT INTO orders (pick_up_date, pick_up_time, pick_up_district, pick_up_address, pick_up_coordinates, deliver_district, deliver_address, deliver_coordinates, distance_km, distance_price, reference_code, orders_status, token, remarks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`;
+      let ordersSql = /*SQL*/ `INSERT INTO orders (pick_up_date, pick_up_time, pick_up_district, pick_up_address, pick_up_coordinates, deliver_district, deliver_address, deliver_coordinates, distance_km, distance_price, reference_code, orders_status, token, remarks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`;
       await client.query(ordersSql, [
         orderRow.pick_up_date,
         orderRow.pick_up_time,
@@ -100,17 +93,9 @@ async function main() {
       ]);
     };
 
-  await client.query(/*SQL*/ `DELETE FROM car_types`);
-  for (const carTypeRow of carTypesRow) {
-    let carTypesSql = `INSERT INTO car_types (car_type) VALUES ($1)`;
-    await client.query(carTypesSql, [
-      carTypeRow.car_type,
-    ]);
-  };
-
   await client.query(/*SQL*/ `DELETE FROM payment_method`);
   for (const paymentRow of paymentMethodRow) {
-    let paymentMethodSql = `INSERT INTO payment_method (method) VALUES ($1)`;
+    let paymentMethodSql = /*SQL*/ `INSERT INTO payment_method (method) VALUES ($1)`;
     await client.query(paymentMethodSql, [
     paymentRow.method,
     ]);
@@ -118,7 +103,7 @@ async function main() {
 
   await client.query(/*SQL*/ `DELETE FROM order_animals`);
   for (const orderAnimalRow of orderAnimalsRow) {
-    let orderAnimalsSql = `INSERT INTO order_animals (animals_amount,animals_unit_price) VALUES ($1,$2)`;
+    let orderAnimalsSql = /*SQL*/ `INSERT INTO order_animals (animals_amount,animals_unit_price) VALUES ($1,$2)`;
     await client.query(orderAnimalsSql, [
       orderAnimalRow.animals_amount,
       orderAnimalRow.animals_unit_price,
@@ -127,13 +112,12 @@ async function main() {
 
   await client.query(/*SQL*/ `DELETE FROM animals`);
   for (const animalRow of animalsRow) {
-    let animalsSql = `INSERT INTO animals (animals_name,price) VALUES ($1,$2)`;
+    let animalsSql = /*SQL*/ `INSERT INTO animals (animals_name,price) VALUES ($1,$2)`;
     await client.query(animalsSql, [
       animalRow.animals_name,
       animalRow.price,
     ]);
   };
-
   await client.end();
 }
 
