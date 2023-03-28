@@ -94,7 +94,70 @@ async function main() {
   console.log(ordersSql);
   await client.query(
     ordersSql,
-    ordersRow.map((row) => [row.pick_up_date, row.pick_up_time, row.pick_up_district, row.pick_up_address, row.pick_up_coordinates, row.deliver_district, row.deliver_address, row.deliver_coordinates, row.distance_km, row.distance_price, row.reference_code, row.order_status, row.token, row.remarks])
+    ordersRow.map((row) => [
+      row.pick_up_date,
+      row.pick_up_time,
+      row.pick_up_district,
+      row.pick_up_address,
+      row.pick_up_coordinates,
+      row.deliver_district,
+      row.deliver_address,
+      row.deliver_coordinates,
+      row.distance_km,
+      row.distance_price,
+      row.reference_code,
+      row.order_status,
+      row.token,
+      row.remarks,
+    ])
+  );
+
+  await client.query(/*SQL*/ `DELETE FROM car_types`);
+  let carTypesSql = `INSERT INTO drivers (car_type) VALUES ($1)`;
+  for (let i = 0; i < carTypesRow.length; i++) {
+    if (i < carTypesRow.length - 1) carTypesSql += `($${i + 1}),`;
+    else carTypesSql += `($${i + 1})`;
+  }
+  console.log(carTypesSql);
+  await client.query(
+    carTypesSql,
+    carTypesRow.map((row) => row.car_type)
+  );
+
+  await client.query(/*SQL*/ `DELETE FROM payment_method`);
+  let paymentMethodSql = `INSERT INTO drivers (method) VALUES ($1)`;
+  for (let i = 0; i < paymentMethodRow.length; i++) {
+    if (i < paymentMethodRow.length - 1) paymentMethodSql += `($${i + 1}),`;
+    else paymentMethodSql += `($${i + 1})`;
+  }
+  console.log(paymentMethodSql);
+  await client.query(
+    paymentMethodSql,
+    paymentMethodRow.map((row) => row.method)
+  );
+
+  await client.query(/*SQL*/ `DELETE FROM order_animals`);
+  let orderAnimalsSql = `INSERT INTO drivers (animals_amount,animals_unit_price) VALUES ($1,$2)`;
+  for (let i = 0; i < orderAnimalsRow.length; i++) {
+    if (i < orderAnimalsRow.length - 1) orderAnimalsSql += `($${i + 1}),`;
+    else orderAnimalsSql += `($${i + 1})`;
+  }
+  console.log(orderAnimalsSql);
+  await client.query(
+    orderAnimalsSql,
+    orderAnimalsRow.map((row) => [row.animals_amount, row.animals_unit_price])
+  );
+
+  await client.query(/*SQL*/ `DELETE FROM animals`);
+  let animalsSql = `INSERT INTO drivers (animals_name,price) VALUES ($1,$2)`;
+  for (let i = 0; i < animalsRow.length; i++) {
+    if (i < animalsRow.length - 1) animalsSql += `($${i + 1}),`;
+    else animalsSql += `($${i + 1})`;
+  }
+  console.log(animalsSql);
+  await client.query(
+    animalsSql,
+    animalsRow.map((row) => [row.animals_name, row.price])
   );
 
   await client.end();
