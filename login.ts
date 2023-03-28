@@ -1,8 +1,10 @@
 import express from "express";
 import type { Request, Response, NextFunction } from "express";
 import path from "path";
-import fs from "fs";
 import expressSession from "express-session";
+import { UsersLogin } from "./model";
+import { DriversLogin } from "./model";
+
 
 
 const app = express();
@@ -37,7 +39,7 @@ app.post("/login", async (req, res) => {
     return;
   }
 
-  const users: Array<Users> = await jsonfile.readFile(USER_JSON_PATH);
+  const users: Array<UsersLogin> = ;
   const foundUser = users.find(
     (u) => u.username === username && u.password === password
   );

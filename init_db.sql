@@ -42,10 +42,12 @@ CREATE TABLE orders (
     pick_up_district VARCHAR(255) NOT NULL,
     pick_up_address VARCHAR(255) NOT NULL,
     pick_up_coordinates POINT NOT NULL,
-    deliver_district VARCHAR(255) NOT NULL,
+    deliver_district VARCHAR(255) NOT NULL, 
     deliver_address VARCHAR(255) NOT NULL,
     deliver_coordinates POINT NOT NULL,
+    users_id INTEGER,
 	FOREIGN KEY (users_id) REFERENCES users(id),
+    drivers_id INTEGER,
 	FOREIGN KEY (drivers_id) REFERENCES drivers(id),
 	distance_km INTEGER NOT NULL,
     distance_price INTEGER NOT NULL,
@@ -72,7 +74,9 @@ CREATE TABLE payment_method (
 DROP TABLE IF EXISTS order_animals;
 CREATE TABLE order_animals(
 	id SERIAL PRIMARY KEY,
+    orders_id INTEGER,
 	FOREIGN KEY (orders_id) REFERENCES orders(id),
+    animals_id INTEGER,
 	FOREIGN KEY (animals_id) REFERENCES animals(id),
     animals_amount INTEGER NOT NULL,
     animals_unit_price INTEGER NOT NULL

@@ -23,7 +23,7 @@ async function main() {
     password: process.env.DB_PASSWORD,
   });
 
-  const filepath = path.join(__dirname, "");
+  const filepath = path.join(__dirname,"db", "data_base.xlsx");
   const workbook = xlsx.readFile(filepath);
 
   const userRows = xlsx.utils.sheet_to_json<UsersRow>(workbook.Sheets["users"]);
