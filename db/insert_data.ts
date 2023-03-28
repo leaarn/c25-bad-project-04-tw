@@ -1,13 +1,13 @@
 import path from "path";
 import xlsx from "xlsx";
-import { hashPassword } from "./utils/hash";
+import { hashPassword } from "../utils/hash";
 import { Client } from "pg";
-import { UsersRow } from "./model";
-import { DriversRow } from "./model";
-import { OrdersRow } from "./model";
-import { PaymentMethodRow } from "./model";
-import { OrderAnimalsRow } from "./model";
-import { AnimalsRow } from "./model";
+import { UsersRow } from "../model";
+import { DriversRow } from "../model";
+import { OrdersRow } from "../model";
+import { PaymentMethodRow } from "../model";
+import { OrderAnimalsRow } from "../model";
+import { AnimalsRow } from "../model";
 import dotenv from "dotenv";
 dotenv.config();
 

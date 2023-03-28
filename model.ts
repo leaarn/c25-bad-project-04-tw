@@ -62,13 +62,12 @@ export interface AnimalsRow {
   price: Number;
 }
 
-export interface UsersLogin {
+export interface usersLogin {
   username: string;
   password: string;
 }
 
-export interface DriversLogin {
+export interface driversLogin {
   username: string;
   password: string;
 }
-

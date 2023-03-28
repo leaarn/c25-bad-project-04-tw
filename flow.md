@@ -33,7 +33,7 @@ google login -> login
    optional: 車輛選擇 -> fetch db car_types table
 
 ### users personal page
-/usersmain
+/usersMain
 顯示登入名稱 -> db users.name table
 登出 (/)
 建立訂單 
@@ -43,7 +43,7 @@ google login -> login
     /orderhistory
 
 ### drivers personal page
-/driversmain
+/driversMain
      /orderhistory
 
 

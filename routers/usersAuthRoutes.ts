@@ -1,30 +1,27 @@
-import { dbClient } from "./../app";
-import { UsersLogin } from "../model";
-import { DriversLogin } from "../model";
+import { dbClient } from "../app";
+import { usersLogin } from "../model";
 import { checkPassword, hashPassword } from "../utils/hash";
 import crypto from "crypto";
 import express from "express";
 
-export const authRoutes = express.Router();
+export const usersAuthRoutes = express.Router();
 
-authRoutes.post("/usersLogin", login);
-authRoutes.post("/driversLogin", login);
-authRoutes.get("/usersLogin/google", loginGoogle);
-authRoutes.get("/driversLogin/google", loginGoogle);
+usersAuthRoutes.post("/usersLogin", login);
+usersAuthRoutes.get("/usersLogin/google", loginGoogle);
 
 async function login(req: express.Request, res: express.Response) {
-  const username: string = req.body.username;
+  const usersEmail: string = req.body.usersEmail;
   const password: string = req.body.password;
-  if (!username || !password) {
-    res.status(400).json({ message: "missing username or password" });
+  if (!usersEmail || !password) {
+    res.status(400).json({ message: "missing username or password!" });
     return;
   }
 
-  const queryResult = await dbClient.query<UsersLogin>(
+  const queryResult = await dbClient.query<usersLogin>(
     /*SQL*/ `SELECT id, email, password FROM users WHERE email = $1 `,
-    [username]
+    [usersEmail]
   );
-  // queryResult.rows -> Array of Result Row
+
   const foundUser = queryResult.rows[0];
 
   if (!foundUser) {
@@ -37,7 +34,7 @@ async function login(req: express.Request, res: express.Response) {
     return;
   }
 
-  req.session.isLoggedIn = true;
+  req.session.userIsLoggedIn = true;
   res.json({ message: "login success" });
 }
 
@@ -55,7 +52,7 @@ async function loginGoogle(req: express.Request, res: express.Response) {
   );
 
   const result = await fetchRes.json();
-  const queryResult = await dbClient.query<UsersLogin>(
+  const queryResult = await dbClient.query<usersLogin>(
     /*SQL*/ `SELECT id, username FROM users WHERE username = $1 `,
     [result.email]
   );
@@ -71,6 +68,6 @@ async function loginGoogle(req: express.Request, res: express.Response) {
     );
   }
 
-  req.session.isLoggedIn = true;
+  req.session.userIsLoggedIn = true;
   res.json({ message: "OAuth login success" });
 }

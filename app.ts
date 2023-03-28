@@ -16,8 +16,11 @@ dbClient.connect();
 
 declare module "express-session" {
   interface SessionData {
-    isLoggedIn?: boolean;
+    userIsLoggedIn?: boolean;
   }
+    interface SessionData {
+      driverIsLoggedIn?: boolean;
+    }
 }
 
 const grantExpress = grant.express({
@@ -49,7 +52,6 @@ app.use(
 
 app.use(grantExpress as express.RequestHandler);
 
-
 // logging 用 middleware
 app.use((req, _res, next) => {
   console.log(`Path ${req.path}, Method: ${req.method}`);
@@ -57,23 +59,28 @@ app.use((req, _res, next) => {
 });
 
 // Section 2: Route Handlers
-import { authRoutes } from "./routers/authRoutes";
-app.use(authRoutes);
+// import { XXXRoutes } from "./routers/usersAuthRoutes";
+// app.use(XXXRoutes);
 
 // Section 3: Serve
 app.use(express.static(path.join(__dirname, "public")));
-const guardMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  if (req.session.isLoggedIn) next();
+const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  if (req.session.userIsLoggedIn) next();
+  else res.redirect("/")};
+
+const guardDriversMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  if (req.session.driverIsLoggedIn) next();
   else res.redirect("/");
 };
-app.use(guardMiddleware, express.static(path.join(__dirname, "private")));
-
+app.use(guardUsersMiddleware,express.static(path.join(__dirname, "private", "usersPrivate")));
+app.use(guardDriversMiddleware,express.static(path.join(__dirname, "private", "driverPrivate")));
 // Section 4: Error Handling
 app.use((_req, res) => {
   res.sendFile(path.join(__dirname, "public", "404.html"));
 });
 
 const PORT = 8080;
+
 app.listen(PORT, () => {
-  console.log(`listening at http://localhost:${PORT}`);
+  console.log(`Listening at http://localhost:${PORT}/`);
 });
