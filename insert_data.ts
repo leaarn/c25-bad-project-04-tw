@@ -118,7 +118,7 @@ async function main() {
 
   await client.query(/*SQL*/ `DELETE FROM order_animals`);
   for (const orderAnimalRow of orderAnimalsRow) {
-    let orderAnimalsSql = `INSERT INTO drivers (animals_amount,animals_unit_price) VALUES ($1,$2)`;
+    let orderAnimalsSql = `INSERT INTO order_animals (animals_amount,animals_unit_price) VALUES ($1,$2)`;
     await client.query(orderAnimalsSql, [
       orderAnimalRow.animals_amount,
       orderAnimalRow.animals_unit_price,
@@ -127,7 +127,7 @@ async function main() {
 
   await client.query(/*SQL*/ `DELETE FROM animals`);
   for (const animalRow of animalsRow) {
-    let animalsSql = `INSERT INTO drivers (animals_name,price) VALUES ($1,$2)`;
+    let animalsSql = `INSERT INTO animals (animals_name,price) VALUES ($1,$2)`;
     await client.query(animalsSql, [
       animalRow.animals_name,
       animalRow.price,
@@ -136,6 +136,5 @@ async function main() {
 
   await client.end();
 }
-
 
 main();
