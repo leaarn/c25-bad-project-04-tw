@@ -62,9 +62,11 @@ app.use((req, _res, next) => {
 // Section 2: Route Handlers
 import { usersAuthRoutes } from "./routers/usersAuthRoutes";
 import { driversAuthRoutes } from "./routers/driversAuthRouters";
+import { driversRoutes } from "./routers/driversRoutes";
 
 app.use("/usersLogin", usersAuthRoutes);
 app.use("/driversLogin", driversAuthRoutes);
+app.use("/driversMain", driversRoutes)
 
 // Section 3: Serve
 app.use(express.static(path.join(__dirname, "public")));
