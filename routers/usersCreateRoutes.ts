@@ -8,15 +8,22 @@ export const usersCreateRoutes = express.Router();
 usersCreateRoutes.post("/", createAccount);
 
 async function createAccount (req: express.Request, res: express.Response) {
-    const lastName: string = req.body.newUsersLastName;
+    const lastName: string = req.body.newUserLastName;
     const firstName: string = req.body.newUserFirstName;
     const title: string = req.body.newUserTitle;
-    const email: string = req.body.newUsersEmail;
-    const password: string = req.body.newUsersPassword;
-    const contactNum: Number = req.body.newUsersContactNum;
-    const defaultDistrict: string = req.body.newUsersDefaultDistrict;
-    const defaultAddress: string = req.body.newUsersDefaultAddress;
-    const defaultCoordinates: string = req.body.newUsersDefaultCoordinates;
+    const email: string = req.body.newUserEmail;
+    const password: string = req.body.newUserPassword;
+    const contactNum: Number = req.body.newUserContactNum;
+    const defaultDistrict: string = req.body.newUserDefaultDistrict;
+    const defaultAddress: string =
+      req.body.newUserRoom +
+      ", " +
+      req.body.newUserFloor +
+      ", " +
+      req.body.newUserBuilding +
+      ", " +
+      req.body.newUserStreet;
+    // const defaultCoordinates: string = req.body.newUsersDefaultCoordinates;
 
     if (!email || !password) {
       res.status(400).json({ message: "please input the correct information" });
@@ -34,8 +41,8 @@ if (queryResult.rows[0]) {
 }
   const hashedPassword = await hashPassword(password);
   await dbClient.query(
-    `insert into "users" (last_name, first_name, title, email, password, contact_num, default_district, default_address, default_coordinates) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+    `insert into "users" (last_name, first_name, title, email, password, contact_num, default_district, default_address) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
     [
       lastName,
       firstName,
@@ -44,11 +51,10 @@ if (queryResult.rows[0]) {
       hashedPassword,
       contactNum,
       defaultDistrict,
-      defaultAddress,
-      defaultCoordinates,
+      defaultAddress
     ]
   );
-
- res.status(400).json({ message: "successful!" });
+req.session.userIsLoggedIn = true;
+ res.status(200).json({ message: "successful!" });
 }
 

@@ -79,8 +79,14 @@ export interface driversLogin {
 }
 
 export interface createUsers {
-  username: string;
-  password: string;
+lastName: string;
+    firstName: string;
+    title: string;
+    email: string;
+    password: string;
+    contactNum: Number; 
+    defaultDistrict: string;
+   defaultAddress: string; 
 }
 
 export interface createDrivers {

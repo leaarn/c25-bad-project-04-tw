@@ -38,7 +38,6 @@ declare module "express-session" {
 
 }
 
-
 const app = express();
 
 // Section 1: Middleware
