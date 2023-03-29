@@ -1,4 +1,4 @@
-// import { dbClient } from "./../app";
+import { dbClient } from "./../app";
 // import type { Request, Response, NextFunction } from "express";
 import express from "express";
 import path from "path";
@@ -49,25 +49,25 @@ app.post("/usersMain", async (req, res) => {
   ${remarks}`);
   res.status(200).json({ message: "success" });
 
-  // await dbClient.query(
-  //   /*SQL*/ `INSERT INTO orders (pick_up_date,pick_up_time,pick_up_district,pick_up_address,deliver_district,deliver_address,users_id,receiver_name,receiver_contact,animals_name,animals_amount,remarks,order_status)
-  //    VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)`,
-  //   [
-  //     pick_up_date,
-  //     pick_up_time,
-  //     pick_up_district,
-  //     pick_up_address,
-  //     deliver_district,
-  //     deliver_address,
-  //     users_id,
-  //     receiver_name,
-  //     receiver_contact,
-  //     animals_name,
-  //     animals_amount,
-  //     remarks,
-  //     "pending",
-  //   ]
-  // );
+  await dbClient.query(
+    /*SQL*/ `INSERT INTO orders (pick_up_date,pick_up_time,pick_up_district,pick_up_address,deliver_district,deliver_address,users_id,receiver_name,receiver_contact,animals_name,animals_amount,remarks,order_status)
+     VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)`,
+    [
+      pick_up_date,
+      pick_up_time,
+      pick_up_district,
+      pick_up_address,
+      deliver_district,
+      deliver_address,
+      users_id,
+      receiver_name,
+      receiver_contact,
+      animals_name,
+      animals_amount,
+      remarks,
+      "pending",
+    ]
+  );
 });
 
 // Section 3
