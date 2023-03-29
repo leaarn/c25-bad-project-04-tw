@@ -34,6 +34,8 @@ export interface OrdersRow {
   deliver_district: string;
   deliver_address: string;
   deliver_coordinates?: string;
+  receiver_name: string;
+  receiver_contact: Number;
   distance_km: Number;
   distance_price: Number;
   reference_code: string;

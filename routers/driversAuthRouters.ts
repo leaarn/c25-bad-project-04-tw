@@ -6,12 +6,12 @@ import express from "express";
 
 export const driversAuthRoutes = express.Router();
 
-driversAuthRoutes.post("/driverLogin", login);
-driversAuthRoutes.get("/driversLogin/google", loginGoogle);
+driversAuthRoutes.post("/", login);
+driversAuthRoutes.get("/google", loginGoogle);
 
 async function login(req:express.Request, res:express.Response){
     const driversEmail: string = req.body.driversEmail;
-    const password: string = req.body.driversEmail;
+    const password: string = req.body.password;
     if (!driversEmail || !password){
         res.status(400).json({ message: "missing username or password!" });
         return;

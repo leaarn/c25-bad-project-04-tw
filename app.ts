@@ -14,15 +14,6 @@ export const dbClient = new pg.Client({
 });
 dbClient.connect();
 
-declare module "express-session" {
-  interface SessionData {
-    userIsLoggedIn?: boolean;
-  }
-    interface SessionData {
-      driverIsLoggedIn?: boolean;
-    }
-}
-
 const grantExpress = grant.express({
   defaults: {
     origin: "http://localhost:8080",
@@ -36,6 +27,16 @@ const grantExpress = grant.express({
     callback: "/login/google",
   },
 });
+
+declare module "express-session" {
+  interface SessionData {
+    userIsLoggedIn?: boolean;
+  }
+  interface SessionData {
+    driverIsLoggedIn?: boolean;
+  }
+}
+
 
 const app = express();
 
@@ -59,20 +60,41 @@ app.use((req, _res, next) => {
 });
 
 // Section 2: Route Handlers
+import { usersAuthRoutes } from "./routers/usersAuthRoutes";
+import { driversAuthRoutes } from "./routers/driversAuthRouters";
 
+app.use("/usersLogin", usersAuthRoutes);
+app.use("/driversLogin", driversAuthRoutes);
 
 // Section 3: Serve
 app.use(express.static(path.join(__dirname, "public")));
-const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  if (req.session.userIsLoggedIn) next();
-  else res.redirect("/")};
 
-const guardDriversMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  if (req.session.driverIsLoggedIn) next();
-  else res.redirect("/");
+const guardUsersMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (req.session.userIsLoggedIn) next();
+  else res.sendFile(path.join(__dirname, "public", "index.html"));
 };
-app.use(guardUsersMiddleware,express.static(path.join(__dirname, "private", "usersPrivate")));
-app.use(guardDriversMiddleware,express.static(path.join(__dirname, "private", "driverPrivate")));
+
+const guardDriversMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (req.session.driverIsLoggedIn) next();
+  else res.sendFile(path.join(__dirname, "public", "index.html"));
+};
+
+app.use(
+  guardUsersMiddleware,
+  express.static(path.join(__dirname, "private", "usersPrivate"))
+);
+app.use(
+  guardDriversMiddleware,
+  express.static(path.join(__dirname, "private", "driversPrivate"))
+);
 // Section 4: Error Handling
 app.use((_req, res) => {
   res.sendFile(path.join(__dirname, "public", "404.html"));
