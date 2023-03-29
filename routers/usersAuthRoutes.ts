@@ -6,8 +6,8 @@ import express from "express";
 
 export const usersAuthRoutes = express.Router();
 
-usersAuthRoutes.post("/usersLogin", login);
-usersAuthRoutes.get("/usersLogin/google", loginGoogle);
+usersAuthRoutes.post("/", login);
+usersAuthRoutes.get("/google", loginGoogle);
 
 async function login(req: express.Request, res: express.Response) {
   const usersEmail: string = req.body.usersEmail;
