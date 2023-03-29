@@ -30,7 +30,7 @@ app.post("/usersMain", async (req, res) => {
   const users_id = req.body.userId;
   const receiver_name = req.body.receiverName;
   const receiver_contact = req.body.receiver_contact;
-  const animals_name = req.body.animalsName;
+  const animals_id = req.body.animalsName;
   const animals_amount = req.body.animals_amount;
   const remarks = req.body.remarks;
 
@@ -45,12 +45,12 @@ app.post("/usersMain", async (req, res) => {
   ${users_id},
   ${receiver_name},
   ${receiver_contact},
-  ${animals_name},
+  ${animals_id},
   ${animals_amount},
   ${remarks}`);
   res.status(200).json({ message: "success" });
 
-  const createOrder = (
+  const createOrderId = (
     await dbClient.query(
       /*SQL*/ `INSERT INTO orders (pick_up_date,pick_up_time,pick_up_district,pick_up_address,deliver_district,deliver_address,users_id,receiver_name,receiver_contact,remarks)
      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id`,
@@ -68,11 +68,16 @@ app.post("/usersMain", async (req, res) => {
       ]
     )
   ).rows[0].id;
-  console.log("here is testing", createOrder);
+  // console.log("here is testing", createOrderId);
+
+  const animalPrice = await dbClient.query(/*SQL*/ `SELECT price from animals where id = $1`, [animals_id]);
+  const animals_unit_price = animalPrice.rows[0].price;
+  // console.log("here is anm price", animals_unit_price);
+
   await dbClient.query(
-    /*SQL*/ `INSERT INTO order_animals (orders_id,animals_id,animals_amount,animals_unit_price) 
+    /*SQL*/ `INSERT INTO order_animals (orders_id,animals_id,animals_amount,animals_unit_price)
      VALUES ($1,$2,$3,$4)`,
-    [animals_name, animals_amount]
+    [createOrderId, animals_id, animals_amount, animals_unit_price]
   );
 });
 
