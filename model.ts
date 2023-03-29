@@ -73,3 +73,14 @@ export interface driversLogin {
   username: string;
   password: string;
 }
+
+export interface createUsers {
+  username: string;
+  password: string;
+}
+
+export interface createDrivers {
+  username: string;
+  password: string;
+}
+
