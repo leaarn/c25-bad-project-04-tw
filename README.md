@@ -8,9 +8,9 @@
 
 - [ ] npm pkg set scripts.start="node index.js"
 
-- [ ] npm install express express-session ts-node typescript dotenv pg formidable winston -save-dev --save-exact prettier xlsx
+- [ ] npm install express express-session ts-node typescript dotenv pg formidable winston -save-dev --save-exact prettier xlsx uuid
 
-- [ ] npm install -D @types/express-session @types/express @types/pg @types/node ts-node-dev @types/formidable
+- [ ] npm install -D @types/express-session @types/express @types/pg @types/node ts-node-dev @types/formidable @types/uuid
 
 - [ ] echo '{
     "compilerOptions": {

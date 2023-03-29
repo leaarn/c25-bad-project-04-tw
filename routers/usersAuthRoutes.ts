@@ -57,7 +57,6 @@ async function loginGoogle(req: express.Request, res: express.Response) {
     [result.email]
   );
 
-  // console.log(queryResult.rows[0])
   if (!queryResult.rows[0]) {
     console.log("no such user,create one ");
     const tempPass = crypto.randomBytes(20).toString("hex");

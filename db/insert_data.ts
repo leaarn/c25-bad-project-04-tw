@@ -9,9 +9,11 @@ import { PaymentMethodRow } from "../model";
 import { OrderAnimalsRow } from "../model";
 import { AnimalsRow } from "../model";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 async function main() {
+<<<<<<< HEAD
   const client = new Client({
     database: process.env.DB_NAME,
     user: process.env.DB_USERNAME,
@@ -19,6 +21,15 @@ async function main() {
   });
 
   const filepath = path.join(__dirname, "db", "data_base.xlsx");
+=======
+    const client = new Client({
+      database: process.env.DB_NAME,
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+    });
+    
+  const filepath = path.join(__dirname, "data_base.xlsx");
+>>>>>>> 8199abad8ddd1584f9340091f36138e59ef019c7
   const workbook = xlsx.readFile(filepath);
 
   const userRows = xlsx.utils.sheet_to_json<UsersRow>(workbook.Sheets["users"]);
