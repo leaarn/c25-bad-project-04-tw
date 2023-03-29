@@ -26,7 +26,7 @@ export interface DriversRow {
 }
 
 export interface OrdersRow {
-  pick_up_date: Date;
+  pick_up_date: string;
   pick_up_time: string;
   pick_up_district: string;
   pick_up_address: string;
