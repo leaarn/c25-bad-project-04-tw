@@ -80,7 +80,7 @@ CREATE TABLE order_animals(
     animals_id INTEGER,
 	FOREIGN KEY (animals_id) REFERENCES animals(id),
     animals_amount INTEGER NOT NULL,
-    animals_unit_price INTEGER NOT NULL
+    animals_history_price INTEGER NOT NULL
 );
 
 
