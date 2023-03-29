@@ -53,8 +53,8 @@ async function loginGoogle(req: express.Request, res: express.Response) {
 
   const result = await fetchRes.json();
   const queryResult = await dbClient.query<driversLogin>(
-    /*SQL*/ `SELECT id, username FROM users WHERE username = $1 `,
-    [result.email]
+    /*SQL*/ `SELECT id, email FROM drivers WHERE email = $1 `,
+    [result.driversEmail]
   );
 
 
@@ -63,8 +63,8 @@ async function loginGoogle(req: express.Request, res: express.Response) {
     const tempPass = crypto.randomBytes(20).toString("hex");
     const hashedPassword = await hashPassword(tempPass);
     await dbClient.query(
-      `insert into "drivers" (username,password) values ($1,$2)`,
-      [result.email, hashedPassword]
+      `insert into "drivers" (email,password) values ($1,$2)`,
+      [result.driversEmail, hashedPassword]
     );
   }
 

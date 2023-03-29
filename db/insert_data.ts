@@ -53,13 +53,14 @@ async function main() {
 
   await client.query(/*SQL*/ `DELETE FROM drivers`);
   for (const driverRow of driversRow) {
-    let driversSql = `INSERT INTO drivers (last_name, first_name, title, email, password, contact_num, car_license_num, car_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
-    await client.query(driversSql, [
+    const driverSql = `INSERT INTO drivers (last_name, first_name, title, email, password, contact_num, car_license_num, car_type) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
+    let hashed2 = await hashPassword(driverRow.password);
+    await client.query(driverSql, [
       driverRow.last_name,
       driverRow.first_name,
       driverRow.title,
       driverRow.email,
-      driverRow.password,
+      hashed2,
       driverRow.contact_num,
       driverRow.car_license_num,
       driverRow.car_type,
