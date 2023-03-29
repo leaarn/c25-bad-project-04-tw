@@ -13,21 +13,31 @@ import dotenv from "dotenv";
 dotenv.config();
 
 async function main() {
-    const client = new Client({
-      database: process.env.DB_NAME,
-      user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-    });
-    
+  const client = new Client({
+    database: process.env.DB_NAME,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+  });
+
   const filepath = path.join(__dirname, "data_base.xlsx");
   const workbook = xlsx.readFile(filepath);
 
   const userRows = xlsx.utils.sheet_to_json<UsersRow>(workbook.Sheets["users"]);
-  const driversRow = xlsx.utils.sheet_to_json<DriversRow>(workbook.Sheets["drivers"]);
-  const ordersRow = xlsx.utils.sheet_to_json<OrdersRow>(workbook.Sheets["orders"]);
-  const paymentMethodRow = xlsx.utils.sheet_to_json<PaymentMethodRow>(workbook.Sheets["payment_method"]);
-  const orderAnimalsRow = xlsx.utils.sheet_to_json<OrderAnimalsRow>(workbook.Sheets["order_animals"]);
-  const animalsRow = xlsx.utils.sheet_to_json<AnimalsRow>(workbook.Sheets["animals"]);
+  const driversRow = xlsx.utils.sheet_to_json<DriversRow>(
+    workbook.Sheets["drivers"]
+  );
+  const ordersRow = xlsx.utils.sheet_to_json<OrdersRow>(
+    workbook.Sheets["orders"]
+  );
+  const paymentMethodRow = xlsx.utils.sheet_to_json<PaymentMethodRow>(
+    workbook.Sheets["payment_method"]
+  );
+  const orderAnimalsRow = xlsx.utils.sheet_to_json<OrderAnimalsRow>(
+    workbook.Sheets["order_animals"]
+  );
+  const animalsRow = xlsx.utils.sheet_to_json<AnimalsRow>(
+    workbook.Sheets["animals"]
+  );
 
   await client.connect();
 
@@ -67,28 +77,36 @@ async function main() {
     ]);
   }
 
-    await client.query(/*SQL*/ `DELETE FROM orders`);
-    for (const orderRow of ordersRow) {
-      let ordersSql = /*SQL*/ `INSERT INTO orders (pick_up_date, pick_up_time, pick_up_district, pick_up_address, pick_up_coordinates, deliver_district, deliver_address, deliver_coordinates, receiver_name, receiver_contact, distance_km, distance_price, reference_code, orders_status, token, remarks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`;
-      await client.query(ordersSql, [
-        orderRow.pick_up_date,
-        orderRow.pick_up_time,
-        orderRow.pick_up_district,
-        orderRow.pick_up_address,
-        orderRow.pick_up_coordinates,
-        orderRow.receiver_name,
-        orderRow.receiver_contact,
-        orderRow.deliver_district,
-        orderRow.deliver_address,
-        orderRow.deliver_coordinates,
-        orderRow.distance_km,
-        orderRow.distance_price,
-        orderRow.reference_code,
-        orderRow.order_status,
-        orderRow.token,
-        orderRow.remarks,
-      ]);
-    };
+  await client.query(/*SQL*/ `DELETE FROM animals`);
+  for (const animalRow of animalsRow) {
+    let animalsSql = /*SQL*/ `INSERT INTO animals (animals_name,price) VALUES ($1,$2)`;
+    await client.query(animalsSql, [animalRow.animals_name, animalRow.price]);
+  }
+
+  await client.query(/*SQL*/ `DELETE FROM orders`);
+  for (const orderRow of ordersRow) {
+    let ordersSql = /*SQL*/ `INSERT INTO orders (pick_up_date, pick_up_time, pick_up_district, pick_up_address, pick_up_coordinates, deliver_district, deliver_address, deliver_coordinates, users_id, drivers_id, receiver_name, receiver_contact, distance_km, distance_price, reference_code, orders_status, token, remarks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`;
+    await client.query(ordersSql, [
+      orderRow.pick_up_date,
+      orderRow.pick_up_time,
+      orderRow.pick_up_district,
+      orderRow.pick_up_address,
+      orderRow.pick_up_coordinates,
+      orderRow.deliver_district,
+      orderRow.deliver_address,
+      orderRow.deliver_coordinates,
+      orderRow.users_id,
+      orderRow.drivers_id,
+      orderRow.receiver_name,
+      orderRow.receiver_contact,
+      orderRow.distance_km,
+      orderRow.distance_price,
+      orderRow.reference_code,
+      orderRow.order_status,
+      orderRow.token,
+      orderRow.remarks,
+    ]);
+  }
 
   await client.query(/*SQL*/ `DELETE FROM payment_method`);
   for (const paymentRow of paymentMethodRow) {
@@ -98,15 +116,15 @@ async function main() {
 
   await client.query(/*SQL*/ `DELETE FROM order_animals`);
   for (const orderAnimalRow of orderAnimalsRow) {
-    let orderAnimalsSql = /*SQL*/ `INSERT INTO order_animals (animals_amount,animals_unit_price) VALUES ($1,$2)`;
-    await client.query(orderAnimalsSql, [orderAnimalRow.animals_amount, orderAnimalRow.animals_unit_price]);
+    let orderAnimalsSql = /*SQL*/ `INSERT INTO order_animals (orders_id, animals_id, animals_amount,animals_history_price) VALUES ($1,$2,$3,$4)`;
+    await client.query(orderAnimalsSql, [
+      orderAnimalRow.orders_id,
+      orderAnimalRow.animals_id,
+      orderAnimalRow.animals_amount,
+      orderAnimalRow.animals_history_price,
+    ]);
   }
 
-  await client.query(/*SQL*/ `DELETE FROM animals`);
-  for (const animalRow of animalsRow) {
-    let animalsSql = /*SQL*/ `INSERT INTO animals (animals_name,price) VALUES ($1,$2)`;
-    await client.query(animalsSql, [animalRow.animals_name, animalRow.price]);
-  }
   await client.end();
 }
 

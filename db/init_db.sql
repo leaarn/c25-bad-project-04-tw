@@ -47,7 +47,7 @@ CREATE TABLE orders (
 	FOREIGN KEY (drivers_id) REFERENCES drivers(id),
     receiver_name VARCHAR(255),
     receiver_contact INTEGER NOT NULL,
-	distance_km INTEGER NOT NULL,
+	distance_km INTEGER ,
     distance_price INTEGER DEFAULT 10,
     reference_code UUID DEFAULT gen_random_uuid(),
     orders_status VARCHAR(255) NULL,
@@ -80,7 +80,7 @@ CREATE TABLE order_animals(
     animals_id INTEGER,
 	FOREIGN KEY (animals_id) REFERENCES animals(id),
     animals_amount INTEGER NOT NULL,
-    animals_unit_price INTEGER NOT NULL
+    animals_history_price INTEGER NOT NULL
 );
 
 

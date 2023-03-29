@@ -27,13 +27,15 @@ export interface DriversRow {
 
 export interface OrdersRow {
   pick_up_date: Date;
-  pick_up_time: TimeRanges;
+  pick_up_time: string;
   pick_up_district: string;
   pick_up_address: string;
   pick_up_coordinates?: string;
   deliver_district: string;
   deliver_address: string;
   deliver_coordinates?: string;
+  users_id: Number;
+  drivers_id?: Number;
   receiver_name: string;
   receiver_contact: Number;
   distance_km: Number;
@@ -55,8 +57,10 @@ export interface PaymentMethodRow {
 }
 
 export interface OrderAnimalsRow {
+  orders_id: Number;
+  animals_id: Number;
   animals_amount: Number;
-  animals_unit_price: Number;
+  animals_history_price: Number;
 }
 
 export interface AnimalsRow {
