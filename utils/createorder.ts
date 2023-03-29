@@ -69,11 +69,11 @@ app.post("/usersMain", async (req, res) => {
     )
   ).rows[0].id;
   console.log("here is testing", createOrder);
-  // await dbClient.query(
-  //   /*SQL*/ `INSERT INTO order_animals (animals_name,animals_amount)
-  //    VALUES ($1,$2)`,
-  //   [animals_name, animals_amount]
-  // );
+  await dbClient.query(
+    /*SQL*/ `INSERT INTO order_animals (orders_id,animals_id,animals_amount,animals_unit_price) 
+     VALUES ($1,$2,$3,$4)`,
+    [animals_name, animals_amount]
+  );
 });
 
 // Section 3
