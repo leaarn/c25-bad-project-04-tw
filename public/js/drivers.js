@@ -17,21 +17,17 @@ window.onload = async () => {
             <p class="from">FROM</p>
             <div class="deli_district_datetime">
                 <div class="deli_district">${orders.deliver_district}</div>
-                <div class="deli_datetime"></div>
+                <div class="deli_date">${orders.pick_up_date}</div>
+                <div class="deli_time">${orders.pick_up_time}</div>
             </div>
             <p class="to">TO</p>
             <div class="pick_up_district_animals">
-                <div class="pick_up_district"></div>
-                <div class="animals"></div>
+                <div class="pick_up_district">${orders.pick_up_district}</div>
+                <div class="animals">${orders.pick_up_district}</div>
             </div>
         </div>
         ${acceptOrder}
       </div>
-      <h1>${pokemon.name}</h1>
-      <p>Type 1: ${pokemon.type1}</p>
-      <p>Type 2: ${pokemon.type2}</p>
-      <p>HP: ${pokemon.hp}</p>
-      ${(await checkLogin()) ? addPokemon : loginBtn}
     `;
 
   document.querySelector(".container").innerHTML = htmlStr;
