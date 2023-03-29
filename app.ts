@@ -31,14 +31,8 @@ const grantExpress = grant.express({
 declare module "express-session" {
   interface SessionData {
     userIsLoggedIn?: boolean;
-  }
-  interface SessionData {
     driverIsLoggedIn?: boolean;
-  }
-  interface SessionData {
     users_id: number;
-  }
-  interface SessionData {
     drivers_id: number;
     }
 
