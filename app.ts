@@ -35,6 +35,12 @@ declare module "express-session" {
   interface SessionData {
     driverIsLoggedIn?: boolean;
   }
+  interface SessionData {
+    users_id: number;
+  }
+  interface SessionData {
+    drivers_id: number;
+    }
 
 }
 
@@ -65,11 +71,13 @@ import { usersCreateRoutes } from "./routers/usersCreateRoutes";;
 import { driversAuthRoutes } from "./routers/driversAuthRouters";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
 import { driversCreateRoutes } from "./routers/driversCreateRoutes";
+import { driverIsLoggedInApi } from "./utils/guard";
+
 
 app.use("/usersLogin", usersAuthRoutes);
 app.use("/usersCreate", usersCreateRoutes);
 app.use("/driversLogin", driversAuthRoutes);
-app.use("/driversMain", driversMainRoutes);
+app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
 app.use("/driversCreate", driversCreateRoutes);
 
 // Section 3: Serve
