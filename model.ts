@@ -41,7 +41,7 @@ export interface OrdersRow {
   distance_km: Number;
   distance_price: Number;
   reference_code: string;
-  order_status: string;
+  orders_status: string;
   token: string;
   remarks: string;
   created_at?: string;

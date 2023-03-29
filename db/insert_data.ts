@@ -117,7 +117,7 @@ async function main() {
       orderRow.distance_km,
       orderRow.distance_price,
       orderRow.reference_code,
-      orderRow.order_status,
+      orderRow.orders_status,
       orderRow.token,
       orderRow.remarks,
     ]);
