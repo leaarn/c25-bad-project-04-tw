@@ -19,24 +19,39 @@ async function main() {
     password: process.env.DB_PASSWORD,
   });
 
-  const filepath = path.join(__dirname, "data_base.xlsx");
-  const workbook = xlsx.readFile(filepath);
+  const usersFile = path.join(__dirname, "users.csv");
+  const users = xlsx.readFile(usersFile);
 
-  const userRows = xlsx.utils.sheet_to_json<UsersRow>(workbook.Sheets["users"]);
+  const driversFile = path.join(__dirname, "drivers.csv");
+  const drivers = xlsx.readFile(driversFile);
+
+  const ordersFile = path.join(__dirname, "orders.csv");
+  const orders = xlsx.readFile(ordersFile, {raw: true});
+
+  const paymentMethodFile = path.join(__dirname, "payment_method.csv");
+  const paymentMethod = xlsx.readFile(paymentMethodFile);
+
+  const animalsFile = path.join(__dirname, "animals.csv");
+  const animals = xlsx.readFile(animalsFile);
+
+  const orderAnimalsFile = path.join(__dirname, "order_animals.csv");
+  const order_animals = xlsx.readFile(orderAnimalsFile);
+
+  const userRows = xlsx.utils.sheet_to_json<UsersRow>(users.Sheets["Sheet1"]);
   const driversRow = xlsx.utils.sheet_to_json<DriversRow>(
-    workbook.Sheets["drivers"]
+    drivers.Sheets["Sheet1"]
   );
   const ordersRow = xlsx.utils.sheet_to_json<OrdersRow>(
-    workbook.Sheets["orders"]
+    orders.Sheets["Sheet1"]
   );
   const paymentMethodRow = xlsx.utils.sheet_to_json<PaymentMethodRow>(
-    workbook.Sheets["payment_method"]
+    paymentMethod.Sheets["Sheet1"]
   );
   const orderAnimalsRow = xlsx.utils.sheet_to_json<OrderAnimalsRow>(
-    workbook.Sheets["order_animals"]
+    order_animals.Sheets["Sheet1"]
   );
   const animalsRow = xlsx.utils.sheet_to_json<AnimalsRow>(
-    workbook.Sheets["animals"]
+    animals.Sheets["Sheet1"]
   );
 
   await client.connect();
@@ -102,7 +117,7 @@ async function main() {
       orderRow.distance_km,
       orderRow.distance_price,
       orderRow.reference_code,
-      orderRow.order_status,
+      orderRow.orders_status,
       orderRow.token,
       orderRow.remarks,
     ]);

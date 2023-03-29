@@ -26,7 +26,7 @@ export interface DriversRow {
 }
 
 export interface OrdersRow {
-  pick_up_date: Date;
+  pick_up_date: string;
   pick_up_time: string;
   pick_up_district: string;
   pick_up_address: string;
@@ -41,7 +41,7 @@ export interface OrdersRow {
   distance_km: Number;
   distance_price: Number;
   reference_code: string;
-  order_status: string;
+  orders_status: string;
   token: string;
   remarks: string;
   created_at?: string;
