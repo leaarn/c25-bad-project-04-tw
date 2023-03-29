@@ -35,6 +35,7 @@ declare module "express-session" {
   interface SessionData {
     driverIsLoggedIn?: boolean;
   }
+
 }
 
 
@@ -61,12 +62,16 @@ app.use((req, _res, next) => {
 
 // Section 2: Route Handlers
 import { usersAuthRoutes } from "./routers/usersAuthRoutes";
+import { usersCreateRoutes } from "./routers/usersCreateRoutes";;
 import { driversAuthRoutes } from "./routers/driversAuthRouters";
-import { driversRoutes } from "./routers/driversRoutes";
+import { driversMainRoutes } from "./routers/driversMainRoutes";
+import { driversCreateRoutes } from "./routers/driversCreateRoutes";
 
 app.use("/usersLogin", usersAuthRoutes);
+app.use("/usersCreate", usersCreateRoutes);
 app.use("/driversLogin", driversAuthRoutes);
-app.use("/driversMain", driversRoutes)
+app.use("/driversMain", driversMainRoutes);
+app.use("/driversCreate", driversCreateRoutes);
 
 // Section 3: Serve
 app.use(express.static(path.join(__dirname, "public")));

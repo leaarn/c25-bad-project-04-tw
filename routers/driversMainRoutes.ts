@@ -4,11 +4,11 @@ import { OrdersRow } from "../model";
 import { dbClient } from "../app";
 import { logger } from "../utils/logger";
 
-export const driversRoutes = express.Router();
+export const driversMainRoutes = express.Router();
 
-driversRoutes.get("/", getDistricts);
-driversRoutes.get("/", getAllOrders);
-// driversRoutes.get("/", "/history", getOrdersHistory);
+driversMainRoutes.get("/", getDistricts);
+driversMainRoutes.get("/", getAllOrders);
+// driversMainRoutes.get("/", "/history", getOrdersHistory);
 
 async function getDistricts(req: Request, res: Response) {
   try {
