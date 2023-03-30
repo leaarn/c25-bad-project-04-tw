@@ -36,7 +36,8 @@ declare module "express-session" {
     drivers_id: number;
     firstName: string;
     loginType: string;
-}}
+  }
+}
 
 const app = express();
 
@@ -64,7 +65,7 @@ import { authRoutes } from "./routers/authRoutes";
 import { usersAuthRoutes } from "./routers/usersAuthRoutes";
 import { driversAuthRoutes } from "./routers/driversAuthRouters";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
-import {createOrderRoutes}   from "./routers/createOrder"
+import { createOrderRoutes } from "./routers/createOrder";
 import { driverIsLoggedInApi, userIsLoggedInApi } from "./utils/guard";
 
 app.use("/login", authRoutes);
@@ -87,11 +88,7 @@ const guardDriversMiddleware = (req: Request, res: Response, next: NextFunction)
 
 app.use(guardUsersMiddleware, express.static(path.join(__dirname, "private", "usersPrivate")));
 app.use(guardDriversMiddleware, express.static(path.join(__dirname, "private", "driversPrivate")));
-app.use(
-  "/private/usersPrivate",
-  guardUsersMiddleware,
-  express.static(path.join(__dirname, "private", "usersPrivate"))
-);
+app.use("/private/usersPrivate", guardUsersMiddleware, express.static(path.join(__dirname, "private", "usersPrivate")));
 app.use(
   "/private/driversPrivate",
   guardDriversMiddleware,
@@ -107,4 +104,4 @@ const PORT = 8080;
 
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}/`);
-})
+});

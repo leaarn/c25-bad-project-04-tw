@@ -54,6 +54,7 @@ function createOrder() {
     for (const select of animals_id_selects) {
       animals_id.push(select.value);
     }
+    console.log(animals_id);
     const animals_amount = [];
     const animals_amount_selects = form.querySelectorAll("select[name=animals_amount]");
     let total = 0;
@@ -65,6 +66,8 @@ function createOrder() {
       alert("Too many animals la...");
       return;
     }
+    console.log(animals_amount);
+
     const remarks = form.remarks.value;
 
     const resp = await fetch("/usersMain", {
@@ -83,7 +86,6 @@ function createOrder() {
         deliver_floor,
         deliver_building,
         deliver_street,
-        // users_id,
         receiver_name,
         receiver_contact,
         remarks,
