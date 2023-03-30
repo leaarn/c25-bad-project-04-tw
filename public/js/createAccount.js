@@ -19,9 +19,9 @@ function createUsers() {
           ", " +
           form.newUserFloor.value +
           ", " +
-          req.body.newUserBuilding +
+          form.newUserBuilding +
           ", " +
-          req.body.newUserStreet;
+          form.newUserStreet;
 
         const resp = await fetch("/driversLogin", {
           method: "POST",
@@ -49,33 +49,27 @@ function createDrivers() {
   const form = document.querySelector("#create-users");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const lastName = form.newUserLastName.value;
-    const firstName = form.newUserFirstName.value;
-    const title = form.newUserTitle.value;
-    const email = form.newUserEmail.value;
-    const password = form.newUserPassword.value;
-    const contactNum = form.newUserContactNum.value;
-    const defaultDistrict = form.newUserDefaultDistrict.value;
-    const defaultAddress =
-      form.newUserRoom.value +
-      ", " +
-      form.newUserFloor.value +
-      ", " +
-      req.body.newUserBuilding +
-      ", " +
-      req.body.newUserStreet;
+   lastName = form.newDriverLastName.value;
+   firstName = form.newDriverFirstName.value;
+   title = form.newDriverTitle.value;
+   email = form.newDriverEmail.value;
+   password = form.newDriverPassword.value;
+   contactNum = form.newDriverContactNum.value;
+   carLicenseNum = form.newDriverCarLicenseNum.value;
+   carType = form.newDriverCarType.value
 
     const resp = await fetch("/driversLogin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        newUserLastName,
-        newUserFirstName,
-        newUserTitle,
-        newUserEmail,
-        newUserPassword,
-        newUserContactNum,
-        newUserDefaultDistrict,
+        newDriverLastName,
+        newDriverFirstName,
+        newDriverTitle,
+        newDriverEmail,
+        newDriverPassword,
+        newDriverContactNum,
+        newDriverCarLicenseNum,
+        newDriverCarType
       }),
     });
     if (resp.status === 200) {

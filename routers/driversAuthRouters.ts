@@ -20,7 +20,7 @@ async function login(req:express.Request, res:express.Response){
     }
 
     const queryResult = await dbClient.query<driversLogin>(
-      /*SQL*/ `SELECT id, email, password FROM drivers WHERE email = $1 `,
+      /*SQL*/ `SELECT id, first_name,email, password FROM drivers WHERE email = $1 `,
       [driversEmail]
     );
 
@@ -36,6 +36,11 @@ async function login(req:express.Request, res:express.Response){
       return;
     }
     req.session.driverIsLoggedIn = true;
+    req.session.drivers_id = foundDriver.id;
+    console.log("session:", req.session.drivers_id);
+    req.session.firstName = foundDriver.first_name;
+    console.log("session:", req.session.firstName);
+
     res.json({ message: "login success" });
 
   } catch (err: any) {
