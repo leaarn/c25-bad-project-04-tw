@@ -20,7 +20,8 @@
 
         <div class="pick-up-address">
           <p>送貨地址</p>
-          <select name="deliver_district" placeholder="地區">
+          <select name="deliver_district">
+            <option value="" disabled selected>地區</option>
             <option value="中西區">中西區</option>
             <option value="東區">東區</option>
             <option value="南區">南區</option>
@@ -40,6 +41,7 @@
             <option value="屯門區">屯門區</option>
             <option value="元朗區">元朗區</option>
           </select>
+
           <input type="text" name="pickUpRoom" placeholder="室號" />
           <input type="text" name="pickUpFloor" placeholder="樓層" />
           <input type="text" name="pickUpBuilding" placeholder="大廈及屋苑" />
@@ -48,7 +50,8 @@
 
         <div class="deliver-address">
           <p>收貨地址</p>
-          <select name="deliver_district" placeholder="地區">
+          <select name="deliver_district">
+            <option value="" disabled selected>地區</option>
             <option value="中西區">中西區</option>
             <option value="東區">東區</option>
             <option value="南區">南區</option>
@@ -68,6 +71,7 @@
             <option value="屯門區">屯門區</option>
             <option value="元朗區">元朗區</option>
           </select>
+
           <input type="text" name="deliverRoom" placeholder="室號" />
           <input type="text" name="deliverFloor" placeholder="樓層" />
           <input type="text" name="deliverBuilding" placeholder="大廈及屋苑" />
@@ -83,7 +87,8 @@
         <div class="animals">
           <p>運送動物</p>
           <button class="add-animal">+</button>
-          <select name="animals_id" placeholder="動物種類">
+          <select name="animals_id">
+            <option value="" disabled selected>動物</option>
             <option value="1">貓</option>
             <option value="2">狗</option>
             <option value="3">雞</option>
@@ -92,7 +97,8 @@
             <option value="6">龜</option>
             <option value="7">海洋生物</option>
           </select>
-          <select name="animals_amount" placeholder="動物數量">
+          <select name="animals_amount">
+            <option value="" disabled selected>動物數量</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -102,6 +108,7 @@
 
           <template id="new-animal-column">
             <select name="animals_id" placeholder="動物種類">
+              <option value="" disabled selected>動物</option>
               <option value="1">貓</option>
               <option value="2">狗</option>
               <option value="3">雞</option>
@@ -111,6 +118,7 @@
               <option value="7">海洋生物</option>
             </select>
             <select name="animals_amount" placeholder="動物數量">
+              <option value="" disabled selected>動物數量</option>
               <option value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>

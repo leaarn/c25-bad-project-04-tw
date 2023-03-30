@@ -1,7 +1,7 @@
 window.onload = () => {
-    initUsersLoginForm();
-    // initDriversLoginForm()
-}
+  initUsersLoginForm();
+  // initDriversLoginForm()
+};
 
 function initUsersLoginForm() {
   const form = document.querySelector("#users-login-form");
@@ -28,13 +28,13 @@ function initUsersLoginForm() {
     //  }
 
     if (resp.status === 200) {
-      window.location = "../private/usersPrivate/usersMain.html";
+      window.location = "/usersMain.html";
     } else {
       const data = await resp.json();
       alert(data.message);
     }
   });
-};
+}
 
 // function initDriversLoginForm() {
 //   const form = document.querySelector("#drivers-login-form");
