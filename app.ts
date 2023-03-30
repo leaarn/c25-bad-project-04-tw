@@ -31,13 +31,12 @@ const grantExpress = grant.express({
 declare module "express-session" {
   interface SessionData {
     userIsLoggedIn?: boolean;
-  }
-  interface SessionData {
     driverIsLoggedIn?: boolean;
-  }
+    users_id: number;
+    drivers_id: number;
+    }
 
 }
-
 
 const app = express();
 
@@ -64,14 +63,18 @@ app.use((req, _res, next) => {
 import { usersAuthRoutes } from "./routers/usersAuthRoutes";
 import { usersCreateRoutes } from "./routers/usersCreateRoutes";;
 import { driversAuthRoutes } from "./routers/driversAuthRouters";
-import { driversMainRoutes } from "./routers/driversMainRoutes";
 import { driversCreateRoutes } from "./routers/driversCreateRoutes";
+import { driversMainRoutes } from "./routers/driversMainRoutes";
+import { driverIsLoggedInApi } from "./utils/guard";
+// import { userIsLoggedInApi } from "./utils/guard";
+
 
 app.use("/usersLogin", usersAuthRoutes);
 app.use("/usersCreate", usersCreateRoutes);
 app.use("/driversLogin", driversAuthRoutes);
-app.use("/driversMain", driversMainRoutes);
 app.use("/driversCreate", driversCreateRoutes);
+app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
+// app.use("/usersMain",userIsLoggedInApi, usersMainRoutes);
 
 // Section 3: Serve
 app.use(express.static(path.join(__dirname, "public")));

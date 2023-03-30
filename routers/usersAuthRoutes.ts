@@ -37,6 +37,8 @@ async function login(req: express.Request, res: express.Response) {
      }
 
      req.session.userIsLoggedIn = true;
+     req.session.users_id = foundUser.id;
+
      res.json({ message: "login success" });
    } catch (err: any) {
      logger.error(err.message);

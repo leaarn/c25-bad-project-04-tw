@@ -41,7 +41,7 @@ export interface OrdersRow {
   distance_km: Number;
   distance_price: Number;
   reference_code: string;
-  order_status: string;
+  orders_status: string;
   token: string;
   remarks: string;
   created_at?: string;
@@ -69,6 +69,7 @@ export interface AnimalsRow {
 }
 
 export interface usersLogin {
+  [x: string]: any;
   username: string;
   password: string;
 }
@@ -79,8 +80,14 @@ export interface driversLogin {
 }
 
 export interface createUsers {
-  username: string;
-  password: string;
+lastName: string;
+    firstName: string;
+    title: string;
+    email: string;
+    password: string;
+    contactNum: Number; 
+    defaultDistrict: string;
+   defaultAddress: string; 
 }
 
 export interface createDrivers {
