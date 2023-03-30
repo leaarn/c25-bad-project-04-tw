@@ -13,7 +13,10 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     contact_num INTEGER NOT NULL,
     default_district VARCHAR(255) NOT NULL,
-    default_address VARCHAR(255) NOT NULL,
+    default_room VARCHAR(255) NOT NULL,
+    default_floor VARCHAR(255) NOT NULL,
+    default_building VARCHAR(255) NOT NULL,
+    default_street VARCHAR(255) NOT NULL,
     default_coordinates POINT
 );
 
@@ -36,10 +39,16 @@ CREATE TABLE orders (
 	pick_up_date DATE,
 	pick_up_time TIME(0) WITHOUT TIME ZONE ,
     pick_up_district VARCHAR(255) NOT NULL,
-    pick_up_address VARCHAR(255) NOT NULL,
+    pick_up_room VARCHAR(255) NOT NULL,
+    pick_up_floor VARCHAR(255) NOT NULL,
+    pick_up_building VARCHAR(255) NOT NULL,
+    pick_up_street VARCHAR(255) NOT NULL,
     pick_up_coordinates POINT,
     deliver_district VARCHAR(255) NOT NULL, 
-    deliver_address VARCHAR(255) NOT NULL,
+    deliver_room VARCHAR(255) NOT NULL,
+    deliver_floor VARCHAR(255) NOT NULL,
+    deliver_building VARCHAR(255) NOT NULL,
+    deliver_street VARCHAR(255) NOT NULL,
     deliver_coordinates POINT,
     users_id INTEGER,
 	FOREIGN KEY (users_id) REFERENCES users(id),
@@ -89,3 +98,6 @@ CREATE TABLE order_animals(
 -- INSERT INTO users (username, password) VALUES ('jason', 'jason');
 -- INSERT INTO users (username, password) VALUES ('jason', 'jason'), ('peter', 'peter');
 
+7c1c05ad-d7c0-492d-a801-70a644e0efb4
+2e394263-5199-4278-84fe-63661b965898
+d55eb8ff-8383-482a-b819-dde0509f7b10

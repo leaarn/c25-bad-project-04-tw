@@ -6,7 +6,10 @@ export interface UsersRow {
   password: string;
   contact_num: Number;
   default_district: string;
-  default_address: string;
+  default_room: string;
+  default_floor: string;
+  default_building: string;
+  default_street: string;
   default_coordinates?: string;
   created_at?: string;
   updated_at?: string;
@@ -29,10 +32,16 @@ export interface OrdersRow {
   pick_up_date: string;
   pick_up_time: string;
   pick_up_district: string;
-  pick_up_address: string;
+  pick_up_room: string;
+  pick_up_floor: string;
+  pick_up_building: string;
+  pick_up_street: string;
   pick_up_coordinates?: string;
   deliver_district: string;
-  deliver_address: string;
+  deliver_room: string;
+  deliver_floor: string;
+  deliver_building: string;
+  deliver_street: string;
   deliver_coordinates?: string;
   users_id: Number;
   drivers_id?: Number;
@@ -91,7 +100,10 @@ export interface createUsers {
   password: string;
   contactNum: Number;
   defaultDistrict: string;
-  defaultAddress: string;
+  defaultRoom: string;
+  defaultFloor: string;
+  defaultBuilding: string;
+  defaultStreet: string;
 }
 
 export interface createDrivers {
