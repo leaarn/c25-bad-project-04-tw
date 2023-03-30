@@ -7,13 +7,23 @@ import { driverIsLoggedInApi } from "../utils/guard";
 
 export const driversMainRoutes = express.Router();
 
-driversMainRoutes.get("/", driverIsLoggedInApi, getDriverInfo, getDistricts, getAllOrders)
-driversMainRoutes.get("/history/:oid", getOrdersHistory);
-
+driversMainRoutes.get("/", driverIsLoggedInApi);
+driversMainRoutes.get("/get-driver-info", driverIsLoggedInApi, getDriverInfo);
+driversMainRoutes.get("/get-district", driverIsLoggedInApi, getDistricts);
+driversMainRoutes.get("/get-orders", driverIsLoggedInApi, getAllOrders);
+driversMainRoutes.get("/get-orders/:oid", driverIsLoggedInApi, getAcceptOrders);
+driversMainRoutes.get("/history/", driverIsLoggedInApi, getOrdersHistory);
+driversMainRoutes.get("/history/:oid", driverIsLoggedInApi, getSingleHistory);
+// driversMainRoutes.get("/ongoing/:oid", driverIsLoggedInApi, getOngoingOrders);
+// driversMainRoutes.put("/get-orders/:oid", driverIsLoggedInApi, comfirmOrder);
+// driversMainRoutes.put("/ongoing/:oid", driverIsLoggedInApi, confirmDelivered);
+ 
 async function getDriverInfo(req: Request, res: Response) {
   try {
+    const driversID = req.session.drivers_id;
+
     const getDriverNameResult = await dbClient.query<DriversRow>(
-      "SELECT first_name FROM drivers"
+      `SELECT first_name FROM drivers WHERE id = $1`, [driversID]
     );
     console.log(getDriverNameResult);
     res.json(getDriverNameResult.rows); // pass array into res.json()
@@ -26,7 +36,7 @@ async function getDriverInfo(req: Request, res: Response) {
 async function getDistricts(req: Request, res: Response) {
   try {
     const getDistrictsResult = await dbClient.query<OrdersRow>(
-      "SELECT pick_up_district, deliver_district FROM orders"
+      `SELECT pick_up_district, deliver_district FROM orders WHERE orders_status = 'pending'`
     );
     console.log(getDistrictsResult.rows);
     res.json(getDistrictsResult.rows); // pass array into res.json()
@@ -39,10 +49,28 @@ async function getDistricts(req: Request, res: Response) {
 async function getAllOrders(req: Request, res: Response) {
   try {
     const getAllOrdersResult = await dbClient.query<OrdersRow>(
-      "SELECT pick_up_district, deliver_district, pick_up_date, pick_up_time, animals.animals_name, order_animals.animals_amount FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id"
+      `SELECT pick_up_district, deliver_district, pick_up_date, pick_up_time, animals.animals_name, order_animals.animals_amount FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending'`
     );
     console.log(getAllOrdersResult.rows);
     res.json(getAllOrdersResult.rows); // pass array into res.json()
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
+
+async function getAcceptOrders(req: Request, res: Response) {
+  try {
+    const ordersId = +req.params.oid;
+    if (isNaN(ordersId)) {
+      res.status(400).json({ message: "invalid order id" });
+      return;
+    }
+    const getAcceptOrdersResult = await dbClient.query<OrdersRow>(
+      `SELECT pick_up_district, deliver_district, pick_up_date, pick_up_time, animals.animals_name, order_animals.animals_amount FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id`
+    );
+    console.log(getAcceptOrdersResult.rows);
+    res.json(getAcceptOrdersResult.rows); // pass array into res.json()
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
@@ -60,7 +88,14 @@ async function getOrdersHistory(req: Request, res: Response) {
 
     console.log(getAllHistoryResult.rows);
     res.json(getAllHistoryResult.rows); // pass array into res.json()
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
 
+async function getSingleHistory(req: Request, res: Response) {
+  try {
     const ordersId = +req.params.oid;
     if (isNaN(ordersId)) {
       res.status(400).json({ message: "invalid order id" });

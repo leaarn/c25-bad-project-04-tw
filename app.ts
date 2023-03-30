@@ -75,30 +75,25 @@ app.use("/usersCreate", usersCreateRoutes);
 app.use("/driversLogin", driversAuthRoutes);
 app.use("/driversCreate", driversCreateRoutes);
 app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
-app.use("/usersMain", userIsLoggedInApi, createOrderRoutes)
+app.use("/usersMain", userIsLoggedInApi, createOrderRoutes);
 // app.use("/usersMain",userIsLoggedInApi, usersMainRoutes);
 
 // Section 3: Serve
 app.use(express.static(path.join(__dirname, "public")));
 
-const guardUsersMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  if (req.session.userIsLoggedIn) next();
-  else res.sendFile(path.join(__dirname, "public", "index.html"));
+const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  // if (req.session.userIsLoggedIn) next();
+  // else res.sendFile(path.join(__dirname, "public", "index.html"));
+  next();
 };
 
-const guardDriversMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const guardDriversMiddleware = (req: Request, res: Response, next: NextFunction) => {
   if (req.session.driverIsLoggedIn) next();
   else res.sendFile(path.join(__dirname, "public", "index.html"));
 };
 
+app.use(guardUsersMiddleware, express.static(path.join(__dirname, "private", "usersPrivate")));
+app.use(guardDriversMiddleware, express.static(path.join(__dirname, "private", "driversPrivate")));
 app.use(
   "/private/usersPrivate",
   guardUsersMiddleware,

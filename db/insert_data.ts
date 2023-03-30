@@ -60,8 +60,8 @@ async function main() {
   for (const userRow of userRows) {
     const userSql = /*SQL*/ `
       INSERT INTO users 
-      (last_name, first_name, title, email, password, contact_num, default_district, default_address, default_coordinates) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`;
+      (last_name, first_name, title, email, password, contact_num, default_district, default_room, default_floor, default_building, default_street, default_coordinates) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`;
     let hashed = await hashPassword(userRow.password);
     await client.query(userSql, [
       userRow.last_name,
@@ -71,7 +71,10 @@ async function main() {
       hashed,
       userRow.contact_num,
       userRow.default_district,
-      userRow.default_address,
+      userRow.default_room,
+      userRow.default_floor,
+      userRow.default_building,
+      userRow.default_street,
       userRow.default_coordinates,
     ]);
   }
@@ -100,15 +103,21 @@ async function main() {
 
   await client.query(/*SQL*/ `DELETE FROM orders`);
   for (const orderRow of ordersRow) {
-    let ordersSql = /*SQL*/ `INSERT INTO orders (pick_up_date, pick_up_time, pick_up_district, pick_up_address, pick_up_coordinates, deliver_district, deliver_address, deliver_coordinates, users_id, drivers_id, receiver_name, receiver_contact, distance_km, distance_price, reference_code, orders_status, token, remarks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18)`;
+    let ordersSql = /*SQL*/ `INSERT INTO orders (pick_up_date, pick_up_time, pick_up_district, pick_up_room, pick_up_floor, pick_up_building, pick_up_street, pick_up_coordinates, deliver_district, deliver_room, deliver_floor, deliver_building, deliver_street, deliver_coordinates, users_id, drivers_id, receiver_name, receiver_contact, distance_km, distance_price, reference_code, orders_status, token, remarks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24)`;
     await client.query(ordersSql, [
       orderRow.pick_up_date,
       orderRow.pick_up_time,
       orderRow.pick_up_district,
-      orderRow.pick_up_address,
+      orderRow.pick_up_room,
+      orderRow.pick_up_floor,
+      orderRow.pick_up_building,
+      orderRow.pick_up_street,
       orderRow.pick_up_coordinates,
       orderRow.deliver_district,
-      orderRow.deliver_address,
+      orderRow.deliver_room,
+      orderRow.deliver_floor,
+      orderRow.deliver_building,
+      orderRow.deliver_street,
       orderRow.deliver_coordinates,
       orderRow.users_id,
       orderRow.drivers_id,

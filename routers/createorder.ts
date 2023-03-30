@@ -11,39 +11,47 @@ async function createOrder(req: Request, res: Response) {
   const pick_up_date = req.body.date;
   const pick_up_time = req.body.time;
   const pick_up_district = req.body.pickUpDistrict;
-  const pick_up_address =
-    req.body.pickUpRoom + ", " + req.body.pickUpFloor + ", " + req.body.pickUpBuilding + ", " + req.body.pickUpStreet;
+  const pick_up_room = req.body.pickUpRoom;
+  const pick_up_floor = req.body.pickUpFloor;
+  const pick_up_building = req.body.pickUpBuilding;
+  const pick_up_street = req.body.pickUpStreet;
+
   // const pick_up_coordinates =req.body.pick_up_coordinates
   const deliver_district = req.body.deliver_district;
-  const deliver_address =
-    req.body.deliverRoom +
-    ", " +
-    req.body.deliverFloor +
-    ", " +
-    req.body.deliverBuilding +
-    ", " +
-    req.body.deliverStreet;
+  const deliver_room = req.body.deliverRoom;
+  const deliver_floor = req.body.deliverFloor;
+  const deliver_building = req.body.deliverBuilding;
+  const deliver_street = req.body.deliverStreet;
+
   // const deliver_coordinates =req.body.deliver_coordinates
   const users_id = req.session.users_id!;
   const receiver_name = req.body.receiverName;
   const receiver_contact = req.body.receiver_contact;
-  const animals_id = req.body.animalsName;
+  const animals_id = req.body.animals_id;
   const animals_amount = req.body.animals_amount;
   const remarks = req.body.remarks;
+  const distance_km = Math.round(Math.random() * (100 - 1) + 1);
   res.status(200).json({ message: "success" });
 
   const createOrderId = (
     await dbClient.query(
-      /*SQL*/ `INSERT INTO orders (pick_up_date,pick_up_time,pick_up_district,pick_up_address,deliver_district,deliver_address,users_id,receiver_name,receiver_contact,remarks)
-      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING id`,
+      /*SQL*/ `INSERT INTO orders (pick_up_date,pick_up_time,pick_up_district,pick_up_room,pick_up_floor,pick_up_building,pick_up_street,deliver_district,deliver_room ,deliver_floor,deliver_building,deliver_street,users_id,distance_km,receiver_name,receiver_contact,remarks)
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17) RETURNING id`,
       [
         pick_up_date,
         pick_up_time,
         pick_up_district,
-        pick_up_address,
+        pick_up_room,
+        pick_up_floor,
+        pick_up_building,
+        pick_up_street,
         deliver_district,
-        deliver_address,
+        deliver_room,
+        deliver_floor,
+        deliver_building,
+        deliver_street,
         users_id,
+        distance_km,
         receiver_name,
         receiver_contact,
         remarks,

@@ -1,13 +1,132 @@
 <!-- 用戶落單版面 -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UserMain</title>
+  </head>
+  <body>
+    <form id="create-order-form">
+      <div class="form-area">
+        <h3>立即建立你的訂單</h3>
+
+        <div class="pick-up-time">
+          <p>收貨時間</p>
+          <input type="date" name="date" />
+          <input type="time" name="time" />
+        </div>
+
+        <div class="pick-up-address">
+          <p>送貨地址</p>
+          <select name="deliver_district" placeholder="地區">
+            <option value="中西區">中西區</option>
+            <option value="東區">東區</option>
+            <option value="南區">南區</option>
+            <option value="灣仔區">灣仔區</option>
+            <option value="九龍城區">九龍城區</option>
+            <option value="觀塘區">觀塘區</option>
+            <option value="深水埗區">深水埗區</option>
+            <option value="黃大仙區">黃大仙區</option>
+            <option value="油尖旺區">油尖旺區</option>
+            <option value="離島區">離島區</option>
+            <option value="葵青區">葵青區</option>
+            <option value="北區">北區</option>
+            <option value="西貢區">西貢區</option>
+            <option value="沙田區">沙田區</option>
+            <option value="大埔區">大埔區</option>
+            <option value="荃灣區">荃灣區</option>
+            <option value="屯門區">屯門區</option>
+            <option value="元朗區">元朗區</option>
+          </select>
+          <input type="text" name="pickUpRoom" placeholder="室號" />
+          <input type="text" name="pickUpFloor" placeholder="樓層" />
+          <input type="text" name="pickUpBuilding" placeholder="大廈及屋苑" />
+          <input type="text" name="pickUpStreet" placeholder="街號及街道名稱" />
+        </div>
+
+        <div class="deliver-address">
+          <p>收貨地址</p>
+          <select name="deliver_district" placeholder="地區">
+            <option value="中西區">中西區</option>
+            <option value="東區">東區</option>
+            <option value="南區">南區</option>
+            <option value="灣仔區">灣仔區</option>
+            <option value="九龍城區">九龍城區</option>
+            <option value="觀塘區">觀塘區</option>
+            <option value="深水埗區">深水埗區</option>
+            <option value="黃大仙區">黃大仙區</option>
+            <option value="油尖旺區">油尖旺區</option>
+            <option value="離島區">離島區</option>
+            <option value="葵青區">葵青區</option>
+            <option value="北區">北區</option>
+            <option value="西貢區">西貢區</option>
+            <option value="沙田區">沙田區</option>
+            <option value="大埔區">大埔區</option>
+            <option value="荃灣區">荃灣區</option>
+            <option value="屯門區">屯門區</option>
+            <option value="元朗區">元朗區</option>
+          </select>
+          <input type="text" name="deliverRoom" placeholder="室號" />
+          <input type="text" name="deliverFloor" placeholder="樓層" />
+          <input type="text" name="deliverBuilding" placeholder="大廈及屋苑" />
+          <input type="text" name="deliverStreet" placeholder="街號及街道名稱" />
+        </div>
+
+        <div class="receiver-contact">
+          <p>收件人聯絡資料</p>
+          <input type="text" name="receiverName" placeholder="姓名" />
+          <input type="text" name="receiver_contact" placeholder="聯絡電話" />
+        </div>
+
+        <div class="animals">
+          <p>運送動物</p>
+          <button class="add-animal">+</button>
+          <select name="animals_id" placeholder="動物種類">
+            <option value="1">貓</option>
+            <option value="2">狗</option>
+            <option value="3">雞</option>
+            <option value="4">鴨</option>
+            <option value="5">鵝</option>
+            <option value="6">龜</option>
+            <option value="7">海洋生物</option>
+          </select>
+          <select name="animals_amount" placeholder="動物數量">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+
+          <template id="new-animal-column">
+            <select name="animals_id" placeholder="動物種類">
+              <option value="1">貓</option>
+              <option value="2">狗</option>
+              <option value="3">雞</option>
+              <option value="4">鴨</option>
+              <option value="5">鵝</option>
+              <option value="6">龜</option>
+              <option value="7">海洋生物</option>
+            </select>
+            <select name="animals_amount" placeholder="動物數量">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </template>
+        </div>
+
+        <div class="remarks">
+          <p>備註</p>
+          <input type="text" name="remarks" placeholder="額外資料" />
+        </div>
+        <input type="submit" value="提交訂單" />
+      </div>
+    </form>
+    <script src="./js/createorder.js"></script>
+  </body>
 </html>
