@@ -83,8 +83,8 @@ app.use("/usersMain", userIsLoggedInApi, createOrderRoutes);
 app.use(express.static(path.join(__dirname, "public")));
 
 const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  // if (req.session.userIsLoggedIn) next();
-  // else res.sendFile(path.join(__dirname, "public", "index.html"));
+  if (req.session.userIsLoggedIn) next();
+  else res.sendFile(path.join(__dirname, "public", "index.html"));
   next();
 };
 
