@@ -34,6 +34,7 @@ declare module "express-session" {
     driverIsLoggedIn?: boolean;
     users_id: number;
     drivers_id: number;
+    firstName:string;
     }
 
 }
@@ -107,6 +108,8 @@ app.use(
   guardDriversMiddleware,
   express.static(path.join(__dirname, "private", "driversPrivate"))
 );
+
+
 // Section 4: Error Handling
 app.use((_req, res) => {
   res.sendFile(path.join(__dirname, "public", "404.html"));

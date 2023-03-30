@@ -70,27 +70,32 @@ export interface AnimalsRow {
 
 export interface usersLogin {
   [x: string]: any;
+  firstName:string;
   username: string;
   password: string;
 }
 
 export interface driversLogin {
+  [x: string]: any;
+  firstName: string;
   username: string;
   password: string;
 }
 
 export interface createUsers {
-lastName: string;
-    firstName: string;
-    title: string;
-    email: string;
-    password: string;
-    contactNum: Number; 
-    defaultDistrict: string;
-   defaultAddress: string; 
+  [x: string]: any;
+  lastName: string;
+  firstName: string;
+  title: string;
+  email: string;
+  password: string;
+  contactNum: Number;
+  defaultDistrict: string;
+  defaultAddress: string;
 }
 
 export interface createDrivers {
+  [x: string]: any;
   username: string;
   password: string;
 }
