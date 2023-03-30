@@ -59,7 +59,6 @@ async function createAccount(req: express.Request, res: express.Response) {
   const contactNum: Number = req.body.newDriverContactNum;
   const carLicenseNum: string = req.body.newDriverCarLicenseNum;
   const carType: string = req.body.newDriverCarType;
-  // const defaultCoordinates: string = req.body.newUsersDefaultCoordinates;
 
   if (!email || !password) {
     res.status(400).json({ message: "please input the correct information" });

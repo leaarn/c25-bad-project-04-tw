@@ -7,36 +7,44 @@ function createUsers() {
   const form = document.querySelector("#create-users");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const lastName = form.newUserLastName.value;
-    const firstName = form.newUserFirstName.value;
-    const title = form.newUserTitle.value;
-    const email = form.newUserEmail.value;
-    const password = form.newUserPassword.value;
-    const contactNum = form.newUserContactNum.value;
-    const defaultDistrict = form.newUserDefaultDistrict.value;
-    const pick_up_room = form.newPickUpRoom;
-    const pick_up_floor = form.mewPickUpFloor;
-    const pick_up_building = form.nickUpBuilding;
-    const pick_up_street = form.pickUpStreet;
+     const lastName = form.newUserLastName.value;
+     const firstName = form.newUserFirstName.value;
+     const title = form.newUserTitle.value;
+     const email = form.newUserEmail.value;
+     const password = form.newUserPassword.value;
+     const contactNum = form.newUserContactNum.value;
+     const defaultDistrict = form.newUserDefaultDistrict.value;
+     const pickUpRoom = form.pickUpRoom;
+     const pickUpFloor = form.pickUpFloor;
+     const pickUpBuilding = form.pickUpBuilding;
+     const pickUpStreet = form.pickUpStreet;
 
-    const resp = await fetch("/usersLogin/createAccount", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        lastName,
-        firstName,
-        title,
-        email,
-        password,
-        contactNum,
-        defaultDistrict,
-        pick_up_room,
-        pick_up_building,
-        pick_up_street,
-      }),
-    });
+     const resp = await fetch("/usersLogin/createAccount", {
+       method: "POST",
+       headers: { "Content-Type": "application/json" },
+       body: JSON.stringify({
+         lastName,
+         firstName,
+         title,
+         email,
+         password,
+         contactNum,
+         defaultDistrict,
+         pickUpRoom,
+         pickUpFloor,
+         pickUpBuilding,
+         pickUpStreet
+       }),
+       // const userForm = e.target;
+       // const formData = new FormData(userForm);
+
+       // const resp = await fetch("/usersLogin/createAccount", {
+       //   method: "POST",
+       //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+       //   body: formData,
+     });
     if (resp.status === 200) {
-      window.location = "./private/usersPrivate/usersMain.html";
+      window.location = "../usersMain.html";
     } else {
       const data = await resp.json();
       alert(data.message);
@@ -44,9 +52,10 @@ function createUsers() {
   });
 }
 
-function createDrivers() {
-  const form = document.querySelector("#create-users");
+  const form = document.querySelector("#create-drivers");
   form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const lastName = form.newDriverLastName.value;
     const firstName = form.newDriverFirstName.value;
@@ -68,14 +77,21 @@ function createDrivers() {
         password,
         contactNum,
         carLicenseNum,
-        carType,
+        carType
       }),
+    // const userForm = e.target;
+    // const formData = new FormData(userForm);
+    // const resp = await fetch("/driversLogin/createAccount", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //   body:formData,
+    //   }),
     });
     if (resp.status === 200) {
-      window.location = "./private/driversPrivate/driversMain.html";
+      window.location = "../driversMain.html";
     } else {
       const data = await resp.json();
       alert(data.message);
     }
   });
-}
+
