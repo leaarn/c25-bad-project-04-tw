@@ -51,7 +51,7 @@ async function getAllOrders(req: Request, res: Response) {
 
 async function getOrdersHistory(req: Request, res: Response) {
   try {
-    const driversID = req.session.drivers_id;
+    const driversID = req.session.drivers_id!;
 
     const getAllHistoryResult = await dbClient.query<OrdersRow>(
       `SELECT reference_code, orders_status, pick_up_date, pick_up_time, pick_up_address, deliver_address, animals.animals_name, order_animals.animals_amount FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'receiver received' AND drivers_id = $1`,
