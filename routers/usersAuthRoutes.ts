@@ -49,7 +49,6 @@ async function login(req: express.Request, res: express.Response) {
   }
 }
 
-
 async function loginGoogle(req: express.Request, res: express.Response) {
   try {
     const accessToken = req.session?.["grant"].response.access_token;
@@ -65,32 +64,56 @@ async function loginGoogle(req: express.Request, res: express.Response) {
     );
 
     const result = await fetchRes.json();
-    const queryResult = await dbClient.query<usersLogin>(
-      /*SQL*/ `SELECT id, first_name, email FROM users WHERE email = $1 `,
-      [result.usersEmail]
-    );
 
-    if (!queryResult.rows[0]) {
-      console.log("no such user,create one ");
-      const tempPass = crypto.randomBytes(20).toString("hex");
-      const hashedPassword = await hashPassword(tempPass);
-      await dbClient.query(
-        `insert into "users" (email,password) values ($1,$2)`,
-        [result.usersEmail, hashedPassword]
+    if (req.session["loginType"] === "user") {
+      const queryResult = await dbClient.query(
+        /*SQL*/ `SELECT id, first_name, email FROM users WHERE email = $1 `,
+        [result.email]
       );
+
+      console.log(queryResult.rows);
+      if (!queryResult.rows[0]) {
+        console.log("no such user,create one ");
+
+        const tempPass = crypto.randomBytes(20).toString("hex");
+        const hashedPassword = await hashPassword(tempPass);
+        await dbClient.query(
+          `insert into "users" (email,password) values ($1,$2)`,
+          [result.email, hashedPassword]
+        );
+      }
     }
+
+    if (req.session["loginType"] === "driver") {
+      const queryResult = await dbClient.query(
+        /*SQL*/ `SELECT id, first_name, email FROM users WHERE email = $1 `,
+        [result.email]
+      );
+
+      console.log(queryResult.rows);
+      if (!queryResult.rows[0]) {
+        console.log("no such driver,create one ");
+
+        const tempPass = crypto.randomBytes(20).toString("hex");
+        const hashedPassword = await hashPassword(tempPass);
+        await dbClient.query(
+          `insert into "drivers" (email,password) values ($1,$2)`,
+          [result.email, hashedPassword]
+        );
+      }
+    }
+
     if (req.session["loginType"] === "user") {
       req.session.userIsLoggedIn = true;
     } else if (req.session["loginType"] === "driver") {
       req.session.driverIsLoggedIn = true;
-    } else {
-      res.status(400).send('Incorrect login type');
+    }
+     else {
+      res.status(400).send("Incorrect login type");
       return;
     }
     req.session.users_id = result.id;
-    console.log("sessionId:", req.session.users_id);
     req.session.firstName = result.first_name;
-    console.log("sessionUser:", req.session.firstName);
 
     if (req.session["loginType"] === "user") {
       res.redirect("/private/usersPrivate/usersMain.html");
@@ -99,6 +122,6 @@ async function loginGoogle(req: express.Request, res: express.Response) {
     }
   } catch (err: any) {
     logger.error(err.message);
-    res.status(500).json({ message: "internal server error" });
+    res.status(500).json({ message: "internal Google server error" });
   }
 }
