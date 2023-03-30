@@ -76,6 +76,7 @@ app.post("/usersMain", async (req, res) => {
   ).rows[0].id;
   console.log("here is testing", createOrderId);
 
+  //未有加ANIMAL 和 最多5隻
   const animalPrice = await dbClient.query(/*SQL*/ `SELECT price from animals where id = $1`, [animals_id]);
   const animals_history_price = animalPrice.rows[0].price;
   // console.log("here is anm price", animals_history_price);
@@ -86,7 +87,7 @@ app.post("/usersMain", async (req, res) => {
      VALUES ($1,$2,$3,$4)`,
     [createOrderId, animals_id, animals_amount, animals_history_price]
   );
-  console.log("here is order anm",orderAnimal);
+  console.log("here is order anm", orderAnimal);
 });
 // Section 3
 app.use(express.static(path.join(__dirname, "public")));
