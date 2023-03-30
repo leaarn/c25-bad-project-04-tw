@@ -98,6 +98,3 @@ CREATE TABLE order_animals(
 -- INSERT INTO users (username, password) VALUES ('jason', 'jason');
 -- INSERT INTO users (username, password) VALUES ('jason', 'jason'), ('peter', 'peter');
 
-7c1c05ad-d7c0-492d-a801-70a644e0efb4
-2e394263-5199-4278-84fe-63661b965898
-d55eb8ff-8383-482a-b819-dde0509f7b10
