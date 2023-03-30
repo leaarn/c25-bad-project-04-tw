@@ -66,8 +66,8 @@ import { usersCreateRoutes } from "./routers/usersCreateRoutes";
 import { driversAuthRoutes } from "./routers/driversAuthRouters";
 import { driversCreateRoutes } from "./routers/driversCreateRoutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
-import { driverIsLoggedInApi } from "./utils/guard"
-// import { userIsLoggedInApi } from "./utils/guard";
+import {createOrderRoutes}   from "./routers/createOrder"
+import { driverIsLoggedInApi, userIsLoggedInApi } from "./utils/guard";
 
 app.use("/login", authRoutes);
 app.use("/usersLogin", usersAuthRoutes);
@@ -75,6 +75,7 @@ app.use("/usersCreate", usersCreateRoutes);
 app.use("/driversLogin", driversAuthRoutes);
 app.use("/driversCreate", driversCreateRoutes);
 app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
+app.use("/usersMain", userIsLoggedInApi, createOrderRoutes)
 // app.use("/usersMain",userIsLoggedInApi, usersMainRoutes);
 
 // Section 3: Serve
