@@ -1,14 +1,12 @@
 import { dbClient } from "../app";
 import { driversLogin } from "../model";
-import { checkPassword, hashPassword } from "../utils/hash";
-import crypto from "crypto";
+import { checkPassword } from "../utils/hash";
 import express from "express";
 import { logger } from "../utils/logger";
 
 export const driversAuthRoutes = express.Router();
 
 driversAuthRoutes.post("/", login);
-driversAuthRoutes.get("/google", loginGoogle);
 
 async function login(req:express.Request, res:express.Response){
   try {
@@ -48,42 +46,3 @@ async function login(req:express.Request, res:express.Response){
     res.status(500).json({ message: "internal server error" });
   }
 }
-
-async function loginGoogle(req: express.Request, res: express.Response) {
-    try {
-      const accessToken = req.session?.["grant"].response.access_token;
-
-      const fetchRes = await fetch(
-        "https://www.googleapis.com/oauth2/v2/userinfo",
-        {
-          method: "get",
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      const result = await fetchRes.json();
-      const queryResult = await dbClient.query<driversLogin>(
-        /*SQL*/ `SELECT id, email FROM drivers WHERE email = $1 `,
-        [result.driversEmail]
-      );
-
-      if (!queryResult.rows[0]) {
-        console.log("no such driver,create one ");
-        const tempPass = crypto.randomBytes(20).toString("hex");
-        const hashedPassword = await hashPassword(tempPass);
-        await dbClient.query(
-          `insert into "drivers" (email,password) values ($1,$2)`,
-          [result.driversEmail, hashedPassword]
-        );
-      }
-
-      req.session.userIsLoggedIn = true;
-      res.json({ message: "OAuth login success" });
-    } catch (err: any) {
-      logger.error(err.message);
-      res.status(500).json({ message: "internal server error" });
-    }
-}
-

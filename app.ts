@@ -24,7 +24,7 @@ const grantExpress = grant.express({
     key: process.env.GOOGLE_CLIENT_ID || "",
     secret: process.env.GOOGLE_CLIENT_SECRET || "",
     scope: ["profile", "email"],
-    callback: "/login/google",
+    callback: "/usersLogin/google",
   },
 });
 
@@ -35,8 +35,8 @@ declare module "express-session" {
     users_id: number;
     drivers_id: number;
     firstName: string;
-  }
-}
+    loginType: string;
+}}
 
 const app = express();
 
@@ -60,15 +60,16 @@ app.use((req, _res, next) => {
 });
 
 // Section 2: Route Handlers
+import { authRoutes } from "./routers/authRoutes";
 import { usersAuthRoutes } from "./routers/usersAuthRoutes";
 import { usersCreateRoutes } from "./routers/usersCreateRoutes";
 import { driversAuthRoutes } from "./routers/driversAuthRouters";
 import { driversCreateRoutes } from "./routers/driversCreateRoutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
-import { createOrderRoutes } from "./routers/createOrder";
+import {createOrderRoutes}   from "./routers/createOrder"
 import { driverIsLoggedInApi, userIsLoggedInApi } from "./utils/guard";
-// import { userIsLoggedInApi } from "./utils/guard";
 
+app.use("/login", authRoutes);
 app.use("/usersLogin", usersAuthRoutes);
 app.use("/usersCreate", usersCreateRoutes);
 app.use("/driversLogin", driversAuthRoutes);
@@ -93,6 +94,16 @@ const guardDriversMiddleware = (req: Request, res: Response, next: NextFunction)
 
 app.use(guardUsersMiddleware, express.static(path.join(__dirname, "private", "usersPrivate")));
 app.use(guardDriversMiddleware, express.static(path.join(__dirname, "private", "driversPrivate")));
+app.use(
+  "/private/usersPrivate",
+  guardUsersMiddleware,
+  express.static(path.join(__dirname, "private", "usersPrivate"))
+);
+app.use(
+  "/private/driversPrivate",
+  guardDriversMiddleware,
+  express.static(path.join(__dirname, "private", "driversPrivate"))
+);
 
 // Section 4: Error Handling
 app.use((_req, res) => {
@@ -103,4 +114,4 @@ const PORT = 8080;
 
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}/`);
-});
+})
