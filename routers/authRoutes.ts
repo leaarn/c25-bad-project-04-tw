@@ -2,7 +2,7 @@ import express from "express";
 
 export const authRoutes = express.Router();
 
-authRoutes.get("/user", loginUser);
+authRoutes.get("/", loginUser);
 authRoutes.get("/driver", loginDriver);
 
 async function loginUser(req: express.Request, res: express.Response) {
