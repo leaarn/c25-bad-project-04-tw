@@ -25,7 +25,13 @@ app.post("/usersMain", async (req, res) => {
   // const pick_up_coordinates =req.body.pick_up_coordinates
   const deliver_district = req.body.deliver_district;
   const deliver_address =
-    req.body.deliverRoom + req.body.deliverFloor + req.body.deliverBuilding + req.body.deliverStreet;
+    req.body.deliverRoom +
+    ", " +
+    req.body.deliverFloor +
+    ", " +
+    req.body.deliverBuilding +
+    ", " +
+    req.body.deliverStreet;
   // const deliver_coordinates =req.body.deliver_coordinates
   const users_id = req.body.userId;
   const receiver_name = req.body.receiverName;
@@ -68,19 +74,20 @@ app.post("/usersMain", async (req, res) => {
       ]
     )
   ).rows[0].id;
-  // console.log("here is testing", createOrderId);
+  console.log("here is testing", createOrderId);
 
   const animalPrice = await dbClient.query(/*SQL*/ `SELECT price from animals where id = $1`, [animals_id]);
-  const animals_unit_price = animalPrice.rows[0].price;
-  // console.log("here is anm price", animals_unit_price);
+  const animals_history_price = animalPrice.rows[0].price;
+  // console.log("here is anm price", animals_history_price);
 
-  await dbClient.query(
-    /*SQL*/ `INSERT INTO order_animals (orders_id,animals_id,animals_amount,animals_unit_price)
+  //insert table order_animals
+  const orderAnimal = await dbClient.query(
+    /*SQL*/ `INSERT INTO order_animals (orders_id,animals_id,animals_amount,animals_history_price)
      VALUES ($1,$2,$3,$4)`,
-    [createOrderId, animals_id, animals_amount, animals_unit_price]
+    [createOrderId, animals_id, animals_amount, animals_history_price]
   );
+  console.log("here is order anm",orderAnimal);
 });
-
 // Section 3
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "private", "usersPrivate")));
