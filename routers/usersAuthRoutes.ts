@@ -41,13 +41,14 @@ async function login(req: express.Request, res: express.Response) {
     console.log("session:", req.session.users_id);
     req.session.firstName = foundUser.first_name;
     console.log("session:", req.session.firstName);
-    
+
     res.json({ message: "login success" });
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
   }
 }
+
 
 async function loginGoogle(req: express.Request, res: express.Response) {
   try {
@@ -65,7 +66,7 @@ async function loginGoogle(req: express.Request, res: express.Response) {
 
     const result = await fetchRes.json();
     const queryResult = await dbClient.query<usersLogin>(
-      /*SQL*/ `SELECT id, email FROM users WHERE email = $1 `,
+      /*SQL*/ `SELECT id, first_name, email FROM users WHERE email = $1 `,
       [result.usersEmail]
     );
 
@@ -78,9 +79,24 @@ async function loginGoogle(req: express.Request, res: express.Response) {
         [result.usersEmail, hashedPassword]
       );
     }
+    if (req.session["loginType"] === "user") {
+      req.session.userIsLoggedIn = true;
+    } else if (req.session["loginType"] === "driver") {
+      req.session.driverIsLoggedIn = true;
+    } else {
+      res.status(400).send('Incorrect login type');
+      return;
+    }
+    req.session.users_id = result.id;
+    console.log("sessionId:", req.session.users_id);
+    req.session.firstName = result.first_name;
+    console.log("sessionUser:", req.session.firstName);
 
-    req.session.userIsLoggedIn = true;
-    res.json({ message: "OAuth login success" });
+    if (req.session["loginType"] === "user") {
+      res.redirect("/private/usersPrivate/usersMain.html");
+    } else {
+      res.redirect("/private/driversPrivate/driversMain.html");
+    }
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });

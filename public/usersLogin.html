@@ -18,11 +18,20 @@
     <title>Chicken Van 24/7 Hailing Platform</title>
   </head>
   <body>
-     <form id="loginForm">
-    <input type="text" name="usersEmail" placeholder="email address"/>
-    <input type="password" name="password" placeholder="password"/>
-    <button>Login</button>
-</form>
+<form id="users-login-form">
+      <div>
+        <label for="username">Username</label>
+        <input type="text" name="userEmail" id="username" />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" />
+      </div>
+      <div>
+        <input type="submit" value="Click to Login" />
+      </div>
+    </form>
+
 <div id="err"></div>
 <a href="/connect/google">
   <div class="btn btn-danger">Login with Google</div>
@@ -33,6 +42,6 @@
       crossorigin="anonymous"
     ></script>
 
-    <script src=""> </script>
+    <script src="js/login.js"> </script>
   </body>
 </html>
