@@ -34,9 +34,8 @@ declare module "express-session" {
     driverIsLoggedIn?: boolean;
     users_id: number;
     drivers_id: number;
-    firstName:string;
-    }
-
+    firstName: string;
+  }
 }
 
 const app = express();
@@ -62,53 +61,38 @@ app.use((req, _res, next) => {
 
 // Section 2: Route Handlers
 import { usersAuthRoutes } from "./routers/usersAuthRoutes";
-import { usersCreateRoutes } from "./routers/usersCreateRoutes";;
+import { usersCreateRoutes } from "./routers/usersCreateRoutes";
 import { driversAuthRoutes } from "./routers/driversAuthRouters";
 import { driversCreateRoutes } from "./routers/driversCreateRoutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
-import {createOrderRoutes}   from "./routers/createorder"
+import { createOrderRoutes } from "./routers/createOrder";
 import { driverIsLoggedInApi, userIsLoggedInApi } from "./utils/guard";
 // import { userIsLoggedInApi } from "./utils/guard";
-
 
 app.use("/usersLogin", usersAuthRoutes);
 app.use("/usersCreate", usersCreateRoutes);
 app.use("/driversLogin", driversAuthRoutes);
 app.use("/driversCreate", driversCreateRoutes);
 app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
-app.use("/usersMain", userIsLoggedInApi, createOrderRoutes)
+app.use("/usersMain", userIsLoggedInApi, createOrderRoutes);
 // app.use("/usersMain",userIsLoggedInApi, usersMainRoutes);
 
 // Section 3: Serve
 app.use(express.static(path.join(__dirname, "public")));
 
-const guardUsersMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  if (req.session.userIsLoggedIn) next();
-  else res.sendFile(path.join(__dirname, "public", "index.html"));
+const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  // if (req.session.userIsLoggedIn) next();
+  // else res.sendFile(path.join(__dirname, "public", "index.html"));
+  next();
 };
 
-const guardDriversMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const guardDriversMiddleware = (req: Request, res: Response, next: NextFunction) => {
   if (req.session.driverIsLoggedIn) next();
   else res.sendFile(path.join(__dirname, "public", "index.html"));
 };
 
-app.use(
-  guardUsersMiddleware,
-  express.static(path.join(__dirname, "private", "usersPrivate"))
-);
-app.use(
-  guardDriversMiddleware,
-  express.static(path.join(__dirname, "private", "driversPrivate"))
-);
-
+app.use(guardUsersMiddleware, express.static(path.join(__dirname, "private", "usersPrivate")));
+app.use(guardDriversMiddleware, express.static(path.join(__dirname, "private", "driversPrivate")));
 
 // Section 4: Error Handling
 app.use((_req, res) => {
