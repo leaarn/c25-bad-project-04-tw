@@ -15,7 +15,7 @@ function initUsersLoginForm() {
     });
 
     if (resp.status === 200) {
-      window.location = "../private/usersPrivate/usersMain.html";
+      window.location = "../usersMain.html";
     } else {
       const data = await resp.json();
       alert(data.message);

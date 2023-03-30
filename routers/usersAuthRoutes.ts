@@ -2,6 +2,7 @@ import { dbClient } from "../app";
 import { usersLogin } from "../model";
 import { checkPassword, hashPassword } from "../utils/hash";
 import crypto from "crypto";
+import { createUsers } from "../model";
 import express from "express";
 import { logger } from "../utils/logger";
 
@@ -9,6 +10,7 @@ export const usersAuthRoutes = express.Router();
 
 usersAuthRoutes.post("/", login);
 usersAuthRoutes.get("/google", loginGoogle);
+usersAuthRoutes.post("/createAccount", createAccount);
 
 async function login(req: express.Request, res: express.Response) {
   try {
@@ -35,14 +37,13 @@ async function login(req: express.Request, res: express.Response) {
       res.status(400).json({ message: "invalid password" });
       return;
     }
-
     req.session.userIsLoggedIn = true;
     req.session.users_id = foundUser.id;
     console.log("session:", req.session.users_id);
     req.session.firstName = foundUser.first_name;
     console.log("session:", req.session.firstName);
-
     res.json({ message: "login success" });
+
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
@@ -107,8 +108,7 @@ async function loginGoogle(req: express.Request, res: express.Response) {
       req.session.userIsLoggedIn = true;
     } else if (req.session["loginType"] === "driver") {
       req.session.driverIsLoggedIn = true;
-    }
-     else {
+    } else {
       res.status(400).send("Incorrect login type");
       return;
     }
@@ -116,7 +116,7 @@ async function loginGoogle(req: express.Request, res: express.Response) {
     req.session.firstName = result.first_name;
 
     if (req.session["loginType"] === "user") {
-      res.redirect("/private/usersPrivate/usersMain.html");
+      res.redirect("/usersMain.html");
     } else {
       res.redirect("/private/driversPrivate/driversMain.html");
     }
@@ -124,4 +124,53 @@ async function loginGoogle(req: express.Request, res: express.Response) {
     logger.error(err.message);
     res.status(500).json({ message: "internal Google server error" });
   }
+}
+
+async function createAccount(req: express.Request, res: express.Response) {
+  const lastName: string = req.body.newUserLastName;
+  const firstName: string = req.body.newUserFirstName;
+  const title: string = req.body.newUserTitle;
+  const email: string = req.body.newUserEmail;
+  const password: string = req.body.newUserPassword;
+  const contactNum: Number = req.body.newUserContactNum;
+  const defaultDistrict: string = req.body.newUserDefaultDistrict;
+  const pick_up_room = req.body.pickUpRoom;
+  const pick_up_floor = req.body.pickUpFloor;
+  const pick_up_building = req.body.pickUpBuilding;
+  const pick_up_street = req.body.pickUpStreet;
+
+  if (!email || !password) {
+    res.status(400).json({ message: "please input the correct information" });
+    return;
+  }
+
+  const queryResult = await dbClient.query<createUsers>(
+    /*SQL*/ `SELECT id, email FROM users WHERE email = $1 `,
+    [email]
+  );
+
+  if (queryResult.rows[0]) {
+    res.status(400).json({ message: "existing users!" });
+    return;
+  }
+  const hashedPassword = await hashPassword(password);
+  await dbClient.query(
+    `insert into "users" (last_name, first_name, title, email, password, contact_num, default_district, default_address) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+    [
+      lastName,
+      firstName,
+      title,
+      email,
+      hashedPassword,
+      contactNum,
+      defaultDistrict,
+      pick_up_room,
+      pick_up_floor,
+      pick_up_building,
+      pick_up_street,
+    ]
+  );
+  req.session.userIsLoggedIn = true;
+  res.status(200).json({ message: "successful!" });
 }
