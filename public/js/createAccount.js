@@ -93,5 +93,4 @@ function createUsers() {
       const data = await resp.json();
       alert(data.message);
     }
-  });
-
+  });})
