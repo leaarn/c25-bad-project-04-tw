@@ -101,6 +101,13 @@ JOIN order_animals ON order_animals.orders_id = orders.id
 JOIN animals ON animals.id = order_animals.animals_id
 ;
 
+select * from order_animals;
+
+select * from orders
+JOIN users ON orders.users_id = users.id
+JOIN order_animals ON order_animals.orders_id = orders.id 
+WHERE orders_status = 'driver accepts' ;
+
 SELECT orders.id, reference_code, 
 CONCAT(users.title, ' ', users.first_name, ' ', users.last_name) AS user_full_name, 
 users.contact_num, 
