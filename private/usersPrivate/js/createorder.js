@@ -122,5 +122,13 @@ function createOrder() {
         animals_amount,
       }),
     });
+    if ((resp.status = 200)) {
+      Swal.fire({
+        icon: "success",
+        title: "Submitted",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
   });
 }

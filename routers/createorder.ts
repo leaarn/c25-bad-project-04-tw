@@ -4,9 +4,10 @@ import express from "express";
 import { userIsLoggedInApi } from "../utils/guard";
 import { logger } from "../utils/logger";
 
-export const createOrderRoutes = express.Router();
-createOrderRoutes.post("/", userIsLoggedInApi, createOrder);
+export const usersMainRoutes = express.Router();
+usersMainRoutes.post("/", userIsLoggedInApi, createOrder);
 
+////create order
 async function createOrder(req: Request, res: Response) {
   // try {
   const pick_up_date = req.body.pick_up_date;
@@ -86,7 +87,9 @@ ${remarks}`);
 
   //未有加ANIMAL 和 最多5隻
   for (let i = 0; i < animals_id.length; i++) {
-    const animalPrice = await dbClient.query(/*SQL*/ `SELECT price from animals where id = $1`, [parseInt(animals_id)]);
+    const animalPrice = await dbClient.query(/*SQL*/ `SELECT price from animals where id = $1`, [
+      parseInt(animals_id[i]),
+    ]);
     const animals_history_price = animalPrice.rows[0].price;
     // console.log("here is anm price", animals_history_price);
 
@@ -94,7 +97,7 @@ ${remarks}`);
     const orderAnimal = await dbClient.query(
       /*SQL*/ `INSERT INTO order_animals (orders_id,animals_id,animals_amount,animals_history_price)
     VALUES ($1,$2,$3,$4)`,
-      [createOrderId, parseInt(animals_id), parseInt(animals_amount[i]), animals_history_price]
+      [createOrderId, parseInt(animals_id[i]), parseInt(animals_amount[i]), animals_history_price]
     );
     console.log("here is order anm", orderAnimal);
   }
@@ -125,3 +128,5 @@ ${remarks}`);
 // 	"animals_amount":"1",
 //  "remarks":"hihihi"
 // }
+
+
