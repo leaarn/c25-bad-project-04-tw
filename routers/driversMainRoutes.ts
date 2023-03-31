@@ -13,9 +13,9 @@ driversMainRoutes.get("/get-district", driverIsLoggedInApi, getDistricts);
 driversMainRoutes.get("/get-orders", driverIsLoggedInApi, getAllOrders);
 driversMainRoutes.get("/get-orders/:oid", driverIsLoggedInApi, getAcceptOrders);
 driversMainRoutes.get("/driver-earns/:oid", driverIsLoggedInApi, driverEarns);
-driversMainRoutes.get("/history/", driverIsLoggedInApi, getOrdersHistory);
+driversMainRoutes.get("/history", driverIsLoggedInApi, getOrdersHistory);
 driversMainRoutes.get("/history/:oid", driverIsLoggedInApi, getSingleHistory);
-driversMainRoutes.get("/ongoing/:oid", driverIsLoggedInApi, getOngoingOrders);
+driversMainRoutes.get("/ongoing", driverIsLoggedInApi, getOngoingOrders);
 driversMainRoutes.put("/get-orders/:oid", driverIsLoggedInApi, confirmAcceptOrder);
 driversMainRoutes.put("/ongoing/:oid", driverIsLoggedInApi, driverDelivering);
  
@@ -27,7 +27,7 @@ async function getDriverInfo(req: Request, res: Response) {
       `SELECT first_name FROM drivers WHERE id = $1`, [driversID]
     );
     console.log(getDriverNameResult);
-    res.json(getDriverNameResult.rows); // pass array into res.json()
+    res.json(getDriverNameResult.rows[0]); // pass array into res.json()
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
@@ -60,7 +60,7 @@ async function getAllOrders(req: Request, res: Response) {
   }
 }
 
-async function getAcceptOrders(req: Request, res: Response) {
+async function getAcceptOrders(req: Request, res: Response) { 
   try {
     const ordersId = +req.params.oid;
     if (isNaN(ordersId)) {
@@ -163,13 +163,13 @@ async function getSingleHistory(req: Request, res: Response) {
 async function getOngoingOrders(req: Request, res: Response) {
   try {
     const driversID = req.session.drivers_id!;
-    const ordersId = +req.params.oid;
-    if (isNaN(ordersId)) {
-      res.status(400).json({ message: "invalid order id" });
-      return;
-    }
+    // const ordersId = +req.params.oid;
+    // if (isNaN(ordersId)) {
+    //   res.status(400).json({ message: "invalid order id" });
+    //   return;
+    // }
     const getOngoingOrdersResult = await dbClient.query<OrdersRow>(/*sql*/
-      `      SELECT orders.id, reference_code, 
+      `SELECT orders.id, reference_code, 
       CONCAT(users.title, ' ', users.first_name, ' ', users.last_name) AS user_full_name, 
       users.contact_num, 
       CONCAT(pick_up_date, ' ', pick_up_time) AS pick_up_date_time, 
@@ -182,10 +182,9 @@ async function getOngoingOrders(req: Request, res: Response) {
       JOIN users ON orders.users_id = users.id
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id
-      WHERE orders_status = 'driver accepts' OR orders_status = 'driver delivering' AND orders_id = $1 AND drivers_id = $2
+      WHERE orders_status = 'driver accepts' OR orders_status = 'driver delivering' AND drivers_id = $1
       GROUP BY orders.id, reference_code, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks
-      
-      `, [ordersId, driversID]
+      `, [driversID]
     );
     console.log(getOngoingOrdersResult.rows);
     res.json(getOngoingOrdersResult.rows); // pass array into res.json()
@@ -230,6 +229,7 @@ async function confirmAcceptOrder(req: Request, res: Response) {
     );
     console.log(confirmAcceptOrderResult.rows);
     res.json(confirmAcceptOrderResult.rows); // pass array into res.json()
+    res.redirect("/")
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });

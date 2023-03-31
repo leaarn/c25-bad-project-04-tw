@@ -15,7 +15,7 @@ function initDriversLoginForm() {
     });
 
     if (resp.status === 200) {
-      window.location = "./private/driversPrivate/driversMain.html";
+      window.location = "../driversMain.html";
     } else {
       const data = await resp.json();
       alert(data.message);
