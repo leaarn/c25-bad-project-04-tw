@@ -55,7 +55,7 @@ CREATE TABLE orders (
     drivers_id INTEGER,
 	FOREIGN KEY (drivers_id) REFERENCES drivers(id),
     receiver_name VARCHAR(255),
-    receiver_contact INTEGER NOT NULL,
+    receiver_contact VARCHAR(255),
 	distance_km INTEGER ,
     distance_price INTEGER DEFAULT 10,
     reference_code UUID DEFAULT gen_random_uuid(),
