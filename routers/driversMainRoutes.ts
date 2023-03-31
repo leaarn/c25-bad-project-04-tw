@@ -16,8 +16,8 @@ driversMainRoutes.get("/driver-earns/:oid", driverIsLoggedInApi, driverEarns);
 driversMainRoutes.get("/history/", driverIsLoggedInApi, getOrdersHistory);
 driversMainRoutes.get("/history/:oid", driverIsLoggedInApi, getSingleHistory);
 driversMainRoutes.get("/ongoing/:oid", driverIsLoggedInApi, getOngoingOrders);
-// driversMainRoutes.put("/get-orders/:oid", driverIsLoggedInApi, confirmOrder);
-// driversMainRoutes.put("/ongoing/:oid", driverIsLoggedInApi, confirmDelivered);
+driversMainRoutes.put("/get-orders/:oid", driverIsLoggedInApi, confirmAcceptOrder);
+driversMainRoutes.put("/ongoing/:oid", driverIsLoggedInApi, driverDelivering);
  
 async function getDriverInfo(req: Request, res: Response) {
   try {
@@ -160,7 +160,6 @@ async function getSingleHistory(req: Request, res: Response) {
   }
 }
 
-// ongoing is not completed
 async function getOngoingOrders(req: Request, res: Response) {
   try {
     const driversID = req.session.drivers_id!;
@@ -170,7 +169,7 @@ async function getOngoingOrders(req: Request, res: Response) {
       return;
     }
     const getOngoingOrdersResult = await dbClient.query<OrdersRow>(/*sql*/
-      `SELECT reference_code, 
+      `      SELECT orders.id, reference_code, 
       CONCAT(users.title, ' ', users.first_name, ' ', users.last_name) AS user_full_name, 
       users.contact_num, 
       CONCAT(pick_up_date, ' ', pick_up_time) AS pick_up_date_time, 
@@ -178,18 +177,59 @@ async function getOngoingOrders(req: Request, res: Response) {
       CONCAT(deliver_room, ' ', deliver_floor, ' ', deliver_building, ' ', deliver_street, ' ', deliver_district) AS deliver_address, 
       json_agg(animals.animals_name) AS animals_name, 
       json_agg(order_animals.animals_amount) AS animals_amount, 
-      remarks
+      remarks, orders_status
       FROM orders 
       JOIN users ON orders.users_id = users.id
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id
-      WHERE orders_status = 'driver accepts' AND orders.id = $1 AND orders.drivers_id = $2
-      GROUP BY reference_code, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks
+      WHERE orders_status = 'driver accepts' OR orders_status = 'driver delivering' AND orders_id = $1 AND drivers_id = $2
+      GROUP BY orders.id, reference_code, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks
       
       `, [ordersId, driversID]
     );
     console.log(getOngoingOrdersResult.rows);
     res.json(getOngoingOrdersResult.rows); // pass array into res.json()
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
+
+async function driverDelivering(req: Request, res: Response) {
+  try {
+    const driversID = req.session.drivers_id!;
+    const ordersId = +req.params.oid;
+    if (isNaN(ordersId)) {
+      res.status(400).json({ message: "invalid order id" });
+      return;
+    }
+    const driverDeliveringResult = await dbClient.query<OrdersRow>(/*sql*/
+      `UPDATE orders SET orders_status = 'driver delivering'
+      WHERE orders_status = 'driver accepts' AND orders.id = $1 AND drivers_id = $2
+      `, [ordersId, driversID]
+    );
+    console.log(driverDeliveringResult.rows);
+    res.json(driverDeliveringResult.rows); // pass array into res.json()
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
+
+async function confirmAcceptOrder(req: Request, res: Response) {
+  try {
+    const ordersId = +req.params.oid;
+    if (isNaN(ordersId)) {
+      res.status(400).json({ message: "invalid order id" });
+      return;
+    }
+    const confirmAcceptOrderResult = await dbClient.query<OrdersRow>(/*sql*/
+      `UPDATE orders SET orders_status = 'driver accepts'
+      WHERE orders_status = 'pending' AND orders.id = $1
+      `, [ordersId]
+    );
+    console.log(confirmAcceptOrderResult.rows);
+    res.json(confirmAcceptOrderResult.rows); // pass array into res.json()
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
