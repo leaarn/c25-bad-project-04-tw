@@ -40,7 +40,7 @@ async function getDistricts(req: Request, res: Response) {
       `SELECT pick_up_district, deliver_district FROM orders WHERE orders_status = 'pending'`
     );
     console.log(getDistrictsResult.rows);
-    res.json(getDistrictsResult.rows); // pass array into res.json()
+    res.json(getDistrictsResult.rows[0]); // pass array into res.json()
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
