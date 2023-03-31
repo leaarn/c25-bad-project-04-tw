@@ -1,17 +1,45 @@
 window.onload = () => {
-  document.querySelector(".add-animal").addEventListener("click", addAnimal);
+  addAnimal();
   createOrder();
 };
 
 async function addAnimal() {
-  console.log("triggered");
-  let animalMain = document.querySelector(".animals");
-  let template = document.querySelector("#new-animal-column");
+  document.querySelector(".add-animal").addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("triggered");
+    let animalSection = document.querySelector(".animals-section");
+    let template = document.querySelector("#new-animal-column");
 
-  const clone = template.content.cloneNode(true);
-  console.log(clone);
-  animalMain.appendChild(clone);
+    const clone = template.content.cloneNode(true);
+    console.log(clone);
+
+    clone.querySelector(".remove-animal").addEventListener("click", (e) => {
+      e.preventDefault();
+      const deleteTarget = e.target.closest(".clone-animal");
+      animalSection.removeChild(deleteTarget);
+    });
+    animalSection.appendChild(clone);
+  });
 }
+
+// old ver.
+// async function addAnimal() {
+//   console.log("triggered");
+//   let animalSection = document.querySelector(".animals-section");
+//   let template = document.querySelector("#new-animal-column");
+
+//   const clone = template.content.cloneNode(true);
+//   console.log(clone);
+//   animalSection.appendChild(clone);
+// }
+
+// let count = 5;
+
+// const numOfAnimal = document.querySelector(".num-of-anm");
+// numOfAnimal.addEventListener("click", function () {
+//   let options = numOfAnimal.querySelectorAll("option");
+//   console.log(options);
+// });
 
 function createOrder() {
   const form = document.querySelector("#create-order-form");
