@@ -48,6 +48,7 @@
     "acorn-walk": "^8.2.0",
     "arg": "^4.1.3",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
     "create-require": "^1.1.1",
     "diff": "^4.0.2",
     "dote": "^1.1.0",

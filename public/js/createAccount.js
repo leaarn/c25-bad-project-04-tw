@@ -1,3 +1,5 @@
+const { body } = require("express-validator");
+
 window.onload = () => {
   createUsers();
   createDrivers();
@@ -14,10 +16,10 @@ function createUsers() {
      const password = form.newUserPassword.value;
      const contactNum = form.newUserContactNum.value;
      const defaultDistrict = form.newUserDefaultDistrict.value;
-     const pickUpRoom = form.pickUpRoom;
-     const pickUpFloor = form.pickUpFloor;
-     const pickUpBuilding = form.pickUpBuilding;
-     const pickUpStreet = form.pickUpStreet;
+     const pickUpRoom = form.pickUpRoom.value;
+     const pickUpFloor = form.pickUpFloor.value;
+     const pickUpBuilding = form.pickUpBuilding.value;
+     const pickUpStreet = form.pickUpStreet.value;
 
      const resp = await fetch("/usersLogin/createAccount", {
        method: "POST",

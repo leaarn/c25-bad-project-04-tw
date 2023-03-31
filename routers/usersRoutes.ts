@@ -5,7 +5,7 @@ import crypto from "crypto";
 import { createUsers } from "../model";
 import express from "express";
 import { logger } from "../utils/logger";
-import { body } from "express-validator";
+import { body, validationResult } from "express-validator";
 
 export const usersAuthRoutes = express.Router();
 
@@ -13,11 +13,11 @@ usersAuthRoutes.post("/", login);
 usersAuthRoutes.get("/google", loginGoogle);
 usersAuthRoutes.post(
   "/createAccount",
-  body("newUserEmail").isEmail().withMessage("Invalid Email"),
-  body("newUserPassword")
+  body("email").isEmail().withMessage("Invalid Email"),
+  body("password")
     .isStrongPassword({
       minLength: 6,
-      minLowercase: 6,
+      minLowercase: 1,
       minUppercase: 0,
       minSymbols: 0,
     })
@@ -27,7 +27,6 @@ usersAuthRoutes.post(
 
 async function login(req: express.Request, res: express.Response) {
   try {
-
     const usersEmail: string = req.body.usersEmail;
     const password: string = req.body.password;
     if (!usersEmail || !password) {
@@ -140,52 +139,60 @@ async function loginGoogle(req: express.Request, res: express.Response) {
 }
 
 async function createAccount(req: express.Request, res: express.Response) {
-  const lastName: string = req.body.newUserLastName;
-  const firstName: string = req.body.newUserFirstName;
-  const title: string = req.body.newUserTitle;
-  const email: string = req.body.newUserEmail;
-  const password: string = req.body.newUserPassword;
-  const contactNum: Number = req.body.newUserContactNum;
-  const defaultDistrict: string = req.body.newUserDefaultDistrict;
-  const pickUpRoom: string = req.body.pickUpRoom;
-  const pickUpFloor: string = req.body.pickUpFloor;
-  const pickUpBuilding: string = req.body.pickUpBuilding;
-  const pickUpStreet: string = req.body.pickUpStreet;
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
+    }
 
-  if (!email || !password) {
-    res.status(400).json({ message: "please input the correct information" });
-    return;
-  }
+    const lastName: string = req.body.lastName;
+    const firstName: string = req.body.firstName;
+    const title: string = req.body.title;
+    const email: string = req.body.email;
+    const password: string = req.body.password;
+    const contactNum: Number = req.body.contactNum;
+    const defaultDistrict: string = req.body.defaultDistrict;
+    const pickUpRoom: string = req.body.pickUpRoom;
+    const pickUpFloor: string = req.body.pickUpFloor;
+    const pickUpBuilding: string = req.body.pickUpBuilding;
+    const pickUpStreet: string = req.body.pickUpStreet;
 
-  const queryResult = await dbClient.query<createUsers>(
-    /*SQL*/ `SELECT id, email FROM users WHERE email = $1 `,
-    [email]
-  );
+    if (!email || !password) {
+      res.status(400).json({ message: "please input the correct information" });
+      return;
+    }
 
-  if (queryResult.rows[0]) {
-    res.status(400).json({ message: "existing users!" });
-    return;
-  }
-  const hashedPassword = await hashPassword(password);
-  await dbClient.query(
-    `insert into "users" (last_name, first_name, title, email, password, contact_num, default_district, default_room, default_floor, default_building, default_street) 
+    const queryResult = await dbClient.query<createUsers>(
+      /*SQL*/ `SELECT id, email FROM users WHERE email = $1 `,
+      [email]
+    );
+
+    if (queryResult.rows[0]) {
+      res.status(400).json({ message: "existing users!" });
+      return;
+    }
+    const hashedPassword = await hashPassword(password);
+    await dbClient.query(
+      `insert into "users" (last_name, first_name, title, email, password, contact_num, default_district, default_room, default_floor, default_building, default_street) 
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
-    [
-      lastName,
-      firstName,
-      title,
-      email,
-      hashedPassword,
-      contactNum,
-      defaultDistrict,
-      pickUpRoom,
-      pickUpFloor,
-      pickUpBuilding,
-      pickUpStreet,
-    ]
-  );
-  req.session.userIsLoggedIn = true;
-  res.status(200).json({ message: "successful!" });
+      [
+        lastName,
+        firstName,
+        title,
+        email,
+        hashedPassword,
+        contactNum,
+        defaultDistrict,
+        pickUpRoom,
+        pickUpFloor,
+        pickUpBuilding,
+        pickUpStreet,
+      ]
+    );
+    req.session.userIsLoggedIn = true;
+    res.status(200).json({ message: "successful!" });
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
 }
-
-
