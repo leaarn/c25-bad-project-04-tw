@@ -62,8 +62,8 @@ app.use((req, _res, next) => {
 
 // Section 2: Route Handlers
 import { authRoutes } from "./routers/authRoutes";
-import { usersAuthRoutes } from "./routers/usersAuthRoutes";
-import { driversAuthRoutes } from "./routers/driversAuthRouters";
+import { usersAuthRoutes } from "./routers/usersRoutes";
+import { driversAuthRoutes } from "./routers/driversRoutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
 import { createOrderRoutes } from "./routers/createOrder";
 import { driverIsLoggedInApi, userIsLoggedInApi } from "./utils/guard";

@@ -131,7 +131,7 @@ async function loginGoogle(req: express.Request, res: express.Response) {
     if (req.session["loginType"] === "user") {
       res.redirect("/usersMain.html");
     } else {
-      res.redirect("/private/driversPrivate/driversMain.html");
+      res.redirect("/driversMain.html");
     }
   } catch (err: any) {
     logger.error(err.message);
