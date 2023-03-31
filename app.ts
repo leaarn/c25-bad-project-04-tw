@@ -67,28 +67,48 @@ import { driversAuthRoutes } from "./routers/driversRoutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
 import { createOrderRoutes } from "./routers/createOrder";
 import { driverIsLoggedInApi, userIsLoggedInApi } from "./utils/guard";
+import { receiverRoutes } from "./routers/receiversRoutes";
 
 app.use("/login", authRoutes);
 app.use("/usersLogin", usersAuthRoutes);
 app.use("/driversLogin", driversAuthRoutes);
 app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
 app.use("/usersMain", userIsLoggedInApi, createOrderRoutes);
+app.use("/receiverToken", receiverRoutes);
 
 // Section 3: Serve
 app.use(express.static(path.join(__dirname, "public")));
 
-const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const guardUsersMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   next();
 };
 
-const guardDriversMiddleware = (req: Request, res: Response, next: NextFunction) => {
+const guardDriversMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   if (req.session.driverIsLoggedIn) next();
   else res.sendFile(path.join(__dirname, "public", "index.html"));
 };
 
-app.use(guardUsersMiddleware, express.static(path.join(__dirname, "private", "usersPrivate")));
-app.use(guardDriversMiddleware, express.static(path.join(__dirname, "private", "driversPrivate")));
-app.use("/private/usersPrivate", guardUsersMiddleware, express.static(path.join(__dirname, "private", "usersPrivate")));
+app.use(
+  guardUsersMiddleware,
+  express.static(path.join(__dirname, "private", "usersPrivate"))
+);
+app.use(
+  guardDriversMiddleware,
+  express.static(path.join(__dirname, "private", "driversPrivate"))
+);
+app.use(
+  "/private/usersPrivate",
+  guardUsersMiddleware,
+  express.static(path.join(__dirname, "private", "usersPrivate"))
+);
 app.use(
   "/private/driversPrivate",
   guardDriversMiddleware,
