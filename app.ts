@@ -1,4 +1,4 @@
-import express from "express";
+ import express from "express";
 import type { Request, Response, NextFunction } from "express";
 import path from "path";
 import expressSession from "express-session";
@@ -79,11 +79,9 @@ app.use("/receiverToken", receiverRoutes);
 // Section 3: Serve
 app.use(express.static(path.join(__dirname, "public")));
 
-const guardUsersMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  // if (req.session.userIsLoggedIn) next();
+  // else res.sendFile(path.join(__dirname, "public", "index.html"));
   next();
 };
 
