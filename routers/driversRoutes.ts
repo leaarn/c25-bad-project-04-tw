@@ -5,11 +5,24 @@ import { checkPassword } from "../utils/hash";
 import express from "express";
 import { hashPassword } from "../utils/hash";
 import { logger } from "../utils/logger";
+import { body, validationResult } from "express-validator";
 
 export const driversAuthRoutes = express.Router();
 
 driversAuthRoutes.post("/", login);
-driversAuthRoutes.post("/createAccount", createAccount);
+driversAuthRoutes.post(
+  "/createAccount",
+  body("email").isEmail().withMessage("Invalid Email"),
+  body("password")
+    .isStrongPassword({
+      minLength: 6,
+      minLowercase: 1,
+      minUppercase: 0,
+      minSymbols: 0,
+    })
+    .withMessage("Length>6,LowerCase,No Symbol"),
+  createAccount
+);
 
 async function login(req:express.Request, res:express.Response){
   try {
@@ -51,15 +64,19 @@ async function login(req:express.Request, res:express.Response){
 }
 
 async function createAccount(req: express.Request, res: express.Response) {
-  const lastName: string = req.body.newDriverLastName;
-  const firstName: string = req.body.newDriverFirstName;
-  const title: string = req.body.newDriverTitle;
-  const email: string = req.body.newDriverEmail;
-  const password: string = req.body.newDriverPassword;
-  const contactNum: Number = req.body.newDriverContactNum;
-  const carLicenseNum: string = req.body.newDriverCarLicenseNum;
-  const carType: string = req.body.newDriverCarType;
-  // const defaultCoordinates: string = req.body.newUsersDefaultCoordinates;
+try {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(400).json({ errors: errors.array() });
+  }
+  const lastName: string = req.body.lastName;
+  const firstName: string = req.body.firstName;
+  const title: string = req.body.title;
+  const email: string = req.body.email;
+  const password: string = req.body.password;
+  const contactNum: Number = req.body.contactNum;
+  const carLicenseNum: string = req.body.carLicenseNum;
+  const carType: string = req.body.carType;
 
   if (!email || !password) {
     res.status(400).json({ message: "please input the correct information" });
@@ -92,4 +109,8 @@ async function createAccount(req: express.Request, res: express.Response) {
   );
   req.session.userIsLoggedIn = true;
   res.status(200).json({ message: "successful!" });
+} catch (err: any) {
+  logger.error(err.message);
+  res.status(500).json({ message: "internal Google server error" });
+}
 }

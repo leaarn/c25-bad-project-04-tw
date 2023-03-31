@@ -100,3 +100,27 @@ FROM orders
 JOIN order_animals ON order_animals.orders_id = orders.id
 JOIN animals ON animals.id = order_animals.animals_id
 ;
+
+select * from order_animals;
+
+select * from orders
+JOIN users ON orders.users_id = users.id
+JOIN order_animals ON order_animals.orders_id = orders.id 
+WHERE orders_status = 'driver accepts' ;
+
+SELECT orders.id, reference_code, 
+CONCAT(users.title, ' ', users.first_name, ' ', users.last_name) AS user_full_name, 
+users.contact_num, 
+CONCAT(pick_up_date, ' ', pick_up_time) AS pick_up_date_time, 
+CONCAT(pick_up_room, ' ', pick_up_floor, ' ', pick_up_building, ' ', pick_up_street, ' ', pick_up_district) AS pick_up_address, 
+CONCAT(deliver_room, ' ', deliver_floor, ' ', deliver_building, ' ', deliver_street, ' ', deliver_district) AS deliver_address, 
+json_agg(animals.animals_name) AS animals_name, 
+json_agg(order_animals.animals_amount) AS animals_amount, 
+remarks
+FROM orders 
+JOIN users ON orders.users_id = users.id
+JOIN order_animals ON order_animals.orders_id = orders.id 
+JOIN animals ON animals.id = order_animals.animals_id
+-- WHERE orders_status = 'driver accepts' 
+GROUP BY orders.id, reference_code, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks
+

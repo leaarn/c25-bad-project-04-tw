@@ -5,12 +5,25 @@ import crypto from "crypto";
 import { createUsers } from "../model";
 import express from "express";
 import { logger } from "../utils/logger";
+import { body, validationResult } from "express-validator";
 
 export const usersAuthRoutes = express.Router();
 
 usersAuthRoutes.post("/", login);
 usersAuthRoutes.get("/google", loginGoogle);
-usersAuthRoutes.post("/createAccount", createAccount);
+usersAuthRoutes.post(
+  "/createAccount",
+  body("email").isEmail().withMessage("Invalid Email"),
+  body("password")
+    .isStrongPassword({
+      minLength: 6,
+      minLowercase: 1,
+      minUppercase: 0,
+      minSymbols: 0,
+    })
+    .withMessage("Length>6,LowerCase,No Symbol"),
+  createAccount
+);
 
 async function login(req: express.Request, res: express.Response) {
   try {
@@ -43,7 +56,6 @@ async function login(req: express.Request, res: express.Response) {
     req.session.firstName = foundUser.first_name;
     console.log("session:", req.session.firstName);
     res.json({ message: "login success" });
-
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
@@ -118,7 +130,7 @@ async function loginGoogle(req: express.Request, res: express.Response) {
     if (req.session["loginType"] === "user") {
       res.redirect("/usersMain.html");
     } else {
-      res.redirect("/private/driversPrivate/driversMain.html");
+      res.redirect("/driversMain.html");
     }
   } catch (err: any) {
     logger.error(err.message);
@@ -127,50 +139,60 @@ async function loginGoogle(req: express.Request, res: express.Response) {
 }
 
 async function createAccount(req: express.Request, res: express.Response) {
-  const lastName: string = req.body.newUserLastName;
-  const firstName: string = req.body.newUserFirstName;
-  const title: string = req.body.newUserTitle;
-  const email: string = req.body.newUserEmail;
-  const password: string = req.body.newUserPassword;
-  const contactNum: Number = req.body.newUserContactNum;
-  const defaultDistrict: string = req.body.newUserDefaultDistrict;
-  const pick_up_room = req.body.pickUpRoom;
-  const pick_up_floor = req.body.pickUpFloor;
-  const pick_up_building = req.body.pickUpBuilding;
-  const pick_up_street = req.body.pickUpStreet;
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
+    }
 
-  if (!email || !password) {
-    res.status(400).json({ message: "please input the correct information" });
-    return;
+    const lastName: string = req.body.lastName;
+    const firstName: string = req.body.firstName;
+    const title: string = req.body.title;
+    const email: string = req.body.email;
+    const password: string = req.body.password;
+    const contactNum: Number = req.body.contactNum;
+    const defaultDistrict: string = req.body.defaultDistrict;
+    const pickUpRoom: string = req.body.pickUpRoom;
+    const pickUpFloor: string = req.body.pickUpFloor;
+    const pickUpBuilding: string = req.body.pickUpBuilding;
+    const pickUpStreet: string = req.body.pickUpStreet;
+
+    if (!email || !password) {
+      res.status(400).json({ message: "please input the correct information" });
+      return;
+    }
+
+    const queryResult = await dbClient.query<createUsers>(
+      /*SQL*/ `SELECT id, email FROM users WHERE email = $1 `,
+      [email]
+    );
+
+    if (queryResult.rows[0]) {
+      res.status(400).json({ message: "existing users!" });
+      return;
+    }
+    const hashedPassword = await hashPassword(password);
+    await dbClient.query(
+      `insert into "users" (last_name, first_name, title, email, password, contact_num, default_district, default_room, default_floor, default_building, default_street) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+      [
+        lastName,
+        firstName,
+        title,
+        email,
+        hashedPassword,
+        contactNum,
+        defaultDistrict,
+        pickUpRoom,
+        pickUpFloor,
+        pickUpBuilding,
+        pickUpStreet,
+      ]
+    );
+    req.session.userIsLoggedIn = true;
+    res.status(200).json({ message: "successful!" });
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
   }
-
-  const queryResult = await dbClient.query<createUsers>(
-    /*SQL*/ `SELECT id, email FROM users WHERE email = $1 `,
-    [email]
-  );
-
-  if (queryResult.rows[0]) {
-    res.status(400).json({ message: "existing users!" });
-    return;
-  }
-  const hashedPassword = await hashPassword(password);
-  await dbClient.query(
-    `insert into "users" (last_name, first_name, title, email, password, contact_num, default_district, default_address) 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-    [
-      lastName,
-      firstName,
-      title,
-      email,
-      hashedPassword,
-      contactNum,
-      defaultDistrict,
-      pick_up_room,
-      pick_up_floor,
-      pick_up_building,
-      pick_up_street,
-    ]
-  );
-  req.session.userIsLoggedIn = true;
-  res.status(200).json({ message: "successful!" });
 }
