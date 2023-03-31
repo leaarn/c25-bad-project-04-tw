@@ -129,6 +129,9 @@ function createOrder() {
         showConfirmButton: false,
         timer: 1500,
       });
+      setTimeout(() => {
+        window.location = "/usersMain.html";
+      }, 1501);
     }
   });
 }

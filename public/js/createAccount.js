@@ -9,42 +9,42 @@ function createUsers() {
   const form = document.querySelector("#create-users");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
-     const lastName = form.newUserLastName.value;
-     const firstName = form.newUserFirstName.value;
-     const title = form.newUserTitle.value;
-     const email = form.newUserEmail.value;
-     const password = form.newUserPassword.value;
-     const contactNum = form.newUserContactNum.value;
-     const defaultDistrict = form.newUserDefaultDistrict.value;
-     const pickUpRoom = form.pickUpRoom.value;
-     const pickUpFloor = form.pickUpFloor.value;
-     const pickUpBuilding = form.pickUpBuilding.value;
-     const pickUpStreet = form.pickUpStreet.value;
+    const lastName = form.newUserLastName.value;
+    const firstName = form.newUserFirstName.value;
+    const title = form.newUserTitle.value;
+    const email = form.newUserEmail.value;
+    const password = form.newUserPassword.value;
+    const contactNum = form.newUserContactNum.value;
+    const defaultDistrict = form.newUserDefaultDistrict.value;
+    const pickUpRoom = form.pickUpRoom.value;
+    const pickUpFloor = form.pickUpFloor.value;
+    const pickUpBuilding = form.pickUpBuilding.value;
+    const pickUpStreet = form.pickUpStreet.value;
 
-     const resp = await fetch("/usersLogin/createAccount", {
-       method: "POST",
-       headers: { "Content-Type": "application/json" },
-       body: JSON.stringify({
-         lastName,
-         firstName,
-         title,
-         email,
-         password,
-         contactNum,
-         defaultDistrict,
-         pickUpRoom,
-         pickUpFloor,
-         pickUpBuilding,
-         pickUpStreet
-       }),
-       // const userForm = e.target;
-       // const formData = new FormData(userForm);
+    const resp = await fetch("/usersLogin/createAccount", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        lastName,
+        firstName,
+        title,
+        email,
+        password,
+        contactNum,
+        defaultDistrict,
+        pickUpRoom,
+        pickUpFloor,
+        pickUpBuilding,
+        pickUpStreet,
+      }),
+      // const userForm = e.target;
+      // const formData = new FormData(userForm);
 
-       // const resp = await fetch("/usersLogin/createAccount", {
-       //   method: "POST",
-       //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-       //   body: formData,
-     });
+      // const resp = await fetch("/usersLogin/createAccount", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      //   body: formData,
+    });
     if (resp.status === 200) {
       window.location = "../usersMain.html";
     } else {
@@ -54,10 +54,10 @@ function createUsers() {
   });
 }
 
-  const form = document.querySelector("#create-drivers");
+const form = document.querySelector("#create-drivers");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
   form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const lastName = form.newDriverLastName.value;
     const firstName = form.newDriverFirstName.value;
@@ -79,15 +79,15 @@ function createUsers() {
         password,
         contactNum,
         carLicenseNum,
-        carType
+        carType,
       }),
-    // const userForm = e.target;
-    // const formData = new FormData(userForm);
-    // const resp = await fetch("/driversLogin/createAccount", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    //   body:formData,
-    //   }),
+      // const userForm = e.target;
+      // const formData = new FormData(userForm);
+      // const resp = await fetch("/driversLogin/createAccount", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      //   body:formData,
+      //   }),
     });
     if (resp.status === 200) {
       window.location = "../driversMain.html";
@@ -95,4 +95,5 @@ function createUsers() {
       const data = await resp.json();
       alert(data.message);
     }
-  });})
+  });
+});
