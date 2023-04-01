@@ -1,9 +1,11 @@
 window.onload = () => {
   // driver main page
   showDriverInfo();
-  showCurrentDistrict();
+  // showCurrentDistrict();
   showAllOrders();
-  // document.querySelector("").addEventListener("click", toAcceptOrder());
+  // let selectedDistrict = document.querySelector(".district-menu");
+  // selectedDistrict.addEventListener("change", showSelected);
+  document.querySelector(".accept-order").addEventListener("click", toAcceptOrder());
   // document.querySelector("").addEventListener("click", confirmAcceptOrder());
   // document.querySelector("").addEventListener("click", showOrdersHistory());
   // document.querySelector("").addEventListener("click", showSingleHistory());
@@ -14,7 +16,7 @@ async function showDriverInfo() {
   console.log("driver info");
   const resp = await fetch("/driversMain/get-driver-info");
   const driverInfo = await resp.json();
-  console.log(driverInfo);
+  console.log("driver info", driverInfo);
 
   let htmlStr = `<i class="bi bi-person-circle"></i>
       <div class="driver-details">
@@ -23,76 +25,63 @@ async function showDriverInfo() {
       </div>`;
 
   document.querySelector(".driver-info").innerHTML = htmlStr;
-} 
-
-async function showCurrentDistrict() {
-  console.log("district");
-  const resp = await fetch("/driversMain/get-district");
-  const districts = await resp.json();
-  console.log(districts);
-
-  // js set unique
-  const districtsArr = Object.values(districts);
-  let uniqueDistrict = [...new Set(districtsArr)];
-  console.log('uniqueDistrict', uniqueDistrict);
-
-  // Create an "option" node:
-  // what is i?
-  // how to put i into the loop
-  // object{} vs array[] (for objKey in obj// for arrayValue of arr) <-- directly take value inside
-  for (let i = 0; i < uniqueDistrict.length; i++) {
-    const opt = document.createElement("option");
-    opt.innerText += uniqueDistrict[i];
-    document.querySelector(".district-menu").appendChild(opt);
-  }
-  // // Create a text node:
-  // const textnode = document.createTextNode(`${uniqueDistrict}`);
-
-  // // Append the text node to the "li" node:
-  // node.appendChild(textnode);
-
-  // Append the "li" node to the list:
-
-  //   let htmlStr = ``;
-  //   for (const district in districts) {
-  //     htmlStr += `
-  //     <option value="">${districts.deliver_district}</option>
-  //     <option value="">${districts.pick_up_district}</option>
-  //     `;
-  //   }
-  //   node.appendChild()
-  //   document.querySelector(".get-district").appendChild();
 }
 
-// const urlSearchParams = new URLSearchParams(window.location.search);
-//   if (!urlSearchParams.has("oid")) {
-//     window.location = "/";
-//     return;
+// async function showCurrentDistrict() {
+//   console.log("district");
+//   const resp = await fetch("/driversMain/get-district");
+//   const districts = await resp.json();
+//   console.log("district", districts);
+
+//   // arr.map to obtain objects values and turn to array
+//   const districtsArr = districts.map((item) => Object.values(item));
+//   console.log("districtsArr", districtsArr);
+//   // arr.flat -> [[_,_],[_,_]] -> [_,_,_,_]
+//   let flattedDistrictsArr = districtsArr.flat();
+//   // js set unique
+//   let uniqueDistrict = [...new Set(flattedDistrictsArr)];
+//   console.log("uniqueDistrict", uniqueDistrict);
+
+//   // Create an "option" node:
+//   // what is i?
+//   // how to put i into the loop
+//   // object{} vs array[] (for objKey in obj// for arrayValue of arr) <-- directly take value inside
+//   for (let i = 0; i < uniqueDistrict.length; i++) {
+//     const opt = document.createElement("option");
+//     opt.innerText += uniqueDistrict[i];
+//     document.querySelector(".district-menu").appendChild(opt);
 //   }
+// }
 
-//   const resp = await fetch(`/drivers/${urlSearchParams.get("oid")}`);
-//   const orders = await resp.json();
-//   console.log(orders);
+async function showAllOrders() {
+  console.log("all orders");
+  const resp = await fetch("/driversMain/get-orders");
+  const allOrders = await resp.json();
+  console.log("all orders", allOrders);
 
-//   const acceptOrder = `<button onClick="acceptOrder(${orders.id})">接單</button>`;
+  for (let i = 0; i < allOrders.length; i++) {
+    let htmlStr = `
+    <div class="single_order">
+      <p class="order-text">FROM</p>
+      <div class="pick_up_district_time">
+        <div class="pick_up_district">${allOrders[i].pick_up_district}</div>
+        <div class="pick_up_time">${allOrders[i].pick_up_date} ${allOrders[i].pick_up_time}</div>
+      </div>
+      <p class="order-text">TO</p>
+      <div class="deli_district_animal">
+        <div class="deli_district">${allOrders[i].deliver_district}</div>
+        <div class="animal">${allOrders[i].animals_name} ${allOrders[i].animals_amount}</div>
+      </div>
+      <button class="accept-order" onClick="toAcceptOrder(${allOrders[i].orders_id})">接單</button>
+    </div>
+  `;
+  document.querySelector(".orders").innerHTML += htmlStr;
+  }
+}
 
-//   let htmlStr = `
-//       <div class="available_orders">
-//         <div class="order_details">
-//             <p class="from">FROM</p>
-//             <div class="deli_district_datetime">
-//                 < div class="deli_district">${orders.deliver_district}</div>
-//                 <div class="deli_date">${orders.pick_up_date}</div>
-//                 <div class="deli_time">${orders. pick_up_time}</div>
-//             </div>
-//             <p class="to">TO</p>
-//             <div class="pick_up_district_animals">
-//                 <div class="pick_up_district">${orders.pick_up_district}</div>
-//                 <div class="animals">${orders.pick_up_district}</div>
-//             </div>
-//         </div>
-//         ${acceptOrder}
-//       </div>
-//     `;
-
-//   document.querySelector(".container").innerHTML = htmlStr;
+async function acceptOrder() {
+  console.log("accept orders");
+  const resp = await fetch("/driversMain/get-orders/:oid");
+  const acceptOrder = await resp.json();
+  console.log("accept orders", acceptOrder);
+}

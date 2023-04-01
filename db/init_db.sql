@@ -95,6 +95,6 @@ CREATE TABLE order_animals(
 
 
 
--- INSERT INTO users (username, password) VALUES ('jason', 'jason');
+-- INSERT INTO orders (created_at) VALUES ('2023-03-29 00:30:00', '2023-03-29 09:31:00', '2023-03-29 09:32:00', '2023-03-30 09:30:00', '2023-03-30 09:31:00', '2023-03-30 09:32:00', '2023-03-31 09:30:00', '2023-03-31 09:31:00', '2023-03-31 09:32:00');
 -- INSERT INTO users (username, password) VALUES ('jason', 'jason'), ('peter', 'peter');
 
