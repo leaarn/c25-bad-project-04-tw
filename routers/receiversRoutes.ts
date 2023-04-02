@@ -26,9 +26,9 @@ async function message(req: express.Request, res: express.Response) {
 
     const data = getTextMessageInput(
       "852" + receiverContact.receiver_contact.toString(),
-      `recipient token: ${JSON.stringify(
+      `Here is your receiver token: ${JSON.stringify(
         Object.values(token)
-      )} https://google.com`
+      )} http://localhost:8080/receivers.html`
     );
 
     console.log(data);
