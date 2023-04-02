@@ -1,6 +1,7 @@
 window.onload = () => {
   initDriversLoginForm();
 };
+const member_create = document.querySelector(".member_create");
 
 function initDriversLoginForm() {
   const form = document.querySelector("#drivers-login-form");
@@ -22,3 +23,8 @@ function initDriversLoginForm() {
     }
   });
 }
+
+member_create.addEventListener("click", function () {
+  window.location = "/driversNewAccount.html";
+});
+

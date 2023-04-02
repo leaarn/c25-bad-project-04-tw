@@ -38,7 +38,7 @@ form.addEventListener("submit", async (e) => {
       //   }),
     });
     if (resp.status === 200) {
-      window.location = "./driversLogin.html";
+      window.location = "../driversLogin.html";
     } else {
       const data = await resp.json();
       alert(data.message);
