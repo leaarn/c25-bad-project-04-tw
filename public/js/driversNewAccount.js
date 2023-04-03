@@ -1,9 +1,8 @@
-const { body } = require("express-validator");
-
+// const { body } = require("express-validator");
 window.onload = () => {
   createDrivers();
 };
-
+function createDrivers() {
 const form = document.querySelector("#create-drivers");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -43,4 +42,4 @@ form.addEventListener("submit", async (e) => {
       const data = await resp.json();
       alert(data.message);
     }
-  });
+  });}

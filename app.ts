@@ -61,17 +61,17 @@ app.use((req, _res, next) => {
 });
 
 // Section 2: Route Handlers
-import { authRoutes } from "./routers/authroutes";
-import { usersAuthRoutes } from "./routers/usersroutes";
-import { driversAuthRoutes } from "./routers/driversroutes";
+import { authRoutes } from "./routers/authRoutes";
+import { usersRoutes } from "./routers/usersRoutes";
+import { driversRoutes } from "./routers/driversRoutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
 import { usersMainRoutes } from "./routers/createorder";
 import { driverIsLoggedInApi, userIsLoggedInApi } from "./utils/guard";
-import { receiverRoutes } from "./routers/receiversroutes";
+import { receiverRoutes } from "./routers/receiversRoutes";
 
 app.use("/login", authRoutes);
-app.use("/userslogin", usersAuthRoutes);
-app.use("/driverslogin", driversAuthRoutes);
+app.use("/userslogin", usersRoutes);
+app.use("/driverslogin", driversRoutes);
 app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
 app.use("/users", userIsLoggedInApi, usersMainRoutes);
 app.use("/receivertoken", receiverRoutes);
