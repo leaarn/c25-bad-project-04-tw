@@ -1,25 +1,20 @@
 body {
   background-color: rgb(255, 251, 240);
-  display: flex;
 }
 
 .content {
   font-size: large;
-  flex-direction: column;
-  justify-content: center;
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  padding: 20px;
 }
 
 .login-container {
-  text-align: center;
-  width: 70vw;
-  height: 35vh;
   background-color:  rgba(253, 233, 183, 0.459);
-  border-radius: 5px;
+  border-radius: 15px;
+  text-align: center;
+  height: 30vh;
+  margin-left: 20vw;
+  margin-right: 20vw;
 }
+
 .bottom-container{
     margin-top: 20px;
     text-align: center;
@@ -27,19 +22,19 @@ body {
 
 ::placeholder {
   color: rgb(255, 157, 29);
-  font-size: small;
+  font-size: 90%;
   font-weight: Thin;
 }
 .word {
   color: rgb(255, 157, 29);
   padding: 20px;
   font-weight: bold;
-  font-size: 150%;
+  font-size: 180%;
 }
 .word2 {
   color: rgb(255, 157, 29);
   font-weight: thin;
-  font-size: small;
+  font-size: 90%;
 }
 input, select, textarea{
     color: rgb(255, 157, 29);
@@ -49,9 +44,10 @@ textarea:focus, input:focus {
     color: rgb(255, 157, 29);
 }
 input {
-  border-radius: 1px;
+  margin-top: 10px;
+  border-radius: 2px;
   border: 1px solid rgb(255, 157, 29);
-    width: 55vw;
+  width: 35vw;
   height: 4vh;
 }
 
@@ -59,12 +55,12 @@ input {
 .driver_login {
   background-color: rgb(255, 227, 155);
   border: 0;
-  border-radius: 5px;
-  width: 55vw;
+  border-radius: 15px;
+  width: 35vw;
   height: 4vh;
   color: rgb(255, 157, 29);
   margin-top: 10px;
-  font-size: 3vw;
+  font-size: 130%;
   font-weight: bold;
 }
 #users-login-form, #drivers-login-form{
@@ -75,21 +71,20 @@ input {
 .driver_create {
   background-color: rgb(255, 157, 29);
   border: 0;
-  border-radius: 5px;
-  width: 55vw;
+  border-radius: 15px;
+  width: 35vw;
   height: 4vh;;
   color: rgb(255, 227, 155);
   margin: 10px 0;
-  font-size: 3vw;
+  font-size: 130%;
   font-weight: bold;
 }
 
-.logo {
-  width: 20vw;
-  position: absolute;
-  left: 29%;
+.logo-img{
+width: 15vw;
 }
 
-.login {
-  flex-direction: column;
+.logo{
+  display: flex;
+  justify-content: center;
 }

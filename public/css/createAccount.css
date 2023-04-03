@@ -8,19 +8,14 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 0;
-  position: absolute;
-  top: 10%;
-  left: 12%;
-  padding: 20px;
+
 }
 
 .container {
   text-align: center;
-  width: 250px;
   height: 600px;
   background-color: rgba(253, 233, 183, 0.459);
-  border-radius: 5px;
+  border-radius: 15px;
 }
 .bottom-container {
   margin-top: 20px;
@@ -29,7 +24,7 @@ body {
 
 ::placeholder {
   color: rgb(255, 157, 29);
-  font-size: small;
+  font-size: 90%;
   font-weight: Thin;
 }
 
@@ -44,36 +39,39 @@ textarea:focus, input:focus {
   color: rgb(255, 157, 29);
   padding: 20px;
   font-weight: bold;
-  font-size: 150%;
+  font-size: 180%;
 }
 .word2 {
   color: rgb(255, 157, 29);
   font-weight: thin;
-  font-size: small;
+  font-size: 90%;
 }
 
 input {
   border-radius: 1px;
   border: 1px solid rgb(255, 157, 29);
+    width: 35vw;
+  height: 4vh;
 }
 .users-input {
   padding: 5px;
 }
-.member_login {
+.orange-button {
   background-color: rgb(255, 157, 29);
   border: 0;
   border-radius: 5px;
-  width: 220px;
-  height: 40px;
+  width: 35vw;
+  height: 4vh;;
   color: rgb(255, 227, 155);
   margin-top: 30px;
-  font-size: 5vw;
   font-weight: bold;
 }
 
-.logo {
-  width: 20vw;
-  position: absolute;
-  left: 30%;
+.logo-img{
+width: 15vw;
 }
 
+.logo{
+  display: flex;
+  justify-content: center;
+}
