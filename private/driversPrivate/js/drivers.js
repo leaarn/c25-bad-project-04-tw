@@ -59,7 +59,7 @@ async function showAllOrders() {
   console.log("all orders", allOrders);
 
   for (let i = 0; i < allOrders.length; i++) {
-    const acceptBtn = `<button class="accept-order" onClick="acceptOrdersDetail(${allOrders[i].orders_id})">接單</button>`;
+    const acceptBtn = `<button class="accept-order" onClick="acceptOrdersDetail(${allOrders[i].id})">接單</button>`;
     const dateStr = new Date(allOrders[i].pick_up_date).toDateString()
     let htmlStr = `
     <div class="single_order">

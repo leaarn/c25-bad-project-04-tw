@@ -58,5 +58,8 @@ async function driverEarns(id) {
 }
 
 async function confirmAcceptOrder(id) {
-  window.location = `/driversAcceptOrderSuccess.html?oid=${id}`;
+  console.log("confirmAcceptOrder");
+  const resp = await fetch(`/driversMain/cfm-orders/${id}`);
+  const driverEarnsTotal = await resp.json();
+  window.location = `/driversAcceptOrderSuccess.html`;
 }

@@ -90,7 +90,7 @@ body {
     font-size: 6vw;
     margin: 0 2vw;
 }
-.single_order {
+.single_order, .orders {
     border: 0;
     border-radius: 15px;
     background-color: rgb(255, 245, 219);

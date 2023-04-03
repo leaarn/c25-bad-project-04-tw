@@ -21,13 +21,13 @@ driversMainRoutes.put("/ongoing/:oid", driverIsLoggedInApi, driverDelivering);
  
 async function getDriverInfo(req: Request, res: Response) {
   try {
-    const driversID = req.session.drivers_id;
+    const driversID = req.session.drivers_id!;
 
     const getDriverNameResult = await dbClient.query<DriversRow>(/*sql*/
       `SELECT first_name FROM drivers WHERE id = $1`, [driversID]
     );
     console.log(getDriverNameResult);
-    res.json(getDriverNameResult.rows); // pass array into res.json()
+    res.json(getDriverNameResult.rows[0]); // pass array into res.json()
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
@@ -50,7 +50,7 @@ async function getDistricts(req: Request, res: Response) {
 async function getAllOrders(req: Request, res: Response) {
   try {
     const getAllOrdersResult = await dbClient.query<OrdersRow>(/*sql*/
-      `SELECT pick_up_district, deliver_district, pick_up_date, pick_up_time, animals.animals_name, order_animals.animals_amount FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending'`
+      `SELECT orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, animals.animals_name, order_animals.animals_amount FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending'`
     );
     console.log(getAllOrdersResult.rows);
     res.json(getAllOrdersResult.rows); // pass array into res.json()
