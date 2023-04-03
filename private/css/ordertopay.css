@@ -1,0 +1,55 @@
+body {
+  background-color: rgb(255, 251, 240);
+}
+
+.navbar {
+  background-color: rgb(255, 245, 219);
+  display: flex;
+  justify-content: space-around;
+}
+
+.menu_btn {
+  background-color: rgb(255, 227, 155);
+  border: 0;
+  border-radius: 15px;
+  color: rgb(255, 157, 29);
+  padding: 0 10px;
+}
+
+.bi-list,
+.bi-x-lg {
+  color: rgb(255, 157, 29);
+  font-size: 4vw;
+}
+
+.logo {
+  width: 25vw;
+  position: absolute;
+  left: 35%;
+}
+
+#offcanvasMenu {
+  background-color: rgb(255, 251, 240);
+}
+
+.close_button {
+  border: 0;
+  color: none;
+}
+
+.offcanvas-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 0;
+}
+
+.menu_items {
+  text-align: center;
+  color: rgb(255, 157, 29);
+}
+
+.menu_items {
+  font-size: 3vw;
+  margin-top: 50px;
+}

@@ -8,6 +8,7 @@ import { logger } from "../utils/logger";
 export const usersMainRoutes = express.Router();
 usersMainRoutes.post("/createorder", createOrder);
 usersMainRoutes.get("/payorder", payOrder);
+usersMainRoutes.get("/confirm", confirmOrder);
 // usersMainRoutes.get("/orderStatus",  orderStatus);
 // usersMainRoutes.get("/orderStatusDetails/:oid",  orderStatusDetails);
 // usersMainRoutes.get("/history",  historyOrders);
@@ -112,7 +113,7 @@ async function createOrder(req: Request, res: Response) {
       );
       console.log("here is order anm", orderAnimal);
     }
-    res.status(200).json({ message: "success" });
+    res.status(200).json({ message: "create order success" });
   } catch (e) {
     console.error(e);
     res.status(500).json({ error: "failed to create order" });
@@ -159,12 +160,29 @@ async function payOrder(req: Request, res: Response) {
       FROM orders
       JOIN order_animals ON order_animals.orders_id = orders.id
       JOIN animals ON animals.id = order_animals.animals_id
-      WHERE orders_status ='not pay yet' AND order.users_id = $1
-    GROUP BY remarks, distance_km`,
+      WHERE orders.orders_status ='not pay yet' AND orders.users_id = $1
+    GROUP BY remarks, distance_km,pick_up_date_time,pick_up_address,deliver_address`,
       [users_id]
     );
     console.log(orderToPay.rows[0]);
-    res.json(orderToPay.rows[0]);
+    res.status(200).json(orderToPay.rows[0]);
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
+
+async function confirmOrder(req: Request, res: Response) {
+  try {
+    const users_id = req.session.users_id!;
+    const confirmOrderResult = await dbClient.query(
+      /*sql*/
+      `UPDATE orders SET orders_status = 'pending'
+      WHERE orders_status ='not pay yet' AND users_id = $1`,
+      [users_id]
+    );
+    console.log(confirmOrderResult.rows[0]);
+    res.status(200).json({ message: "paid" });
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
