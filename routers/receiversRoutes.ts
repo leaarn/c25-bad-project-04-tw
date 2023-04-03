@@ -17,16 +17,18 @@ async function message(req: express.Request, res: express.Response) {
       [usersId]
     );
     const receiverContact = result.rows[0];
-    console.log("receiverContact");
 
-    // const token = await dbClient.query<OrdersRow>(
-    //   /*SQL*/ `SELECT receiver_contact FROM orders WHERE users_id = $1 `,
-    //   [usersId]
-    // );
+    const tokenResult = await dbClient.query<OrdersRow>(
+      /*SQL*/ `SELECT token FROM orders WHERE users_id = $1 `,
+      [usersId]
+    );
+    const token = tokenResult.rows[0];
 
     const data = getTextMessageInput(
       "852" + receiverContact.receiver_contact.toString(),
-      "recipient token: ABC123! https://ip:8080.com"
+      `Here is your receiver token: ${JSON.stringify(
+        Object.values(token)
+      )} http://localhost:8080/receivers.html`
     );
 
     console.log(data);

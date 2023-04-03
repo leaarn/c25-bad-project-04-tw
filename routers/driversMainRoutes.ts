@@ -50,7 +50,7 @@ async function getDistricts(req: Request, res: Response) {
 async function getAllOrders(req: Request, res: Response) {
   try {
     const getAllOrdersResult = await dbClient.query<OrdersRow>(/*sql*/
-      `SELECT pick_up_district, deliver_district, pick_up_date, pick_up_time, animals.animals_name, order_animals.animals_amount FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending'`
+      `SELECT orders_id, pick_up_district, deliver_district, pick_up_date, pick_up_time, animals.animals_name, order_animals.animals_amount FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending' ORDER BY orders.updated_at DESC`
     );
     console.log(getAllOrdersResult.rows);
     res.json(getAllOrdersResult.rows); // pass array into res.json()
@@ -77,7 +77,7 @@ async function getAcceptOrders(req: Request, res: Response) {
       json_agg(order_animals.animals_amount) AS animals_amount, 
       remarks, orders_status 
       FROM orders 
-      JOIN users ON orders.users_id = users.id
+      JOIN users ON orders.users_id = users.id 
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id
       WHERE orders_status = 'pending' AND orders.id = $1
