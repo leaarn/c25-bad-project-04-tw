@@ -124,3 +124,19 @@ JOIN animals ON animals.id = order_animals.animals_id
 -- WHERE orders_status = 'driver accepts' 
 GROUP BY orders.id, reference_code, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks
 
+SELECT 
+    CONCAT(pick_up_date,' ',pick_up_time) AS pick_up_date_time,
+      CONCAT(pick_up_room,' ',pick_up_floor,' ',pick_up_building,' ',pick_up_street,' ',pick_up_district) AS pick_up_address,
+      CONCAT(deliver_room,' ',deliver_floor,' ',deliver_building,' ',deliver_street,' ',deliver_district) AS deliver_address,
+      json_agg(animals.animals_name) AS animals_name,
+      json_agg(order_animals.animals_amount) AS animals_amount,
+      remarks,
+      distance_km,
+      SUM(distance_km * distance_price) AS distance_total_price,
+      SUM(order_animals.animals_history_price * order_animals.animals_amount) AS animals_total_price,
+      SUM((distance_km * distance_price)+(order_animals.animals_history_price * order_animals.animals_amount)) AS total_price
+      FROM orders
+      JOIN order_animals ON order_animals.orders_id = orders.id
+      JOIN animals ON animals.id = order_animals.animals_id
+      WHERE orders.orders_status ='not pay yet' AND orders.users_id = 2
+    GROUP BY remarks, distance_km,pick_up_date_time,pick_up_address,deliver_address

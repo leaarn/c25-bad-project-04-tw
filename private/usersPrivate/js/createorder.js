@@ -99,7 +99,7 @@ function createOrder() {
 
     const remarks = form.remarks.value;
 
-    const resp = await fetch("/usersMain", {
+    const resp = await fetch("/users/createorder", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -122,16 +122,19 @@ function createOrder() {
         animals_amount,
       }),
     });
+    // if ((resp.status = 200)) {
+    //   Swal.fire({
+    //     icon: "success",
+    //     title: "Submitted",
+    //     showConfirmButton: false,
+    //     timer: 1500,
+    //   });
+    //   setTimeout(() => {
+    //     window.location = "/usersMain.html";
+    //   }, 1501);
+    // }
     if ((resp.status = 200)) {
-      Swal.fire({
-        icon: "success",
-        title: "Submitted",
-        showConfirmButton: false,
-        timer: 1500,
-      });
-      setTimeout(() => {
-        window.location = "/usersMain.html";
-      }, 1501);
+      window.location = "/ordertopay.html";
     }
   });
 }

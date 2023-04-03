@@ -5,10 +5,51 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="sweetalert2.min.css" />
+    <link rel="stylesheet" href="./css/createorder.css" />
     <title>UserMain</title>
   </head>
   <body>
+    <div class="navbar">
+      <button
+        class="menu_btn"
+        data-bs-toggle="offcanvas"
+        href="#offcanvasMenu"
+        role="button"
+        aria-controls="offcanvasMenu"
+      >
+        <i class="bi bi-list"></i>
+      </button>
+
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+          <img class="logo offcanvas-title" id="offcanvasMenuLabel" src="../assets/LOGO.png" alt="logo" />
+          <i class="bi bi-x-lg" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></i>
+        </div>
+        <div class="offcanvas-body">
+          <div class="menu_content">
+            <a class="menu_items" href="">建立訂單</a>
+            <a class="menu_items" href="">歷史訂單</a>
+            <a class="menu_items" href="">實時訂單狀態</a>
+          </div>
+          <div class="logout">
+            <button class="user_logout">登出</button>
+          </div>
+        </div>
+      </div>
+      <img class="logo" src="../assets/LOGO.png" alt="logo" />
+    </div>
+
+    <!-- user div  not yet-->
+
+    <!-- create order -->
     <form id="create-order-form">
       <div class="form-area">
         <h3>立即建立你的訂單</h3>
@@ -140,6 +181,11 @@
       </div>
     </form>
     <script src="./js/createorder.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

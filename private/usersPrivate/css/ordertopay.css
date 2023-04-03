@@ -1,0 +1,72 @@
+body {
+  background-color: rgb(255, 251, 240);
+}
+
+.navbar {
+  background-color: rgb(255, 245, 219);
+}
+
+.menu_btn {
+  background-color: rgb(255, 227, 155);
+  border: 0;
+  border-radius: 15px;
+  color: rgb(255, 157, 29);
+  padding: 0 10px;
+}
+
+.bi-list,
+.bi-x-lg {
+  color: rgb(255, 157, 29);
+  font-size: 4vw;
+}
+
+.logo {
+  width: 17vw;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+}
+
+#offcanvasMenu {
+  background-color: rgb(255, 251, 240);
+}
+
+.close_button {
+  border: 0;
+  color: none;
+}
+
+.offcanvas-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 0;
+}
+
+.menu_items,
+.menu_subitems {
+  text-align: center;
+  color: rgb(255, 157, 29);
+}
+
+.menu_items {
+  font-size: 3vw;
+  margin-top: 50px;
+}
+
+.menu_subitems {
+  font-size: 2vw;
+}
+
+.user_logout,
+.pay-btn {
+  background-color: rgb(255, 227, 155);
+  border: 0;
+  border-radius: 15px;
+  color: rgb(255, 157, 29);
+  margin: 10px 0;
+  padding: 8px;
+  font-size: 3vw;
+}
