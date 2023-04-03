@@ -36,6 +36,7 @@ async function message(req: express.Request, res: express.Response) {
     console.log(data);
     const resp = await sendMessage(data);
     console.log(resp.status);
+    
     res.status(200).json({ message: "message sent!" });
   } catch (err: any) {
     console.error(err.message);

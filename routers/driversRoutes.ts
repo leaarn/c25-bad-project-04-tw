@@ -12,15 +12,14 @@ export const driversRoutes = express.Router();
 driversRoutes.post("/", login);
 driversRoutes.post(
   "/createaccount",
-  body("email").isEmail().withMessage("Invalid Email"),
   body("password")
     .isStrongPassword({
       minLength: 6,
-      minLowercase: 1,
+      minLowercase: 0,
       minUppercase: 0,
       minSymbols: 0,
     })
-    .withMessage("Length>6,LowerCase,No Symbol"),
+    .withMessage("Length>6,No Symbol"),
   createAccount
 );
 
@@ -65,8 +64,9 @@ async function createAccount(req: express.Request, res: express.Response) {
 try {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    res.status(400).json({ errors: errors.array() });
-  }
+    res.status(400).json({ message: "Please fill in all the boxes!" });
+    return;
+  } 
   const lastName: string = req.body.lastName;
   const firstName: string = req.body.firstName;
   const title: string = req.body.title;

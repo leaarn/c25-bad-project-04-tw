@@ -2,10 +2,6 @@ body {
   background-color: rgb(255, 251, 240);
 }
 
-.content {
-  font-size: large;
-}
-
 .login-container {
   background-color:  rgba(253, 233, 183, 0.459);
   border-radius: 15px;
@@ -42,7 +38,7 @@ input {
   border-radius: 2px;
   border: 1px solid rgb(255, 157, 29);
   width: 35vw;
-  height: 4vh;
+  height: 5vh;
 }
 
 .member_login,
@@ -51,7 +47,7 @@ input {
   border: 0;
   border-radius: 15px;
   width: 35vw;
-  height: 4vh;
+  height: 5vh;
   color: rgb(255, 157, 29);
   font-size: 130%;
   font-weight: bold;
@@ -75,7 +71,7 @@ input {
   border: 0;
   border-radius: 15px;
   width: 35vw;
-  height: 4vh;;
+  height: 5vh;;
   color: rgb(255, 227, 155);
   margin: 10px 0;
   font-size: 130%;
