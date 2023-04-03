@@ -1,37 +1,22 @@
-
 body {
   background-color: rgb(255, 251, 240);
-    flex-direction: column;
-  justify-content: center;
 }
 
 .content {
   font-size: large;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0;
-  position: absolute;
-  top: 10%;
-  left: 12%;
-  padding: 20px;
 }
 
-.container {
+#receivers-form {
   text-align: center;
-  width: 250px;
-  height: 200px;
   background-color: rgba(253, 233, 183, 0.459);
-  border-radius: 5px;
-}
-.bottom-container {
-  margin-top: 20px;
-  text-align: center;
+  border-radius: 15px;
+  margin-left: 20vw;
+  margin-right: 20vw;
 }
 
 ::placeholder {
   color: rgb(255, 157, 29);
-  font-size: small;
+  font-size: 90%;
   font-weight: Thin;
 }
 
@@ -50,27 +35,30 @@ textarea:focus, input:focus {
 }
 
 input {
-  border-radius: 1px;
+  margin-top: 10px;
+  border-radius: 2px;
   border: 1px solid rgb(255, 157, 29);
+  width: 35vw;
+  height: 4vh;
 }
-.users-input {
-  padding: 5px;
-}
-.member_login {
+
+.orange-button {
   background-color: rgb(255, 157, 29);
   border: 0;
   border-radius: 5px;
-  width: 250px;
-  height: 40px;
+  width: 35vw;
+  height: 4vh;;
   color: rgb(255, 227, 155);
-  margin-top: 30px;
-  font-size: 5vw;
+  margin-top: 2vh;
   font-weight: bold;
+  margin-bottom: 3vh;
 }
 
-.logo {
-  width: 20vw;
-  position: absolute;
-  left: 30%;
+.logo-img{
+width: 15vw;
 }
 
+.logo{
+  display: flex;
+  justify-content: center;
+}
