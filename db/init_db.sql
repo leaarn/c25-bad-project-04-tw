@@ -59,8 +59,8 @@ CREATE TABLE orders (
 	distance_km INTEGER ,
     distance_price INTEGER DEFAULT 10,
     reference_code UUID DEFAULT gen_random_uuid(),
-    orders_status VARCHAR(255) DEFAULT 'pending',
-    token UUID DEFAULT gen_random_uuid(),
+    orders_status VARCHAR(255) DEFAULT 'not pay yet',
+    token VARCHAR(50),
     remarks VARCHAR(255) NULL,
     created_at TIMESTAMP(0) WITHOUT TIME ZONE,
 	updated_at TIMESTAMP DEFAULT NOW()
