@@ -11,7 +11,7 @@ usersMainRoutes.post("/createorder", createOrder);
 //pay
 usersMainRoutes.get("/payorder", payOrder);
 // change status from not pay yet to pending
-usersMainRoutes.get("/confirm", confirmOrder);
+usersMainRoutes.put("/confirm", confirmOrder);
 
 // usersMainRoutes.get("/orderStatus",  orderStatus);
 // usersMainRoutes.get("/orderStatusDetails/:oid",  orderStatusDetails);

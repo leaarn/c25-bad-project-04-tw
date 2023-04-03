@@ -1,6 +1,6 @@
 window.onload = () => {
   loadOrderToPay();
-  //   confirmToPay();
+  confirmToPay();
 };
 
 async function loadOrderToPay() {
@@ -39,15 +39,20 @@ async function loadOrderToPay() {
   document.querySelector(".total-price").innerHTML = htmlstr2;
 }
 
-// async function confirmToPay() {}
-// if ((resp.status = 200)) {
-//   Swal.fire({
-//     icon: "success",
-//     title: "Submitted",
-//     showConfirmButton: false,
-//     timer: 1500,
-//   });
-//   setTimeout(() => {
-//     window.location = "/usersMain.html";
-//   }, 1501);
-// }
+async function confirmToPay() {
+  document.querySelector(".pay-btn").addEventListener("click", async () => {
+    const resp = await fetch("/users/confirm");
+
+    if ((resp.status = 200)) {
+      Swal.fire({
+        icon: "success",
+        title: "Submitted",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setTimeout(() => {
+        window.location = "/allorderstatus.html";
+      }, 1501);
+    }
+  });
+}
