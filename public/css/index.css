@@ -15,16 +15,15 @@ body {
     border-radius: 15px;
     color: rgb(255, 157, 29);
     padding: 0 10px;
+    margin-right: 5vw;
 }
 
 #member_login, #driver_login{
   background-color: rgb(255, 227, 155);
   border: 0;
   border-radius: 5px;
-  width: 100px;
-  height: 30px;
   color: rgb(255, 157, 29);
-  margin-left: 200px;
+  padding: 5px 15px;
   margin-top: 10px;
   font-size: 3vw;
   font-weight: bold;
@@ -37,8 +36,6 @@ body {
 
 .logo {
   width: 25vw;
-  position: absolute;
-  left: 35%;
 }
 
 .login {

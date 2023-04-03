@@ -85,7 +85,7 @@ async function getAcceptOrders(req: Request, res: Response) {
       `, [ordersId]
     );
     console.log(getAcceptOrdersResult.rows);
-    res.json(getAcceptOrdersResult.rows); // pass array into res.json()
+    res.json(getAcceptOrdersResult.rows[0]); // pass array into res.json()
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
@@ -116,7 +116,7 @@ async function driverEarns (req: Request, res: Response) {
       GROUP BY distance_km`, [ordersId]
     );
     console.log(driverEarnsResult.rows);
-    res.json(driverEarnsResult.rows); // pass array into res.json()
+    res.json(driverEarnsResult.rows[0]); // pass array into res.json()
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
