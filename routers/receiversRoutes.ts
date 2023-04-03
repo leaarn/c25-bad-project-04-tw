@@ -46,16 +46,12 @@ async function message(req: express.Request, res: express.Response) {
 async function checkToken(req: express.Request, res: express.Response) {
   try {
     const token: string = req.body.token;
-    const queryResult = await dbClient.query<OrdersRow>(
-      /*SQL*/ `SELECT id, token FROM orders WHERE orders.users_id = $1 `,
-      [req.session.users_id]
-    );
-    const receiveStatus = await dbClient.query<OrdersRow>(
-      /*SQL*/ `UPDATE orders SET orders_status = 'receiver received' WHERE orders_status = 'driver delivering' AND orders.users_id = $1 `,
-      [req.session.users_id]
-    );
 
+    const queryResult = await dbClient.query<OrdersRow>(
+      /*SQL*/ `SELECT id, token FROM orders`
+    );
     const foundToken = queryResult.rows[0];
+    console.log(foundToken)
 
     if (!token) {
       res.status(400).json({ message: "missing token!" });
@@ -65,12 +61,16 @@ async function checkToken(req: express.Request, res: express.Response) {
       res.status(400).json({ message: "invalid token! " });
       return;
     } else {
-      res.status(200).json(receiveStatus.rows[0]);
-      // res.status(200).json({ message: "Token match!" });
+      // const receiveStatus = 
+      await dbClient.query<OrdersRow>(
+        /*SQL*/ `UPDATE orders SET orders_status = 'receiver received' WHERE token = $1 `,
+        [token]
+      );
+      // receiveStatus.rows[0];
+      res.status(200).json({ message: "successful!" });
     }
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
   }
 }
-
