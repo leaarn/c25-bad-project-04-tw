@@ -5,7 +5,6 @@ window.onload = () => {
   showAllOrders();
   // let selectedDistrict = document.querySelector(".district-menu");
   // selectedDistrict.addEventListener("change", showSelected);
-  document.querySelector(".accept-order").addEventListener("click", toAcceptOrder());
   // document.querySelector("").addEventListener("click", confirmAcceptOrder());
   // document.querySelector("").addEventListener("click", showOrdersHistory());
   // document.querySelector("").addEventListener("click", showSingleHistory());
@@ -60,6 +59,7 @@ async function showAllOrders() {
   console.log("all orders", allOrders);
 
   for (let i = 0; i < allOrders.length; i++) {
+    const acceptBtn = `<button class="accept-order" onClick="confirmAcceptOrder(${allOrders[i].orders_id})">接單</button>`;
     let htmlStr = `
     <div class="single_order">
       <p class="order-text">FROM</p>
@@ -72,16 +72,13 @@ async function showAllOrders() {
         <div class="deli_district">${allOrders[i].deliver_district}</div>
         <div class="animal">${allOrders[i].animals_name} ${allOrders[i].animals_amount}</div>
       </div>
-      <button class="accept-order" onClick="toAcceptOrder(${allOrders[i].orders_id})">接單</button>
+      ${acceptBtn}
     </div>
   `;
-  document.querySelector(".orders").innerHTML += htmlStr;
+    document.querySelector(".orders").innerHTML += htmlStr;
   }
 }
 
-async function acceptOrder() {
-  console.log("accept orders");
-  const resp = await fetch("/driversMain/get-orders/:oid");
-  const acceptOrder = await resp.json();
-  console.log("accept orders", acceptOrder);
+async function confirmAcceptOrder(id) {
+  window.location = `/driversAcceptOrder.html?oid=${id}`;
 }
