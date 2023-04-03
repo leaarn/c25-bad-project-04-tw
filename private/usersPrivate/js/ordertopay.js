@@ -10,9 +10,12 @@ async function loadOrderToPay() {
   console.log("here is payorder", data);
 
   let animalDetails = ``;
-  for (let i = 0; i < data.animals_name.length; i++) {
-    animalDetails += data.animals_name[i] + " X " + data.animals_amount[i] + " ";
-    console.log(animalDetails);
+  if (Array.isArray(data.animals_name)) {
+    for (let i = 0; i < data.animals_name.length; i++) {
+      animalDetails += data.animals_name[i] + " X " + data.animals_amount[i] + " ";
+    }
+  } else {
+    animalDetails += data.animals_name + " X " + data.animals_amount + " ";
   }
 
   //確認你的訂單
