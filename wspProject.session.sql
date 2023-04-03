@@ -143,9 +143,11 @@ SELECT
 
 
 
-SELECT 
+
+
+    SELECT 
   orders.id,
-  created_at,
+  TO_CHAR(orders.created_at, 'YYYY-MM-DD HH24:MI:SS') AS created_at,
   CONCAT(pick_up_room,' ',pick_up_floor,' ',pick_up_building,' ',pick_up_street,' ',pick_up_district) AS pick_up_address,
   CONCAT(deliver_room,' ',deliver_floor,' ',deliver_building,' ',deliver_street,' ',deliver_district) AS deliver_address,
   CONCAT(pick_up_date,' ',pick_up_time) AS pick_up_date_time,
@@ -166,5 +168,5 @@ SELECT
   orders.users_id = 2
   GROUP BY
   orders.id,created_at,remarks,orders_status
-
-
+  ORDER BY
+  created_at DESC

@@ -26,7 +26,7 @@ async function main() {
   const drivers = xlsx.readFile(driversFile);
 
   const ordersFile = path.join(__dirname, "orders.csv");
-  const orders = xlsx.readFile(ordersFile, {raw: true});
+  const orders = xlsx.readFile(ordersFile, { raw: true });
 
   const paymentMethodFile = path.join(__dirname, "payment_method.csv");
   const paymentMethod = xlsx.readFile(paymentMethodFile);
@@ -38,21 +38,11 @@ async function main() {
   const order_animals = xlsx.readFile(orderAnimalsFile);
 
   const userRows = xlsx.utils.sheet_to_json<UsersRow>(users.Sheets["Sheet1"]);
-  const driversRow = xlsx.utils.sheet_to_json<DriversRow>(
-    drivers.Sheets["Sheet1"]
-  );
-  const ordersRow = xlsx.utils.sheet_to_json<OrdersRow>(
-    orders.Sheets["Sheet1"]
-  );
-  const paymentMethodRow = xlsx.utils.sheet_to_json<PaymentMethodRow>(
-    paymentMethod.Sheets["Sheet1"]
-  );
-  const orderAnimalsRow = xlsx.utils.sheet_to_json<OrderAnimalsRow>(
-    order_animals.Sheets["Sheet1"]
-  );
-  const animalsRow = xlsx.utils.sheet_to_json<AnimalsRow>(
-    animals.Sheets["Sheet1"]
-  );
+  const driversRow = xlsx.utils.sheet_to_json<DriversRow>(drivers.Sheets["Sheet1"]);
+  const ordersRow = xlsx.utils.sheet_to_json<OrdersRow>(orders.Sheets["Sheet1"]);
+  const paymentMethodRow = xlsx.utils.sheet_to_json<PaymentMethodRow>(paymentMethod.Sheets["Sheet1"]);
+  const orderAnimalsRow = xlsx.utils.sheet_to_json<OrderAnimalsRow>(order_animals.Sheets["Sheet1"]);
+  const animalsRow = xlsx.utils.sheet_to_json<AnimalsRow>(animals.Sheets["Sheet1"]);
 
   await client.connect();
 
@@ -103,7 +93,7 @@ async function main() {
 
   await client.query(/*SQL*/ `DELETE FROM orders`);
   for (const orderRow of ordersRow) {
-    let ordersSql = /*SQL*/ `INSERT INTO orders (pick_up_date, pick_up_time, pick_up_district, pick_up_room, pick_up_floor, pick_up_building, pick_up_street, pick_up_coordinates, deliver_district, deliver_room, deliver_floor, deliver_building, deliver_street, deliver_coordinates, users_id, drivers_id, receiver_name, receiver_contact, distance_km, distance_price, reference_code, orders_status, token, remarks) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24)`;
+    let ordersSql = /*SQL*/ `INSERT INTO orders (pick_up_date, pick_up_time, pick_up_district, pick_up_room, pick_up_floor, pick_up_building, pick_up_street, pick_up_coordinates, deliver_district, deliver_room, deliver_floor, deliver_building, deliver_street, deliver_coordinates, users_id, drivers_id, receiver_name, receiver_contact, distance_km, distance_price, reference_code, orders_status, token, remarks, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25)`;
     await client.query(ordersSql, [
       orderRow.pick_up_date,
       orderRow.pick_up_time,
@@ -129,6 +119,7 @@ async function main() {
       orderRow.orders_status,
       orderRow.token,
       orderRow.remarks,
+      orderRow.created_at,
     ]);
   }
 
