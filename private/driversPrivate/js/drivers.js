@@ -3,8 +3,10 @@ window.onload = () => {
   showDriverInfo();
   // showCurrentDistrict();
   showAllOrders();
-  // let selectedDistrict = document.querySelector(".district-menu");
-  // selectedDistrict.addEventListener("change", showSelected);
+  let ongoingBtn = document.querySelector("#to_ongoing_orders");
+  ongoingBtn.addEventListener("click", showOngoingOrders);
+  let historyBtn = document.querySelector("#to_order_history");
+  historyBtn.addEventListener("click", showHistoryOrders);
   // document.querySelector("").addEventListener("click", confirmAcceptOrder());
   // document.querySelector("").addEventListener("click", showOrdersHistory());
   // document.querySelector("").addEventListener("click", showSingleHistory());
@@ -101,4 +103,12 @@ async function showAllOrders() {
 
 async function acceptOrdersDetail(id) {
   window.location = `/driversAcceptOrder.html?oid=${id}`;
+}
+
+async function showOngoingOrders() {
+  window.location = "/driverOngoing.html"
+}
+
+async function showHistoryOrders() {
+  window.location = "/driverHistory.html"
 }

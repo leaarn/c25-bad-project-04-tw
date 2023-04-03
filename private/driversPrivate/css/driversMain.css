@@ -49,6 +49,13 @@ body {
     flex-grow: 0;
 }
 
+.menu_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 0;
+}
+
 .menu_items, .menu_subitems {
     text-align: center;
     color: rgb(255, 157, 29);
@@ -68,9 +75,9 @@ body {
     border: 0;
     border-radius: 15px;
     color: rgb(255, 157, 29);
-    margin: 10px 0;
+    margin: 2vw;
     padding: 8px;
-    font-size: 3vw;
+    font-size: 2vw;
 }
 
 .driver-info {
@@ -102,7 +109,7 @@ body {
 }
 
 .order-text {
-    color: rgb(255, 227, 155);
+    color: rgb(253, 202, 72);
     margin: 0 2vw;
 }
 
@@ -116,13 +123,26 @@ body {
     margin: 10px;
 }
 
-.accept-order, .cfm-accept-order, .return-btn {
+.cfm-accept-order {
     background-color: rgb(255, 227, 155);
     border: 0;
     border-radius: 15px;
     color: rgb(255, 157, 29);
-    padding: 0 10px;
+    padding: 5px 10px;
     margin: 2vw 0;
+    font-size: 2vw;
+    position: relative;
+    left: 55vw;
+}
+
+.accept-order,.return-btn {
+    background-color: rgb(255, 227, 155);
+    border: 0;
+    border-radius: 15px;
+    color: rgb(255, 157, 29);
+    padding: 5px 10px;
+    margin: 2vw 0;
+    font-size: 2vw;
 }
 
 .pick_up_district_time, .deli_district_animal {
@@ -139,6 +159,21 @@ body {
     color: rgb(255, 157, 29);
     margin: 3vw 15vw;
 }
+.confirm_order_title, .driver_fee_title {
+    padding: 2vw 10px 0 10px;
+    margin: 2vw;
+    font-size: 3vw;
+}
+
+.confirm_order_text, .driver_fee_text {
+    border: 0;
+    border-radius: 15px;
+    background-color: rgb(255, 251, 240);
+    color: rgb(253, 202, 72);
+    padding: 2vw 10px 2vw 10px;
+    margin: 2vw;
+    font-size: 1.5vw;
+}
 
 .order-success {
     border: 0;
@@ -150,6 +185,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    height: 30vw;
 }
 
 .success {
