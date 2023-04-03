@@ -36,6 +36,7 @@ declare module "express-session" {
     drivers_id: number;
     firstName: string;
     loginType: string;
+    email: string;
   }
 }
 
