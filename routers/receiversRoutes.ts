@@ -12,17 +12,17 @@ receiverRoutes.post("/token", checkToken);
 
 async function message(req: express.Request, res: express.Response) {
   try {
-    const usersId = req.session.users_id;
+    const driversId = req.session.drivers_id;
 
     const result = await dbClient.query<OrdersRow>(
       /*SQL*/ `SELECT receiver_contact FROM orders WHERE users_id = $1 `,
-      [usersId]
+      [driversId]
     );
     const receiverContact = result.rows[0];
 
     const tokenResult = await dbClient.query<OrdersRow>(
       /*SQL*/ `SELECT token FROM orders WHERE users_id = $1 `,
-      [usersId]
+      [driversId]
     );
     const token = tokenResult.rows[0];
 
@@ -49,7 +49,8 @@ async function checkToken(req: express.Request, res: express.Response) {
     const token: string = req.body.token;
 
     const queryResult = await dbClient.query<OrdersRow>(
-      /*SQL*/ `SELECT id, token FROM orders`
+      /*SQL*/ `SELECT id, token FROM orders WHERE token = $1`,
+      [token]
     );
     const foundToken = queryResult.rows[0];
     console.log(foundToken)
@@ -62,12 +63,11 @@ async function checkToken(req: express.Request, res: express.Response) {
       res.status(400).json({ message: "invalid token! " });
       return;
     } else {
-      // const receiveStatus = 
       await dbClient.query<OrdersRow>(
         /*SQL*/ `UPDATE orders SET orders_status = 'receiver received' WHERE token = $1 `,
         [token]
       );
-      // receiveStatus.rows[0];
+
       res.status(200).json({ message: "successful!" });
     }
   } catch (err: any) {
