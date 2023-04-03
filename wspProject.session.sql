@@ -140,3 +140,31 @@ SELECT
       JOIN animals ON animals.id = order_animals.animals_id
       WHERE orders.orders_status ='not pay yet' AND orders.users_id = 2
     GROUP BY remarks, distance_km,pick_up_date_time,pick_up_address,deliver_address
+
+
+
+SELECT 
+  orders.id,
+  created_at,
+  CONCAT(pick_up_room,' ',pick_up_floor,' ',pick_up_building,' ',pick_up_street,' ',pick_up_district) AS pick_up_address,
+  CONCAT(deliver_room,' ',deliver_floor,' ',deliver_building,' ',deliver_street,' ',deliver_district) AS deliver_address,
+  CONCAT(pick_up_date,' ',pick_up_time) AS pick_up_date_time,
+  json_agg(animals.animals_name) AS animals_name,
+  json_agg(order_animals.animals_amount) AS animals_amount,
+  remarks,
+  orders_status
+  FROM orders
+  JOIN
+  order_animals ON order_animals.orders_id = orders.id
+  JOIN
+  animals ON animals.id = order_animals.animals_id
+  WHERE
+  orders_status NOT LIKE 'complete%'
+  AND
+  orders_status NOT LIKE 'not pay yet%'
+  AND 
+  orders.users_id = 2
+  GROUP BY
+  orders.id,created_at,remarks,orders_status
+
+
