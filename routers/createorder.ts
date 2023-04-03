@@ -158,6 +158,7 @@ async function payOrder(req: Request, res: Response) {
       json_agg(order_animals.animals_amount) AS animals_amount,
       remarks,
       distance_km,
+      orders.id,
       SUM(distance_km * distance_price) AS distance_total_price,
       SUM(order_animals.animals_history_price * order_animals.animals_amount) AS animals_total_price,
       SUM((distance_km * distance_price)+(order_animals.animals_history_price * order_animals.animals_amount)) AS total_price
@@ -165,7 +166,7 @@ async function payOrder(req: Request, res: Response) {
       JOIN order_animals ON order_animals.orders_id = orders.id
       JOIN animals ON animals.id = order_animals.animals_id
       WHERE orders.orders_status ='not pay yet' AND orders.users_id = $1
-    GROUP BY remarks, distance_km,pick_up_date_time,pick_up_address,deliver_address`,
+    GROUP BY remarks, distance_km,pick_up_date_time,pick_up_address,deliver_address,orders.id`,
       [users_id]
     );
     console.log(orderToPay.rows[0]);
@@ -179,11 +180,15 @@ async function payOrder(req: Request, res: Response) {
 async function confirmOrder(req: Request, res: Response) {
   try {
     const users_id = req.session.users_id!;
+    const orderId = req.body.orderId;
+    console.log("userId: ", users_id, "| orderid: ", orderId);
+
     const confirmOrderResult = await dbClient.query(
       /*sql*/
       `UPDATE orders SET orders_status = 'pending'
-      WHERE orders_status ='not pay yet' AND users_id = $1`,
-      [users_id]
+      WHERE id = $1 AND users_id = $2
+      RETURNING id`,
+      [orderId, users_id]
     );
     console.log(confirmOrderResult.rows[0]);
     res.status(200).json({ message: "paid" });
