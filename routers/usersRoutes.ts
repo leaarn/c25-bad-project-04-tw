@@ -7,11 +7,11 @@ import express from "express";
 import { logger } from "../utils/logger";
 import { body, validationResult } from "express-validator";
 
-export const usersAuthRoutes = express.Router();
+export const usersRoutes = express.Router();
 
-usersAuthRoutes.post("/", login);
-usersAuthRoutes.get("/google", loginGoogle);
-usersAuthRoutes.post(
+usersRoutes.post("/", login);
+usersRoutes.get("/google", loginGoogle);
+usersRoutes.post(
   "/createaccount",
   body("email").isEmail().withMessage("Invalid Email"),
   body("password")

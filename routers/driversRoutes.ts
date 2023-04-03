@@ -7,10 +7,10 @@ import { hashPassword } from "../utils/hash";
 import { logger } from "../utils/logger";
 import { body, validationResult } from "express-validator";
 
-export const driversAuthRoutes = express.Router();
+export const driversRoutes = express.Router();
 
-driversAuthRoutes.post("/", login);
-driversAuthRoutes.post(
+driversRoutes.post("/", login);
+driversRoutes.post(
   "/createaccount",
   body("email").isEmail().withMessage("Invalid Email"),
   body("password")
