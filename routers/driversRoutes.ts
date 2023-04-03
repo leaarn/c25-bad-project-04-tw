@@ -51,9 +51,7 @@ async function login(req:express.Request, res:express.Response){
     }
     req.session.driverIsLoggedIn = true;
     req.session.drivers_id = foundDriver.id;
-    console.log("session:", req.session.drivers_id);
     req.session.firstName = foundDriver.first_name;
-    console.log("session:", req.session.firstName);
 
     res.json({ message: "login success" });
 

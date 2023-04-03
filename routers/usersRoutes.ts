@@ -33,28 +33,22 @@ async function login(req: express.Request, res: express.Response) {
       res.status(400).json({ message: "missing username or password!" });
       return;
     }
-
     const queryResult = await dbClient.query<usersLogin>(
       /*SQL*/ `SELECT id, first_name, email, password FROM users WHERE email = $1 `,
       [usersEmail]
     );
-
     const foundUser = queryResult.rows[0];
-
     if (!foundUser) {
       res.status(400).json({ message: "invalid username " });
       return;
     }
-
     if (!(await checkPassword(password, foundUser.password))) {
       res.status(400).json({ message: "invalid password" });
       return;
     }
     req.session.userIsLoggedIn = true;
     req.session.users_id = foundUser.id;
-    console.log("session:", req.session.users_id);
     req.session.firstName = foundUser.first_name;
-    console.log("session:", req.session.firstName);
     res.json({ message: "login success" });
   } catch (err: any) {
     logger.error(err.message);
@@ -84,9 +78,8 @@ async function loginGoogle(req: express.Request, res: express.Response) {
         [result.email]
       );
 
-      console.log(queryResult.rows);
       if (!queryResult.rows[0]) {
-        console.log("no such user,create one ");
+        logger.error("no such user,create one ");
 
         const tempPass = crypto.randomBytes(20).toString("hex");
         const hashedPassword = await hashPassword(tempPass);
@@ -95,17 +88,18 @@ async function loginGoogle(req: express.Request, res: express.Response) {
           [result.email, hashedPassword]
         );
       }
+      req.session.users_id = queryResult.rows[0].id;
     }
 
     if (req.session["loginType"] === "driver") {
       const queryResult = await dbClient.query(
-        /*SQL*/ `SELECT id, first_name, email FROM users WHERE email = $1 `,
+        /*SQL*/ `SELECT id, first_name, email FROM drivers WHERE email = $1 `,
         [result.email]
       );
 
       console.log(queryResult.rows);
       if (!queryResult.rows[0]) {
-        console.log("no such driver,create one ");
+        logger.error("no such driver,create one ");
 
         const tempPass = crypto.randomBytes(20).toString("hex");
         const hashedPassword = await hashPassword(tempPass);
@@ -114,6 +108,7 @@ async function loginGoogle(req: express.Request, res: express.Response) {
           [result.email, hashedPassword]
         );
       }
+      req.session.drivers_id = queryResult.rows[0].id;
     }
 
     if (req.session["loginType"] === "user") {
@@ -124,8 +119,6 @@ async function loginGoogle(req: express.Request, res: express.Response) {
       res.status(400).send("Incorrect login type");
       return;
     }
-    req.session.users_id = result.id;
-    req.session.firstName = result.first_name;
 
     if (req.session["loginType"] === "user") {
       res.redirect("/usersMain.html");

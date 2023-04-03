@@ -15,19 +15,19 @@ driversMainRoutes.get("/get-orders/:oid", driverIsLoggedInApi, getAcceptOrders);
 driversMainRoutes.get("/driver-earns/:oid", driverIsLoggedInApi, driverEarns);
 driversMainRoutes.get("/history/", driverIsLoggedInApi, getOrdersHistory);
 driversMainRoutes.get("/history/:oid", driverIsLoggedInApi, getSingleHistory);
-driversMainRoutes.get("/ongoing/:oid", driverIsLoggedInApi, getOngoingOrders);
-driversMainRoutes.put("/get-orders/:oid", driverIsLoggedInApi, confirmAcceptOrder);
+driversMainRoutes.get("/ongoing", driverIsLoggedInApi, getOngoingOrders);
+driversMainRoutes.put("/cfm-orders/:oid", driverIsLoggedInApi, confirmAcceptOrder);
 driversMainRoutes.put("/ongoing/:oid", driverIsLoggedInApi, driverDelivering);
  
 async function getDriverInfo(req: Request, res: Response) {
   try {
-    const driversID = req.session.drivers_id;
+    const driversID = req.session.drivers_id!;
 
     const getDriverNameResult = await dbClient.query<DriversRow>(/*sql*/
       `SELECT first_name FROM drivers WHERE id = $1`, [driversID]
     );
     console.log(getDriverNameResult);
-    res.json(getDriverNameResult.rows); // pass array into res.json()
+    res.json(getDriverNameResult.rows[0]); // pass array into res.json()
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
@@ -50,7 +50,7 @@ async function getDistricts(req: Request, res: Response) {
 async function getAllOrders(req: Request, res: Response) {
   try {
     const getAllOrdersResult = await dbClient.query<OrdersRow>(/*sql*/
-      `SELECT pick_up_district, deliver_district, pick_up_date, pick_up_time, animals.animals_name, order_animals.animals_amount FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending'`
+      `SELECT orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, animals.animals_name, order_animals.animals_amount FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending'`
     );
     console.log(getAllOrdersResult.rows);
     res.json(getAllOrdersResult.rows); // pass array into res.json()
@@ -68,7 +68,8 @@ async function getAcceptOrders(req: Request, res: Response) {
       return;
     }
     const getAcceptOrdersResult = await dbClient.query<OrdersRow>(/*sql*/
-      `SELECT CONCAT(users.title, ' ', users.first_name, ' ', users.last_name) AS user_full_name, 
+      `SELECT orders.id,
+      CONCAT(users.title, ' ', users.first_name, ' ', users.last_name) AS user_full_name, 
       users.contact_num, 
       CONCAT(pick_up_date, ' ', pick_up_time) AS pick_up_date_time, 
       CONCAT(pick_up_room, ' ', pick_up_floor, ' ', pick_up_building, ' ', pick_up_street, ' ', pick_up_district) AS pick_up_address, 
@@ -81,7 +82,7 @@ async function getAcceptOrders(req: Request, res: Response) {
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id
       WHERE orders_status = 'pending' AND orders.id = $1
-      GROUP BY user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks, orders_status
+      GROUP BY orders.id, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks, orders_status
       `, [ordersId]
     );
     console.log(getAcceptOrdersResult.rows);
