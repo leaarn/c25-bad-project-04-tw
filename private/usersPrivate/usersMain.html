@@ -1,4 +1,4 @@
-<!-- 用戶落單版面 -->
+                           <!-- 用戶落單版面 -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="sweetalert2.min.css" />
     <!-- my css -->
     <link rel="stylesheet" href="./css/createorder.css" />
+    <link rel="stylesheet" href="./css/navbar.css" />
     <title>UserMain</title>
   </head>
   <body>
@@ -33,21 +34,22 @@
 
       <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
         <div class="offcanvas-header">
-          <img class="logo offcanvas-title" id="offcanvasMenuLabel" src="../assets/LOGO.png" alt="logo" />
+          <img class="logo offcanvas-title" id="offcanvasMenuLabel" src="../assets/LOGO.png" href="/" alt="logo" />
           <i class="bi bi-x-lg" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></i>
         </div>
         <div class="offcanvas-body">
           <div class="menu_content">
-            <a class="menu_items" href="">建立訂單</a>
-            <a class="menu_items" href="">歷史訂單</a>
-            <a class="menu_items" href="">實時訂單狀態</a>
+            <a class="menu_items" href="./usersMain.html">建立訂單</a>
+            <a class="menu_items" href="./userhistoryorder.html">歷史訂單</a>
+            <a class="menu_items" href="./allorderstatus.html">實時訂單狀態</a>
           </div>
           <div class="logout">
-            <button class="user_logout">登出</button>
+            <button class="driver_logout">登出</button>
           </div>
         </div>
       </div>
       <img class="logo" src="../assets/LOGO.png" alt="logo" />
+      <div class="empty"></div>
     </div>
 
     <!-- user div  not yet-->

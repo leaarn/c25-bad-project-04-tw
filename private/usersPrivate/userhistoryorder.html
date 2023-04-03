@@ -1,5 +1,4 @@
-<!-- history -->
-
+                            <!-- /己完成訂單 -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,17 +6,62 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+    <!-- nav bar css -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
+    <!-- sweet alert css -->
     <link rel="stylesheet" href="sweetalert2.min.css" />
+    <!-- my css -->
+    <link rel="stylesheet" href="./css/navbar.css" />
     <title>Document</title>
   </head>
   <body>
-    <script src="./js/ordertopay.js"></script>
+    <div class="navbar">
+      <button
+        class="menu_btn"
+        data-bs-toggle="offcanvas"
+        href="#offcanvasMenu"
+        role="button"
+        aria-controls="offcanvasMenu"
+      >
+        <i class="bi bi-list"></i>
+      </button>
+
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+        <div class="offcanvas-header">
+          <img class="logo offcanvas-title" id="offcanvasMenuLabel" src="../assets/LOGO.png" href="/" alt="logo" />
+          <i class="bi bi-x-lg" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></i>
+        </div>
+        <div class="offcanvas-body">
+          <div class="menu_content">
+            <a class="menu_items" href="./usersMain.html">建立訂單</a>
+            <a class="menu_items" href="./userhistoryorder.html">歷史訂單</a>
+            <a class="menu_items" href="./allorderstatus.html">實時訂單狀態</a>
+          </div>
+          <div class="logout">
+            <button class="driver_logout">登出</button>
+          </div>
+        </div>
+      </div>
+      <img class="logo" src="../assets/LOGO.png" alt="logo" />
+      <div class="empty"></div>
+    </div>
+
+
+
+    <!-- my js -->
+    <script src="./js/userhistoryorder.js"></script>
+    <!-- nav bar js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
+      crossorigin="anonymous"
+    ></script>
+    <!-- sweetalart js -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>

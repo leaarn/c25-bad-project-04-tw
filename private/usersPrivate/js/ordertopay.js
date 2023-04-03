@@ -39,8 +39,11 @@ async function loadOrderToPay() {
   document.querySelector(".total-price").innerHTML = htmlstr2;
 }
 
+
+
 async function confirmToPay() {
   document.querySelector(".pay-btn").addEventListener("click", async () => {
+    ////err:fetch but status not change????
     const resp = await fetch("/users/confirm");
 
     if ((resp.status = 200)) {
