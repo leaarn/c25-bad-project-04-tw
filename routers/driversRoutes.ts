@@ -11,7 +11,7 @@ export const driversAuthRoutes = express.Router();
 
 driversAuthRoutes.post("/", login);
 driversAuthRoutes.post(
-  "/createAccount",
+  "/createaccount",
   body("email").isEmail().withMessage("Invalid Email"),
   body("password")
     .isStrongPassword({

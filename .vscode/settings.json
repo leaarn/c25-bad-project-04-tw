@@ -20,5 +20,11 @@
       "username": "postgres",
       "password": "postgres"
     }
+  ],
+  "cSpell.words": [
+    "createaccount",
+    "driverslogin",
+    "receivertoken",
+    "userslogin"
   ]
 }

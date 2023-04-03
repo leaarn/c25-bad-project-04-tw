@@ -12,7 +12,7 @@ export const usersAuthRoutes = express.Router();
 usersAuthRoutes.post("/", login);
 usersAuthRoutes.get("/google", loginGoogle);
 usersAuthRoutes.post(
-  "/createAccount",
+  "/createaccount",
   body("email").isEmail().withMessage("Invalid Email"),
   body("password")
     .isStrongPassword({

@@ -16,7 +16,7 @@ form.addEventListener("submit", async (e) => {
     const carLicenseNum = form.newDriverCarLicenseNum.value;
     const carType = form.newDriverCarType.value;
 
-    const resp = await fetch("/driversLogin/createAccount", {
+    const resp = await fetch("/driverslogin/createaccount", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -38,7 +38,7 @@ form.addEventListener("submit", async (e) => {
       //   }),
     });
     if (resp.status === 200) {
-      window.location = "../driversLogin.html";
+      window.location = "/driversLogin.html";
     } else {
       const data = await resp.json();
       alert(data.message);

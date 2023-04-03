@@ -20,7 +20,7 @@ function createUsers() {
     const pickUpBuilding = form.pickUpBuilding.value;
     const pickUpStreet = form.pickUpStreet.value;
 
-    const resp = await fetch("/usersLogin/createAccount", {
+    const resp = await fetch("/userslogin/createAccount", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -38,7 +38,7 @@ function createUsers() {
       }),
     });
     if (resp.status === 200) {
-      window.location = "./usersLogin.html";
+      window.location = "/usersLogin.html";
     } else {
       const data = await resp.json();
       alert(data.message);
