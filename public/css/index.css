@@ -22,12 +22,10 @@ body {
   background-color: rgb(255, 227, 155);
   border: 0;
   border-radius: 5px;
-  width: 15vw;
-  height: 5vh;
   color: rgb(255, 157, 29);
   padding: 5px 15px;
   margin-top: 10px;
-  font-size: 1vw;
+  font-size: 3vw;
   font-weight: bold;
 }
 
