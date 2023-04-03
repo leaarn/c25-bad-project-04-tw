@@ -20,7 +20,7 @@ async function showDriverInfo() {
   let htmlStr = `<i class="bi bi-person-circle"></i>
       <div class="driver-details">
         <p class="driver-name"><b>Hi, ${driverInfo.first_name}</b></p>
-        <p class="role">Driver</p>
+        <p class="role">司機</p>
       </div>`;
 
   document.querySelector(".driver-info").innerHTML = htmlStr;
@@ -59,24 +59,43 @@ async function showAllOrders() {
   console.log("all orders", allOrders);
 
   for (let i = 0; i < allOrders.length; i++) {
+    let animalDetails = ``;
+    if (Array.isArray(allOrders[i].animals_name)) {
+      for (let j = 0; j < allOrders[i].animals_name.length; j++) {
+        animalDetails +=
+          allOrders[i].animals_name[i] +
+          " X " +
+          allOrders[i].animals_amount[i] +
+          " ";
+      }
+    } else {
+      animalDetails +=
+          allOrders[i].animals_name +
+          " X " +
+          allOrders[i].animals_amount +
+          " ";
+    }
+
     const acceptBtn = `<button class="accept-order" onClick="acceptOrdersDetail(${allOrders[i].id})">接單</button>`;
-    const dateStr = new Date(allOrders[i].pick_up_date).toDateString()
+    const dateStr = new Date(allOrders[i].pick_up_date).toDateString();
     let htmlStr = `
-    <div class="single_order">
-      <p class="order-text">FROM</p>
-      <div class="pick_up_district_time">
-        <div class="pick_up_district">${allOrders[i].pick_up_district}</div>
-        <div class="pick_up_time">${dateStr} ${allOrders[i].pick_up_time}</div>
+      <div class="single_order">
+        <div>
+          <p class="order-text">FROM</p>
+          <div class="pick_up_district_time">
+            <div class="pick_up_district">${allOrders[i].pick_up_district}</div>
+            <div class="pick_up_time">${dateStr} ${allOrders[i].pick_up_time}</div>
+          </div>
+          <p class="order-text">TO</p>
+          <div class="deli_district_animal">
+            <div class="deli_district">${allOrders[i].deliver_district}</div>
+            <div class="animal">${animalDetails}</div>
+          </div>
+        </div>
+        ${acceptBtn}
       </div>
-      <p class="order-text">TO</p>
-      <div class="deli_district_animal">
-        <div class="deli_district">${allOrders[i].deliver_district}</div>
-        <div class="animal">${allOrders[i].animals_name} ${allOrders[i].animals_amount}</div>
-      </div>
-      ${acceptBtn}
-    </div>
-  `;
-    document.querySelector(".orders").innerHTML += htmlStr;
+      `;
+    document.querySelector("#all_orders").innerHTML += htmlStr;
   }
 }
 
