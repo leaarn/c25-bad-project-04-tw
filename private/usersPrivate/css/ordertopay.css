@@ -60,7 +60,8 @@ body {
   font-size: 2vw;
 }
 
-.user_logout {
+.user_logout,
+.pay-btn {
   background-color: rgb(255, 227, 155);
   border: 0;
   border-radius: 15px;

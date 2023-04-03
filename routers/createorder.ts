@@ -6,9 +6,13 @@ import { logger } from "../utils/logger";
 // import { logger } from "../utils/logger";
 
 export const usersMainRoutes = express.Router();
+//create
 usersMainRoutes.post("/createorder", createOrder);
+//pay
 usersMainRoutes.get("/payorder", payOrder);
+// change status from not pay yet to pending
 usersMainRoutes.get("/confirm", confirmOrder);
+
 // usersMainRoutes.get("/orderStatus",  orderStatus);
 // usersMainRoutes.get("/orderStatusDetails/:oid",  orderStatusDetails);
 // usersMainRoutes.get("/history",  historyOrders);
