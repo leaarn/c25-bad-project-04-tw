@@ -2,7 +2,7 @@ window.onload = () => {
     initUsersLoginForm();
 }
 
-const member_create = document.querySelector(".member_create");
+const member_create = document.querySelector("#member_create");
 
 function initUsersLoginForm() {
   const form = document.querySelector("#users-login-form");
