@@ -3,10 +3,12 @@ import dotenv from "dotenv";
 import { dbClient } from "../app";
 import { sendMessage, getTextMessageInput } from "./messageHelper";
 import { OrdersRow } from "../model";
+import { logger } from "../utils/logger";
 dotenv.config();
 
 export const receiverRoutes = express.Router();
 receiverRoutes.post("/", message);
+receiverRoutes.post("/token", checkToken);
 
 async function message(req: express.Request, res: express.Response) {
   try {
@@ -40,3 +42,35 @@ async function message(req: express.Request, res: express.Response) {
     res.status(500).json({ message: "internal server error" });
   }
 }
+
+async function checkToken(req: express.Request, res: express.Response) {
+  try {
+    const token: string = req.body.token;
+    const queryResult = await dbClient.query<OrdersRow>(
+      /*SQL*/ `SELECT id, token FROM orders WHERE orders.users_id = $1 `,
+      [req.session.users_id]
+    );
+    const receiveStatus = await dbClient.query<OrdersRow>(
+      /*SQL*/ `UPDATE orders SET orders_status = 'receiver received' WHERE orders_status = 'driver delivering'WHERE orders.users_id = $1 `,
+      [req.session.users_id]
+    );
+
+    const foundToken = queryResult.rows[0];
+
+    if (!token) {
+      res.status(400).json({ message: "missing token!" });
+      return;
+    }
+    if (!foundToken) {
+      res.status(400).json({ message: "invalid token! " });
+      return;
+    } else {
+      res.json(receiveStatus.rows[0]);
+      res.status(200).json({ message: "Token match!" });
+    }
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
+

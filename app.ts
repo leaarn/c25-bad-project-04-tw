@@ -61,20 +61,20 @@ app.use((req, _res, next) => {
 });
 
 // Section 2: Route Handlers
-import { authRoutes } from "./routers/authRoutes";
-import { usersAuthRoutes } from "./routers/usersRoutes";
-import { driversAuthRoutes } from "./routers/driversRoutes";
+import { authRoutes } from "./routers/authroutes";
+import { usersAuthRoutes } from "./routers/usersroutes";
+import { driversAuthRoutes } from "./routers/driversroutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
-import { usersMainRoutes } from "./routers/createOrder";
+import { usersMainRoutes } from "./routers/createorder";
 import { driverIsLoggedInApi, userIsLoggedInApi } from "./utils/guard";
-import { receiverRoutes } from "./routers/receiversRoutes";
+import { receiverRoutes } from "./routers/receiversroutes";
 
 app.use("/login", authRoutes);
-app.use("/usersLogin", usersAuthRoutes);
-app.use("/driversLogin", driversAuthRoutes);
+app.use("/userslogin", usersAuthRoutes);
+app.use("/driverslogin", driversAuthRoutes);
 app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
 app.use("/usersMain", userIsLoggedInApi, usersMainRoutes);
-app.use("/receiverToken", receiverRoutes);
+app.use("/receivertoken", receiverRoutes);
 
 // Section 3: Serve
 app.use(express.static(path.join(__dirname, "public")));

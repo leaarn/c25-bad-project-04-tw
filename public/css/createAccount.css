@@ -1,3 +1,4 @@
+@media only screen and (max-width: 768px) {
 body {
   background-color: rgb(255, 251, 240);
 }
@@ -75,4 +76,4 @@ input {
   position: absolute;
   left: 30%;
 }
-
+}

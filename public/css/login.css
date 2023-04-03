@@ -4,20 +4,19 @@ body {
 
 .content {
   font-size: large;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   margin: 0;
   position: absolute;
   top: 10%;
-  left: 12%;
+  left: 10%;
   padding: 20px;
 }
 
 .login-container {
   text-align: center;
-  width: 250px;
-  height: 270px;
+  width: 70vw;
+  height: 35vh;
   background-color:  rgba(253, 233, 183, 0.459);
   border-radius: 5px;
 }
@@ -59,15 +58,14 @@ input {
   background-color: rgb(255, 227, 155);
   border: 0;
   border-radius: 5px;
-  width: 200px;
-  height: 30px;
+  width: 55vw;
+  height: 4vh;
   color: rgb(255, 157, 29);
-
   margin-top: 10px;
   font-size: 3vw;
   font-weight: bold;
 }
-#users-login-form{
+#users-login-form, #drivers-login-form{
     margin-bottom: 10px;
 }
 
@@ -76,8 +74,8 @@ input {
   background-color: rgb(255, 157, 29);
   border: 0;
   border-radius: 5px;
-width: 200px;
-  height: 30px;
+  width: 55vw;
+  height: 4vh;;
   color: rgb(255, 227, 155);
   margin: 10px 0;
   font-size: 3vw;
@@ -87,10 +85,9 @@ width: 200px;
 .logo {
   width: 25vw;
   position: absolute;
-  left: 30%;
+  left: 29%;
 }
 
 .login {
-  display: flex;
   flex-direction: column;
 }
