@@ -13,7 +13,7 @@ receiverRoutes.post("/token", checkToken);
 async function message(req: express.Request, res: express.Response) {
   try {
     const usersId = req.session.users_id;
-
+    
     const result = await dbClient.query<OrdersRow>(
       /*SQL*/ `SELECT receiver_contact FROM orders WHERE users_id = $1 `,
       [usersId]
