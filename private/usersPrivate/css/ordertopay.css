@@ -4,8 +4,6 @@ body {
 
 .navbar {
   background-color: rgb(255, 245, 219);
-  display: flex;
-  justify-content: space-around;
 }
 
 .menu_btn {
@@ -23,9 +21,12 @@ body {
 }
 
 .logo {
-  width: 25vw;
-  position: absolute;
-  left: 35%;
+  width: 17vw;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
 }
 
 #offcanvasMenu {
@@ -44,7 +45,8 @@ body {
   flex-grow: 0;
 }
 
-.menu_items {
+.menu_items,
+.menu_subitems {
   text-align: center;
   color: rgb(255, 157, 29);
 }
@@ -52,4 +54,18 @@ body {
 .menu_items {
   font-size: 3vw;
   margin-top: 50px;
+}
+
+.menu_subitems {
+  font-size: 2vw;
+}
+
+.user_logout {
+  background-color: rgb(255, 227, 155);
+  border: 0;
+  border-radius: 15px;
+  color: rgb(255, 157, 29);
+  margin: 10px 0;
+  padding: 8px;
+  font-size: 3vw;
 }
