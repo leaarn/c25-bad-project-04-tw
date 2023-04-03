@@ -19,7 +19,7 @@ async function showDriverInfo() {
 
   let htmlStr = `<i class="bi bi-person-circle"></i>
       <div class="driver-details">
-        <p class="driver-name">Hi, ${driverInfo.first_name}</p>
+        <p class="driver-name"><b>Hi, ${driverInfo.first_name}</b></p>
         <p class="role">Driver</p>
       </div>`;
 
@@ -59,13 +59,14 @@ async function showAllOrders() {
   console.log("all orders", allOrders);
 
   for (let i = 0; i < allOrders.length; i++) {
-    const acceptBtn = `<button class="accept-order" onClick="confirmAcceptOrder(${allOrders[i].orders_id})">接單</button>`;
+    const acceptBtn = `<button class="accept-order" onClick="acceptOrdersDetail(${allOrders[i].orders_id})">接單</button>`;
+    const dateStr = new Date(allOrders[i].pick_up_date).toDateString()
     let htmlStr = `
     <div class="single_order">
       <p class="order-text">FROM</p>
       <div class="pick_up_district_time">
         <div class="pick_up_district">${allOrders[i].pick_up_district}</div>
-        <div class="pick_up_time">${allOrders[i].pick_up_date} ${allOrders[i].pick_up_time}</div>
+        <div class="pick_up_time">${dateStr} ${allOrders[i].pick_up_time}</div>
       </div>
       <p class="order-text">TO</p>
       <div class="deli_district_animal">
@@ -79,6 +80,6 @@ async function showAllOrders() {
   }
 }
 
-async function confirmAcceptOrder(id) {
+async function acceptOrdersDetail(id) {
   window.location = `/driversAcceptOrder.html?oid=${id}`;
 }
