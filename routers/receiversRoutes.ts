@@ -13,7 +13,7 @@ receiverRoutes.post("/token", checkToken);
 async function message(req: express.Request, res: express.Response) {
   try {
     const usersId = req.session.users_id;
-    
+
     const result = await dbClient.query<OrdersRow>(
       /*SQL*/ `SELECT receiver_contact FROM orders WHERE users_id = $1 `,
       [usersId]
@@ -51,7 +51,7 @@ async function checkToken(req: express.Request, res: express.Response) {
       [req.session.users_id]
     );
     const receiveStatus = await dbClient.query<OrdersRow>(
-      /*SQL*/ `UPDATE orders SET orders_status = 'receiver received' WHERE orders_status = 'driver delivering'WHERE orders.users_id = $1 `,
+      /*SQL*/ `UPDATE orders SET orders_status = 'receiver received' WHERE orders_status = 'driver delivering' AND orders.users_id = $1 `,
       [req.session.users_id]
     );
 
@@ -65,8 +65,8 @@ async function checkToken(req: express.Request, res: express.Response) {
       res.status(400).json({ message: "invalid token! " });
       return;
     } else {
-      res.json(receiveStatus.rows[0]);
-      res.status(200).json({ message: "Token match!" });
+      res.status(200).json(receiveStatus.rows[0]);
+      // res.status(200).json({ message: "Token match!" });
     }
   } catch (err: any) {
     logger.error(err.message);
