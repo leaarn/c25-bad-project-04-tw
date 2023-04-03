@@ -1,12 +1,12 @@
 body {
   background-color: rgb(255, 251, 240);
+  display: flex;
 }
 
 .content {
   font-size: large;
   flex-direction: column;
   justify-content: center;
-  margin: 0;
   position: absolute;
   top: 10%;
   left: 10%;
@@ -51,6 +51,8 @@ textarea:focus, input:focus {
 input {
   border-radius: 1px;
   border: 1px solid rgb(255, 157, 29);
+    width: 55vw;
+  height: 4vh;
 }
 
 .member_login,
