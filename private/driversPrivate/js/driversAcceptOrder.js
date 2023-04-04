@@ -6,10 +6,6 @@ window.onload = async () => {
   }
   toAcceptOrder(urlSearchParams.get("oid"));
   driverEarns(urlSearchParams.get("oid"));
-  let ongoingBtn = document.querySelector("#to_ongoing_orders");
-  ongoingBtn.addEventListener("click", showOngoingOrders);
-  let historyBtn = document.querySelector("#to_order_history");
-  historyBtn.addEventListener("click", showHistoryOrders);
 };
 
 async function toAcceptOrder(id) {
@@ -18,14 +14,16 @@ async function toAcceptOrder(id) {
   const acceptOrder = await resp.json();
   console.log("accept orders", acceptOrder);
 
-  for (let i = 0; i < acceptOrder.animals_name.length; i++) {
+  
     let animalDetails = ``;
-    if (Array.isArray(acceptOrder.animals_name[i])) {
+    if (Array.isArray(acceptOrder.animals_name)) {
+      for (let i = 0; i < acceptOrder.animals_name.length; i++) {
       animalDetails +=
         acceptOrder.animals_name[i] +
         " X " +
         acceptOrder.animals_amount[i] +
         " ";
+      }
     } else {
       animalDetails +=
         acceptOrder.animals_name + " X " + acceptOrder.animals_amount + " ";
@@ -43,7 +41,7 @@ async function toAcceptOrder(id) {
       <button class="cfm-accept-order" onClick="confirmAcceptOrder(${acceptOrder.id})">確認接單</button>
   `;
     document.querySelector(".confirm_order").innerHTML = htmlStr;
-  }
+
 }
 
 async function driverEarns(id) {
@@ -85,12 +83,4 @@ async function confirmAcceptOrder(id) {
     window.location = `/driverSuccess.html?oid=${id}`;
   }
   
-}
-
-async function showOngoingOrders() {
-  window.location = "/driverOngoing.html"
-}
-
-async function showHistoryOrders() {
-  window.location = "/driverHistory.html"
 }

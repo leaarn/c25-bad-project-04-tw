@@ -1,9 +1,5 @@
 window.onload = async () => {
   showOngoingOrder();
-  let ongoingBtn = document.querySelector("#to_ongoing_orders");
-  ongoingBtn.addEventListener("click", showOngoingOrders);
-  let historyBtn = document.querySelector("#to_order_history");
-  historyBtn.addEventListener("click", showHistoryOrders);
 };
 
 // async function toAcceptOrder(id) {
@@ -80,11 +76,3 @@ window.onload = async () => {
 //   }
   
 // }
-
-async function showOngoingOrders() {
-  window.location = "/driverOngoing.html"
-}
-
-async function showHistoryOrders() {
-  window.location = "/driverHistory.html"
-}

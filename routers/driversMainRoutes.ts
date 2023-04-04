@@ -50,7 +50,14 @@ async function getDistricts(_req: Request, res: Response) {
 async function getAllOrders(_req: Request, res: Response) {
   try {
     const getAllOrdersResult = await dbClient.query<OrdersRow>(/*sql*/
-      `SELECT orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, animals.animals_name, order_animals.animals_amount, orders_status FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending'`
+      `SELECT orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, 
+      json_agg(animals.animals_name) AS animals_name, 
+      json_agg(order_animals.animals_amount) AS animals_amount, 
+      orders_status 
+      FROM orders 
+      JOIN order_animals ON order_animals.orders_id = orders.id 
+      JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending'
+      GROUP BY orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, orders_status`
     );
     console.log(getAllOrdersResult.rows);
     res.json(getAllOrdersResult.rows); // pass array into res.json()
@@ -103,13 +110,13 @@ async function driverEarns (req: Request, res: Response) {
     }
     const driverEarnsResult = await dbClient.query<OrdersRow>(/*sql*/
       `SELECT distance_km, 
-      SUM(distance_km * distance_price) AS distance_total_price, 
+      max(distance_km * distance_price) AS distance_total_price, 
       json_agg(animals.animals_name) AS animals_name,
       json_agg(order_animals.animals_amount) AS animals_amount,
       SUM(order_animals.animals_history_price * order_animals.animals_amount) AS animals_total_price, 
-      SUM(distance_km * distance_price + order_animals.animals_history_price * order_animals.animals_amount) AS total_price,
-      SUM((distance_km * distance_price + order_animals.animals_history_price * order_animals.animals_amount) * 0.2) AS platform_fee,
-      SUM((distance_km * distance_price + order_animals.animals_history_price * order_animals.animals_amount) - ((distance_km * distance_price + order_animals.animals_history_price * order_animals.animals_amount) * 0.2)) AS driver_earns
+      max(distance_km * distance_price) + SUM(order_animals.animals_history_price * order_animals.animals_amount) AS total_price,
+      (max(distance_km * distance_price) + SUM(order_animals.animals_history_price * order_animals.animals_amount)) * 0.2 AS platform_fee,
+      max(distance_km * distance_price) + SUM(order_animals.animals_history_price * order_animals.animals_amount) - ((max(distance_km * distance_price) + SUM(order_animals.animals_history_price * order_animals.animals_amount)) * 0.2) AS driver_earns
       FROM orders 
       JOIN users ON orders.users_id = users.id
       JOIN order_animals ON order_animals.orders_id = orders.id 
@@ -227,9 +234,9 @@ async function confirmAcceptOrder(req: Request, res: Response) {
       return;
     }
     const confirmAcceptOrderResult = await dbClient.query<OrdersRow>(/*sql*/
-      `UPDATE orders SET orders_status = 'driver accepts'
-      WHERE orders_status = 'pending' AND orders.id = $1 AND drivers_id = $2
-      `, [ordersId, driversID]
+      `UPDATE orders SET orders_status = 'driver accepts', drivers_id = $1
+      WHERE orders_status = 'pending' AND orders.id = $2 
+      `, [driversID, ordersId]
     );
     console.log(confirmAcceptOrderResult.rows);
     res.json(confirmAcceptOrderResult.rows); // pass array into res.json()
