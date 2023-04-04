@@ -1,13 +1,10 @@
-window.onload = async () => {
+window.onload= () => {
   showOngoingOrder();
-  deliveringStatus(urlSearchParams.get("oid"))
 };
 
 async function showOngoingOrder() {
-  console.log("ongoing orders");
   const resp = await fetch(`/driversMain/ongoing`);
   const ongoingOrder = await resp.json();
-  console.log("ongoing orders", ongoingOrder);
 
   for (let i = 0; i < ongoingOrder.length; i++) {
     let animalDetails = ``;
@@ -23,8 +20,7 @@ async function showOngoingOrder() {
       animalDetails +=
         ongoingOrder.animals_name + " X " + ongoingOrder.animals_amount + " ";
     }
-    if (ongoingOrder.orders_status === 'driver accepts'){
-      
+    if (ongoingOrder.orders_status === "driver accepts") {
     }
     let htmlStr = `
       <div class="confirm_order_text">
@@ -36,30 +32,32 @@ async function showOngoingOrder() {
       <p>送貨地址: ${ongoingOrder[i].deliver_address} </p>
       <p>動物: ${animalDetails} </p>
       <p>備註: ${ongoingOrder[i].remarks}</p>
-      <button class="cfm-change-status" onClick="deliveringStatus(${ongoingOrder[i].id})">確認接貨</button>
+      <button class="cfm-change-status" order-id="${ongoingOrder[i].id}">${
+      ongoingOrder[i].orders_status == "driver delivering"
+        ? "已接貨"
+        : "確認接貨"
+    }</button>
       </div>
   `;
     document.querySelector(".ongoing_each").innerHTML += htmlStr;
+    document.querySelectorAll(".cfm-change-status").forEach((button) => {
+      button.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const orderId = e.target.getAttribute("order-id");
+        const resp = await fetch(`/driversMain/ongoing/${orderId}`, {
+          method: "PUT",
+        });
+        if (resp.status == 200) {
+          let result = confirm("你確定嗎？");
+          if (result) {
+            alert("確認已接貨！");
+            button.innerHTML = "已接貨";
+          } else {
+            alert("尚未接貨！");
+          }
+        }
+      });
+    });
   }
 }
 
-
-let changeStatus = false
-async function deliveringStatus(id) {
-  const resp = await fetch(`/driversMain/ongoing/${id}`, { method: "PUT" });
-  
-  if (resp.status == 200) {
-    let result = confirm("你確定嗎？")
-    if (result) {
-      alert("確認已接貨！")
-      changeStatus = true
-      let changeStatusBtn = document.querySelector(".cfm-change-status")
-      changeStatusBtn.innerHTML = "已接貨"
-      changeStatus = false
-    } else {
-      alert("尚未接貨！")
-    }
-    // window.location = "./driversOngoing.html"
-  }
-
-}

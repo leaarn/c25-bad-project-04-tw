@@ -3,9 +3,9 @@ window.onload = () => {
   createDrivers();
 };
 function createDrivers() {
-const form = document.querySelector("#create-drivers");
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+  const form = document.querySelector("#create-drivers");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
     const lastName = form.newDriverLastName.value;
     const firstName = form.newDriverFirstName.value;
     const title = form.newDriverTitle.value;
@@ -42,4 +42,6 @@ form.addEventListener("submit", async (e) => {
       const data = await resp.json();
       alert(data.message);
     }
-  });}
+  });
+}
+

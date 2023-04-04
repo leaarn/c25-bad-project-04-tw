@@ -1,3 +1,4 @@
+// 未付款
 window.onload = () => {
   loadOrderToPay();
   confirmToPay();

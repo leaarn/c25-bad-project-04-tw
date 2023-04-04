@@ -2,7 +2,7 @@ import { dbClient } from "./../app";
 import type { Request, Response } from "express";
 import express from "express";
 import { logger } from "../utils/logger";
-// import { userIsLoggedInApi } from "../utils/guard";
+// import { DriversRow } from "../model";
 // import { logger } from "../utils/logger";
 
 export const usersMainRoutes = express.Router();
@@ -15,9 +15,9 @@ usersMainRoutes.put("/confirm", confirmOrder);
 //show all orders that not complete
 usersMainRoutes.get("/orderstatus", orderStatus);
 //each order details 查看你的司機資訊及位置
-// usersMainRoutes.get("/orderStatusDetails/:oid",  orderStatusDetails);
-// usersMainRoutes.get("/history",  historyOrders);
-// usersMainRoutes.get("/history/:oid",  historyOrderDetails);
+usersMainRoutes.get("/orderstatus/:oid", orderStatusDetails);
+usersMainRoutes.get("/history", historyOrders);
+usersMainRoutes.get("/history/:oid", historyOrderDetails);
 
 ////create order
 async function createOrder(req: Request, res: Response) {
@@ -149,7 +149,7 @@ async function createOrder(req: Request, res: Response) {
 
 async function payOrder(req: Request, res: Response) {
   try {
-    const users_id = req.session.users_id!;
+    const usersId = req.session.users_id!;
     const orderToPay = await dbClient.query(
       /*sql*/ `SELECT 
     CONCAT(pick_up_date,' ',pick_up_time) AS pick_up_date_time,
@@ -168,7 +168,7 @@ async function payOrder(req: Request, res: Response) {
       JOIN animals ON animals.id = order_animals.animals_id
       WHERE orders.orders_status ='not pay yet' AND orders.users_id = $1
     GROUP BY remarks, distance_km,pick_up_date_time,pick_up_address,deliver_address,orders.id`,
-      [users_id]
+      [usersId]
     );
     console.log("here is not pay yet", orderToPay.rows[0]);
     res.status(200).json(orderToPay.rows[0]);
@@ -213,12 +213,15 @@ async function orderStatus(req: Request, res: Response) {
   json_agg(animals.animals_name) AS animals_name,
   json_agg(order_animals.animals_amount) AS animals_amount,
   remarks,
-  orders_status
+  orders_status,
+  orders.drivers_id
   FROM orders
   JOIN
   order_animals ON order_animals.orders_id = orders.id
   JOIN
   animals ON animals.id = order_animals.animals_id
+  LEFT JOIN
+  drivers ON drivers.id =orders.drivers_id    
   WHERE
   orders_status NOT LIKE 'complete%'
   AND
@@ -226,7 +229,7 @@ async function orderStatus(req: Request, res: Response) {
   AND 
   orders.users_id = $1
   GROUP BY
-  orders.id,created_at,remarks,orders_status
+  orders.id,created_at,remarks,orders_status,orders.drivers_id
   ORDER BY
   created_at 
   `,
@@ -240,20 +243,104 @@ async function orderStatus(req: Request, res: Response) {
   }
 }
 
-// async function orderStatusDetails(req: Request, res: Response) {
-//   try{
-//     const
-//   }
-// }
+async function orderStatusDetails(req: Request, res: Response) {
+  try {
+    const usersId = req.session.users_id!;
+    const orderId = +req.params.oid;
+    console.log(orderId);
+    if (isNaN(orderId)) {
+      res.status(400).json({ message: "invalid order id" });
+      return;
+    }
 
-// async function historyOrders(req: Request, res: Response) {
-//   try{
-//     const
-//   }
-// }
+    const resultQuery = await dbClient.query(
+      /*sql*/ `
+    SELECT 
+  CONCAT(drivers.title,' ',drivers.first_name,' ',drivers.last_name) AS full_name,
+  drivers.contact_num,
+  drivers.car_license_num 
+  FROM drivers
+  JOIN
+  orders ON orders.drivers_id = drivers.id
+  WHERE
+  orders.id = $1 AND orders.users_id =$2`,
+      [orderId, usersId]
+    );
+    res.status(200).json(resultQuery.rows[0]);
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
 
-// async function historyOrderDetails(req: Request, res: Response) {
-//   try{
-//     const
-//   }
-// }
+async function historyOrders(req: Request, res: Response) {
+  try {
+    const usersId = req.session.users_id!;
+    const allCompleteOrders = await dbClient.query(
+      /*sql*/ `
+    SELECT
+  orders.id,
+  reference_code,
+  orders_status,
+  json_agg(animals.animals_name) AS animals_name,
+  json_agg(order_animals.animals_amount) AS animals_amount
+  FROM orders
+  JOIN
+  order_animals ON order_animals.orders_id = orders.id
+  JOIN
+  animals ON animals.id = order_animals.animals_id
+  WHERE
+  orders_status = 'receiver received'
+  AND
+  orders.users_id = $1
+  GROUP BY 
+  orders.id,orders_status,reference_code`,
+      [usersId]
+    );
+    console.log("here is all complete orders", allCompleteOrders.rows);
+    res.status(200).json(allCompleteOrders.rows);
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
+
+async function historyOrderDetails(req: Request, res: Response) {
+  try {
+    const usersId = req.session.users_id!;
+    const orderId = +req.params.oid;
+    const completeOrderDetails = await dbClient.query(
+      /*sql*/ `
+    SELECT 
+  orders.id,
+  reference_code,
+  TO_CHAR(orders.created_at, 'YYYY-MM-DD HH24:MI:SS') AS created_at,orders_status,
+  CONCAT(pick_up_room,' ',pick_up_floor,' ',pick_up_building,' ',pick_up_street,' ',pick_up_district) AS pick_up_address,
+  CONCAT(deliver_room,' ',deliver_floor,' ',deliver_building,' ',deliver_street,' ',deliver_district) AS deliver_address,
+  CONCAT(pick_up_date,' ',pick_up_time) AS pick_up_date_time,
+  json_agg(animals.animals_name) AS animals_name,
+  json_agg(order_animals.animals_amount) AS animals_amount,
+  remarks
+  FROM orders
+  JOIN
+  order_animals ON order_animals.orders_id = orders.id
+  JOIN
+  animals ON animals.id = order_animals.animals_id
+  WHERE
+  orders_status = 'receiver received'
+  AND
+  orders.users_id = $1
+  AND
+  orders.id = $2
+  GROUP BY 
+  orders.id,reference_code,orders_status,remarks
+    `,
+      [usersId, orderId]
+    );
+    console.log("here is complete order details", completeOrderDetails.rows);
+    res.status(200).json(completeOrderDetails.rows);
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
