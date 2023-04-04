@@ -34,7 +34,7 @@ async function getDriverInfo(req: Request, res: Response) {
   }
 }
 
-async function getDistricts(req: Request, res: Response) {
+async function getDistricts(_req: Request, res: Response) {
   try {
     const getDistrictsResult = await dbClient.query<OrdersRow>(/*sql*/
       `SELECT pick_up_district, deliver_district FROM orders WHERE orders_status = 'pending'`
@@ -47,10 +47,10 @@ async function getDistricts(req: Request, res: Response) {
   }
 }
 
-async function getAllOrders(req: Request, res: Response) {
+async function getAllOrders(_req: Request, res: Response) {
   try {
     const getAllOrdersResult = await dbClient.query<OrdersRow>(/*sql*/
-      `SELECT orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, animals.animals_name, order_animals.animals_amount FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending'`
+      `SELECT orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, animals.animals_name, order_animals.animals_amount, orders_status FROM orders JOIN order_animals ON order_animals.orders_id = orders.id JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending'`
     );
     console.log(getAllOrdersResult.rows);
     res.json(getAllOrdersResult.rows); // pass array into res.json()
@@ -71,6 +71,7 @@ async function getAcceptOrders(req: Request, res: Response) {
       `SELECT orders.id,
       CONCAT(users.title, ' ', users.first_name, ' ', users.last_name) AS user_full_name, 
       users.contact_num, 
+      receiver_contact,
       CONCAT(pick_up_date, ' ', pick_up_time) AS pick_up_date_time, 
       CONCAT(pick_up_room, ' ', pick_up_floor, ' ', pick_up_building, ' ', pick_up_street, ' ', pick_up_district) AS pick_up_address, 
       CONCAT(deliver_room, ' ', deliver_floor, ' ', deliver_building, ' ', deliver_street, ' ', deliver_district) AS deliver_address, 
@@ -82,7 +83,7 @@ async function getAcceptOrders(req: Request, res: Response) {
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id
       WHERE orders_status = 'pending' AND orders.id = $1
-      GROUP BY orders.id, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks, orders_status
+      GROUP BY orders.id, user_full_name, receiver_contact, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks, orders_status
       `, [ordersId]
     );
     console.log(getAcceptOrdersResult.rows);
@@ -164,11 +165,11 @@ async function getSingleHistory(req: Request, res: Response) {
 async function getOngoingOrders(req: Request, res: Response) {
   try {
     const driversID = req.session.drivers_id!;
-    const ordersId = +req.params.oid;
-    if (isNaN(ordersId)) {
-      res.status(400).json({ message: "invalid order id" });
-      return;
-    }
+    // const ordersId = +req.params.oid;
+    // if (isNaN(ordersId)) {
+    //   res.status(400).json({ message: "invalid order id" });
+    //   return;
+    // }
     const getOngoingOrdersResult = await dbClient.query<OrdersRow>(/*sql*/
       `      SELECT orders.id, reference_code, 
       CONCAT(users.title, ' ', users.first_name, ' ', users.last_name) AS user_full_name, 
@@ -183,10 +184,10 @@ async function getOngoingOrders(req: Request, res: Response) {
       JOIN users ON orders.users_id = users.id
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id
-      WHERE orders_status = 'driver accepts' OR orders_status = 'driver delivering' AND orders_id = $1 AND drivers_id = $2
+      WHERE orders_status = 'driver accepts' OR orders_status = 'driver delivering' AND drivers_id = $1
       GROUP BY orders.id, reference_code, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks
       
-      `, [ordersId, driversID]
+      `, [driversID]
     );
     console.log(getOngoingOrdersResult.rows);
     res.json(getOngoingOrdersResult.rows); // pass array into res.json()
@@ -219,6 +220,7 @@ async function driverDelivering(req: Request, res: Response) {
 
 async function confirmAcceptOrder(req: Request, res: Response) {
   try {
+    const driversID = req.session.drivers_id!;
     const ordersId = +req.params.oid;
     if (isNaN(ordersId)) {
       res.status(400).json({ message: "invalid order id" });
@@ -226,8 +228,8 @@ async function confirmAcceptOrder(req: Request, res: Response) {
     }
     const confirmAcceptOrderResult = await dbClient.query<OrdersRow>(/*sql*/
       `UPDATE orders SET orders_status = 'driver accepts'
-      WHERE orders_status = 'pending' AND orders.id = $1
-      `, [ordersId]
+      WHERE orders_status = 'pending' AND orders.id = $1 AND drivers_id = $2
+      `, [ordersId, driversID]
     );
     console.log(confirmAcceptOrderResult.rows);
     res.json(confirmAcceptOrderResult.rows); // pass array into res.json()

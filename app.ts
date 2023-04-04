@@ -57,7 +57,7 @@ app.use(grantExpress as express.RequestHandler);
 
 // logging 用 middleware
 app.use((req, _res, next) => {
-  console.log(`Path ${req.path}, Method: ${req.method}`);
+  logger.debug(`Request - Path ${req.path}, Method: ${req.method}`);
   next();
 });
 
@@ -69,6 +69,7 @@ import { driversMainRoutes } from "./routers/driversMainRoutes";
 import { usersMainRoutes } from "./routers/createorder";
 import { driverIsLoggedInApi, userIsLoggedInApi } from "./utils/guard";
 import { receiverRoutes } from "./routers/receiversRoutes";
+import { logger } from "./utils/logger";
 
 app.use("/login", authRoutes);
 app.use("/userslogin", usersRoutes);
