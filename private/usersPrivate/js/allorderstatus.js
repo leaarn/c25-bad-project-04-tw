@@ -63,6 +63,20 @@ async function allOrderStatus() {
     const orderDiv = document.createElement("div");
     orderDiv.className = "each-order";
     orderStatusDiv.className = "order-status";
+    pending.className = "pending";
+    driverAccepts.className = "driver-accepts";
+    driverDelivering.className = "driver-delivering";
+    receiverReceived.className = "receiver-received";
+    //change status color
+    if (order.orders_status === "pending") {
+      pending.style.color = "orange";
+    } else if (order.orders_status === "driver accepts") {
+      driverAccepts.style.color = "orange";
+    } else if (order.orders_status === "driver delivering") {
+      driverDelivering.style.color = "orange";
+    } else if (order.orders_status === "driver delivering") {
+      receiverReceived.style.color = "orange";
+    }
     orderStatusDiv.appendChild(pending);
     orderStatusDiv.appendChild(driverAccepts);
     orderStatusDiv.appendChild(driverDelivering);
