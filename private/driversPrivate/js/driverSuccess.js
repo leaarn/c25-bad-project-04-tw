@@ -7,6 +7,5 @@ window.onload = async () => {
 };
 
 document.querySelector(".return-btn").addEventListener("click", () => {
-  console.log("hihihihi");
   window.location = "/driversMain.html";
 });

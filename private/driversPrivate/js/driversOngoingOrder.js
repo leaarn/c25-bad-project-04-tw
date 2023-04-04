@@ -1,13 +1,10 @@
-window.onload = async () => {
+window.onload= () => {
   showOngoingOrder();
-  deliveringStatus(urlSearchParams.get("oid"))
 };
 
 async function showOngoingOrder() {
-  console.log("ongoing orders");
   const resp = await fetch(`/driversMain/ongoing`);
   const ongoingOrder = await resp.json();
-  console.log("ongoing orders", ongoingOrder);
 
   for (let i = 0; i < ongoingOrder.length; i++) {
     let animalDetails = ``;
@@ -64,39 +61,3 @@ async function showOngoingOrder() {
   }
 }
 
-// async function deliveringStatus(id) {
-//   const changeStatusBtn = document.querySelector(".cfm-change-status");
-//   changeStatusBtn.addEventListener("click", async (e) => {
-//     const resp = await fetch(`/driversMain/ongoing/${id}`, {
-//       method: "PUT",
-//     });
-//     if (resp.status == 200) {
-//       let result = confirm("你確定嗎？");
-//       if (result) {
-//         alert("確認已接貨！");
-//         changeStatusBtn.innerHTML = "已接貨";
-//       } else {
-//         alert("尚未接貨！");
-//       }
-//     }
-//   });
-// }
-
-// async function deliveringStatus(id) {
-//   const resp = await fetch(`/driversMain/ongoing/${id}`, { method: "PUT" });
-
-//   if (resp.status == 200) {
-//     let result = confirm("你確定嗎？")
-//     if (result) {
-//       alert("確認已接貨！")
-
-//       let changeStatusBtn = document.querySelector(".cfm-change-status");
-//       changeStatusBtn.innerHTML = "已接貨"
-//     } else {
-
-//       alert("尚未接貨！")
-//     }
-//     // window.location = "./driversOngoing.html"
-//   }
-
-// }
