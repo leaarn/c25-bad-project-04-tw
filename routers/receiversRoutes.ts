@@ -33,8 +33,6 @@ async function message(req: express.Request, res: express.Response) {
     const receiverName = name.rows[0];
     const token = tokenResult.rows[0];
 
-    console.log(name)
-
     const data = getTextMessageInput(
       "852" + receiverContact.receiver_contact.toString(),
       `Hi ${JSON.stringify(
