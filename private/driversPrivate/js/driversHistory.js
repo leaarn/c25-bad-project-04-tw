@@ -1,78 +1,42 @@
 window.onload = async () => {
-  showOngoingOrder();
+  showHistoryOrder();
 };
 
-// async function toAcceptOrder(id) {
-//   console.log("accept orders");
-//   const resp = await fetch(`/driversMain/get-orders/${id}`);
-//   const acceptOrder = await resp.json();
-//   console.log("accept orders", acceptOrder);
+async function showHistoryOrder() {
+  console.log("History orders");
+  const resp = await fetch(`/driversMain/history/`);
+  const historyOrder = await resp.json();
+  console.log("History orders", historyOrder);
 
-//   for (let i = 0; i < acceptOrder.animals_name.length; i++) {
-//     let animalDetails = ``;
-//     if (Array.isArray(acceptOrder.animals_name[i])) {
-//       animalDetails +=
-//         acceptOrder.animals_name[i] +
-//         " X " +
-//         acceptOrder.animals_amount[i] +
-//         " ";
-//     } else {
-//       animalDetails +=
-//         acceptOrder.animals_name + " X " + acceptOrder.animals_amount + " ";
-//     }
-//     let htmlStr = `<div class="confirm_order_title"><b>確認將接下的訂單</b></div>
-//       <div class="confirm_order_text"><p>客人姓名: ${acceptOrder.user_full_name} </p>
-//       <p>客人聯絡電話: ${acceptOrder.contact_num} </p>
-//       <p>送貨時間: ${acceptOrder.pick_up_date_time} </p>
-//       <p>收貨地址: ${acceptOrder.pick_up_address} </p>
-//       <p>送貨地址: ${acceptOrder.deliver_address} </p>
-//       <p>動物: ${animalDetails} </p>
-//       <p>備註: ${acceptOrder.remarks}</p></div>
-//       <div class="driver_fee_title"><b>司機收費</b></div>
-//       <div class="driver_fee_text"></div>
-//       <button class="cfm-accept-order" onClick="confirmAcceptOrder(${acceptOrder.id})">確認接單</button>
-//   `;
-//     document.querySelector(".confirm_order").innerHTML = htmlStr;
-//   }
-// }
-
-// async function driverEarns(id) {
-//   console.log("driver earns");
-//   const resp = await fetch(`/driversMain/driver-earns/${id}`);
-//   const driverEarnsTotal = await resp.json();
-//   console.log("driverEarnsTotal", driverEarnsTotal);
-
-//   for (let i = 0; i < driverEarnsTotal.animals_name.length; i++) {
-//     let animalDetails = ``;
-//     if (Array.isArray(driverEarnsTotal.animals_name[i])) {
-//       animalDetails +=
-//         driverEarnsTotal.animals_name[i] +
-//         " X " +
-//         driverEarnsTotal.animals_amount[i] +
-//         " ";
-//     } else {
-//       animalDetails +=
-//         driverEarnsTotal.animals_name +
-//         " X " +
-//         driverEarnsTotal.animals_amount +
-//         " ";
-//     }
-//     let htmlStr = `
-//       <p>距離: ${driverEarnsTotal.distance_km}km - HK$${driverEarnsTotal.distance_total_price}</p>
-//       <p>動物: ${animalDetails} - HK$${driverEarnsTotal.animals_total_price}</p>
-//       <p>合共價格: HK$${driverEarnsTotal.total_price} </p>
-//       <p>平台收費(20%): HK$${driverEarnsTotal.platform_fee} </p>
-//       <p>司機實收: HK$${driverEarnsTotal.driver_earns} </p>
-//       `;
-//     document.querySelector(".driver_fee_text").innerHTML = htmlStr;
-//   }
-// }
-
-// async function confirmAcceptOrder(id) {
-//   const resp = await fetch(`/driversMain/cfm-orders/${id}`, { method: "PUT" });
-//   if (resp.status == 200) {
-//     await fetch(`/receivertoken`, { method: "POST" });
-//     window.location = `/driverSuccess.html?oid=${id}`;
-//   }
+  for (let i = 0; i < historyOrder.length; i++) {
+    let animalDetails = ``;
+    if (Array.isArray(historyOrder[i].animals_amount)) {
+      for (let j = 0; j < historyOrder[i].animals_amount.length; j++) {
+        animalDetails +=
+          historyOrder[i].animals_name[j] +
+          " X " +
+          historyOrder[i].animals_amount[j] +
+          " ";
+      }
+    } else {
+      animalDetails +=
+      historyOrder[i].animals_name + " X " + historyOrder[i].animals_amount + " ";
+    }
+    // if (historyOrder.orders_status === "driver accepts") {
+    // }
+    let htmlStr = `
+      <div class="confirm_order_text">
+      <p><b>訂單號碼: #${historyOrder[i].reference_code}</b></p>
+      <p>訂單狀態: ${historyOrder[i].orders_status}</p>
+      <p>動物: ${animalDetails} </p>
+      <button class="history-details" onClick="toSingleHistory(${historyOrder[i].id})">查看更多</button>
+      </div>
+  `;
+    document.querySelector(".history_each").innerHTML += htmlStr;
+  }
   
-// }
+}
+
+async function toSingleHistory(id) {
+  window.location = `/driversSingleHistory.html?oid=${id}`;
+}
