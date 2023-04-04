@@ -72,7 +72,8 @@ async function checkToken(req: express.Request, res: express.Response) {
       return;
     } else {
       await dbClient.query<OrdersRow>(
-        /*SQL*/ `UPDATE orders SET orders_status = 'receiver received' WHERE token = $1 `,
+        /*SQL*/ `UPDATE orders SET orders_status = 'Received
+        ' WHERE token = $1 `,
         [token]
       );
 
