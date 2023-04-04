@@ -1,5 +1,6 @@
 window.onload = async () => {
   showOngoingOrder();
+  deliveringStatus(urlSearchParams.get("oid"))
 };
 
 async function showOngoingOrder() {
