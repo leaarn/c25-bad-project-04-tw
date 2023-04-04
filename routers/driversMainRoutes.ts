@@ -60,7 +60,7 @@ async function getAllOrders(_req: Request, res: Response) {
       GROUP BY orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, orders_status ORDER BY pick_up_date DESC`
     );
     console.log(getAllOrdersResult.rows);
-    res.json(getAllOrdersResult.rows); // pass array into res.json()
+    res.json(getAllOrdersResult.rows); 
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
@@ -89,7 +89,7 @@ async function getAcceptOrders(req: Request, res: Response) {
       JOIN users ON orders.users_id = users.id
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id
-      WHERE orders_status = 'Pending' AND orders.id = $1
+      WHERE orders_status = 'pending' AND orders.id = $1
       GROUP BY orders.id, user_full_name, receiver_contact, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks, orders_status
       `, [ordersId]
     );
@@ -189,11 +189,11 @@ async function getSingleHistory(req: Request, res: Response) {
 async function getOngoingOrders(req: Request, res: Response) {
   try {
     const driversID = req.session.drivers_id!;
-    // const ordersId = +req.params.oid;
-    // if (isNaN(ordersId)) {
-    //   res.status(400).json({ message: "invalid order id" });
-    //   return;
-    // }
+    const ordersId = +req.params.oid;
+    if (isNaN(ordersId)) {
+      res.status(400).json({ message: "invalid order id" });
+      return;
+    }
     const getOngoingOrdersResult = await dbClient.query<OrdersRow>(/*sql*/
       `      SELECT orders.id, reference_code, 
       CONCAT(users.title, ' ', users.first_name, ' ', users.last_name) AS user_full_name, 
@@ -231,7 +231,7 @@ async function driverDelivering(req: Request, res: Response) {
     }
     const driverDeliveringResult = await dbClient.query<OrdersRow>(/*sql*/
       `UPDATE orders SET orders_status = 'driver delivering'
-      WHERE orders_status = 'driver accepts' AND orders.id = $1 AND drivers_id = $2
+      WHERE (orders_status = 'driver accepts' AND orders.id = $1 AND drivers_id = $2)
       `, [ordersId, driversID]
     );
     console.log(driverDeliveringResult.rows);
@@ -251,8 +251,8 @@ async function confirmAcceptOrder(req: Request, res: Response) {
       return;
     }
     const confirmAcceptOrderResult = await dbClient.query<OrdersRow>(/*sql*/
-      `UPDATE orders SET orders_status = 'driver accepts', drivers_id = $1
-      WHERE orders_status = 'pending' AND orders.id = $2 
+      `UPDATE orders SET orders_status = '司機已接單', drivers_id = $1
+      WHERE orders_status = '訂單待接中' AND orders.id = $2 
       `, [driversID, ordersId]
     );
     console.log(confirmAcceptOrderResult.rows);
