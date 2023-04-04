@@ -7,15 +7,15 @@ logoutRoutes.get("/drivers", driversLogout);
 
 export async function usersLogout(req: express.Request, res: express.Response) {
   if (req.session) {
-    delete req.session["user"];
-    delete req.session.userIsLoggedIn
+    delete req.session.users_id;
+    delete req.session.userIsLoggedIn;
   }
   res.status(200).json({ message: "Done!" });
 }
 
 export async function driversLogout(req: express.Request, res: express.Response) {
   if (req.session) {
-    delete req.session["driver"];
+    delete req.session.drivers_id;
     delete req.session.driverIsLoggedIn;
   }
   res.status(200).json({ message: "Done!" });

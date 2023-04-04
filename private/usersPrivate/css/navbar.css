@@ -64,7 +64,7 @@ body {
   font-size: 2vw;
 }
 
-.user_logout,
+#logout,
 .pay-btn {
   background-color: rgb(255, 227, 155);
   border: 0;
@@ -74,4 +74,3 @@ body {
   padding: 8px;
   font-size: 3vw;
 }
-
