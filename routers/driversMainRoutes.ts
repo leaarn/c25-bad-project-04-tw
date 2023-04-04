@@ -57,7 +57,7 @@ async function getAllOrders(_req: Request, res: Response) {
       FROM orders 
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending'
-      GROUP BY orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, orders_status`
+      GROUP BY orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, orders_status ORDER BY pick_up_date DESC`
     );
     console.log(getAllOrdersResult.rows);
     res.json(getAllOrdersResult.rows); // pass array into res.json()
@@ -191,7 +191,7 @@ async function getOngoingOrders(req: Request, res: Response) {
       JOIN users ON orders.users_id = users.id
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id
-      WHERE orders_status = 'driver accepts' OR orders_status = 'driver delivering' AND drivers_id = $1
+      WHERE (orders_status = 'driver accepts' OR orders_status = 'driver delivering') AND drivers_id = $1
       GROUP BY orders.id, reference_code, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks
       
       `, [driversID]
