@@ -1,6 +1,6 @@
 window.onload = () => {
   loadOrderToPay();
-  //   confirmToPay();
+  confirmToPay();
 };
 
 async function loadOrderToPay() {
@@ -20,6 +20,7 @@ async function loadOrderToPay() {
 
   //確認你的訂單
   const htmlstr1 = `
+  <p>Order Number : <span id='order-id'>${data.id}</span></p>
   <p>收貨時間 : ${data.pick_up_date_time}</p>
   <p>收貨地址 : ${data.pick_up_address}</p>
   <p>送貨地址 : ${data.deliver_address}</p>
@@ -39,15 +40,29 @@ async function loadOrderToPay() {
   document.querySelector(".total-price").innerHTML = htmlstr2;
 }
 
-// async function confirmToPay() {}
-// if ((resp.status = 200)) {
-//   Swal.fire({
-//     icon: "success",
-//     title: "Submitted",
-//     showConfirmButton: false,
-//     timer: 1500,
-//   });
-//   setTimeout(() => {
-//     window.location = "/usersMain.html";
-//   }, 1501);
-// }
+async function confirmToPay() {
+  document.querySelector(".pay-btn").addEventListener("click", async () => {
+    const orderId = document.querySelector("#order-id").innerText;
+    console.log("orderId: ", orderId);
+    ////err:fetch but status not change????
+    const resp = await fetch("/users/confirm", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ orderId: orderId }),
+    });
+
+    if (resp.status === 200) {
+      Swal.fire({
+        icon: "success",
+        title: "Submitted",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setTimeout(() => {
+        window.location = "/allorderstatus.html";
+      }, 1501);
+    }
+  });
+}

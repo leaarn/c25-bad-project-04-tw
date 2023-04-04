@@ -1,71 +1,28 @@
-body {
-  background-color: rgb(255, 251, 240);
-}
-
-.navbar {
+/* hi users */
+.user-info {
+  border: 0;
+  border-radius: 15px;
   background-color: rgb(255, 245, 219);
-}
-
-.menu_btn {
-  background-color: rgb(255, 227, 155);
-  border: 0;
-  border-radius: 15px;
-  color: rgb(255, 157, 29);
-  padding: 0 10px;
-}
-
-.bi-list,
-.bi-x-lg {
-  color: rgb(255, 157, 29);
-  font-size: 4vw;
-}
-
-.logo {
-  width: 17vw;
-}
-
-.login {
+  margin: 3vw;
   display: flex;
-  flex-direction: column;
-}
-
-#offcanvasMenu {
-  background-color: rgb(255, 251, 240);
-}
-
-.close_button {
-  border: 0;
-  color: none;
-}
-
-.offcanvas-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-grow: 0;
-}
-
-.menu_items,
-.menu_subitems {
-  text-align: center;
+  align-items: center;
   color: rgb(255, 157, 29);
+  /* justify-content: center; */
+  /* padding: 0 3vw; */
 }
 
-.menu_items {
-  font-size: 3vw;
-  margin-top: 50px;
-}
-
-.menu_subitems {
-  font-size: 2vw;
-}
-
-.user_logout {
-  background-color: rgb(255, 227, 155);
-  border: 0;
-  border-radius: 15px;
+.bi-person-circle {
   color: rgb(255, 157, 29);
-  margin: 10px 0;
-  padding: 8px;
-  font-size: 3vw;
+  font-size: 6vw;
+  margin: 0 2vw;
+}
+
+.user-name {
+  font-size: 2.5vw;
+  margin: 10px;
+}
+
+.role {
+  font-size: 1.5vw;
+  margin: 10px;
 }
