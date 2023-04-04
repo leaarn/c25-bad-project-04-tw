@@ -244,3 +244,26 @@ orders.id,reference_code,orders_status,remarks
       JOIN animals ON animals.id = order_animals.animals_id
       WHERE (orders.orders_status = 'driver accepts' OR orders.orders_status = 'driver delivering') AND drivers_id = 3
       GROUP BY orders.id, reference_code, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks, orders_status
+
+
+SELECT orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, 
+      json_agg(animals.animals_name) AS animals_name, 
+      json_agg(order_animals.animals_amount) AS animals_amount, 
+      orders_status 
+      FROM orders 
+      JOIN order_animals ON order_animals.orders_id = orders.id 
+      JOIN animals ON animals.id = order_animals.animals_id WHERE orders_status = 'pending'
+      GROUP BY orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, orders_status ORDER BY pick_up_date DESC
+
+-- bruce trial --
+\copy orders(pick_up_date,pick_up_time,pick_up_district,pick_up_room,pick_up_floor,pick_up_building,pick_up_street,deliver_district,deliver_room,deliver_floor,deliver_building,deliver_street,users_id,drivers_id,receiver_name,receiver_contact,distance_km,distance_price,reference_code,orders_status,token,remarks,created_at)
+from '/Users/hinyanc/Documents/Tecky/Tecky-projects/WSP-project/WSP-chicken-van/db/orders.csv'
+delimiter ','
+csv header;
+
+update order_animals
+set orders_id = orders_id + 9;
+
+delete from orders where id < 10;
+
+
