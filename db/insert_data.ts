@@ -93,7 +93,7 @@ async function main() {
 
   await client.query(/*SQL*/ `DELETE FROM orders`);
   for (const orderRow of ordersRow) {
-    let ordersSql = /*SQL*/ `INSERT INTO orders (pick_up_date, pick_up_time, pick_up_district, pick_up_room, pick_up_floor, pick_up_building, pick_up_street, pick_up_coordinates, deliver_district, deliver_room, deliver_floor, deliver_building, deliver_street, deliver_coordinates, users_id, drivers_id, receiver_name, receiver_contact, distance_km, distance_price, reference_code, orders_status, token, remarks, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25)`;
+    let ordersSql = /*SQL*/ `INSERT INTO orders (pick_up_date, pick_up_time, pick_up_district, pick_up_room, pick_up_floor, pick_up_building, pick_up_street, deliver_district, deliver_room, deliver_floor, deliver_building, deliver_street, users_id, drivers_id, receiver_name, receiver_contact, distance_km, distance_price, reference_code, orders_status, token, remarks, created_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23)`;
     await client.query(ordersSql, [
       orderRow.pick_up_date,
       orderRow.pick_up_time,
@@ -102,13 +102,11 @@ async function main() {
       orderRow.pick_up_floor,
       orderRow.pick_up_building,
       orderRow.pick_up_street,
-      orderRow.pick_up_coordinates,
       orderRow.deliver_district,
       orderRow.deliver_room,
       orderRow.deliver_floor,
       orderRow.deliver_building,
       orderRow.deliver_street,
-      orderRow.deliver_coordinates,
       orderRow.users_id,
       orderRow.drivers_id,
       orderRow.receiver_name,
