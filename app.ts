@@ -70,6 +70,7 @@ import { usersMainRoutes } from "./routers/createorder";
 import { driverIsLoggedInApi, userIsLoggedInApi } from "./utils/guard";
 import { receiverRoutes } from "./routers/receiversRoutes";
 import { logger } from "./utils/logger";
+import { logoutRoutes } from "./utils/logout";
 
 app.use("/login", authRoutes);
 app.use("/userslogin", usersRoutes);
@@ -77,6 +78,7 @@ app.use("/driverslogin", driversRoutes);
 app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
 app.use("/users", userIsLoggedInApi, usersMainRoutes);
 app.use("/receivertoken", receiverRoutes);
+app.use("/logout", logoutRoutes);
 
 // Section 3: Serve
 app.use(express.static(path.join(__dirname, "public")));
