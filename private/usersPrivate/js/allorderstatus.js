@@ -90,8 +90,17 @@ async function allOrderStatus() {
     orderDiv.appendChild(remarks);
     orderDiv.appendChild(orderStatusTitle);
     orderDiv.appendChild(orderStatusDiv);
-    orderDiv.appendChild(detailsBtn);
+    //btn if there is drivers_id
+    if (order.drivers_id == undefined) {
+    } else {
+      orderDiv.appendChild(detailsBtn);
+    }
     orderDiv.appendChild(cancelOrderBtn);
+
+    detailsBtn.addEventListener("click", () => {
+      window.location = `/ongoingdt.html?oid=${order.id}`;
+    });
+
     orderContainer.appendChild(orderDiv);
   }
 }
