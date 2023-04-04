@@ -158,11 +158,11 @@ async function payOrder(req: Request, res: Response) {
       json_agg(animals.animals_name) AS animals_name,
       json_agg(order_animals.animals_amount) AS animals_amount,
       remarks,
-      distance_km,
+      max(distance_km) AS distance_km,
       orders.id, 
-      SUM(distance_km * distance_price) AS distance_total_price,
-      SUM(order_animals.animals_history_price * order_animals.animals_amount) AS animals_total_price,
-      SUM((distance_km * distance_price)+(order_animals.animals_history_price * order_animals.animals_amount)) AS total_price
+      max(distance_km * distance_price) AS distance_total_price,
+      SUM(order_animals.animals_history_price * order_animals.animals_amount) AS animals_total_price, 
+      max(distance_km * distance_price) + SUM(order_animals.animals_history_price * order_animals.animals_amount) AS total_price
       FROM orders
       JOIN order_animals ON order_animals.orders_id = orders.id
       JOIN animals ON animals.id = order_animals.animals_id

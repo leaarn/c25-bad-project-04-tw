@@ -3,14 +3,6 @@ window.onload = () => {
   showDriverInfo();
   // showCurrentDistrict();
   showAllOrders();
-  let ongoingBtn = document.querySelector("#to_ongoing_orders");
-  ongoingBtn.addEventListener("click", showOngoingOrders);
-  let historyBtn = document.querySelector("#to_order_history");
-  historyBtn.addEventListener("click", showHistoryOrders);
-  // document.querySelector("").addEventListener("click", confirmAcceptOrder());
-  // document.querySelector("").addEventListener("click", showOrdersHistory());
-  // document.querySelector("").addEventListener("click", showSingleHistory());
-  // document.querySelector("").addEventListener("click", showOrdersHistory());
 };
 
 async function showDriverInfo() {
@@ -65,9 +57,9 @@ async function showAllOrders() {
     if (Array.isArray(allOrders[i].animals_name)) {
       for (let j = 0; j < allOrders[i].animals_name.length; j++) {
         animalDetails +=
-          allOrders[i].animals_name[i] +
+          allOrders[i].animals_name[j] +
           " X " +
-          allOrders[i].animals_amount[i] +
+          allOrders[i].animals_amount[j] +
           " ";
       }
     } else {
@@ -103,12 +95,4 @@ async function showAllOrders() {
 
 async function acceptOrdersDetail(id) {
   window.location = `/driversAcceptOrder.html?oid=${id}`;
-}
-
-async function showOngoingOrders() {
-  window.location = "/driverOngoing.html"
-}
-
-async function showHistoryOrders() {
-  window.location = "/driverHistory.html"
 }

@@ -14,7 +14,8 @@ function receiversForm() {
     });
 
     if (resp.status === 200) {
-      alert("Thank you for choosing us!")
+      alert("Thank you for choosing us!");
+      window.location = "/index.html";
     } else {
       const data = await resp.json();
       alert(data.message);

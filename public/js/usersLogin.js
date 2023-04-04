@@ -17,7 +17,7 @@ function initUsersLoginForm() {
     });
 
     if (resp.status === 200) {
-      alert("Thank you for choosing us!");
+      alert("Login succuss!");
       window.location = "../usersMain.html";
     } else {
       const data = await resp.json();

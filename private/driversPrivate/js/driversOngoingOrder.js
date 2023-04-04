@@ -1,43 +1,41 @@
 window.onload = async () => {
   showOngoingOrder();
-  let ongoingBtn = document.querySelector("#to_ongoing_orders");
-  ongoingBtn.addEventListener("click", showOngoingOrders);
-  let historyBtn = document.querySelector("#to_order_history");
-  historyBtn.addEventListener("click", showHistoryOrders);
 };
 
 async function showOngoingOrder() {
   console.log("ongoing orders");
   const resp = await fetch(`/driversMain/ongoing`);
   const ongoingOrder = await resp.json();
-  console.log("accept orders", ongoingOrder);
+  console.log("ongoing orders", ongoingOrder);
 
-  // for (let i = 0; i < acceptOrder.animals_name.length; i++) {
-  //   let animalDetails = ``;
-  //   if (Array.isArray(acceptOrder.animals_name[i])) {
-  //     animalDetails +=
-  //       acceptOrder.animals_name[i] +
-  //       " X " +
-  //       acceptOrder.animals_amount[i] +
-  //       " ";
-  //   } else {
-  //     animalDetails +=
-  //       acceptOrder.animals_name + " X " + acceptOrder.animals_amount + " ";
-  //   }
-  //   let htmlStr = `<div class="confirm_order_title"><b>確認將接下的訂單</b></div>
-  //     <div class="confirm_order_text"><p>客人姓名: ${acceptOrder.user_full_name} </p>
-  //     <p>客人聯絡電話: ${acceptOrder.contact_num} </p>
-  //     <p>送貨時間: ${acceptOrder.pick_up_date_time} </p>
-  //     <p>收貨地址: ${acceptOrder.pick_up_address} </p>
-  //     <p>送貨地址: ${acceptOrder.deliver_address} </p>
-  //     <p>動物: ${animalDetails} </p>
-  //     <p>備註: ${acceptOrder.remarks}</p></div>
-  //     <div class="driver_fee_title"><b>司機收費</b></div>
-  //     <div class="driver_fee_text"></div>
-  //     <button class="cfm-accept-order" onClick="confirmAcceptOrder(${acceptOrder.id})">確認接單</button>
-  // `;
-  //   document.querySelector(".confirm_order").innerHTML = htmlStr;
-  // }
+  for (let i = 0; i < ongoingOrder.length; i++) {
+    for (let j = 0; j < ongoingOrder.animals_amount.length; j++) {
+      let animalDetails = ``;
+      if (Array.isArray(ongoingOrder.animals_amount[j])) {
+        animalDetails +=
+          ongoingOrder.animals_name[j] +
+          " X " +
+          ongoingOrder.animals_amount[j] +
+          " ";
+      } else {
+        animalDetails +=
+          ongoingOrder.animals_name + " X " + ongoingOrder.animals_amount + " ";
+      }
+      let htmlStr = `<div class="confirm_order_title"><b>實時訂單狀態</b></div>
+      <div class="confirm_order_text">
+      <p>訂單號碼: #${ongoingOrder.reference_code[i]}
+      <p>客人姓名: ${ongoingOrder.user_full_name[i]} </p>
+      <p>客人聯絡電話: ${ongoingOrder.contact_num[i]} </p>
+      <p>送貨時間: ${ongoingOrder.pick_up_date_time[i]} </p>
+      <p>收貨地址: ${ongoingOrder.pick_up_address[i]} </p>
+      <p>送貨地址: ${ongoingOrder.deliver_address[i]} </p>
+      <p>動物: ${animalDetails[i]} </p>
+      <p>備註: ${ongoingOrder.remarks[i]}</p></div>
+      <button class="cfm-accept-order" onClick="deliveringStatus(${ongoingOrder.id[i]})">我已接貨！</button>
+  `;
+      document.querySelector("#ongoing_orders").innerHTML += htmlStr;
+    }
+  }
 }
 
 // async function driverEarns(id) {
@@ -78,13 +76,5 @@ async function showOngoingOrder() {
 //     await fetch(`/receivertoken`, { method: "POST" });
 //     window.location = `/driverSuccess.html?oid=${id}`;
 //   }
-  
+
 // }
-
-async function showOngoingOrders() {
-  window.location = "/driverOngoing.html"
-}
-
-async function showHistoryOrders() {
-  window.location = "/driverHistory.html"
-}

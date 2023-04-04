@@ -14,23 +14,32 @@ async function message(req: express.Request, res: express.Response) {
   try {
     const driversId = req.session.drivers_id;
 
-    const result = await dbClient.query<OrdersRow>(
-      /*SQL*/ `SELECT receiver_contact FROM orders WHERE users_id = $1 `,
+    const contact = await dbClient.query<OrdersRow>(
+      /*SQL*/ `SELECT receiver_contact FROM orders WHERE drivers_id = $1 `,
       [driversId]
     );
-    const receiverContact = result.rows[0];
 
-    const tokenResult = await dbClient.query<OrdersRow>(
-      /*SQL*/ `SELECT token FROM orders WHERE users_id = $1 `,
+    const name = await dbClient.query<OrdersRow>(
+      /*SQL*/ `SELECT receiver_name FROM orders WHERE drivers_id = $1 `,
       [driversId]
     );
+
+     const tokenResult = await dbClient.query<OrdersRow>(
+       /*SQL*/ `SELECT token FROM orders WHERE drivers_id = $1 `,
+       [driversId]
+     );
+
+    const receiverContact = contact.rows[0];
+    const receiverName = name.rows[0];
     const token = tokenResult.rows[0];
 
     const data = getTextMessageInput(
       "852" + receiverContact.receiver_contact.toString(),
-      `Here is your receiver token: ${JSON.stringify(
+      `Hi ${JSON.stringify(
+        Object.values(receiverName)
+      )}! Here is your receiver token: ${JSON.stringify(
         Object.values(token)
-      )} http://localhost:8080/receivers.html`
+      )}. Click the link http://localhost:8080/receivers.html to input your verification code. Have a great day!`
     );
 
     console.log(data);
@@ -53,7 +62,6 @@ async function checkToken(req: express.Request, res: express.Response) {
       [token]
     );
     const foundToken = queryResult.rows[0];
-    console.log(foundToken)
 
     if (!token) {
       res.status(400).json({ message: "missing token!" });
