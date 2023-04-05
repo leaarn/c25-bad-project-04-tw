@@ -16,6 +16,7 @@ async function allOrderStatus() {
   //iterate orders haven't complete
   for (const order of notFinish) {
     const orderId = document.createElement("p");
+    const orderCode = document.createElement("p");
     const createTime = document.createElement("p");
     const pickUpDateTime = document.createElement("p");
     const pickUpAddress = document.createElement("p");
@@ -34,7 +35,8 @@ async function allOrderStatus() {
     const detailsBtn = document.createElement("button");
     const cancelOrderBtn = document.createElement("button");
     //text content
-    orderId.textContent = `訂單號碼 : ${order.id}`;
+    orderId.textContent = `訂單編號 : ${order.id}`;
+    orderCode.textContent = `訂單號碼 : ${order.reference_code}`;
     createTime.textContent = `訂單建立時間 : ${order.created_at}`;
     pickUpDateTime.textContent = `預計收貨時間 : ${order.pick_up_date_time}`;
     pickUpAddress.textContent = `收貨地址 : ${order.pick_up_address}`;
@@ -83,6 +85,7 @@ async function allOrderStatus() {
     orderStatusDiv.appendChild(driverDelivering);
     orderStatusDiv.appendChild(receiverReceived);
     orderDiv.appendChild(orderId);
+    orderDiv.appendChild(orderCode);
     orderDiv.appendChild(createTime);
     orderDiv.appendChild(pickUpDateTime);
     orderDiv.appendChild(pickUpAddress);

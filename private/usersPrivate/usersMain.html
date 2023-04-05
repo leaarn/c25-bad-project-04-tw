@@ -55,6 +55,7 @@
     <!-- user div  not yet-->
 
     <!-- create order -->
+    <div class="user-info"></div>
     <form id="create-order-form">
       <div class="form-area">
         <h3>立即建立你的訂單</h3>
@@ -66,8 +67,9 @@
         </div>
 
         <div class="pick-up-address">
-          <p>送貨地址</p>
-          <select name="pickUpDistrict">
+          <p>接貨地址</p>
+          <!-- 中文版 -->
+          <!-- <select class="pick-up-district" name="pickUpDistrict">
             <option value="" disabled selected>地區</option>
             <option value="中西區">中西區</option>
             <option value="東區">東區</option>
@@ -87,17 +89,52 @@
             <option value="荃灣區">荃灣區</option>
             <option value="屯門區">屯門區</option>
             <option value="元朗區">元朗區</option>
+          </select> -->
+          <!-- 英文版 -->
+          <select class="pick-up-district" name="pickUpDistrict">
+            <option value="" disabled selected>地區</option>
+            <option value="Central and Western">中西區</option>
+            <option value="Eastern">東區</option>
+            <option value="Southern">南區</option>
+            <option value="Wan Chai">灣仔區</option>
+            <option value="Kowloon City">九龍城區</option>
+            <option value="Kwun Tong">觀塘區</option>
+            <option value="Sham Shui Po">深水埗區</option>
+            <option value="Wong Tai Sin">黃大仙區</option>
+            <option value="Yau Tsim Mong">油尖旺區</option>
+            <option value="Islands">離島區</option>
+            <option value="Kwai Tsing">葵青區</option>
+            <option value="North">北區</option>
+            <option value="Sai Kung">西貢區</option>
+            <option value="Sha Tin">沙田區</option>
+            <option value="Tai Po">大埔區</option>
+            <option value="Tsuen Wan">荃灣區</option>
+            <option value="Tuen Mun">屯門區</option>
+            <option value="Yuen Long">元朗區</option>
           </select>
 
-          <input type="text" name="pickUpRoom" placeholder="室號" value="room203" />
-          <input type="text" name="pickUpFloor" placeholder="樓層" value="20" />
-          <input type="text" name="pickUpBuilding" placeholder="大廈及屋苑" value="TML Tower" />
-          <input type="text" name="pickUpStreet" placeholder="街號及街道名稱" value="3 Hoi Shing Rd" />
+          <input type="text" class="pick-up-room" name="pickUpRoom" placeholder="室號" value="room203" />
+          <input type="text" class="pick-up-floor" name="pickUpFloor" placeholder="樓層" value="20" />
+          <input
+            type="text"
+            class="pick-up-building"
+            name="pickUpBuilding"
+            placeholder="大廈及屋苑"
+            value="TML Tower"
+          />
+          <input
+            type="text"
+            class="pick-up-street"
+            name="pickUpStreet"
+            placeholder="街號及街道名稱"
+            value="3 Hoi Shing Rd"
+          />
         </div>
 
         <div class="deliver-address">
           <p>收貨地址</p>
-          <select name="deliverDistrict">
+          <!-- 中文版 -->
+          <!-- <select name="deliverDistrict">
             <option value="" disabled selected>地區</option>
             <option value="中西區">中西區</option>
             <option value="東區">東區</option>
@@ -117,6 +154,29 @@
             <option value="荃灣區">荃灣區</option>
             <option value="屯門區">屯門區</option>
             <option value="元朗區">元朗區</option>
+          </select> -->
+
+          <!--英文版  -->
+          <select name="deliverDistrict">
+            <option value="" disabled selected>地區</option>
+            <option value="Central and Western">中西區</option>
+            <option value="Eastern">東區</option>
+            <option value="Southern">南區</option>
+            <option value="Wan Chai">灣仔區</option>
+            <option value="Kowloon City">九龍城區</option>
+            <option value="Kwun Tong">觀塘區</option>
+            <option value="Sham Shui Po">深水埗區</option>
+            <option value="Wong Tai Sin">黃大仙區</option>
+            <option value="Yau Tsim Mong">油尖旺區</option>
+            <option value="Islands">離島區</option>
+            <option value="Kwai Tsing">葵青區</option>
+            <option value="North">北區</option>
+            <option value="Sai Kung">西貢區</option>
+            <option value="Sha Tin">沙田區</option>
+            <option value="Tai Po">大埔區</option>
+            <option value="Tsuen Wan">荃灣區</option>
+            <option value="Tuen Mun">屯門區</option>
+            <option value="Yuen Long">元朗區</option>
           </select>
 
           <input type="text" name="deliverRoom" placeholder="室號" value="room203" />
