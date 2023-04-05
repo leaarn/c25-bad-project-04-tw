@@ -49,7 +49,7 @@ async function allOrderStatus() {
       animalDetails += order.animals_name + " X " + order.animals_amount + " ";
     }
     animals.textContent = `動物 : ${animalDetails}`;
-    remarks.textContent = `備註: ${order.remarks}`;
+    remarks.textContent = `備註 : ${order.remarks}`;
     orderStatusTitle.textContent = `訂單狀態 : `;
     // 訂單狀態 :
     pending.textContent = `正在等待司機接單`;

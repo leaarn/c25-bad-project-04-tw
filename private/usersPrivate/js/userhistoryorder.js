@@ -11,6 +11,7 @@ async function loadCompleteOrder() {
   const orderContainer = document.querySelector(".all-complete-order");
   //   title
   const title = document.createElement("h3");
+  title.innerText = `歷史訂單`;
   orderContainer.appendChild(title);
   //iterate orders complete
   for (const order of complete) {
@@ -18,11 +19,12 @@ async function loadCompleteOrder() {
     const referenceCode = document.createElement("p");
     const orderStatus = document.createElement("p");
     const animals = document.createElement("p");
-    //button for more details
-    const detailsBtn = document.createElement("button");
+
     //text content
     referenceCode.textContent = `訂單號碼 : ${order.reference_code}`;
-    orderStatus.textContent = `訂單狀態 : ${order.order_status}`;
+    if (order.orders_status == "receiver received") {
+      orderStatus.textContent = `訂單狀態 : 己完成`;
+    }
     let animalDetails = ``;
     if (Array.isArray(order.animals_name)) {
       for (let i = 0; i < order.animals_name.length; i++) {
@@ -32,6 +34,24 @@ async function loadCompleteOrder() {
       animalDetails += order.animals_name + " X " + order.animals_amount + " ";
     }
     animals.textContent = `動物 : ${animalDetails}`;
+
+    //each order
+    const orderDiv = document.createElement("div");
+    orderDiv.className = "each-order";
+    const orderDetailsDiv = document.createElement("div");
+    orderDetailsDiv.className = "order-details";
+    //button for more details
+    const detailsBtn = document.createElement("button");
     detailsBtn.textContent = `查看更多`;
+    detailsBtn.className = "detail-btn";
+    orderDetailsDiv.appendChild(referenceCode);
+    orderDetailsDiv.appendChild(orderStatus);
+    orderDetailsDiv.appendChild(animals);
+    orderDiv.appendChild(orderDetailsDiv);
+    orderDiv.appendChild(detailsBtn);
+    detailsBtn.addEventListener("click", () => {
+      window.location = `/historydt.html?oid=${order.id}`;
+    });
+    orderContainer.appendChild(orderDiv);
   }
 }

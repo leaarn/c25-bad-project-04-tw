@@ -223,7 +223,7 @@ async function orderStatus(req: Request, res: Response) {
   LEFT JOIN
   drivers ON drivers.id =orders.drivers_id    
   WHERE
-  orders_status NOT LIKE 'complete%'
+  orders_status NOT LIKE 'receiver received%'
   AND
   orders_status NOT LIKE 'not pay yet%'
   AND 
@@ -337,8 +337,8 @@ async function historyOrderDetails(req: Request, res: Response) {
     `,
       [usersId, orderId]
     );
-    console.log("here is complete order details", completeOrderDetails.rows);
-    res.status(200).json(completeOrderDetails.rows);
+    console.log("here is complete order details", completeOrderDetails.rows[0]);
+    res.status(200).json(completeOrderDetails.rows[0]);
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });
