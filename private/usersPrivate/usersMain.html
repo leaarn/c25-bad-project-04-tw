@@ -64,8 +64,8 @@
           <h3><b>立即建立你的訂單</b></h3>
           <div class="pick-up-time">
             <p>收貨時間</p>
-            <input type="date" name="date" />
-            <input type="time" name="time" />
+            <input type="date" name="date"class="date" />
+            <input type="time" name="time" class="time"/>
           </div>
 
           <p>接貨地址</p>
@@ -194,8 +194,10 @@
           </div>
 
           <div class="animals-section">
-            <p>運送動物 (總數最多5只)</p>
-            <button class="add-animal"><i class="fa-solid fa-plus"></i></button>
+            <span class="sub-title-and-btn">
+              <p>運送動物 (總數最多5只)</p>
+              <button class="add-animal"><i class="fa-solid fa-plus"></i></button>
+            </span>
             <select name="animals_id">
               <option value="" disabled selected>動物</option>
               <option value="1">貓</option>
@@ -244,7 +246,7 @@
             <p>備註</p>
             <input type="text" name="remarks" placeholder="額外資料" value="dog" />
           </div>
-          <input type="submit" value="提交訂單" />
+          <input type="submit" value="提交訂單" class ="submit-btn"/>
         </div>
       </form>
     </div>
