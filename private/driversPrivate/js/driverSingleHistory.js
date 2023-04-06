@@ -36,8 +36,11 @@ async function singleHistory(id) {
       <p>送貨地址: ${singleHistoryResult.deliver_address} </p>
       <p>動物: ${animalDetails} </p>
       <p>備註: ${singleHistoryResult.remarks}</p>
-      <button class="return-btn" href="./driversMain.html">返回主頁</button>
       </div>
   `;
     document.querySelector(".history_each_details").innerHTML += htmlStr;
+}
+
+function returnHome() {
+  window.location = './driversMain.html'
 }
