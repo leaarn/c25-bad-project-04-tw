@@ -100,9 +100,13 @@ textarea,
 }
 
 /* can't change select color yet */
-select option:first-child {
+/* select option:first-child {
   color: green;
+} */
+option[value="null"] {
+  color: yellow;
 }
+
 textarea:focus,
 input:focus {
   background: rgba(230, 227, 223, 0.453);
