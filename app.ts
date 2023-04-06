@@ -81,34 +81,23 @@ app.use("/receivertoken", receiverRoutes);
 app.use("/logout", logoutRoutes);
 
 // Section 3: Serve
+
 app.use(express.static(path.join(__dirname, "public")));
 
 const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
-const guardDriversMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const guardDriversMiddleware = (req: Request, res: Response, next: NextFunction) => {
   if (req.session.driverIsLoggedIn) next();
   else res.sendFile(path.join(__dirname, "public", "index.html"));
 };
 
-app.use(
-  guardUsersMiddleware,
-  express.static(path.join(__dirname, "private", "usersPrivate"))
-);
-app.use(
-  guardDriversMiddleware,
-  express.static(path.join(__dirname, "private", "driversPrivate"))
-);
-app.use(
-  "/private/usersPrivate",
-  guardUsersMiddleware,
-  express.static(path.join(__dirname, "private", "usersPrivate"))
-);
+app.use("/private/usersAssets", guardUsersMiddleware, express.static(path.join(__dirname, "private", "assets")));
+app.use("/private/driversAssets", guardDriversMiddleware, express.static(path.join(__dirname, "private", "assets")));
+app.use(guardUsersMiddleware, express.static(path.join(__dirname, "private", "usersPrivate")));
+app.use(guardDriversMiddleware, express.static(path.join(__dirname, "private", "driversPrivate")));
+app.use("/private/usersPrivate", guardUsersMiddleware, express.static(path.join(__dirname, "private", "usersPrivate")));
 app.use(
   "/private/driversPrivate",
   guardDriversMiddleware,

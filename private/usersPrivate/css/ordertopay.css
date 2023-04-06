@@ -35,3 +35,42 @@ h3 {
   display: flex;
   justify-content: end;
 }
+
+.payment-div {
+  width: 60%;
+  padding-right: 2vw;
+  padding-right: 7vw;
+}
+.payment-method {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.payment-div {
+  display: flex;
+  justify-content: space-around;
+}
+
+.payment-column img {
+  width: 4.2vw;
+  height: 5vh;
+}
+
+.payment-column {
+  margin-bottom: 1vw;
+}
+.each-payment {
+  margin: 1vw;
+}
+
+.pay-btn {
+  font-size: 15px;
+  width: 10vw;
+  /* display: flex; */
+  /* justify-content: space-evenly; */
+}
+
+/* .fa-sharp .fa-solid .fa-circle-chevron-right ::before {
+  padding-top: 1vw;
+} */

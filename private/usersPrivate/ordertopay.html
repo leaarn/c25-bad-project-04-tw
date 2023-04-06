@@ -62,10 +62,64 @@
       <div class="total-price"></div>
 
       <h3><b>支付方式</b></h3>
+      <!-- <div class="payment-method">
+        <div class="payment-row">
+          <div class="each-payment">
+            <input type="radio" id="visa" name="payment" checked="checked" />
+            <label for="visa"><img src="/private/usersAssets/Visa.svg.png" alt="" /></label>
+          </div>
+          <div class="each-payment">
+            <input type="radio" id="master-card" name="payment" checked="checked" />
+            <label for="master-card"><img src="/private/usersAssets/MasterCard_Logo.svg.png" alt="" /></label>
+          </div>
+        </div>
+
+        <div class="payment-row">
+          <div class="each-payment">
+            <input type="radio" id="payme" name="payment" checked="checked" />
+            <label for="payme"><img src="/private/usersAssets/pay_me.png" alt="" /></label>
+          </div>
+          <div class="each-payment">
+            <input type="radio" id="octopus" name="payment" checked="checked" />
+            <label for="octopus"><img src="/private/usersAssets/Octopus_Logo.png" alt="" /></label>
+          </div>
+        </div>
+        <div class="payment-only-1">
+          <input type="radio" id="alipay" name="payment" checked="checked" />
+          <label for="alipay"><img src="/private/usersAssets/Alipay.jpg" alt="" /> </label>
+        </div>
+      </div> -->
       <div class="payment-method">
-        <input type="radio" id="visa" checked="checked" />
-        <label for="visa">VISA</label>
+        <div class="payment-div">
+          <div class="payment-column">
+            <div class="each-payment">
+              <input type="radio" id="visa" name="payment" checked="checked" />
+              <label for="visa"><img src="/private/usersAssets/Visa.svg.png" alt="" /></label>
+            </div>
+            <div class="each-payment">
+              <input type="radio" id="payme" name="payment" />
+              <label for="payme"><img src="/private/usersAssets/pay_me.png" alt="" /></label>
+            </div>
+            <div class="each-payment">
+              <input type="radio" id="alipay" name="payment" />
+              <label for="alipay"><img src="/private/usersAssets/Alipay.jpg" alt="" /> </label>
+            </div>
+          </div>
+
+          <div class="payment-column">
+            <div class="each-payment">
+              <input type="radio" id="master-card" name="payment" />
+              <label for="master-card"><img src="/private/usersAssets/MasterCard_Logo.svg.png" alt="" /></label>
+            </div>
+
+            <div class="each-payment">
+              <input type="radio" id="octopus" name="payment" />
+              <label for="octopus"><img src="/private/usersAssets/Octopus_Logo.png" alt="" /></label>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div class="btn-div">
         <button class="pay-btn">立即付款<i class="fa-sharp fa-solid fa-circle-chevron-right"></i></button>
       </div>
