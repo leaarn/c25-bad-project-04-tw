@@ -16,6 +16,7 @@ function initDriversLoginForm() {
     });
 
     if (resp.status === 200) {
+      alert("Login succuss!");
       window.location = "../driversMain.html";
     } else {
       const data = await resp.json();
