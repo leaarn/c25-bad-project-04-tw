@@ -1,0 +1,13 @@
+h3 {
+  color: rgb(255, 157, 29);
+}
+
+.back-btn {
+  background-color: rgb(255, 227, 155);
+  border: 0;
+  border-radius: 15px;
+  color: rgb(255, 157, 29);
+  margin: 10px 0;
+  padding: 8px;
+  font-size: 3vw;
+}
