@@ -137,16 +137,16 @@ async function allOrderStatus() {
     cancelOrderBtn.className = "cancel-btn";
 
     //change status color
-    if (order.orders_status === "pending") {
+    if (order.orders_status === "訂單待接中") {
       circle1.style.color = "rgb(255, 157, 29)";
       pending.style.color = "rgb(255, 157, 29)";
-    } else if (order.orders_status === "driver accepts") {
+    } else if (order.orders_status === "司機已接單") {
       circle2.style.color = "rgb(255, 157, 29)";
       driverAccepts.style.color = "rgb(255, 157, 29)";
-    } else if (order.orders_status === "driver delivering") {
+    } else if (order.orders_status === "送貨中") {
       circle3.style.color = "rgb(255, 157, 29)";
       driverDelivering.style.color = "rgb(255, 157, 29)";
-    } else if (order.orders_status === "receiver-received") {
+    } else if (order.orders_status === "已完成") {
       circle4.style.color = "rgb(255, 157, 29)";
       receiverReceived.style.color = "rgb(255, 157, 29)";
     }
