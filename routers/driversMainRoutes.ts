@@ -39,7 +39,7 @@ async function getDriverInfo(req: Request, res: Response) {
   }
 }
 
-async function getDistricts(_req: Request, res: Response) {
+async function getDistricts(req: Request, res: Response) {
   try {
     const getDistrictsResult = await dbClient.query<OrdersRow>(
       /*sql*/ `SELECT pick_up_district, deliver_district FROM orders WHERE orders_status = 'pending'`
@@ -211,7 +211,8 @@ async function getOngoingOrders(req: Request, res: Response) {
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id
       WHERE (orders.orders_status = 'driver accepts' OR orders.orders_status = 'driver delivering') AND drivers_id = $1
-      GROUP BY orders.id, reference_code, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks, orders_status`,
+      GROUP BY orders.id, reference_code, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks, orders_status
+      ORDER BY orders_status ASC`,
       [driversID]
     );
     console.log(getOngoingOrdersResult.rows);

@@ -6,6 +6,7 @@ window.onload = async () => {
   }
   toAcceptOrder(urlSearchParams.get("oid"));
   driverEarns(urlSearchParams.get("oid"));
+  driversLogout();
 };
 
 async function toAcceptOrder(id) {
@@ -80,4 +81,18 @@ async function confirmAcceptOrder(id) {
     await fetch(`/receivertoken`, { method: "POST" });
     window.location = `/driverSuccess.html?oid=${id}`;
   }
+}
+
+async function driversLogout() {
+  const logout = document.querySelector("#logout");
+  logout.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const resp = await fetch(`/logout/drivers`);
+    if (resp.status === 200) {
+      window.location = "/driversLogin.html";
+    } else {
+      const data = await resp.json();
+      alert(data.message);
+    }
+  });
 }

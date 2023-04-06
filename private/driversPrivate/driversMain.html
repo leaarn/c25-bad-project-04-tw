@@ -18,6 +18,7 @@
     <title>Chicken Van 24/7 Hailing Platform</title>
   </head>
   <body>
+    <i class="bi bi-truck"></i>
     <div class="navbar">
       <button
         class="menu_btn"
@@ -36,13 +37,13 @@
         aria-labelledby="offcanvasMenuLabel"
       >
         <div class="offcanvas-header">
-          <img
-            class="logo offcanvas-title"
-            id="offcanvasMenuLabel"
-            src="../assets/LOGO.png"
-            href="./driversMain.html"
-            alt="logo"
-          />
+          <a href="./driversMain.html"
+            ><img
+              class="logo offcanvas-title"
+              id="offcanvasMenuLabel"
+              src="../assets/LOGO.png"
+              alt="logo"
+          /></a>
           <i
             class="bi bi-x-lg"
             type="button"
@@ -52,20 +53,41 @@
         </div>
         <div class="offcanvas-body">
           <div class="menu_content">
-            <a class="menu_items" id="to_all_orders" href="./driversMain.html">所有訂單</a>
-            <a class="menu_items" id="to_ongoing_orders" href="./driversOngoing.html">實時訂單狀態</a>
-            <a class="menu_items" id="to_order_history" href="./driversHistory.html">歷史訂單</a>
+            <a
+              class="menu_items"
+              style="text-decoration: none"
+              id="to_all_orders"
+              href="./driversMain.html"
+              >所有訂單</a
+            >
+            <a
+              class="menu_items"
+              style="text-decoration: none"
+              id="to_ongoing_orders"
+              href="./driversOngoing.html"
+              >實時訂單狀態</a
+            >
+            <a
+              class="menu_items"
+              style="text-decoration: none"
+              id="to_order_history"
+              href="./driversHistory.html"
+              >歷史訂單</a
+            >
           </div>
 
-            <button class="driver_logout">登出</button>
-
+          <button id="logout">登出</button>
         </div>
       </div>
-      <img class="logo" src="../assets/LOGO.png" alt="logo" />
+      <a href="./driversMain.html"
+        ><img class="logo" src="../assets/LOGO.png" alt="logo"
+      /></a>
       <div class="empty"></div>
     </div>
     <div class="driver-info"></div>
-    
+    <select class="district-menu" onchange="showSelectedOrders()">
+      <option disabled selected>地區</option>
+    </select>
     <div id="all_orders"></div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
