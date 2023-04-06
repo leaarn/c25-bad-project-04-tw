@@ -238,7 +238,7 @@ async function confirmOrder(req: Request, res: Response) {
 
     const confirmOrderResult = await dbClient.query(
       /*sql*/
-      `UPDATE orders SET orders_status = 'pending',created_at = now()
+      `UPDATE orders SET orders_status = '訂單待接中',created_at = now()
       WHERE id = $1 AND users_id = $2
       RETURNING id`,
       [orderId, users_id]
@@ -276,7 +276,7 @@ async function orderStatus(req: Request, res: Response) {
   LEFT JOIN
   drivers ON drivers.id =orders.drivers_id    
   WHERE
-  orders_status NOT LIKE 'receiver received%'
+  orders_status NOT LIKE '已完成%'
   AND
   orders_status NOT LIKE 'not pay yet%'
   AND 
@@ -343,7 +343,7 @@ async function historyOrders(req: Request, res: Response) {
   JOIN
   animals ON animals.id = order_animals.animals_id
   WHERE
-  orders_status = 'receiver received'
+  orders_status = '已完成'
   AND
   orders.users_id = $1
   GROUP BY 
@@ -380,7 +380,7 @@ async function historyOrderDetails(req: Request, res: Response) {
   JOIN
   animals ON animals.id = order_animals.animals_id
   WHERE
-  orders_status = 'receiver received'
+  orders_status = '已完成'
   AND
   orders.users_id = $1
   AND

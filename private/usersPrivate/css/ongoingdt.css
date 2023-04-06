@@ -20,7 +20,15 @@
   height: 50vh;
   margin: 1vw 0;
   padding: 2vw 0;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+}
+
+p {
+  font-size: 2vw;
 }
 
 h3 {
