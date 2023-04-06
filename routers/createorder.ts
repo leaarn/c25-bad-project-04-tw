@@ -6,6 +6,10 @@ import { logger } from "../utils/logger";
 // import { logger } from "../utils/logger";
 
 export const usersMainRoutes = express.Router();
+//user info
+usersMainRoutes.get("/userinfo", getUserInfo);
+//default address
+usersMainRoutes.get("/address", getAddress);
 //create
 usersMainRoutes.post("/createorder", createOrder);
 //pay
@@ -18,6 +22,54 @@ usersMainRoutes.get("/orderstatus", orderStatus);
 usersMainRoutes.get("/orderstatus/:oid", orderStatusDetails);
 usersMainRoutes.get("/history", historyOrders);
 usersMainRoutes.get("/history/:oid", historyOrderDetails);
+
+//user info
+async function getUserInfo(req: Request, res: Response) {
+  try {
+    const usersId = req.session.users_id!;
+
+    const userInfo = await dbClient.query(
+      /*sql*/ `
+      SELECT 
+      first_name
+      FROM
+      users
+      WHERE id = $1`,
+      [usersId]
+    );
+    console.log(userInfo.rows[0]);
+    res.status(200).json(userInfo.rows[0]);
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
+
+//default address
+async function getAddress(req: Request, res: Response) {
+  try {
+    const usersId = req.session.users_id!;
+    const address = await dbClient.query(
+      /*sql*/ `
+      SELECT 
+      default_district,
+      default_room,
+      default_floor,
+      default_building,
+      default_street
+      FROM
+      users
+      WHERE 
+      id = $1`,
+      [usersId]
+    );
+    console.log(address.rows[0]);
+    res.status(200).json(address.rows[0]);
+  } catch (err: any) {
+    logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
 
 ////create order
 async function createOrder(req: Request, res: Response) {
@@ -119,8 +171,8 @@ async function createOrder(req: Request, res: Response) {
       console.log("here is order anm", orderAnimal);
     }
     res.status(200).json({ message: "create order success" });
-  } catch (e) {
-    console.error(e);
+  } catch (err: any) {
+    logger.error(err.message);
     res.status(500).json({ error: "failed to create order" });
   }
 }
@@ -214,6 +266,7 @@ async function orderStatus(req: Request, res: Response) {
   json_agg(order_animals.animals_amount) AS animals_amount,
   remarks,
   orders_status,
+  reference_code,
   orders.drivers_id
   FROM orders
   JOIN
@@ -223,13 +276,13 @@ async function orderStatus(req: Request, res: Response) {
   LEFT JOIN
   drivers ON drivers.id =orders.drivers_id    
   WHERE
-  orders_status NOT LIKE 'complete%'
+  orders_status NOT LIKE 'receiver received%'
   AND
   orders_status NOT LIKE 'not pay yet%'
   AND 
   orders.users_id = $1
   GROUP BY
-  orders.id,created_at,remarks,orders_status,orders.drivers_id
+  orders.id,created_at,remarks,orders_status,reference_code,orders.drivers_id
   ORDER BY
   created_at 
   `,
@@ -337,8 +390,8 @@ async function historyOrderDetails(req: Request, res: Response) {
     `,
       [usersId, orderId]
     );
-    console.log("here is complete order details", completeOrderDetails.rows);
-    res.status(200).json(completeOrderDetails.rows);
+    console.log("here is complete order details", completeOrderDetails.rows[0]);
+    res.status(200).json(completeOrderDetails.rows[0]);
   } catch (err: any) {
     logger.error(err.message);
     res.status(500).json({ message: "internal server error" });

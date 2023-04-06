@@ -1,8 +1,41 @@
 // 用戶落單版面
 window.onload = () => {
+  userInfo();
+  defaultAddress();
   addAnimal();
   createOrder();
 };
+
+async function userInfo() {
+  const resp = await fetch("/users/userinfo");
+  const userInfo = await resp.json();
+  console.log(userInfo);
+
+  const userInfoStr = `
+  <i class="bi bi-person-circle"></i>
+  <div class="user-details">
+  <p class="user-name"><b>Hi,${userInfo.first_name}</b></p>
+  <p class="role">會員</p>
+  </div>
+  `;
+  document.querySelector(".user-info").innerHTML = userInfoStr;
+}
+
+async function defaultAddress() {
+  const resp = await fetch("/users/address");
+  const address = await resp.json();
+  console.log(address);
+  const pickUpDistrict = address.default_district;
+  const pickUpRoom = address.default_room;
+  const pickUpFloor = address.default_floor;
+  const pickUpBuilding = address.default_building;
+  const pickUpStreet = address.default_street;
+  document.querySelector(".pick-up-district").value = pickUpDistrict;
+  document.querySelector(".pick-up-room").value = pickUpRoom;
+  document.querySelector(".pick-up-floor").value = pickUpFloor;
+  document.querySelector(".pick-up-building").value = pickUpBuilding;
+  document.querySelector(".pick-up-street").value = pickUpStreet;
+}
 
 async function addAnimal() {
   document.querySelector(".add-animal").addEventListener("click", (e) => {
@@ -50,28 +83,14 @@ function createOrder() {
     const pick_up_time = form.time.value;
     const pick_up_district = form.pickUpDistrict.value;
     console.log("pick up", typeof pick_up_district);
-    //   const pick_up_address =
-    //     form.pickUpRoom.value +
-    //     ", " +
-    //     form.pickUpFloor.value +
-    //     ", " +
-    //     form.pickUpBuilding.value +
-    //     ", " +
-    //     form.pickUpStreet.value;
+
     const pick_up_room = form.pickUpRoom.value;
     const pick_up_floor = form.pickUpFloor.value;
     const pick_up_building = form.pickUpBuilding.value;
     const pick_up_street = form.pickUpStreet.value;
     // const pick_up_coordinates =form.pick_up_coordinates
     const deliver_district = form.deliverDistrict.value;
-    //   const deliver_address =
-    //     form.deliverRoom.value +
-    //     ", " +
-    //     form.deliverFloor.value +
-    //     ", " +
-    //     form.deliverBuilding.value +
-    //     ", " +
-    //     form.deliverStreet.value;
+
     const deliver_room = form.deliverRoom.value;
     const deliver_floor = form.deliverFloor.value;
     const deliver_building = form.deliverBuilding.value;
@@ -123,20 +142,9 @@ function createOrder() {
         animals_amount,
       }),
     });
-    // if ((resp.status = 200)) {
-    //   Swal.fire({
-    //     icon: "success",
-    //     title: "Submitted",
-    //     showConfirmButton: false,
-    //     timer: 1500,
-    //   });
-    //   setTimeout(() => {
-    //     window.location = "/usersMain.html";
-    //   }, 1501);
-    // }
+
     if ((resp.status = 200)) {
       window.location = "/ordertopay.html";
     }
   });
 }
-

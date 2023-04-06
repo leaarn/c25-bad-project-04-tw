@@ -1,3 +1,115 @@
+.order-form-div {
+  background-color: rgb(255, 245, 219);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  border: 0;
+  border-radius: 15px;
+  padding: 0 10px;
+  margin: 3vw;
+}
+
+.create-order-form {
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+
+h3 {
+  margin: 2vw;
+  color: rgb(255, 157, 29);
+  text-align: center;
+}
+
+p {
+  color: rgb(253, 202, 72);
+  margin-bottom: 0;
+  margin-top: 1vw;
+}
+
+.pick-up-address,
+.deliver-address,
+.animals-section,
+.remarks {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  text-align: left;
+}
+.date {
+  width: 50%;
+  height: 30%;
+  text-align: center;
+  letter-spacing: 6px;
+}
+.time {
+  width: 30%;
+  height: 30%;
+}
+.sub-title-and-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid rgb(253, 202, 72);
+  margin: 1%;
+  width: 70%;
+  height: 30%;
+}
+
+select :disabled {
+  background-color: rgba(208, 207, 205, 0.674);
+}
+
+input,
+textarea,
+::placeholder {
+  color: rgb(253, 202, 72);
+}
+
+input,
+select,
+textarea,
+:valid {
+  color: rgb(255, 157, 29);
+}
+
+textarea:focus,
+input:focus {
+  background: rgba(230, 227, 223, 0.453);
+}
+
+/*anm button */
+.add-animal,
+.remove-animal {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: rgb(255, 157, 29);
+  border: 1px solid rgb(255, 157, 29);
+  text-align: center;
+}
+
+.fa-plus,
+.fa-minus {
+  color: rgb(255, 251, 240);
+}
+
+.submit-btn {
+  background-color: rgb(255, 227, 155);
+  border: 0;
+  border-radius: 15px;
+  color: rgb(255, 157, 29);
+  margin: 10px 0;
+  padding: 8px;
+  font-size: 3vw;
+}
 /* hi users */
 .user-info {
   border: 0;

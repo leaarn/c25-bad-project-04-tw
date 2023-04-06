@@ -1,4 +1,4 @@
-<!-- 未付款 -->
+<!-- 己完成訂單詳細資料 -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -17,10 +17,10 @@
     <link rel="stylesheet" href="sweetalert2.min.css" />
     <!-- my css -->
     <link rel="stylesheet" href="./css/navbar.css" />
-    <link rel="stylesheet" href="./css/ordertopay.css" />
     <title>Document</title>
   </head>
   <body>
+    <!-- nav bar -->
     <div class="navbar">
       <button
         class="menu_btn"
@@ -51,24 +51,15 @@
       <img class="logo" src="../assets/LOGO.png" alt="logo" />
       <div class="empty"></div>
     </div>
-
-    <div class="order">
-      <h3>確認你的訂單</h3>
-      <div class="confirm-order"></div>
-
-      <h3>訂單總價</h3>
-      <div class="total-price"></div>
-
-      <h3>支付方式</h3>
-      <div class="payment-method">
-        <input type="radio" id="visa" />
-        <label for="visa">VISA</label>
-      </div>
-      <button class="pay-btn">立即付款</button>
+    <!-- content -->
+    <div class="details">
+      <h3>歷史訂單</h3>
+      <div class="order-details"></div>
+      <a href="./userhistoryorder.html"><button>返回查看所有歷史訂單</button></a>
     </div>
 
     <!-- my js -->
-    <script src="./js/ordertopay.js"></script>
+    <script src="./js/historydt.js"></script>
     <!-- <script src="./js/userlogout.js"></script> -->
 
     <!-- nav bar js -->
