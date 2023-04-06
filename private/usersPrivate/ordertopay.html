@@ -13,6 +13,8 @@
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
+    <!-- font awesome css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <!-- sweet alert css -->
     <link rel="stylesheet" href="sweetalert2.min.css" />
     <!-- my css -->
@@ -53,18 +55,20 @@
     </div>
 
     <div class="order">
-      <h3>確認你的訂單</h3>
+      <h3><b>確認你的訂單</b></h3>
       <div class="confirm-order"></div>
 
-      <h3>訂單總價</h3>
+      <h3><b>訂單總價</b></h3>
       <div class="total-price"></div>
 
-      <h3>支付方式</h3>
+      <h3><b>支付方式</b></h3>
       <div class="payment-method">
-        <input type="radio" id="visa" />
+        <input type="radio" id="visa" checked="checked" />
         <label for="visa">VISA</label>
       </div>
-      <button class="pay-btn">立即付款</button>
+      <div class="btn-div">
+        <button class="pay-btn">立即付款<i class="fa-sharp fa-solid fa-circle-chevron-right"></i></button>
+      </div>
     </div>
 
     <!-- my js -->

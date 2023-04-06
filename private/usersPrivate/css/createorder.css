@@ -16,7 +16,7 @@
   margin-left: 5vw;
   margin-right: 5vw;
 }
-
+/* title */
 h3 {
   margin: 2vw;
   color: rgb(255, 157, 29);
@@ -24,7 +24,7 @@ h3 {
   padding-left: 3vw;
   padding-right: 8vw;
 }
-
+/* sub-title */
 p {
   color: rgb(253, 202, 72);
   margin-bottom: 0;
@@ -32,6 +32,7 @@ p {
   text-align: left;
 }
 
+/* div align */
 .pick-up-address,
 .deliver-address,
 .animals-section,
@@ -43,6 +44,7 @@ p {
   flex-wrap: wrap;
   text-align: left;
 }
+/* date and time width */
 .date {
   width: 50%;
   height: 30%;
@@ -55,12 +57,14 @@ p {
   letter-spacing: 2px;
   text-align: center;
 }
+
+/* animal title and plus btn */
 .sub-title-and-btn {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
-
+/* border */
 input,
 select,
 textarea {
@@ -70,21 +74,24 @@ textarea {
   height: 50%;
 }
 
+/* template width */
 .clone-animal {
   width: 100%;
   height: 50%;
 }
 
+/* select  */
 select :disabled {
   background-color: rgba(208, 207, 205, 0.674);
 }
-
+/* place holder */
 input,
 textarea,
 ::placeholder {
   color: rgb(253, 202, 72);
 }
 
+/* when there is input */
 input,
 select,
 textarea,
@@ -92,6 +99,10 @@ textarea,
   color: rgb(255, 157, 29);
 }
 
+/* can't change select color yet */
+select option:first-child {
+  color: green;
+}
 textarea:focus,
 input:focus {
   background: rgba(230, 227, 223, 0.453);

@@ -9,6 +9,11 @@ body {
   flex-direction: row;
 }
 
+.menu_content {
+  display: flex;
+  flex-direction: column;
+}
+
 .menu_btn {
   background-color: rgb(255, 227, 155);
   border: 0;
@@ -63,6 +68,11 @@ body {
 
 .menu_subitems {
   font-size: 2vw;
+}
+
+.logout {
+  display: flex;
+  justify-content: center;
 }
 
 #logout,
