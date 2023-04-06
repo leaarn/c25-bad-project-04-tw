@@ -23,7 +23,7 @@ window.onload = async () => {
     orderStatus = "己完成";
   }
   const htmlstr = `
-  <p>訂單號碼 : ${historyOrderDetails.reference_code}</p>
+  <p><b>訂單號碼 : ${historyOrderDetails.reference_code}</b></p>
   <p>訂單狀態 : ${orderStatus}</p>
   <p>收貨時間 : ${historyOrderDetails.pick_up_date_time}</p>
   <p>收貨地址 : ${historyOrderDetails.pick_up_address}</p>

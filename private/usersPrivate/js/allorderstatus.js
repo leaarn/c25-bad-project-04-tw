@@ -26,6 +26,7 @@ async function allOrderStatus() {
     const remarks = document.createElement("p");
     // 訂單狀態 :
     const orderStatusTitle = document.createElement("p");
+    orderStatusTitle.className("order-status-title")
     const orderStatusDiv = document.createElement("div");
     const orderStatus = document.createElement("div");
 
