@@ -2,6 +2,7 @@
 window.onload = () => {
   loadOrderToPay();
   confirmToPay();
+  usersLogout();
 };
 
 async function loadOrderToPay() {
@@ -64,6 +65,20 @@ async function confirmToPay() {
       setTimeout(() => {
         window.location = "/allorderstatus.html";
       }, 1501);
+    }
+  });
+}
+
+async function usersLogout() {
+  const logout = document.querySelector("#logout");
+  logout.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const resp = await fetch(`/logout/users`);
+    if (resp.status === 200) {
+      window.location = "/usersLogin.html";
+    } else {
+      const data = await resp.json();
+      alert(data.message);
     }
   });
 }

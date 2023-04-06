@@ -1,6 +1,7 @@
 // 己完成訂單
 window.onload = () => {
   loadCompleteOrder();
+  usersLogout();
 };
 
 async function loadCompleteOrder() {
@@ -54,4 +55,18 @@ async function loadCompleteOrder() {
     });
     orderContainer.appendChild(orderDiv);
   }
+}
+
+async function usersLogout() {
+  const logout = document.querySelector("#logout");
+  logout.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const resp = await fetch(`/logout/users`);
+    if (resp.status === 200) {
+      window.location = "/usersLogin.html";
+    } else {
+      const data = await resp.json();
+      alert(data.message);
+    }
+  });
 }
