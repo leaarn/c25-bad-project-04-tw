@@ -39,10 +39,10 @@ async function getDriverInfo(req: Request, res: Response) {
   }
 }
 
-async function getDistricts(req: Request, res: Response) {
+async function getDistricts(_req: Request, res: Response) {
   try {
     const getDistrictsResult = await dbClient.query<OrdersRow>(
-      /*sql*/ `SELECT pick_up_district, deliver_district FROM orders WHERE orders_status = 'pending'`
+      /*sql*/ `SELECT pick_up_district, deliver_district FROM orders WHERE orders_status = '訂單待接中'`
     );
     console.log(getDistrictsResult.rows);
     res.json(getDistrictsResult.rows); // pass array into res.json()
@@ -61,7 +61,7 @@ async function getAllOrders(_req: Request, res: Response) {
       orders_status 
       FROM orders 
       JOIN order_animals ON order_animals.orders_id = orders.id 
-      JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = 'pending'
+      JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = '訂單待接中'
       GROUP BY orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, orders_status ORDER BY pick_up_date DESC`
     );
     console.log(getAllOrdersResult.rows);
@@ -94,7 +94,7 @@ async function getAcceptOrders(req: Request, res: Response) {
       JOIN users ON orders.users_id = users.id
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id
-      WHERE orders_status = 'pending' AND orders.id = $1
+      WHERE orders_status = '訂單待接中' AND orders.id = $1
       GROUP BY orders.id, user_full_name, receiver_contact, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks, orders_status
       `,
       [ordersId]
@@ -127,7 +127,7 @@ async function driverEarns(req: Request, res: Response) {
       JOIN users ON orders.users_id = users.id
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id
-      WHERE orders_status = 'pending' AND orders.id = $1
+      WHERE orders_status = '訂單待接中' AND orders.id = $1
       GROUP BY distance_km`,
       [ordersId]
     );
@@ -150,7 +150,7 @@ async function getOrdersHistory(req: Request, res: Response) {
       FROM orders 
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id 
-      WHERE orders.orders_status = 'receiver received' AND orders.drivers_id = $1
+      WHERE orders.orders_status = '已完成' AND orders.drivers_id = $1
       GROUP BY orders.id, reference_code, orders_status`,
       [driversID]
     );
@@ -181,7 +181,7 @@ async function getSingleHistory(req: Request, res: Response) {
       FROM orders 
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id 
-      WHERE orders.orders_status = 'receiver received' AND orders_id = $1
+      WHERE orders.orders_status = '已完成' AND orders_id = $1
       GROUP BY orders.id, pick_up_date_time, pick_up_address, deliver_address, remarks, orders_status`,
       [ordersId]
     );
@@ -210,7 +210,7 @@ async function getOngoingOrders(req: Request, res: Response) {
       JOIN users ON orders.users_id = users.id
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id
-      WHERE (orders.orders_status = 'driver accepts' OR orders.orders_status = 'driver delivering') AND drivers_id = $1
+      WHERE (orders.orders_status = '司機已接單' OR orders.orders_status = '送貨中') AND drivers_id = $1
       GROUP BY orders.id, reference_code, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks, orders_status
       ORDER BY orders_status ASC`,
       [driversID]
@@ -232,8 +232,8 @@ async function driverDelivering(req: Request, res: Response) {
       return;
     }
     const driverDeliveringResult = await dbClient.query<OrdersRow>(
-      /*sql*/ `UPDATE orders SET orders_status = 'driver delivering'
-      WHERE (orders_status = 'driver accepts' AND orders.id = $1 AND drivers_id = $2)
+      /*sql*/ `UPDATE orders SET orders_status = '送貨中'
+      WHERE (orders_status = '司機已接單' AND orders.id = $1 AND drivers_id = $2)
       `,
       [ordersId, driversID]
     );
@@ -254,8 +254,8 @@ async function confirmAcceptOrder(req: Request, res: Response) {
       return;
     }
     const confirmAcceptOrderResult = await dbClient.query<OrdersRow>(
-      /*sql*/ `UPDATE orders SET orders_status = 'driver accepts', drivers_id = $1
-      WHERE orders_status = 'pending' AND orders.id = $2 
+      /*sql*/ `UPDATE orders SET orders_status = '司機已接單', drivers_id = $1
+      WHERE orders_status = '訂單待接中' AND orders.id = $2 
       `,
       [driversID, ordersId]
     );
