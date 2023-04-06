@@ -33,6 +33,7 @@ body {
   color: rgb(255, 157, 29);
   padding: 0 10px;
   margin-left: 5vw;
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
 }
 
 .bi-list,
@@ -96,19 +97,21 @@ body {
   color: rgb(255, 157, 29);
   margin: 6vw 2vw 2vw 2vw;
   padding: 8px;
-  font-size: 2vw;
+  font-size: 2.5vw;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
 .driver-info {
   border: 0;
   border-radius: 15px;
   background-color: rgb(255, 245, 219);
-  margin: 3vw 15vw;
+  margin: 3vw ;
   display: flex;
   align-items: center;
   color: rgb(255, 157, 29);
   padding: 0 2vw;
   justify-content: center;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
 .bi-person-circle {
@@ -119,10 +122,12 @@ body {
 
 select {
   border: 1px solid rgb(253, 202, 72);
-  margin: 0 0 0 15vw;
+  margin: 0 3vw;
+  padding: 1vw;
   height: 30%;
   color: rgb(255, 184, 90);
-  font-size: 1.5vw;
+  font-size: 2.6vw;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
 select :disabled {
@@ -136,7 +141,7 @@ select :disabled {
   color: rgb(255, 157, 29);
   padding: 5px 10px;
   margin: 0 10px;
-  font-size: 1.3vw;
+  font-size: 2vw;
 }
 
 .single_order {
@@ -146,23 +151,27 @@ select :disabled {
   color: rgb(255, 157, 29);
   display: flex;
   flex-direction: row;
-  margin: 3vw 15vw;
+  margin: 3vw ;
   justify-content: space-between;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
 .order-text {
   color: rgb(253, 202, 72);
   margin: 0 2vw;
+  font-size: 2vw;
 }
 
 .driver-name {
-  font-size: 2.5vw;
+  font-size: 3.5vw;
   margin: 10px;
+  color: rgb(253, 202, 72);
 }
 
 .role {
-  font-size: 1.5vw;
+  font-size: 2.5vw;
   margin: 10px;
+  color: rgb(253, 202, 72);
 }
 
 .cfm-accept-order,
@@ -175,9 +184,10 @@ select :disabled {
   color: rgb(255, 157, 29);
   padding: 5px 10px;
   margin: 2vw 0;
-  font-size: 2vw;
+  font-size: 3vw;
   position: relative;
-  left: 50vw;
+  left: 70vw;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
 .accept-order,
@@ -188,14 +198,15 @@ select :disabled {
   color: rgb(255, 157, 29);
   padding: 5px 10px;
   margin: 2vw 1vw 2vw 0;
-  font-size: 2vw;
+  font-size: 3vw;
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
 }
 
 .pick_up_district_time,
 .deli_district_animal {
   color: rgb(255, 157, 29);
   margin: 0 2vw;
-  font-size: 2vw;
+  font-size: 3vw;
 }
 
 .confirm_order,
@@ -207,15 +218,17 @@ select :disabled {
   background-color: rgb(255, 245, 219);
   margin: 3vw;
   color: rgb(255, 157, 29);
-  margin: 3vw 15vw;
+  margin: 3vw;
   padding-bottom: 1.5vw;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 .confirm_order_title,
 .driver_fee_title {
   padding: 2vw 10px 0 10px;
   margin: 2vw;
-  font-size: 3vw;
+  font-size: 3.5vw;
   color: rgb(255, 157, 29);
+  text-align: center;
 }
 
 .confirm_order_text,
@@ -226,7 +239,8 @@ select :disabled {
   color: rgb(253, 202, 72);
   padding: 2vw 10px 2vw 10px;
   margin: 2vw;
-  font-size: 1.5vw;
+  font-size: 2.5vw;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
 .order-success {
@@ -241,6 +255,7 @@ select :disabled {
   align-items: center;
   justify-content: center;
   height: 30vw;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
 .success {

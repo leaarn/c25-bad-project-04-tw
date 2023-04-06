@@ -15,7 +15,7 @@ async function userInfo() {
   const userInfoStr = `
   <i class="bi bi-person-circle"></i>
   <div class="user-details">
-  <p class="user-name"><b>Hi,${userInfo.first_name}</b></p>
+  <p class="user-name"><b>Hi, ${userInfo.first_name}</b></p>
   <p class="role">會員</p>
   </div>
   `;
