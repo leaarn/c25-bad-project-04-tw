@@ -1,8 +1,9 @@
 window.onload = () => {
   // driver main page
   showDriverInfo();
-  // showCurrentDistrict();
+  showCurrentDistrict();
   showAllOrders();
+  driversLogout();
 };
 
 async function showDriverInfo() {
@@ -20,39 +21,56 @@ async function showDriverInfo() {
   document.querySelector(".driver-info").innerHTML = htmlStr;
 }
 
-// async function showCurrentDistrict() {
-//   console.log("district");
-//   const resp = await fetch("/driversMain/get-district");
-//   const districts = await resp.json();
-//   console.log("district", districts);
+async function showCurrentDistrict() {
+  console.log("district");
+  const resp = await fetch("/driversMain/get-district");
+  const districts = await resp.json();
+  console.log("district", districts);
 
-//   // arr.map to obtain objects values and turn to array
-//   const districtsArr = districts.map((item) => Object.values(item));
-//   console.log("districtsArr", districtsArr);
-//   // arr.flat -> [[_,_],[_,_]] -> [_,_,_,_]
-//   let flattedDistrictsArr = districtsArr.flat();
-//   // js set unique
-//   let uniqueDistrict = [...new Set(flattedDistrictsArr)];
-//   console.log("uniqueDistrict", uniqueDistrict);
+  // arr.map to obtain objects values and turn to array
+  const districtsArr = districts.map((item) => Object.values(item));
+  console.log("districtsArr", districtsArr);
+  // arr.flat -> [[_,_],[_,_]] -> [_,_,_,_]
+  let flattedDistrictsArr = districtsArr.flat();
+  console.log("flattedDistrictsArr", flattedDistrictsArr);
+  // js set unique
+  let uniqueDistrict = [...new Set(flattedDistrictsArr)];
+  console.log("uniqueDistrict", uniqueDistrict);
 
-//   // Create an "option" node:
-//   // what is i?
-//   // how to put i into the loop
-//   // object{} vs array[] (for objKey in obj// for arrayValue of arr) <-- directly take value inside
-//   for (let i = 0; i < uniqueDistrict.length; i++) {
-//     const opt = document.createElement("option");
-//     opt.innerText += uniqueDistrict[i];
-//     document.querySelector(".district-menu").appendChild(opt);
-//   }
-// }
+  // Create an "option" node:
+  // what is i?
+  // how to put i into the loop
+  // object{} vs array[] (for objKey in obj// for arrayValue of arr) <-- directly take value inside
+  for (let i = 0; i < uniqueDistrict.length; i++) {
+    const opt = document.createElement("option");
+    opt.className = "each-district";
+    opt.setAttribute("value", uniqueDistrict[i]);
+    opt.innerText += uniqueDistrict[i];
+    document.querySelector(".district-menu").appendChild(opt);
+  }
+}
 
-async function showAllOrders() {
+async function showAllOrders(district) {
   console.log("all orders");
   const resp = await fetch("/driversMain/get-orders");
-  const allOrders = await resp.json();
-  console.log("all orders", allOrders);
+  const originalOrders = await resp.json();
+  console.log("all orders", originalOrders);
+  let allOrders = [];
+  if (district !== undefined) {
+    allOrders = originalOrders.filter(
+      (order) =>
+        order.pick_up_district === district ||
+        order.deliver_district === district
+    );
+  } else {
+    allOrders = originalOrders;
+  }
+  console.log("selected orders: ", allOrders);
 
+  let htmlStr = "";
   for (let i = 0; i < allOrders.length; i++) {
+    console.log("update UI");
+    console.log(allOrders[i]);
     let animalDetails = ``;
     if (Array.isArray(allOrders[i].animals_name)) {
       for (let j = 0; j < allOrders[i].animals_name.length; j++) {
@@ -64,15 +82,11 @@ async function showAllOrders() {
       }
     } else {
       animalDetails +=
-          allOrders[i].animals_name +
-          " X " +
-          allOrders[i].animals_amount +
-          " ";
+        allOrders[i].animals_name + " X " + allOrders[i].animals_amount + " ";
     }
-
     const acceptBtn = `<button class="accept-order" onClick="acceptOrdersDetail(${allOrders[i].id})">接單</button>`;
     const dateStr = new Date(allOrders[i].pick_up_date).toDateString();
-    let htmlStr = `
+    htmlStr += `
       <div class="single_order">
         <div>
           <p class="order-text">FROM</p>
@@ -89,10 +103,37 @@ async function showAllOrders() {
         ${acceptBtn}
       </div>
       `;
-    document.querySelector("#all_orders").innerHTML += htmlStr;
   }
+  document.querySelector("#all_orders").innerHTML = htmlStr;
+}
+
+async function showSelectedOrders() {
+  console.log("showSelectedOrders");
+  const district = document.querySelector(".district-menu").value;
+  // const pickUpDistrict = document.querySelector(".pick_up_district");
+  // const deliverDistrict = document.querySelector(".deli_district");
+  // if (
+  //   district.innerHTML == pickUpDistrict.innerHTML ||
+  //   district.innerHTML == deliverDistrict.innerHTML
+  // ) {
+  showAllOrders(district);
+  // }
 }
 
 async function acceptOrdersDetail(id) {
   window.location = `/driversAcceptOrder.html?oid=${id}`;
+}
+
+async function driversLogout() {
+  const logout = document.querySelector("#logout");
+  logout.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const resp = await fetch(`/logout/drivers`);
+    if (resp.status === 200) {
+      window.location = "/driversLogin.html";
+    } else {
+      const data = await resp.json();
+      alert(data.message);
+    }
+  });
 }

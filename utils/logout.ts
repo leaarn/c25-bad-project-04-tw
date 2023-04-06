@@ -45,7 +45,7 @@ export async function driversLogout(req: express.Request, res: express.Response)
 // }
 
 // window.onload = () => {
-//   usersLogout();
+//   driversLogout();
 // };
 
 // async function driversLogout() {

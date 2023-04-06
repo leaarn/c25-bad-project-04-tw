@@ -1,5 +1,6 @@
 window.onload = async () => {
   showHistoryOrder();
+  driversLogout();
 };
 
 async function showHistoryOrder() {
@@ -39,4 +40,18 @@ async function showHistoryOrder() {
 
 async function toSingleHistory(id) {
   window.location = `/driversSingleHistory.html?oid=${id}`;
+}
+
+async function driversLogout() {
+  const logout = document.querySelector("#logout");
+  logout.addEventListener("click", async (e) => {
+    e.preventDefault();
+    const resp = await fetch(`/logout/drivers`);
+    if (resp.status === 200) {
+      window.location = "/driversLogin.html";
+    } else {
+      const data = await resp.json();
+      alert(data.message);
+    }
+  });
 }

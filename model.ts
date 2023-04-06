@@ -36,13 +36,11 @@ export interface OrdersRow {
   pick_up_floor: string;
   pick_up_building: string;
   pick_up_street: string;
-  pick_up_coordinates?: string;
   deliver_district: string;
   deliver_room: string;
   deliver_floor: string;
   deliver_building: string;
   deliver_street: string;
-  deliver_coordinates?: string;
   users_id: Number;
   drivers_id?: Number;
   receiver_name: string;
