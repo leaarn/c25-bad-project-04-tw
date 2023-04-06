@@ -1,4 +1,3 @@
-// const { body } = require("express-validator");
 window.onload = () => {
   createDrivers();
 };
@@ -37,6 +36,7 @@ function createDrivers() {
       //   }),
     });
     if (resp.status === 200) {
+      alert("登記成功!");
       window.location = "/driversLogin.html";
     } else {
       const data = await resp.json();

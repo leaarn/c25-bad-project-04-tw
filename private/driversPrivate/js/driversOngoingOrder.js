@@ -25,14 +25,14 @@ async function showOngoingOrder() {
     }
     let htmlStr = `
       <div class="confirm_order_text">
-      <p><b>訂單號碼: #${ongoingOrder[i].reference_code}</b></p>
-      <p>客人姓名: ${ongoingOrder[i].user_full_name} </p>
-      <p>客人聯絡電話: ${ongoingOrder[i].contact_num} </p>
-      <p>送貨時間: ${ongoingOrder[i].pick_up_date_time} </p>
-      <p>收貨地址: ${ongoingOrder[i].pick_up_address} </p>
-      <p>送貨地址: ${ongoingOrder[i].deliver_address} </p>
-      <p>動物: ${animalDetails} </p>
-      <p>備註: ${ongoingOrder[i].remarks}</p>
+      <p><b>訂單號碼：#${ongoingOrder[i].reference_code}</b></p>
+      <p>客人姓名：${ongoingOrder[i].user_full_name} </p>
+      <p>客人聯絡電話：${ongoingOrder[i].contact_num} </p>
+      <p>送貨時間：${ongoingOrder[i].pick_up_date_time} </p>
+      <p>收貨地址：${ongoingOrder[i].pick_up_address} </p>
+      <p>送貨地址：${ongoingOrder[i].deliver_address} </p>
+      <p>動物：${animalDetails} </p>
+      <p>備註：${ongoingOrder[i].remarks}</p>
       <button class="cfm-change-status" order-id="${ongoingOrder[i].id}">${
       ongoingOrder[i].orders_status == "driver delivering"
         ? "已接貨"

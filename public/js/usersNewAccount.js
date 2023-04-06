@@ -38,6 +38,7 @@ function createUsers() {
       }),
     });
     if (resp.status === 200) {
+      alert("登記成功!");
       window.location = "/usersLogin.html";
     } else {
       const data = await resp.json();
