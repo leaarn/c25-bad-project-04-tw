@@ -41,8 +41,6 @@ async function message(req: express.Request, res: express.Response) {
         Object.values(token)
       )}. Click the link http://localhost:8080/receivers.html to input your verification code. Have a great day!`
     );
-
-    console.log(data);
     const resp = await sendMessage(data);
     console.log(resp.status);
     
@@ -72,8 +70,7 @@ async function checkToken(req: express.Request, res: express.Response) {
       return;
     } else {
       await dbClient.query<OrdersRow>(
-        /*SQL*/ `UPDATE orders SET orders_status = 'Received
-        ' WHERE token = $1 `,
+        /*SQL*/ `UPDATE orders SET orders_status = '已完成' WHERE token = $1 `,
         [token]
       );
 
