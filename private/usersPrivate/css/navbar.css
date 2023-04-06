@@ -76,7 +76,9 @@ body {
 }
 
 #logout,
-.pay-btn {
+.pay-btn,
+.details-btn,
+.cancel-btn {
   background-color: rgb(255, 227, 155);
   border: 0;
   border-radius: 15px;

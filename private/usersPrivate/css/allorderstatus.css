@@ -1,0 +1,89 @@
+.all-order-status {
+  background-color: rgb(255, 245, 219);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: left;
+  border: 0;
+  border-radius: 15px;
+  padding: 0 10px;
+  margin-left: 15vw;
+  margin-right: 15vw;
+  margin-top: 3vw;
+}
+
+h3 {
+  margin: 2vw;
+  color: rgb(255, 157, 29);
+}
+
+.details-btn,
+.cancel-btn {
+  font-size: 15px;
+  width: 20vw;
+}
+
+.each-order {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  width: 90%;
+  background-color: rgb(255, 251, 240);
+  margin-bottom: 2vw;
+  padding: 1vw;
+  border-radius: 15px;
+}
+
+.order-text {
+  font-weight: bold;
+}
+
+.order-status-div {
+  display: flex;
+  /* height: 50vh; */
+  justify-content: center;
+  align-items: center;
+}
+.order-status {
+  width: 50%;
+  height: 100%;
+  padding: 1vw 3vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: self-start; */
+  background-color: rgb(255, 245, 219);
+  border-radius: 15px;
+  margin: 1vw 0;
+}
+.p {
+  text-align: left;
+}
+.status-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  /* justify-content: space-between; */
+  /* width: 40%; */
+}
+
+.fa-circle {
+  margin-right: 2vw;
+}
+
+.arrow-div {
+  padding-bottom: 1vw;
+  padding-right: 2vw;
+}
+
+.btn-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  margin: 0;
+}
