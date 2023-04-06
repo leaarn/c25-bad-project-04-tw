@@ -17,6 +17,11 @@
     <link rel="stylesheet" href="sweetalert2.min.css" />
     <!-- font awesome css-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- bootstrap icon css -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.4/font/bootstrap-icons.min.css"
+    />
     <!-- my css -->
     <link rel="stylesheet" href="./css/createorder.css" />
     <link rel="stylesheet" href="./css/navbar.css" />
@@ -64,8 +69,8 @@
           <h3><b>立即建立你的訂單</b></h3>
           <div class="pick-up-time">
             <p>收貨時間</p>
-            <input type="date" name="date"class="date" />
-            <input type="time" name="time" class="time"/>
+            <input type="date" name="date" class="date" />
+            <input type="time" name="time" class="time" />
           </div>
 
           <p>接貨地址</p>
@@ -196,7 +201,8 @@
           <div class="animals-section">
             <span class="sub-title-and-btn">
               <p>運送動物 (總數最多5只)</p>
-              <button class="add-animal"><i class="fa-solid fa-plus"></i></button>
+              <i class="bi bi-plus-circle-fill add-animal"></i>
+              <!-- <button class="add-animal"></button> -->
             </span>
             <select name="animals_id">
               <option value="" disabled selected>動物</option>
@@ -237,7 +243,7 @@
                   <option value="4">4</option>
                   <option value="5">5</option>
                 </select>
-                <button class="remove-animal"><i class="fa-solid fa-minus"></i></button>
+                <i class="bi bi-dash-circle-fill remove-animal"></i>
               </div>
             </template>
           </div>
@@ -246,7 +252,7 @@
             <p>備註</p>
             <input type="text" name="remarks" placeholder="額外資料" value="dog" />
           </div>
-          <input type="submit" value="提交訂單" class ="submit-btn"/>
+          <input type="submit" value="提交訂單" class="submit-btn" />
         </div>
       </form>
     </div>
