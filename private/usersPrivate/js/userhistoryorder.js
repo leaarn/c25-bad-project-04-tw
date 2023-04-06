@@ -20,12 +20,11 @@ async function loadCompleteOrder() {
     const referenceCode = document.createElement("p");
     const orderStatus = document.createElement("p");
     const animals = document.createElement("p");
-
+    console.log(order.orders_status);
     //text content
     referenceCode.textContent = `訂單號碼 : ${order.reference_code}`;
-    if (order.orders_status == "receiver received") {
-      orderStatus.textContent = `訂單狀態 : 己完成`;
-    }
+    orderStatus.textContent = `訂單狀態 : 已完成`;
+
     let animalDetails = ``;
     if (Array.isArray(order.animals_name)) {
       for (let i = 0; i < order.animals_name.length; i++) {
@@ -45,11 +44,14 @@ async function loadCompleteOrder() {
     const detailsBtn = document.createElement("button");
     detailsBtn.textContent = `查看更多`;
     detailsBtn.className = "detail-btn";
+    const btnDiv = document.createElement("div");
+    btnDiv.className = "btn-div";
+    btnDiv.appendChild(detailsBtn);
     orderDetailsDiv.appendChild(referenceCode);
     orderDetailsDiv.appendChild(orderStatus);
     orderDetailsDiv.appendChild(animals);
     orderDiv.appendChild(orderDetailsDiv);
-    orderDiv.appendChild(detailsBtn);
+    orderDiv.appendChild(btnDiv);
     detailsBtn.addEventListener("click", () => {
       window.location = `/historydt.html?oid=${order.id}`;
     });
