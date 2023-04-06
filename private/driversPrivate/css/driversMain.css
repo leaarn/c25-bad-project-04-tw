@@ -11,6 +11,15 @@ body {
   z-index: -10;
 }
 
+.bi-truck-1 {
+  position: fixed;
+  font-size: 25vw;
+  color: rgb(255, 238, 193);
+  /* left: 70%; */
+  bottom: 0;
+  z-index: -10;
+}
+
 .navbar {
   background-color: rgb(255, 245, 219);
   display: flex;

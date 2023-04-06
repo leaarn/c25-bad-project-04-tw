@@ -30,13 +30,13 @@ async function singleHistory(id) {
     // }
     let htmlStr = `
       <div class="confirm_order_text">
-      <p><b>訂單號碼: #${singleHistoryResult.reference_code}</b></p>
-      <p>訂單狀態: ${singleHistoryResult.orders_status}</p>
-      <p>送貨時間: ${singleHistoryResult.pick_up_date_time} </p>
-      <p>收貨地址: ${singleHistoryResult.pick_up_address} </p>
-      <p>送貨地址: ${singleHistoryResult.deliver_address} </p>
-      <p>動物: ${animalDetails} </p>
-      <p>備註: ${singleHistoryResult.remarks}</p>
+      <p><b>訂單號碼：#${singleHistoryResult.reference_code}</b></p>
+      <p>訂單狀態：${singleHistoryResult.orders_status}</p>
+      <p>送貨時間：${singleHistoryResult.pick_up_date_time} </p>
+      <p>收貨地址：${singleHistoryResult.pick_up_address} </p>
+      <p>送貨地址：${singleHistoryResult.deliver_address} </p>
+      <p>動物：${animalDetails} </p>
+      <p>備註：${singleHistoryResult.remarks}</p>
       </div>
   `;
     document.querySelector(".history_each_details").innerHTML += htmlStr;
