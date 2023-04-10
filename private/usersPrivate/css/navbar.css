@@ -7,6 +7,9 @@ body {
   background-color: rgb(255, 245, 219);
   display: flex;
   flex-direction: row;
+  position: sticky;
+  width: 100%;
+  top: 0;
 }
 
 .menu_btn {
@@ -37,6 +40,10 @@ body {
 
 #offcanvasMenu {
   background-color: rgb(255, 251, 240);
+}
+
+.offcanvas.offcanvas-start {
+  width: 30%
 }
 
 .close_button {

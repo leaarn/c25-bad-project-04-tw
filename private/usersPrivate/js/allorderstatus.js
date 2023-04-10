@@ -11,12 +11,12 @@ async function allOrderStatus() {
   //big container
   const orderContainer = document.querySelector(".all-order-status");
   //title
-  const title = document.createElement("h3");
+  const title = document.createElement("div");
   title.textContent = `實時訂單狀態`;
+  title.className = "ongoing-title"
   orderContainer.appendChild(title);
   //iterate orders haven't complete
   for (const order of notFinish) {
-    const orderId = document.createElement("p");
     const orderCode = document.createElement("p");
     const createTime = document.createElement("p");
     const pickUpDateTime = document.createElement("p");
@@ -93,7 +93,6 @@ async function allOrderStatus() {
     const detailsBtn = document.createElement("button");
     const cancelOrderBtn = document.createElement("button");
     //text content
-    orderId.textContent = `訂單編號 : ${order.id}`;
     orderCode.textContent = `訂單號碼 : ${order.reference_code}`;
     createTime.textContent = `訂單建立時間 : ${order.created_at}`;
     pickUpDateTime.textContent = `預計收貨時間 : ${order.pick_up_date_time}`;
@@ -115,7 +114,7 @@ async function allOrderStatus() {
     pending.textContent = `正在等待司機接單`;
     driverAccepts.textContent = `司機正在前往接貨`;
     driverDelivering.textContent = `司機正前往送貨`;
-    receiverReceived.textContent = `客人己收貨`;
+    receiverReceived.textContent = `客人已收貨`;
     //button
     detailsBtn.textContent = `查看你的司機資訊及位置`;
     cancelOrderBtn.textContent = `取消訂單`;
@@ -160,7 +159,6 @@ async function allOrderStatus() {
     orderStatus.appendChild(arrowDiv3);
     orderStatus.appendChild(statusRow4);
     orderStatusDiv.appendChild(orderStatus);
-    orderTextDiv.appendChild(orderId);
     orderTextDiv.appendChild(orderCode);
     orderTextDiv.appendChild(createTime);
     orderTextDiv.appendChild(pickUpDateTime);
