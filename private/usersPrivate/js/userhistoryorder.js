@@ -18,6 +18,7 @@ async function loadCompleteOrder() {
   for (const order of complete) {
     //create element
     const referenceCode = document.createElement("p");
+    referenceCode.style = "font-weight: bold"
     const orderStatus = document.createElement("p");
     const animals = document.createElement("p");
     console.log(order.orders_status);

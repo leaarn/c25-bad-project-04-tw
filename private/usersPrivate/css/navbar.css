@@ -9,11 +9,6 @@ body {
   flex-direction: row;
 }
 
-.menu_content {
-  display: flex;
-  flex-direction: column;
-}
-
 .menu_btn {
   background-color: rgb(255, 227, 155);
   border: 0;
@@ -21,6 +16,7 @@ body {
   color: rgb(255, 157, 29);
   padding: 0 10px;
   margin-left: 5vw;
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
 }
 
 .bi-list,
@@ -55,6 +51,13 @@ body {
   flex-grow: 0;
 }
 
+.menu_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 0;
+}
+
 .menu_items,
 .menu_subitems {
   text-align: center;
@@ -70,10 +73,10 @@ body {
   font-size: 2vw;
 }
 
-.logout {
+/* .logout {
   display: flex;
   justify-content: center;
-}
+} */
 
 #logout,
 .pay-btn,
@@ -83,7 +86,8 @@ body {
   border: 0;
   border-radius: 15px;
   color: rgb(255, 157, 29);
-  margin: 10px 0;
+  margin: 6vw 2vw 2vw 2vw;
   padding: 8px;
-  font-size: 3vw;
+  font-size: 2.5vw;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }

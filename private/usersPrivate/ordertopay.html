@@ -21,48 +21,81 @@
     <link href="assets/img/favicon.png" rel="icon">
     <link rel="stylesheet" href="./css/navbar.css" />
     <link rel="stylesheet" href="./css/ordertopay.css" />
-    <title>Document</title>
+    <title>Chicken Van 24/7 Hailing Platform</title>
   </head>
   <body>
-    <div class="navbar">
-      <button
-        class="menu_btn"
-        data-bs-toggle="offcanvas"
-        href="#offcanvasMenu"
-        role="button"
-        aria-controls="offcanvasMenu"
-      >
-        <i class="bi bi-list"></i>
-      </button>
-
-      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
-        <div class="offcanvas-header">
-          <img class="logo offcanvas-title" id="offcanvasMenuLabel" src="../assets/LOGO.png" href="/" alt="logo" />
-          <i class="bi bi-x-lg" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></i>
-        </div>
-        <div class="offcanvas-body">
-          <div class="menu_content">
-            <a class="menu_items" style="text-decoration: none" href="./usersMain.html">建立訂單</a>
-            <a class="menu_items" style="text-decoration: none" href="./userhistoryorder.html">歷史訂單</a>
-            <a class="menu_items" style="text-decoration: none" href="./allorderstatus.html">實時訂單狀態</a>
+        <!-- navbar -->
+        <div class="navbar">
+          <button
+            class="menu_btn"
+            data-bs-toggle="offcanvas"
+            href="#offcanvasMenu"
+            role="button"
+            aria-controls="offcanvasMenu"
+          >
+            <i class="bi bi-list"></i>
+          </button>
+    
+          <div
+            class="offcanvas offcanvas-start"
+            tabindex="-1"
+            id="offcanvasMenu"
+            aria-labelledby="offcanvasMenuLabel"
+          >
+            <div class="offcanvas-header">
+              <a href="./usersMain.html"
+                ><img
+                  class="logo offcanvas-title"
+                  id="offcanvasMenuLabel"
+                  src="../assets/LOGO.png"
+                  alt="logo"
+              /></a>
+              <i
+                class="bi bi-x-lg"
+                type="button"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></i>
+            </div>
+            <div class="offcanvas-body">
+              <div class="menu_content">
+                <a
+                  class="menu_items"
+                  style="text-decoration: none"
+                  href="./usersMain.html"
+                  >建立訂單</a
+                >
+                <a
+                  class="menu_items"
+                  style="text-decoration: none"
+                  href="./userhistoryorder.html"
+                  >歷史訂單</a
+                >
+                <a
+                  class="menu_items"
+                  style="text-decoration: none"
+                  href="./allorderstatus.html"
+                  >實時訂單狀態</a
+                >
+              </div>
+              <button id="logout">登出</button>
+            </div>
           </div>
-          <div class="logout">
-            <button id="logout">登出</button>
-          </div>
+          <a href="./usersMain.html"
+            ><img class="logo" src="../assets/LOGO.png" alt="logo"
+          /></a>
+          
+          <div class="empty"></div>
         </div>
-      </div>
-      <img class="logo" src="../assets/LOGO.png" alt="logo" />
-      <div class="empty"></div>
-    </div>
 
     <div class="order">
-      <h3><b>確認你的訂單</b></h3>
+      <h2><b>確認你的訂單</b></h2>
       <div class="confirm-order"></div>
 
-      <h3><b>訂單總價</b></h3>
+      <h2><b>訂單總價</b></h2>
       <div class="total-price"></div>
 
-      <h3><b>支付方式</b></h3>
+      <h2><b>支付方式</b></h2>
       <div class="payment-method">
         <div class="payment-div">
           <div class="payment-column">

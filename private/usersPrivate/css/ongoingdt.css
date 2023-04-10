@@ -25,7 +25,9 @@
   justify-content: center;
   align-items: center;
   border-radius: 15px;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
+
 
 p {
   font-size: 2vw;
@@ -50,4 +52,5 @@ h3 {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
 }

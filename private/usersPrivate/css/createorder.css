@@ -7,15 +7,14 @@
   border: 0;
   border-radius: 15px;
   padding: 0 10px;
-  margin-left: 15vw;
-  margin-right: 15vw;
-  margin-top: 3vw;
+  margin: 3vw;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
-.create-order-form {
+/* .create-order-form {
   margin-left: 5vw;
   margin-right: 5vw;
-}
+} */
 /* title */
 h3 {
   margin: 2vw;
@@ -27,7 +26,7 @@ h3 {
 /* sub-title */
 p {
   color: rgb(253, 202, 72);
-  margin-bottom: 0;
+  margin-bottom: 0.5vw;
   margin-top: 1vw;
   text-align: left;
 }
@@ -43,6 +42,7 @@ p {
   align-items: start;
   flex-wrap: wrap;
   text-align: left;
+  
 }
 /* date and time width */
 .date {
@@ -69,9 +69,10 @@ input,
 select,
 textarea {
   border: 1px solid rgb(253, 202, 72);
-  margin: 1%;
+  margin: 1vw;
   width: 83%;
   height: 50%;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
 /* template width */
@@ -146,26 +147,27 @@ input:focus {
   border: 0;
   border-radius: 15px;
   background-color: rgb(255, 245, 219);
-  margin: 3vw 15vw;
+  margin: 3vw ;
   display: flex;
   align-items: center;
   color: rgb(255, 157, 29);
-  /* justify-content: center; */
-  /* padding: 0 3vw; */
+  padding: 0 2vw;
+  justify-content: center;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
 .bi-person-circle {
   color: rgb(255, 157, 29);
-  font-size: 6vw;
-  margin: 0 2vw;
+  font-size: 7vw;
+  margin: 2vw;
 }
 
 .user-name {
-  font-size: 2.5vw;
+  font-size: 3.5vw;
   margin: 10px;
 }
 
 .role {
-  font-size: 1.5vw;
+  font-size: 2.5vw;
   margin: 10px;
 }
