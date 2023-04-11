@@ -30,7 +30,7 @@ async function showHistoryOrder() {
       <p><b>訂單號碼：#${historyOrder[i].reference_code}</b></p>
       <p>訂單狀態：${historyOrder[i].orders_status}</p>
       <p>動物：${animalDetails} </p>
-      <button class="history-details" onClick="toSingleHistory(${historyOrder[i].id})">查看更多</button>
+      <div class="btn-div"><button class="history-details" onClick="toSingleHistory(${historyOrder[i].id})">查看更多</button></div>
       </div>
   `;
     document.querySelector(".history_each").innerHTML += htmlStr;

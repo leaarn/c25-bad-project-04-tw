@@ -38,7 +38,7 @@ async function toAcceptOrder(id) {
       <p>備註：${acceptOrder.remarks}</p></div>
       <div class="driver_fee_title"><b>司機收費</b></div>
       <div class="driver_fee_text"></div>
-      <button class="cfm-accept-order" onClick="confirmAcceptOrder(${acceptOrder.id})">確認接單</button>
+      <div class="btn-div"><button class="cfm-accept-order" onClick="confirmAcceptOrder(${acceptOrder.id})">確認接單</button></div>
   `;
   document.querySelector(".confirm_order").innerHTML = htmlStr;
 }

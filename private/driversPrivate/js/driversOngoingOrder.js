@@ -33,11 +33,11 @@ async function showOngoingOrder() {
       <p>送貨地址：${ongoingOrder[i].deliver_address} </p>
       <p>動物：${animalDetails} </p>
       <p>備註：${ongoingOrder[i].remarks}</p>
-      <button class="cfm-change-status" order-id="${ongoingOrder[i].id}">${
+      <div class="btn-div"><button class="cfm-change-status" order-id="${ongoingOrder[i].id}">${
       ongoingOrder[i].orders_status == "driver delivering"
         ? "已接貨"
         : "確認接貨"
-    }</button>
+    }</button></div>
       </div>
   `;
     document.querySelector(".ongoing_each").innerHTML += htmlStr;

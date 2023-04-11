@@ -8,10 +8,9 @@
   border: 0;
   border-radius: 15px;
   padding: 0 10px;
-  margin-left: 15vw;
-  margin-right: 15vw;
-  margin-top: 3vw;
+  margin: 3vw;
   height: 100vh;
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
 }
 
 .order-details {
@@ -30,13 +29,17 @@
 
 
 p {
-  font-size: 2vw;
+  font-size: 2.5vw;
 }
 
-h3 {
+.ongoing-title {
   /* margin-top: 2vw; */
+  padding: 2vw 10px 0 10px;
+  margin: 2vw;
+  font-size: 3.5vw;
   color: rgb(255, 157, 29);
   text-align: center;
+  font-weight: bold;
 }
 
 .back-btn {
@@ -44,13 +47,13 @@ h3 {
   border: 0;
   border-radius: 15px;
   color: rgb(255, 157, 29);
-  margin: 10px 0;
+  margin: 3vw;
   padding: 8px;
   font-size: 3vw;
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
 }
 .btn-div {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
 }
