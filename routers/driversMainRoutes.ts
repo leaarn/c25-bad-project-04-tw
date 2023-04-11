@@ -4,6 +4,7 @@ import { DriversRow, OrdersRow } from "../model";
 import { dbClient } from "../app";
 import { logger } from "../utils/logger";
 import { driverIsLoggedInApi } from "../utils/guard";
+import { sendMessage, getTextMessageInput } from "./messageHelper";
 
 export const driversMainRoutes = express.Router();
 
@@ -22,6 +23,7 @@ driversMainRoutes.put(
   confirmAcceptOrder
 );
 driversMainRoutes.put("/ongoing/:oid", driverIsLoggedInApi, driverDelivering);
+driversMainRoutes.post("/msg/:oid", driverIsLoggedInApi, message);
 
 async function getDriverInfo(req: Request, res: Response) {
   try {
@@ -263,6 +265,56 @@ async function confirmAcceptOrder(req: Request, res: Response) {
     res.json(confirmAcceptOrderResult.rows); // pass array into res.json()
   } catch (err: any) {
     logger.error(err.message);
+    res.status(500).json({ message: "internal server error" });
+  }
+}
+
+async function message(req: express.Request, res: express.Response) {
+  try {
+    // const driversId = req.session.drivers_id;
+    const ordersId = +req.params.oid;
+    if (isNaN(ordersId)) {
+      res.status(400).json({ message: "invalid order id" });
+      return;
+    }
+
+    const contact = await dbClient.query<OrdersRow>(
+      /*SQL*/ `SELECT receiver_contact FROM orders WHERE orders.id = $1 `,
+      [ordersId]
+    );
+
+    const name = await dbClient.query<OrdersRow>(
+      /*SQL*/ `SELECT receiver_name FROM orders WHERE orders.id = $1 `,
+      [ordersId]
+    );
+
+     const tokenResult = await dbClient.query<OrdersRow>(
+       /*SQL*/ `SELECT token FROM orders WHERE orders.id = $1 `,
+       [ordersId]
+     );
+    
+    console.log("contact",contact);
+    console.log("name",name);
+    console.log("tokenResult",tokenResult);
+    
+    const receiverContact = contact.rows[0];
+    const receiverName = name.rows[0];
+    const token = tokenResult.rows[0];
+
+    const data = getTextMessageInput(
+      "852" + receiverContact.receiver_contact.toString(),
+      `Hi ${JSON.stringify(
+        Object.values(receiverName)
+      )}! Here is your receiver token: ${JSON.stringify(
+        Object.values(token)
+      )}. Click the link http://localhost:8080/receivers.html to input your verification code. Have a great day!`
+    );
+    const resp = await sendMessage(data);
+    console.log(resp.status);
+    
+    res.status(200).json({ message: "message sent!" });
+  } catch (err: any) {
+    console.error(err.message);
     res.status(500).json({ message: "internal server error" });
   }
 }

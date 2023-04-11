@@ -78,7 +78,7 @@ async function driverEarns(id) {
 async function confirmAcceptOrder(id) {
   const resp = await fetch(`/driversMain/cfm-orders/${id}`, { method: "PUT" });
   if (resp.status == 200) {
-    await fetch(`/receivertoken`, { method: "POST" });
+    await fetch(`/driversMain/msg/${id}`, { method: "POST" });
     window.location = `/driverSuccess.html?oid=${id}`;
   }
 }
