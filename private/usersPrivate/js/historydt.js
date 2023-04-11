@@ -23,7 +23,7 @@ window.onload = async () => {
   <p><b>訂單號碼 : ${historyOrderDetails.reference_code}</b></p>
   <p>訂單狀態 : 已完成</p>
   <p>收貨時間 : ${historyOrderDetails.pick_up_date_time}</p>
-  <p>收貨地址 : ${historyOrderDetails.pick_up_address}</p>尸
+  <p>收貨地址 : ${historyOrderDetails.pick_up_address}</p>
   <p>送貨地址 : ${historyOrderDetails.deliver_address}</p>
   <p>備註 : ${historyOrderDetails.remarks}</p>
   `;
