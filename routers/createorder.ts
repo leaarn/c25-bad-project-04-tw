@@ -2,26 +2,29 @@ import { dbClient } from "./../app";
 import type { Request, Response } from "express";
 import express from "express";
 import { logger } from "../utils/logger";
+import { userIsLoggedInApi } from "../utils/guard";
 // import { DriversRow } from "../model";
 // import { logger } from "../utils/logger";
 
 export const usersMainRoutes = express.Router();
+
+usersMainRoutes.get("/", userIsLoggedInApi);
 //user info
-usersMainRoutes.get("/userinfo", getUserInfo);
+usersMainRoutes.get("/userinfo", userIsLoggedInApi, getUserInfo);
 //default address
-usersMainRoutes.get("/address", getAddress);
+usersMainRoutes.get("/address", userIsLoggedInApi, getAddress);
 //create
-usersMainRoutes.post("/createorder", createOrder);
+usersMainRoutes.post("/createorder", userIsLoggedInApi, createOrder);
 //pay
-usersMainRoutes.get("/payorder", payOrder);
+usersMainRoutes.get("/payorder", userIsLoggedInApi, payOrder);
 // change status from not pay yet to pending
-usersMainRoutes.put("/confirm", confirmOrder);
+usersMainRoutes.put("/confirm", userIsLoggedInApi, confirmOrder);
 //show all orders that not complete
-usersMainRoutes.get("/orderstatus", orderStatus);
+usersMainRoutes.get("/orderstatus", userIsLoggedInApi, orderStatus);
 //each order details 查看你的司機資訊及位置
-usersMainRoutes.get("/orderstatus/:oid", orderStatusDetails);
-usersMainRoutes.get("/history", historyOrders);
-usersMainRoutes.get("/history/:oid", historyOrderDetails);
+usersMainRoutes.get("/orderstatus/:oid", userIsLoggedInApi, orderStatusDetails);
+usersMainRoutes.get("/history", userIsLoggedInApi, historyOrders);
+usersMainRoutes.get("/history/:oid", userIsLoggedInApi, historyOrderDetails);
 
 //user info
 async function getUserInfo(req: Request, res: Response) {

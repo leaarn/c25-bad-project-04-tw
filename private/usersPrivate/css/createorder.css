@@ -47,13 +47,13 @@ p {
 /* date and time width */
 .date {
   width: 50%;
-  height: 30%;
+  height: 50%;
   text-align: center;
   letter-spacing: 6px;
 }
 .time {
   width: 30%;
-  height: 30%;
+  height: 50%;
   letter-spacing: 2px;
   text-align: center;
 }
