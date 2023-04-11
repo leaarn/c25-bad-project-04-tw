@@ -16,17 +16,13 @@ body {
   font-size: 90%;
   font-weight: Thin;
 }
-.word {
+.word, .word2 {
   color: rgb(255, 157, 29);
   padding: 20px;
   font-weight: bold;
   font-size: 180%;
 }
-.word2 {
-  color: rgb(255, 157, 29);
-  font-weight: thin;
-  font-size: 90%;
-}
+
 input, select, textarea{
     color: rgb(255, 157, 29);
     box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
@@ -95,4 +91,11 @@ width: 15vw;
 .logo{
   display: flex;
   justify-content: center;
+}
+
+input, select, textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: larger;
+  line-height: inherit;
 }

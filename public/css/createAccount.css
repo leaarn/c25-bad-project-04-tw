@@ -31,27 +31,39 @@ body {
 }
 
 input, select, textarea{
-    color: rgb(255, 157, 29);
+  border: 1px solid rgb(255, 157, 29);
+  color: rgb(255, 157, 29);
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
-
 }
 
-textarea:focus, input:focus {
-    color: rgb(255, 157, 29);
+textarea:focus, input:focus, select:focus {
+  color: rgb(255, 157, 29);
 }
-.word {
+
+.word, .word2 {
   color: rgb(255, 157, 29);
   padding: 20px;
   font-weight: bold;
   font-size: 180%;
 }
-.word2 {
+/* .word2 {
   color: rgb(255, 157, 29);
   font-weight: thin;
   font-size: 90%;
+} */
+
+/* ::placeholder {
+  font-size: 2vw;
+} */
+
+input, select, textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: larger;
+  line-height: inherit;
 }
 
-input {
+input, select {
   border-radius: 1px;
   border: 1px solid rgb(255, 157, 29);
   width: 35vw;
