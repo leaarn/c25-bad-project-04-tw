@@ -85,12 +85,13 @@ app.use("/logout", logoutRoutes);
 app.use(express.static(path.join(__dirname, "public")));
 
 const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  next();
+  if (req.session.userIsLoggedIn) next();
+  else res.sendFile(path.join(__dirname, "public", "usersLogin.html"));
 };
 
 const guardDriversMiddleware = (req: Request, res: Response, next: NextFunction) => {
   if (req.session.driverIsLoggedIn) next();
-  else res.sendFile(path.join(__dirname, "public", "index.html"));
+  else res.sendFile(path.join(__dirname, "public", "driversLogin.html"));
 };
 
 app.use("/private/usersAssets", guardUsersMiddleware, express.static(path.join(__dirname, "private", "assets")));
