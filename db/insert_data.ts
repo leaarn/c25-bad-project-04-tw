@@ -107,15 +107,17 @@ async function main() {
     .replace(/(?:\\[rn]|[\r]+)+/g, "")
     .split("\n");
   for (let i = 1; i < animalsArray.length; i++) {
-    await client.query(/*SQL*/
+    let result = await client.query(
+      /*SQL*/
       `INSERT INTO animals (animals_name,price) VALUES ($1,$2)`,
-        animalsArray[i].split(",").map((v) => {
-        console.log(v);
-        return v.toString();
+      animalsArray[i].split(",").map((v) => {
+        console.log("hihihi",v);
+        return v;
       })
     );
+    console.log("check result", result);
   }
-  
+
   // original setup: data from xlsx
   // await client.query(/*SQL*/ `DELETE FROM orders`);
   // for (const orderRow of ordersRow) {
@@ -190,7 +192,8 @@ async function main() {
         return v.toString() || Math.ceil(Math.random() * 3);
       })
     );
-  }``
+  }
+  ``;
 
   await client.query(/*SQL*/ `DELETE FROM payment_method`);
   for (const paymentRow of paymentMethodRow) {

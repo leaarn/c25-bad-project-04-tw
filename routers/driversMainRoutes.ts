@@ -56,16 +56,15 @@ async function getDistricts(_req: Request, res: Response) {
 
 async function getAllOrders(_req: Request, res: Response) {
   try {
-    const getAllOrdersResult = await dbClient.query<OrdersRow>(
-      /*sql*/ `SELECT orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, 
+    const getAllOrdersResult =
+      await dbClient.query<OrdersRow>(/*sql*/ `SELECT orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, 
       json_agg(animals.animals_name) AS animals_name, 
       json_agg(order_animals.animals_amount) AS animals_amount, 
       orders_status 
       FROM orders 
       JOIN order_animals ON order_animals.orders_id = orders.id 
       JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = '訂單待接中'
-      GROUP BY orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, orders_status ORDER BY pick_up_date DESC`
-    );
+      GROUP BY orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, orders_status ORDER BY pick_up_date DESC`);
     console.log(getAllOrdersResult.rows);
     res.json(getAllOrdersResult.rows);
   } catch (err: any) {
@@ -288,30 +287,28 @@ async function message(req: express.Request, res: express.Response) {
       [ordersId]
     );
 
-     const tokenResult = await dbClient.query<OrdersRow>(
-       /*SQL*/ `SELECT token FROM orders WHERE orders.id = $1 `,
-       [ordersId]
-     );
-    
-    console.log("contact",contact);
-    console.log("name",name);
-    console.log("tokenResult",tokenResult);
-    
+    const tokenResult = await dbClient.query<OrdersRow>(
+      /*SQL*/ `SELECT token FROM orders WHERE orders.id = $1 `,
+      [ordersId]
+    );
+
+    console.log("contact", contact);
+    console.log("name", name);
+    console.log("tokenResult", tokenResult);
+
     const receiverContact = contact.rows[0];
     const receiverName = name.rows[0];
     const token = tokenResult.rows[0];
-
+    console.log("check receiver name ", receiverName);
     const data = getTextMessageInput(
       "852" + receiverContact.receiver_contact.toString(),
-      `Hi ${JSON.stringify(
-        Object.values(receiverName)
-      )}! Here is your receiver token: ${JSON.stringify(
+      `Hi ${receiverName.receiver_name}! Here is your receiver token: ${JSON.stringify(
         Object.values(token)
       )}. Click the link http://localhost:8080/receivers.html to input your verification code. Have a great day!`
     );
     const resp = await sendMessage(data);
     console.log(resp.status);
-    
+
     res.status(200).json({ message: "message sent!" });
   } catch (err: any) {
     console.error(err.message);

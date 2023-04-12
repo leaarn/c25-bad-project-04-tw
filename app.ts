@@ -1,5 +1,4 @@
 import express from "express";
-import type { Request, Response, NextFunction } from "express";
 import path from "path";
 import expressSession from "express-session";
 import pg from "pg";
@@ -67,7 +66,12 @@ import { usersRoutes } from "./routers/usersRoutes";
 import { driversRoutes } from "./routers/driversRoutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
 import { usersMainRoutes } from "./routers/createorder";
-import { driverIsLoggedInApi, userIsLoggedInApi } from "./utils/guard";
+import {
+  driverIsLoggedInApi,
+  userIsLoggedInApi,
+  guardDriversMiddleware,
+  guardUsersMiddleware,
+} from "./utils/guard";
 import { receiverRoutes } from "./routers/receiversRoutes";
 import { logger } from "./utils/logger";
 import { logoutRoutes } from "./utils/logout";
@@ -84,21 +88,29 @@ app.use("/logout", logoutRoutes);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  if (req.session.userIsLoggedIn) next();
-  else res.sendFile(path.join(__dirname, "public", "usersLogin.html"));
-};
-
-const guardDriversMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  if (req.session.driverIsLoggedIn) next();
-  else res.sendFile(path.join(__dirname, "public", "driversLogin.html"));
-};
-
-app.use("/private/usersAssets", guardUsersMiddleware, express.static(path.join(__dirname, "private", "assets")));
-app.use("/private/driversAssets", guardDriversMiddleware, express.static(path.join(__dirname, "private", "assets")));
-app.use(guardUsersMiddleware, express.static(path.join(__dirname, "private", "usersPrivate")));
-app.use(guardDriversMiddleware, express.static(path.join(__dirname, "private", "driversPrivate")));
-app.use("/private/usersPrivate", guardUsersMiddleware, express.static(path.join(__dirname, "private", "usersPrivate")));
+app.use(
+  "/private/usersAssets",
+  guardUsersMiddleware,
+  express.static(path.join(__dirname, "private", "assets"))
+);
+app.use(
+  "/private/driversAssets",
+  guardDriversMiddleware,
+  express.static(path.join(__dirname, "private", "assets"))
+);
+app.use(
+  guardUsersMiddleware,
+  express.static(path.join(__dirname, "private", "usersPrivate"))
+);
+app.use(
+  guardDriversMiddleware,
+  express.static(path.join(__dirname, "private", "driversPrivate"))
+);
+app.use(
+  "/private/usersPrivate",
+  guardUsersMiddleware,
+  express.static(path.join(__dirname, "private", "usersPrivate"))
+);
 app.use(
   "/private/driversPrivate",
   guardDriversMiddleware,
