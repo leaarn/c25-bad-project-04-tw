@@ -17,11 +17,7 @@ driversMainRoutes.get("/driver-earns/:oid", driverIsLoggedInApi, driverEarns);
 driversMainRoutes.get("/history/", driverIsLoggedInApi, getOrdersHistory);
 driversMainRoutes.get("/history/:oid", driverIsLoggedInApi, getSingleHistory);
 driversMainRoutes.get("/ongoing", driverIsLoggedInApi, getOngoingOrders);
-driversMainRoutes.put(
-  "/cfm-orders/:oid",
-  driverIsLoggedInApi,
-  confirmAcceptOrder
-);
+driversMainRoutes.put("/cfm-orders/:oid", driverIsLoggedInApi, confirmAcceptOrder);
 driversMainRoutes.put("/ongoing/:oid", driverIsLoggedInApi, driverDelivering);
 driversMainRoutes.post("/msg/:oid", driverIsLoggedInApi, message);
 
@@ -282,15 +278,13 @@ async function message(req: express.Request, res: express.Response) {
       [ordersId]
     );
 
-    const name = await dbClient.query<OrdersRow>(
-      /*SQL*/ `SELECT receiver_name FROM orders WHERE orders.id = $1 `,
-      [ordersId]
-    );
+    const name = await dbClient.query<OrdersRow>(/*SQL*/ `SELECT receiver_name FROM orders WHERE orders.id = $1 `, [
+      ordersId,
+    ]);
 
-    const tokenResult = await dbClient.query<OrdersRow>(
-      /*SQL*/ `SELECT token FROM orders WHERE orders.id = $1 `,
-      [ordersId]
-    );
+    const tokenResult = await dbClient.query<OrdersRow>(/*SQL*/ `SELECT token FROM orders WHERE orders.id = $1 `, [
+      ordersId,
+    ]);
 
     console.log("contact", contact);
     console.log("name", name);
@@ -302,9 +296,7 @@ async function message(req: express.Request, res: express.Response) {
     console.log("check receiver name ", receiverName);
     const data = getTextMessageInput(
       "852" + receiverContact.receiver_contact.toString(),
-      `Hi ${receiverName.receiver_name}! Here is your receiver token: ${JSON.stringify(
-        Object.values(token)
-      )}. Click the link http://localhost:8080/receivers.html to input your verification code. Have a great day!`
+      `Hi ${receiverName.receiver_name}! Here is your receiver token: ${token.token}. Click the link http://localhost:8080/receivers.html to input your verification code. Have a great day!`
     );
     const resp = await sendMessage(data);
     console.log(resp.status);
