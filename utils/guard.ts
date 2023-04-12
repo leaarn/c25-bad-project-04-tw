@@ -19,10 +19,10 @@ export const driverIsLoggedInApi = (req: Request, res: Response, next: NextFunct
 
 export const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
   if (req.session.driverIsLoggedIn) next();
-  else res.sendFile(path.join(__dirname, "public", "index.html"));
+  else res.sendFile(path.join(__dirname, "..", "public", "usersLogin.html"));
 };
 
 export const guardDriversMiddleware = (req: Request, res: Response, next: NextFunction) => {
   if (req.session.driverIsLoggedIn) next();
-  else res.sendFile(path.join(__dirname, "public", "index.html"));
+  else res.sendFile(path.join(__dirname, "..", "public", "driversLogin.html"));
 };
