@@ -1,4 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
+import path from "path";
 
 export const userIsLoggedInStatic = (
   req: Request,
@@ -24,7 +25,6 @@ export const userIsLoggedInApi = (
   }
 };
 
-
 export const driverIsLoggedInStatic = (
   req: Request,
   res: Response,
@@ -47,4 +47,21 @@ export const driverIsLoggedInApi = (
   } else {
     res.status(401).json({ message: "Unauthorized" });
   }
+};
+
+export const guardUsersMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  next();
+};
+
+export const guardDriversMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (req.session.driverIsLoggedIn) next();
+  else res.sendFile(path.join(__dirname, "public", "index.html"));
 };
