@@ -7,8 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev app.ts",
     "start": "node index.js",
-    "data2": "psql -U postgres -f init_db.sql && ts-node fakedata.ts",
-    "dev2": "ts-node-dev ./utils/createorder.ts",
     "data": "psql -U postgres -f ./db/init_db.sql && ts-node ./db/insert_data.ts"
   },
   "repository": {
