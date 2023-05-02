@@ -506,27 +506,33 @@ section {
   font-size: 26px;
 }
 
-.about .content ul {
+.about .content p {
   list-style: none;
   padding: 0;
 }
 
-.about .content ul li {
+.about .content p {
   padding-left: 28px;
   position: relative;
 }
 
-.about .content ul li + li {
+.about .content p {
   margin-top: 10px;
 }
 
-.about .content ul i {
+.about .content p i {
   position: absolute;
   left: 0;
   top: 2px;
   font-size: 20px;
   color: rgb(184, 149, 58);
   line-height: 1;
+}
+
+.about-details {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .about .content p:last-child {

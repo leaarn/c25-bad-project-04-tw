@@ -18,7 +18,7 @@ function initUsersLoginForm() {
 
     if (resp.status === 200) {
       alert("Login succuss!");
-      window.location = "../usersMain.html";
+      window.location = "/private/usersPrivate/usersMain.html";
     } else {
       const data = await resp.json();
       alert(data.message);

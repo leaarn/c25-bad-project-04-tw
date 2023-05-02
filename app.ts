@@ -99,14 +99,6 @@ app.use(
   express.static(path.join(__dirname, "private", "assets"))
 );
 app.use(
-  guardUsersMiddleware,
-  express.static(path.join(__dirname, "private", "usersPrivate"))
-);
-app.use(
-  guardDriversMiddleware,
-  express.static(path.join(__dirname, "private", "driversPrivate"))
-);
-app.use(
   "/private/usersPrivate",
   guardUsersMiddleware,
   express.static(path.join(__dirname, "private", "usersPrivate"))
@@ -120,6 +112,7 @@ app.use(
 // Section 4: Error Handling
 app.use((_req, res) => {
   res.sendFile(path.join(__dirname, "public", "404.html"));
+  // res.redirect("/404.html")
 });
 
 const PORT = 8080;
