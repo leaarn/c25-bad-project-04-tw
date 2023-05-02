@@ -15,7 +15,7 @@ dbClient.connect();
 
 const grantExpress = grant.express({
   defaults: {
-    origin: "http://localhost:8080",
+    origin: "http://44.199.150.85/",
     transport: "session",
     state: true,
   },
