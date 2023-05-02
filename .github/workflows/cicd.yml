@@ -48,12 +48,12 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           script: |
-            cd BAD009-Example
+            cd c25-wsp-project-02-tw
             git pull origin main
             yarn install
             yarn knex migrate:latest --env production
             forever restart -c 'yarn start'
-          host: 44.199.150.85/
+          host: 44.199.150.85
           username: ubuntu
           port: 22
           key: ${{secrets.SSH_PRIVATE_KEY}}
