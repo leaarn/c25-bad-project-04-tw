@@ -1,5 +1,4 @@
 import type { Request, Response, NextFunction } from "express";
-import path from "path";
 
 export const userIsLoggedInApi = (req: Request, res: Response, next: NextFunction) => {
   if (req.session.users_id) {
@@ -19,10 +18,10 @@ export const driverIsLoggedInApi = (req: Request, res: Response, next: NextFunct
 
 export const guardUsersMiddleware = (req: Request, res: Response, next: NextFunction) => {
   if (req.session.userIsLoggedIn) next();
-  else res.sendFile(path.join(__dirname, "..", "public", "usersLogin.html"));
+  else res.redirect("/usersLogin.html");
 };
 
 export const guardDriversMiddleware = (req: Request, res: Response, next: NextFunction) => {
   if (req.session.driverIsLoggedIn) next();
-  else res.sendFile(path.join(__dirname, "..", "public", "driversLogin.html"));
+  else res.redirect("/driversLogin.html");
 };
