@@ -1,18 +1,17 @@
 import express from "express";
 import path from "path";
 import expressSession from "express-session";
-import pg from "pg";
 import grant from "grant";
 import dotenv from "dotenv";
 dotenv.config();
 
-import knexConfig from "./knexfile";
+import config from "./knexfile";
 import Knex from "knex";
-const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
+const knex = Knex(config[process.env.NODE_ENV || "development"]);
 
 const grantExpress = grant.express({
   defaults: {
-    origin: "http://localhost:8080",
+    origin: "44.199.150.85",
     transport: "session",
     state: true,
   },
@@ -59,12 +58,19 @@ app.use((req, _res, next) => {
 
 // Controllers
 import { AuthController } from "./controllers/AuthController";
+import { UsersController } from "./controllers/UsersController";
+import { DriversController } from "./controllers/DriversController";
 
 // Services
-import { AuthService } from "./services/AuthService";
+import { UsersService } from "./Services/UsersService";
+import { DriversService } from "./Services/DriversService";
 
-const authService = new AuthService(knex);
-export const authController = new AuthController(authService);
+
+const usersService = new UsersService(knex);
+export const usersController = new UsersController(usersService);
+
+const driversService = new DriversService(knex);
+export const driversController = new DriversController(driversService);
 
 // Section 2: Route Handlers
 import { authRoutes } from "./routers/authRoutes";
