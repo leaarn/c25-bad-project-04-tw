@@ -76,9 +76,9 @@ export interface AnimalsRow {
 }
 
 export interface usersLogin {
-  [x: string]: any;
-  firstName:string;
-  username: string;
+  id: number;
+  first_name: string;
+  email: string;
   password: string;
 }
 

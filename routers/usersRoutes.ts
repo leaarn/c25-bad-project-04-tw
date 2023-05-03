@@ -10,6 +10,8 @@ import { body, validationResult } from "express-validator";
 export const usersRoutes = express.Router();
 
 usersRoutes.post("/", usersController.loginControl);
+usersRoutes.get("/usersGoogle", usersController.loginUserControl);
+usersRoutes.get("/driversGoogle", usersController.loginDriverControl);
 usersRoutes.get("/google", usersController.loginGoogleControl);
 usersRoutes.post(
   "/createaccount",
@@ -54,6 +56,18 @@ async function loginControl(req: express.Request, res: express.Response) {
     res.status(500).json({ message: "internal server error" });
   }
 }
+
+async function loginUserControl(req: express.Request, res: express.Response) {
+  req.session.loginType = "user";
+  res.redirect("/connect/google");
+}
+
+async function loginDriverControl(req: express.Request, res: express.Response) {
+  req.session.loginType = "driver";
+  res.redirect("/connect/google");
+}
+
+
 
 async function loginGoogleControl(req: express.Request, res: express.Response) {
   try {

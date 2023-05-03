@@ -60,6 +60,7 @@ async function login(req:express.Request, res:express.Response){
   }
 }
 
+
 async function createAccount(req: express.Request, res: express.Response) {
 try {
   const errors = validationResult(req);
