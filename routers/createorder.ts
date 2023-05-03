@@ -256,7 +256,7 @@ async function confirmOrder(req: Request, res: Response) {
 
 async function orderStatus(req: Request, res: Response) {
   try {
-    const users_id = req.session.users_id;
+    const users_id = req.session.users_id!;
     const allOrderStatus = await dbClient.query(
       /*sql*/ `
     SELECT 

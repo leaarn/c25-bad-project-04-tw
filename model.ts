@@ -109,3 +109,26 @@ export interface createDrivers {
   username: string;
   password: string;
 }
+
+export interface createOrder {
+  pick_up_date: string;
+  pick_up_time: string;
+  pick_up_district: string;
+  pick_up_room: string;
+  pick_up_floor: string;
+  pick_up_building: string;
+  pick_up_street: string;
+  deliver_district: string;
+  deliver_room: string;
+  deliver_floor: string;
+  deliver_building: string;
+  deliver_street: string;
+  users_id: Number;
+  distance_km: Number;
+  receiver_name: string;
+  receiver_contact: Number;
+  token: string;
+  remarks: string;
+  animals_id:Number;
+  animals_amount:Number;
+}
