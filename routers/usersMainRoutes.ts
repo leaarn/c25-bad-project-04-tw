@@ -1,4 +1,4 @@
-// import {userMainController} from "./../app";
+import {userMainController} from "./../app";
 import express from "express";
 
 export const usersMainRoutes = express.Router();

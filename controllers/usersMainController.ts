@@ -134,15 +134,18 @@ export class UsersController {
 
   orderStatusDetails = async (req: Request, res: Response) => {
     try {
-        const usersId = req.session.users_id!;
-        const orderId = +req.params.oid;
+      const usersId = req.session.users_id!;
+      const orderId = +req.params.oid;
 
       if (isNaN(orderId)) {
         res.status(400).json({ message: "invalid memo id" });
         return;
       }
 
-      const allOrderStatus = await this.usersMainService.orderStatusDetails(usersId,orderId);
+      const allOrderStatus = await this.usersMainService.orderStatusDetails(
+        usersId,
+        orderId
+      );
       res.status(200).json(allOrderStatus);
     } catch (err: any) {
       logger.error(err.message);
@@ -152,7 +155,10 @@ export class UsersController {
 
   historyOrders = async (req: Request, res: Response) => {
     try {
-      const allCompleteOrders = await this.usersMainService.historyOrders();
+      const usersId = req.session.users_id!;
+      const allCompleteOrders = await this.usersMainService.historyOrders(
+        usersId
+      );
       res.status(200).json(allCompleteOrders);
     } catch (err: any) {
       logger.error(err.message);
@@ -162,7 +168,8 @@ export class UsersController {
 
   historyOrderDetails = async (req: Request, res: Response) => {
     try {
-      const orderId = +req.params.oid;
+        const usersId = req.session.users_id!;
+        const orderId = +req.params.oid;
 
       if (isNaN(orderId)) {
         res.status(400).json({ message: "invalid memo id" });
@@ -170,7 +177,7 @@ export class UsersController {
       }
 
       const completeOrderDetails =
-        await this.usersMainService.historyOrderDetails();
+        await this.usersMainService.historyOrderDetails(usersId,orderId);
       res.status(200).json(completeOrderDetails);
     } catch (err: any) {
       logger.error(err.message);

@@ -129,6 +129,6 @@ export interface createOrder {
   receiver_contact: Number;
   token: string;
   remarks: string;
-  animals_id:Number;
-  animals_amount:Number;
+  animals_id:Array<string>;
+  animals_amount:Array<string>;
 }
