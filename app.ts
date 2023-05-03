@@ -60,12 +60,14 @@ app.use((req, _res, next) => {
 import { UsersController } from "./controllers/UsersController";
 import { DriversController } from "./controllers/DriversController";
 import { ReceiversController } from "./controllers/ReceiversController";
+import {UsersMainController} from "./controllers/usersMainController"
+
 
 // Services
 import { UsersService } from "./Services/UsersService";
 import { DriversService } from "./Services/DriversService";
 import { ReceiversService } from "./Services/ReceiverService";
-
+import {UsersMainService} from "./services/UsersMainService"
 
 const usersService = new UsersService(knex);
 export const usersController = new UsersController(usersService);
@@ -76,12 +78,15 @@ export const driversController = new DriversController(driversService);
 const receiversService = new ReceiversService(knex);
 export const receiversController = new ReceiversController(receiversService);
 
+const usersMainService = new UsersMainService(knex)
+export const usersMainController = new UsersMainController(usersMainService)
+
 // Section 2: Route Handlers
 // import { authRoutes } from "./routers/authRoutes";
 import { usersRoutes } from "./routers/usersRoutes";
 import { driversRoutes } from "./routers/driversRoutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
-import { usersMainRoutes } from "./routers/createorder";
+import { usersMainRoutes } from "./routers/usersMainRoutes";
 import {
   driverIsLoggedInApi,
   userIsLoggedInApi,
