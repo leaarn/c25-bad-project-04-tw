@@ -6,12 +6,9 @@ import grant from "grant";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const dbClient = new pg.Client({
-  database: process.env.DB_NAME,
-  user: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-});
-dbClient.connect();
+import knexConfig from "./knexfile";
+import Knex from "knex";
+const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 
 const grantExpress = grant.express({
   defaults: {
@@ -46,7 +43,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(
   expressSession({
-    secret: "group 2 is the best",
+    secret: "group 4 is the best",
     resave: true,
     saveUninitialized: true,
   })
@@ -59,6 +56,15 @@ app.use((req, _res, next) => {
   logger.debug(`Request - Path ${req.path}, Method: ${req.method}`);
   next();
 });
+
+// Controllers
+import { AuthController } from "./controllers/AuthController";
+
+// Services
+import { AuthService } from "./services/AuthService";
+
+const authService = new AuthService(knex);
+export const authController = new AuthController(authService);
 
 // Section 2: Route Handlers
 import { authRoutes } from "./routers/authRoutes";
