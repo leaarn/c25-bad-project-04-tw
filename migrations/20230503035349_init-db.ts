@@ -9,7 +9,7 @@ export const orderAnimalTable = "order_animals";
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(userTable, (table) => {
-    table.increments(); // id
+    table.increments('id').primary(); // id
     table.string("last_name").notNullable();
     table.string("first_name").notNullable();
     table.string("title").notNullable();
@@ -26,7 +26,7 @@ export async function up(knex: Knex): Promise<void> {
   });
 
   await knex.schema.createTable(driverTable, (table) => {
-    table.increments(); // id
+    table.increments('id').primary(); // id
     table.string("last_name").notNullable();
     table.string("first_name").notNullable();
     table.string("title").notNullable();
@@ -39,7 +39,7 @@ export async function up(knex: Knex): Promise<void> {
   });
 
   await knex.schema.createTable(orderTable, (table) => {
-    table.increments(); // id
+    table.increments('id').primary(); // id
     table.date("pick_up_date").notNullable();
     table.time("pick_up_time").notNullable();
     table.string("pick_up_district").notNullable();
@@ -56,7 +56,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string("deliver_coordinates");
     table.integer("users_id").unsigned();
     table.foreign("users_id").references("users.id");
-    table.integer("drivers_id").unsigned();
+    table.integer("drivers_id");
     table.foreign("drivers_id").references("drivers.id");
     table.string("receiver_name").notNullable();
     table.integer("receiver_contact").notNullable();
@@ -73,18 +73,18 @@ export async function up(knex: Knex): Promise<void> {
   });
 
   await knex.schema.createTable(paymentTable, (table) => {
-    table.increments(); // id
+    table.increments('id').primary(); // id
     table.string("method").notNullable().defaultTo("VISA");
   });
 
   await knex.schema.createTable(animalTable, (table) => {
-    table.increments(); // id
+    table.increments('id').primary(); // id
     table.string("animals_name").notNullable();
     table.integer("price").notNullable();
   });
 
   await knex.schema.createTable(orderAnimalTable, (table) => {
-    table.increments(); // id
+    table.increments('id').primary(); // id
     table.integer("orders_id").unsigned();
     table.foreign("orders_id").references("orders.id");
     table.integer("animals_id").unsigned();
