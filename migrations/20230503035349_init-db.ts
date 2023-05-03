@@ -1,11 +1,11 @@
 import { Knex } from "knex";
 
-const userTable = "users";
-const driverTable = "drivers";
-const orderTable = "orders";
-const paymentTable = "payment_method";
-const animalTable = "animals";
-const orderAnimalTable = "order_animals";
+export const userTable = "users";
+export const driverTable = "drivers";
+export const orderTable = "orders";
+export const paymentTable = "payment_method";
+export const animalTable = "animals";
+export const orderAnimalTable = "order_animals";
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(userTable, (table) => {
@@ -21,7 +21,7 @@ export async function up(knex: Knex): Promise<void> {
     table.string("default_floor").notNullable();
     table.string("default_building").notNullable();
     table.string("default_street").notNullable();
-    table.string("default_coordinates").notNullable();
+    table.string("default_coordinates");
     table.timestamps(false, true); // created_at, updated_at
   });
 
@@ -47,13 +47,13 @@ export async function up(knex: Knex): Promise<void> {
     table.string("pick_up_floor").notNullable();
     table.string("pick_up_building").notNullable();
     table.string("pick_up_street").notNullable();
-    table.string("pick_up_coordinates").notNullable();
+    table.string("pick_up_coordinates");
     table.string("deliver_district").notNullable();
     table.string("deliver_room").notNullable();
     table.string("deliver_floor").notNullable();
     table.string("deliver_building").notNullable();
     table.string("deliver_street").notNullable();
-    table.string("deliver_coordinates").notNullable();
+    table.string("deliver_coordinates");
     table.integer("users_id").unsigned();
     table.foreign("users_id").references("users.id");
     table.integer("drivers_id").unsigned();
