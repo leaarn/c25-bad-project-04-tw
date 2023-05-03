@@ -1,4 +1,4 @@
-import { dbClient } from "../app";
+import { usersController } from "../app";
 import { usersLogin } from "../model";
 import { checkPassword, hashPassword } from "../utils/hash";
 import crypto from "crypto";
@@ -9,8 +9,8 @@ import { body, validationResult } from "express-validator";
 
 export const usersRoutes = express.Router();
 
-usersRoutes.post("/", login);
-usersRoutes.get("/google", loginGoogle);
+usersRoutes.post("/", usersController.loginControl);
+usersRoutes.get("/google", usersController.loginGoogleControl);
 usersRoutes.post(
   "/createaccount",
   body("password")
@@ -21,10 +21,10 @@ usersRoutes.post(
       minSymbols: 0,
     })
     .withMessage("Length>6,No Symbol"),
-  createAccount
+  usersController.createAccountControl
 );
 
-async function login(req: express.Request, res: express.Response) {
+async function loginControl(req: express.Request, res: express.Response) {
   try {
     const usersEmail: string = req.body.usersEmail;
     const password: string = req.body.password;
@@ -55,7 +55,7 @@ async function login(req: express.Request, res: express.Response) {
   }
 }
 
-async function loginGoogle(req: express.Request, res: express.Response) {
+async function loginGoogleControl(req: express.Request, res: express.Response) {
   try {
     const accessToken = req.session?.["grant"].response.access_token;
 
@@ -71,7 +71,7 @@ async function loginGoogle(req: express.Request, res: express.Response) {
 
     const result = await fetchRes.json();
 
-    if (req.session["loginType"] === "user") {
+    if (req.session.loginType === "user") {
       const queryResult = await dbClient.query(
         /*SQL*/ `SELECT id, first_name, email FROM users WHERE email = $1 `,
         [result.email]
@@ -90,7 +90,7 @@ async function loginGoogle(req: express.Request, res: express.Response) {
       req.session.users_id = queryResult.rows[0].id;
     }
 
-    if (req.session["loginType"] === "driver") {
+    if (req.session.loginType === "driver") {
       const queryResult = await dbClient.query(
         /*SQL*/ `SELECT id, first_name, email FROM drivers WHERE email = $1 `,
         [result.email]
@@ -110,16 +110,16 @@ async function loginGoogle(req: express.Request, res: express.Response) {
       req.session.drivers_id = queryResult.rows[0].id;
     }
 
-    if (req.session["loginType"] === "user") {
+    if (req.session.loginType === "user") {
       req.session.userIsLoggedIn = true;
-    } else if (req.session["loginType"] === "driver") {
+    } else if (req.session.loginType === "driver") {
       req.session.driverIsLoggedIn = true;
     } else {
       res.status(400).send("Incorrect login type");
       return;
     }
 
-    if (req.session["loginType"] === "user") {
+    if (req.session.loginType === "user") {
       res.redirect("/usersMain.html");
     } else {
       res.redirect("/driversMain.html");
@@ -130,7 +130,7 @@ async function loginGoogle(req: express.Request, res: express.Response) {
   }
 }
 
-async function createAccount(req: express.Request, res: express.Response) {
+async function createAccountControl(req: express.Request, res: express.Response) {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

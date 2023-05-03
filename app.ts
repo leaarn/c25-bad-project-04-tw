@@ -57,13 +57,14 @@ app.use((req, _res, next) => {
 });
 
 // Controllers
-import { AuthController } from "./controllers/AuthController";
 import { UsersController } from "./controllers/UsersController";
 import { DriversController } from "./controllers/DriversController";
+import { ReceiversController } from "./controllers/ReceiversController";
 
 // Services
 import { UsersService } from "./Services/UsersService";
 import { DriversService } from "./Services/DriversService";
+import { ReceiversService } from "./Services/ReceiverService";
 
 
 const usersService = new UsersService(knex);
@@ -71,6 +72,9 @@ export const usersController = new UsersController(usersService);
 
 const driversService = new DriversService(knex);
 export const driversController = new DriversController(driversService);
+
+const receiversService = new ReceiversService(knex);
+export const receiversController = new ReceiversController(receiversService);
 
 // Section 2: Route Handlers
 import { authRoutes } from "./routers/authRoutes";
