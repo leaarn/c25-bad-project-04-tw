@@ -9,22 +9,16 @@ export class UsersService {
   constructor(private knex: Knex) {}
 
   login = async (usersEmail: string, password: string) => {
-    try {
-      if (!usersEmail || !password) {
-        throw new Error("missing username or password");
-      }
+    if (!usersEmail || !password) {
+      throw new Error("missing username or password");
+    }
 
-      const foundUser = await this.knex<usersLogin>("users")
-        .select("id", "first_name", "email", "password")
-        .where("email", usersEmail)
-        .first();
-      return foundUser;
-      
-    } catch (error) {}
+    const foundUser = await this.knex<usersLogin>("users")
+      .select("id", "first_name", "email", "password")
+      .where("email", usersEmail)
+      .first();
+    return foundUser;
   };
 
-  loginGoogle = async (result: any) => {
-    try {
-    } catch (error) {}
-  };
+  loginGoogle = async (result: any) => {};
 }
