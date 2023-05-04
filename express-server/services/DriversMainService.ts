@@ -148,13 +148,18 @@ export class DriversMainService {
     const tokenResult = await this.knex.raw(
       /*SQL*/ `SELECT token FROM orders WHERE orders.id = ${orderId} `
     );
-    console.log("contact", contact)
-    console.log("name", name)
-    console.log("tokenResult", tokenResult)
+    console.log("contact", contact);
+    console.log("name", name);
+    console.log("tokenResult", tokenResult);
 
+    const receiverContact = contact.rows[0];
+    const receiverName = name.rows[0];
+    const token = tokenResult.rows[0];
+
+    console.log("check receiver name ", receiverName);
     const data = getTextMessageInput(
-      "852" + contact[0],
-      `Hi ${name[0]}! Here is your receiver token: ${tokenResult[0]}. Click the link http://localhost:8080/receivers.html to input your verification code. Have a great day!`
+      "852" + receiverContact.receiver_contact.toString(),
+      `Hi ${receiverName.receiver_name}! Here is your receiver token: ${token.token}. Click the link http://localhost:8080/receivers.html to input your verification code. Have a great day!`
     );
     const resp = await sendMessage(data);
     return resp;
