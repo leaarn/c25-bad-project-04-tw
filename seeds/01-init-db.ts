@@ -102,7 +102,8 @@ export async function seed(knex: Knex): Promise<void> {
 
   for (let i = 1; i < ordersArray.length; i++) {
     const order = ordersArray[i].split(",");
-    await knex(orderTable).insert({
+    order.forEach((v, i) => console.log(`${i}: ${v}`) )
+    const data = order[15] ? {
       pick_up_date: order[0],
       pick_up_time: order[1],
       pick_up_district: order[2],
@@ -128,7 +129,33 @@ export async function seed(knex: Knex): Promise<void> {
       token: order[22],
       remarks: order[23],
       created_at: order[24],
-    });
+    }: {
+        pick_up_date: order[0],
+        pick_up_time: order[1],
+        pick_up_district: order[2],
+        pick_up_room: order[3],
+        pick_up_floor: order[4],
+        pick_up_building: order[5],
+        pick_up_street: order[6],
+        pick_up_coordinates: order[7],
+        deliver_district: order[8],
+        deliver_room: order[9],
+        deliver_floor: order[10],
+        deliver_building: order[11],
+        deliver_street: order[12],
+        deliver_coordinates: order[13],
+        users_id: order[14],
+        receiver_name: order[16],
+        receiver_contact: order[17],
+        distance_km: order[18],
+        distance_price: order[19],
+        reference_code: order[20],
+        orders_status: order[21],
+        token: order[22],
+        remarks: order[23],
+        created_at: order[24],
+    }
+    await knex(orderTable).insert(data);
   }
 
   await knex(paymentTable).insert(paymentMethodRow);

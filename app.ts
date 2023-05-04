@@ -82,7 +82,7 @@ const usersMainService = new UsersMainService(knex)
 export const usersMainController = new UsersMainController(usersMainService)
 
 // Section 2: Route Handlers
-import { authRoutes } from "./routers/authRoutes";
+// import { authRoutes } from "./routers/authRoutes";
 import { usersRoutes } from "./routers/usersRoutes";
 import { driversRoutes } from "./routers/driversRoutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
@@ -97,7 +97,7 @@ import { receiverRoutes } from "./routers/receiversRoutes";
 import { logger } from "./utils/logger";
 import { logoutRoutes } from "./utils/logout";
 
-app.use("/login", authRoutes);
+// app.use("/login", authRoutes);
 app.use("/userslogin", usersRoutes);
 app.use("/driverslogin", driversRoutes);
 app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
@@ -106,7 +106,6 @@ app.use("/receivertoken", receiverRoutes);
 app.use("/logout", logoutRoutes);
 
 // Section 3: Serve
-
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(

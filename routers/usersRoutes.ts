@@ -10,6 +10,8 @@ import { body, validationResult } from "express-validator";
 export const usersRoutes = express.Router();
 
 usersRoutes.post("/", usersController.loginControl);
+usersRoutes.get("/usersGoogle", usersController.loginUserControl);
+usersRoutes.get("/driversGoogle", usersController.loginDriverControl);
 usersRoutes.get("/google", usersController.loginGoogleControl);
 usersRoutes.post(
   "/createaccount",
@@ -24,36 +26,17 @@ usersRoutes.post(
   usersController.createAccountControl
 );
 
-async function loginControl(req: express.Request, res: express.Response) {
-  try {
-    const usersEmail: string = req.body.usersEmail;
-    const password: string = req.body.password;
-    if (!usersEmail || !password) {
-      res.status(400).json({ message: "missing username or password!" });
-      return;
-    }
-    const queryResult = await dbClient.query<usersLogin>(
-      /*SQL*/ `SELECT id, first_name, email, password FROM users WHERE email = $1 `,
-      [usersEmail]
-    );
-    const foundUser = queryResult.rows[0];
-    if (!foundUser) {
-      res.status(400).json({ message: "invalid username " });
-      return;
-    }
-    if (!(await checkPassword(password, foundUser.password))) {
-      res.status(400).json({ message: "invalid password" });
-      return;
-    }
-    req.session.userIsLoggedIn = true;
-    req.session.users_id = foundUser.id;
-    req.session.firstName = foundUser.first_name;
-    res.json({ message: "login success" });
-  } catch (err: any) {
-    logger.error(err.message);
-    res.status(500).json({ message: "internal server error" });
-  }
+async function loginUserControl(req: express.Request, res: express.Response) {
+  req.session.loginType = "user";
+  res.redirect("/connect/google");
 }
+
+async function loginDriverControl(req: express.Request, res: express.Response) {
+  req.session.loginType = "driver";
+  res.redirect("/connect/google");
+}
+
+
 
 async function loginGoogleControl(req: express.Request, res: express.Response) {
   try {
