@@ -58,22 +58,44 @@ export class UsersController {
 
       const result = await fetchRes.json();
 
+      // if (req.session.loginType === "user") {
+      let userType = req.session.loginType;
+      let foundUser: { id: number; name: string } | null = null;
+      if (userType) {
+        foundUser = await this.usersService.loginGoogle(userType, result);
+      }
+      if (!foundUser) {
+        res.status(401).json({ message: "unauthorized user" });
+      } else {
+        req.session.userIsLoggedIn = true;
+        req.session.users_id = foundUser.id;
+        req.session.firstName = foundUser.name;
+        res.json({ message: "users OAuth login success" });
+      }
+      // }
+
+      // if (req.session.loginType === "driver") {
+      //   let foundDriver = await this.usersService.loginGoogle(result);
+      //   if (foundDriver) {
+      //     req.session.driverIsLoggedIn = true;
+      //     req.session.drivers_id = foundDriver.id;
+      //     res.json({ message: "drivers OAuth login success" });
+      //   }
+      // }
+
       if (req.session.loginType === "user") {
-        let finalResult = await this.usersService.loginGoogle(result);
-        if (finalResult) {
-          req.session.userIsLoggedIn = true;
-          req.session.users_id = finalResult.id;
-          res.json({ message: "users OAuth login success" });
-        }
+        req.session.userIsLoggedIn = true;
+      } else if (req.session.loginType === "driver") {
+        req.session.driverIsLoggedIn = true;
+      } else {
+        res.status(400).send("Incorrect login type");
+        return;
       }
 
-      if (req.session.loginType === "driver") {
-        let finalResult = await this.usersService.loginGoogle(result);
-        if (finalResult) {
-          req.session.driverIsLoggedIn = true;
-          req.session.drivers_id = finalResult.id;
-          res.json({ message: "drivers OAuth login success" });
-        }
+      if (req.session.loginType === "user") {
+        res.redirect("/usersMain.html");
+      } else {
+        res.redirect("/driversMain.html");
       }
     } catch (err: any) {
       logger.error(err.message);
@@ -95,7 +117,7 @@ export class UsersController {
       const defaultBuilding: string = req.body.defaultBuilding;
       const defaultStreet: string = req.body.defaultStreet;
 
-      await this.usersService.createAccount({
+      const userId = await this.usersService.createAccount({
         lastName,
         firstName,
         title,
@@ -116,6 +138,7 @@ export class UsersController {
         return;
       }
       req.session.userIsLoggedIn = true;
+      req.session.users_id = +userId;
       res.status(200).json({ message: "successful!" });
     } catch (err: any) {
       logger.error(err.message);
