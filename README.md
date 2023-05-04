@@ -125,6 +125,7 @@ source .venv/bin/activate
 pip install --upgrade pip
 pip install ipykernel
 pip install scikit-learn
+pip install sanic
 ```
 - Windows
 ```
@@ -133,4 +134,5 @@ python -m venv .venv
 pip install --upgrade pip
 pip install scikit-learn
 pip install --upgrade tensorflow
+pip install sanic
 ```
