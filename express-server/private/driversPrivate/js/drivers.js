@@ -121,7 +121,7 @@ async function showSelectedOrders() {
 }
 
 async function acceptOrdersDetail(id) {
-  window.location = `/driversAcceptOrder.html?oid=${id}`;
+  window.location = `/private/driversPrivate/driversAcceptOrder.html?oid=${id}`;
 }
 
 async function driversLogout() {

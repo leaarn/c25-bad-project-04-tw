@@ -29,7 +29,7 @@ export class DriversMainController {
   getAllOrders = async (req: Request, res: Response) => {
     try {
       const allOrders = await this.driversMainService.getAllOrders();
-      res.status(200).json(allOrders);
+      res.status(200).json(allOrders.rows);
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
@@ -46,7 +46,7 @@ export class DriversMainController {
       const acceptOrders = await this.driversMainService.getAcceptOrders(
         ordersId
       );
-      res.status(200).json(acceptOrders[0]);
+      res.status(200).json(acceptOrders.rows);
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
@@ -63,7 +63,7 @@ export class DriversMainController {
       const driverEarns = await this.driversMainService.getDriverEarns(
         ordersId
       );
-      res.status(200).json(driverEarns[0]);
+      res.status(200).json(driverEarns.rows);
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
@@ -76,7 +76,7 @@ export class DriversMainController {
       const ordersHistory = await this.driversMainService.getOrdersHistory(
         driversID
       );
-      res.status(200).json(ordersHistory);
+      res.status(200).json(ordersHistory.rows);
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
@@ -93,7 +93,7 @@ export class DriversMainController {
       const singleHistory = await this.driversMainService.getSingleHistory(
         ordersId
       );
-      res.status(200).json(singleHistory[0]);
+      res.status(200).json(singleHistory.rows);
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
@@ -106,7 +106,7 @@ export class DriversMainController {
       const ongoingOrders = await this.driversMainService.getOngoingOrders(
         driversID
       );
-      res.status(200).json(ongoingOrders);
+      res.status(200).json(ongoingOrders.rows);
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
@@ -123,7 +123,7 @@ export class DriversMainController {
       }
       const driverDelivering =
         await this.driversMainService.getDriverDelivering(ordersId, driversID);
-      res.status(200).json(driverDelivering);
+      res.status(200).json(driverDelivering.rows);
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
@@ -142,7 +142,7 @@ export class DriversMainController {
         driversID,
         ordersId
       );
-      res.status(200).json(cfmAcceptOrder);
+      res.status(200).json(cfmAcceptOrder.rows);
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });

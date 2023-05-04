@@ -12,8 +12,9 @@ window.onload = async () => {
 async function toAcceptOrder(id) {
   console.log("accept orders");
   const resp = await fetch(`/driversMain/get-orders/${id}`);
-  const acceptOrder = await resp.json();
-  console.log("accept orders", acceptOrder);
+  const acceptOrderArr = await resp.json();
+  console.log("accept orders", acceptOrderArr);
+  const acceptOrder = acceptOrderArr[0]
 
   let animalDetails = ``;
   if (Array.isArray(acceptOrder.animals_name)) {
@@ -46,7 +47,9 @@ async function toAcceptOrder(id) {
 async function driverEarns(id) {
   console.log("driver earns");
   const resp = await fetch(`/driversMain/driver-earns/${id}`);
-  const driverEarnsTotal = await resp.json();
+  const driverEarnsTotalArr = await resp.json();
+  console.log("driverEarnsTotalArr", driverEarnsTotalArr);
+  const driverEarnsTotal = driverEarnsTotalArr[0]
   console.log("driverEarnsTotal", driverEarnsTotal);
 
   let animalDetails = ``;
@@ -79,7 +82,7 @@ async function confirmAcceptOrder(id) {
   const resp = await fetch(`/driversMain/cfm-orders/${id}`, { method: "PUT" });
   if (resp.status == 200) {
     await fetch(`/driversMain/msg/${id}`, { method: "POST" });
-    window.location = `/driverSuccess.html?oid=${id}`;
+    window.location = `/private/driversPrivate/driverSuccess.html?oid=${id}`;
   }
 }
 

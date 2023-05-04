@@ -10,8 +10,9 @@ window.onload = async () => {
 
 async function singleHistory(id) {
   const resp = await fetch(`/driversMain/history/${id}`);
-  const singleHistoryResult = await resp.json()
-  console.log("singleHistoryResult", singleHistoryResult);
+  const singleHistoryResultArr = await resp.json()
+  console.log("singleHistoryResult", singleHistoryResultArr);
+  const singleHistoryResult = singleHistoryResultArr[0]
 
     let animalDetails = ``;
     if (Array.isArray(singleHistoryResult.animals_amount)) {

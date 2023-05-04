@@ -8,7 +8,7 @@ window.onload = async () => {
 };
 
 document.querySelector(".return-btn").addEventListener("click", () => {
-  window.location = "/driversOngoing.html";
+  window.location = "/private/driversPrivate/driversOngoing.html";
 });
 
 async function driversLogout() {

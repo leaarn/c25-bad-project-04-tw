@@ -39,7 +39,7 @@ async function showHistoryOrder() {
 }
 
 async function toSingleHistory(id) {
-  window.location = `/driversSingleHistory.html?oid=${id}`;
+  window.location = `/private/driversPrivate/driversSingleHistory.html?oid=${id}`;
 }
 
 async function driversLogout() {
