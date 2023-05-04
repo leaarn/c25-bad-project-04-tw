@@ -1432,7 +1432,11 @@ ee-first@1.1.1:
 
 electron-to-chromium@^1.4.284:
   version "1.4.382"
+<<<<<<< HEAD
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.382.tgz#87e659b0f0d5f7b19759038871bac0a327191f82"
+=======
   resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.382.tgz"
+>>>>>>> d13da0a9c06d5627ab35e44d37c30d030b0ee219
   integrity sha512-czMavlW52VIPgutbVL9JnZIZuFijzsG1ww/1z2Otu1r1q+9Qe2bTsH3My3sZarlvwyqHM6+mnZfEnt2Vr4dsIg==
 
 elliptic@^6.5.4:
