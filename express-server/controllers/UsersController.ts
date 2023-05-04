@@ -1,7 +1,7 @@
 import { UsersService } from "../services/UsersService";
 import { Request, Response } from "express";
 import { logger } from "../utils/logger";
-import { body, validationResult } from "express-validator";
+import { Result, body, validationResult } from "express-validator";
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
@@ -84,21 +84,6 @@ export class UsersController {
 
   createAccountControl = async (req: Request, res: Response) => {
     try {
-      body("password")
-        .isStrongPassword({
-          minLength: 6,
-          minLowercase: 0,
-          minUppercase: 0,
-          minSymbols: 0,
-        })
-        .withMessage("Length>6,No Symbol");
-
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        res.status(400).json({ message: "Please fill in all the boxes!" });
-        return;
-      }
-
       const lastName: string = req.body.lastName;
       const firstName: string = req.body.firstName;
       const title: string = req.body.title;
@@ -106,23 +91,33 @@ export class UsersController {
       const password: string = req.body.password;
       const contactNum: Number = req.body.contactNum;
       const defaultDistrict: string = req.body.defaultDistrict;
-      const pickUpRoom: string = req.body.pickUpRoom;
-      const pickUpFloor: string = req.body.pickUpFloor;
-      const pickUpBuilding: string = req.body.pickUpBuilding;
-      const pickUpStreet: string = req.body.pickUpStreet;
+      const defaultRoom: string = req.body.defaultRoom;
+      const defaultFloor: string = req.body.defaultFloor;
+      const defaultBuilding: string = req.body.defaultBuilding;
+      const defaultStreet: string = req.body.defaultStreet;
 
-      if (!email || !password) {
+      await this.usersService.createAccount({
+        lastName,
+        firstName,
+        title,
+        email,
+        password,
+        contactNum,
+        defaultDistrict,
+        defaultRoom,
+        defaultFloor,
+        defaultBuilding,
+        defaultStreet,
+      });
+
+      if (!email || !password ) {
         res
           .status(400)
           .json({ message: "please input the correct information" });
         return;
       }
-
-      const foundUser = await this.usersService.createAccount(email, password);
-      if (foundUser) {
-        res.status(400).json({ message: "existing users!" });
-        return;
-      }
+      req.session.userIsLoggedIn = true;
+      res.status(200).json({ message: "successful!" });
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
