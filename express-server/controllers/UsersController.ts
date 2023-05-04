@@ -60,17 +60,25 @@ export class UsersController {
 
       // if (req.session.loginType === "user") {
       let userType = req.session.loginType;
-      let foundUser: { id: number; name: string } | null = null;
+      let foundUser: { id: number } | null = null;
+      let foundDriver: { id: number } | null = null;
+      // let foundUser: { id: number; name: string } | null = null;
       if (userType) {
         foundUser = await this.usersService.loginGoogle(userType, result);
+        foundDriver = await this.usersService.loginGoogle(userType, result);
       }
-      if (!foundUser) {
-        res.status(401).json({ message: "unauthorized user" });
-      } else {
+      if (foundUser) {
         req.session.userIsLoggedIn = true;
         req.session.users_id = foundUser.id;
-        req.session.firstName = foundUser.name;
-        res.json({ message: "users OAuth login success" });
+        // req.session.firstName = foundUser.name;
+        // res.status(200).json({ message: "OAuth login success" });
+      }
+
+      if (foundDriver) {
+        req.session.driverIsLoggedIn = true;
+        req.session.drivers_id = foundDriver.id;
+        // req.session.firstName = foundUser.name;
+        // res.status(200).json({ message: "OAuth login success" });
       }
       // }
 
@@ -83,19 +91,19 @@ export class UsersController {
       //   }
       // }
 
-      if (req.session.loginType === "user") {
-        req.session.userIsLoggedIn = true;
-      } else if (req.session.loginType === "driver") {
-        req.session.driverIsLoggedIn = true;
-      } else {
-        res.status(400).send("Incorrect login type");
-        return;
-      }
+      // if (req.session.loginType === "user") {
+      //   req.session.userIsLoggedIn = true;
+      // } else if (req.session.loginType === "driver") {
+      //   req.session.driverIsLoggedIn = true;
+      // } else {
+      //   res.status(400).send("Incorrect login type");
+      //   return;
+      // }
 
       if (req.session.loginType === "user") {
-        res.redirect("/usersMain.html");
+        res.redirect("/private/usersPrivate/usersMain.html");
       } else {
-        res.redirect("/driversMain.html");
+        res.redirect("/private/driversPrivate/driversMain.html");
       }
     } catch (err: any) {
       logger.error(err.message);

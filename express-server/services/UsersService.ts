@@ -30,7 +30,8 @@ export class UsersService {
   loginGoogle = async (userType: string, result: any) => {
     if (userType === "user") {
       const foundUser = await this.knex("users")
-        .select("id", "first_name AS name")
+        .select("id",)
+        // .select("id", "first_name AS name")
         .where("email", result.email)
         .first();
       if (!foundUser) {
@@ -40,30 +41,30 @@ export class UsersService {
           .insert({
             email: result.email,
             password: hashedPassword,
-            first_name: result.name,
+            // first_name: result.name,
           })
-          .returning(["id", "first_name AS name"]);
+          .returning(["id"]);
+          // .returning(["id", "first_name AS name"]);
         return user;
       }
       return foundUser;
     } else {
-      const foundUser = await this.knex("drivers")
-        .select("id", "first_name AS name")
+      const foundDriver = await this.knex("drivers")
+        .select("id")
         .where("email", result.email)
         .first();
-      if (!foundUser) {
+      if (!foundDriver) {
         const tempPass = crypto.randomBytes(20).toString("hex");
         const hashedPassword = await hashPassword(tempPass);
-        const user = await this.knex("users")
+        const driver = await this.knex("drivers")
           .insert({
             email: result.email,
             password: hashedPassword,
-            first_name: result.name,
           })
-          .returning(["id", "first_name AS name"]);
-        return user;
+          .returning(["id"]);
+        return driver;
       }
-      return foundUser;
+      return foundDriver;
     }
   };
 
