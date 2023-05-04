@@ -54,7 +54,7 @@ async function loadCompleteOrder() {
     orderDiv.appendChild(orderDetailsDiv);
     orderDiv.appendChild(btnDiv);
     detailsBtn.addEventListener("click", () => {
-      window.location = `/historydt.html?oid=${order.id}`;
+      window.location = `/private/usersPrivate/historydt.html?oid=${order.id}`;
     });
     orderContainer.appendChild(orderDiv);
   }
@@ -66,7 +66,7 @@ async function usersLogout() {
     e.preventDefault();
     const resp = await fetch(`/logout/users`);
     if (resp.status === 200) {
-      window.location = "/usersLogin.html";
+      window.location = "/private/usersPrivate/usersLogin.html";
     } else {
       const data = await resp.json();
       alert(data.message);

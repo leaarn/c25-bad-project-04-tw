@@ -178,7 +178,7 @@ async function allOrderStatus() {
     btnDiv.appendChild(cancelOrderBtn);
 
     detailsBtn.addEventListener("click", () => {
-      window.location = `/ongoingdt.html?oid=${order.id}`;
+      window.location = `/private/usersPrivate/ongoingdt.html?oid=${order.id}`;
     });
 
     orderContainer.appendChild(orderDiv);
@@ -191,7 +191,7 @@ async function usersLogout() {
     e.preventDefault();
     const resp = await fetch(`/logout/users`);
     if (resp.status === 200) {
-      window.location = "/usersLogin.html";
+      window.location = "/private/usersPrivate/usersLogin.html";
     } else {
       const data = await resp.json();
       alert(data.message);

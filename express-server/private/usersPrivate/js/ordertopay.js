@@ -63,7 +63,7 @@ async function confirmToPay() {
         timer: 1500,
       });
       setTimeout(() => {
-        window.location = "/allorderstatus.html";
+        window.location = "/private/usersPrivate/allorderstatus.html";
       }, 1501);
     }
   });
@@ -75,7 +75,7 @@ async function usersLogout() {
     e.preventDefault();
     const resp = await fetch(`/logout/users`);
     if (resp.status === 200) {
-      window.location = "/usersLogin.html";
+      window.location = "/private/usersPrivate/usersLogin.html";
     } else {
       const data = await resp.json();
       alert(data.message);
