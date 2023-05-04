@@ -1406,9 +1406,9 @@ dote@^1.1.0:
   dependencies:
     readline-sync "^1.4.10"
 
-dotenv@16.0.3:
+dotenv@^16.0.3:
   version "16.0.3"
-  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.0.3.tgz"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
   integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
 
 dynamic-dedupe@^0.3.0:
@@ -1773,7 +1773,7 @@ graceful-fs@^4.2.9:
 
 grant@^5.4.21:
   version "5.4.21"
-  resolved "https://registry.npmjs.org/grant/-/grant-5.4.21.tgz"
+  resolved "https://registry.yarnpkg.com/grant/-/grant-5.4.21.tgz#3306942f4a19e40d008e247d071104b19173c0c6"
   integrity sha512-QaoZudI9Gmh2W415gd71Iul6gpVH9sG1SkjfnGHtqYZopQDQ5PUVxRol5zFCrwGi9S0EbExbelHlZScgdChg2w==
   dependencies:
     qs "^6.10.2"
