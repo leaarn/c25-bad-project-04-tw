@@ -2,7 +2,7 @@ import { UsersMainService } from "../services/UsersMainService";
 import type { Request, Response } from "express";
 import { logger } from "../utils/logger";
 
-export class UsersController {
+export class UsersMainController {
   constructor(private usersMainService: UsersMainService) {}
 
   //user info

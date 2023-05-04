@@ -1,5 +1,6 @@
 import type { Knex } from "knex";
 import { userTable, orderTable } from "../migrations/20230503035349_init-db";
+import { sendMessage, getTextMessageInput } from "../routers/messageHelper";
 
 export class DriversMainService {
   constructor(private knex: Knex) {}
@@ -130,11 +131,29 @@ export class DriversMainService {
   };
 
   confirmAcceptOrder = async (driverID: number, orderId: number) => {
-    const confirmAcceptOrderResult = await this.knex.raw(/*sql*/ `UPDATE orders SET orders_status = '司機已接單', drivers_id = ${driverID}
+    const confirmAcceptOrderResult = await this.knex
+      .raw(/*sql*/ `UPDATE orders SET orders_status = '司機已接單', drivers_id = ${driverID}
     WHERE orders_status = '訂單待接中' AND orders.id = ${orderId} 
-    `)
+    `);
     return confirmAcceptOrderResult;
   };
 
-  message = async (orderId: number) => {};
+  message = async (orderId: number) => {
+    const contact = await this.knex.raw(
+      /*SQL*/ `SELECT receiver_contact FROM orders WHERE orders.id = ${orderId} `
+    );
+    const name = await this.knex.raw(
+      /*SQL*/ `SELECT receiver_name FROM orders WHERE orders.id = ${orderId} `
+    );
+    const tokenResult = await this.knex.raw(
+      /*SQL*/ `SELECT token FROM orders WHERE orders.id = ${orderId} `
+    );
+
+    const data = getTextMessageInput(
+      "852" + contact[0].receiver_contact.toString(),
+      `Hi ${name[0].receiver_name}! Here is your receiver token: ${tokenResult[0].token}. Click the link http://localhost:8080/receivers.html to input your verification code. Have a great day!`
+    );
+    const resp = await sendMessage(data);
+    return resp;
+  };
 }
