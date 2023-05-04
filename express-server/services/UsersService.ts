@@ -4,7 +4,6 @@ import { createUsers } from "../model";
 import { checkPassword, hashPassword } from "../utils/hash";
 import type { Knex } from "knex";
 import crypto from "crypto";
-import { title } from "process";
 
 export class UsersService {
   constructor(private knex: Knex) {}
@@ -67,23 +66,25 @@ export class UsersService {
       .where("email", input.email)
       .first();
 
+    if (result) {
+      throw new Error("existing users!");
+    }
+
     const hashedPassword = await hashPassword(input.password);
-    await this.knex<createUsers>("users").insert({
+    await this.knex<createUsers>("users")
+    .insert({
       last_name: input.lastName,
-      first_name:input.firstName,
+      first_name: input.firstName,
       title: input.title,
       email: input.email,
       password: hashedPassword,
       contact_num: input.contactNum,
       default_district: input.defaultDistrict,
-      default_room: input.defaultRoom
-      default_floor:input.defaultFloor
-      default_building:input.defaultBuilding
-      default_street:input.defaultStreet
-    }
-    );
-
-    return result;
+      default_room: input.defaultRoom,
+      default_floor: input.defaultFloor,
+      default_building: input.defaultBuilding,
+      default_street: input.defaultStreet,
+    });
+    return true;
   };
-};
-
+}

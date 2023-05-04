@@ -1,7 +1,6 @@
 import { UsersService } from "../services/UsersService";
 import { Request, Response } from "express";
 import { logger } from "../utils/logger";
-import { Result, body, validationResult } from "express-validator";
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
@@ -110,7 +109,7 @@ export class UsersController {
         defaultStreet,
       });
 
-      if (!email || !password ) {
+      if (!email || !password) {
         res
           .status(400)
           .json({ message: "please input the correct information" });
