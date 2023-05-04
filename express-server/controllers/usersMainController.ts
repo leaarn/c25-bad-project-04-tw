@@ -10,6 +10,7 @@ export class UsersMainController {
     try {
       const usersId = req.session.users_id!;
       const userInfo = await this.usersMainService.getUserInfo(usersId);
+      console.log("here is user info",userInfo)
       res.status(200).json(userInfo);
     } catch (err: any) {
       logger.error(err.message);
@@ -23,6 +24,7 @@ export class UsersMainController {
     try {
       const usersId = req.session.users_id!;
       const address = await this.usersMainService.getAddress(usersId);
+      console.log("here is user adress",address)
       res.status(200).json(address);
     } catch (err: any) {
       logger.error(err.message);
@@ -36,7 +38,7 @@ export class UsersMainController {
       const pick_up_date = req.body.pick_up_date;
       const pick_up_time = req.body.pick_up_time;
       const pick_up_district = req.body.pick_up_district;
-      console.log(pick_up_district);
+      console.log("hereis pick up dist",pick_up_district);
       const pick_up_room = req.body.pick_up_room;
       const pick_up_floor = req.body.pick_up_floor;
       const pick_up_building = req.body.pick_up_building;
