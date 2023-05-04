@@ -86,6 +86,7 @@ yarn add --dev typescript ts-jest @types/jest @types/node ts-node ts-node-dev
 yarn ts-jest config:init
 yarn add knex pg @types/pg
 yarn knex init -x ts
+yarn add --dev playwright
 ```
 
 ## Migration
@@ -124,6 +125,7 @@ source .venv/bin/activate
 pip install --upgrade pip
 pip install ipykernel
 pip install scikit-learn
+pip install sanic
 ```
 - Windows
 ```
@@ -132,4 +134,5 @@ python -m venv .venv
 pip install --upgrade pip
 pip install scikit-learn
 pip install --upgrade tensorflow
+pip install sanic
 ```

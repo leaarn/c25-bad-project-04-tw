@@ -2,7 +2,7 @@ import { DriversMainService } from "../services/DriversMainService";
 import type { Request, Response } from "express";
 import { logger } from "../utils/logger";
 
-export class DriversController {
+export class DriversMainController {
   constructor(private driversMainService: DriversMainService) {}
 
   getDriverInfo = async (req: Request, res: Response) => {
@@ -156,8 +156,8 @@ export class DriversController {
         res.status(400).json({ message: "invalid order id" });
         return;
       }
-    //   const msgResult = await this.driversMainService.message(ordersId);
-      res.status(200).json();
+      const msgResult = await this.driversMainService.message(ordersId);
+      res.status(200).json(msgResult);
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });

@@ -15,10 +15,10 @@ function createUsers() {
     const password = form.newUserPassword.value;
     const contactNum = form.newUserContactNum.value;
     const defaultDistrict = form.newUserDefaultDistrict.value;
-    const pickUpRoom = form.pickUpRoom.value;
-    const pickUpFloor = form.pickUpFloor.value;
-    const pickUpBuilding = form.pickUpBuilding.value;
-    const pickUpStreet = form.pickUpStreet.value;
+    const defaultRoom = form.newDefaultRoom.value;
+    const defaultFloor = form.newDefaultFloor.value;
+    const defaultBuilding = form.newDefaultBuilding.value;
+    const defaultStreet = form.newDefaultStreet.value;
 
     const resp = await fetch("/userslogin/createAccount", {
       method: "POST",
@@ -31,10 +31,10 @@ function createUsers() {
         password,
         contactNum,
         defaultDistrict,
-        pickUpRoom,
-        pickUpFloor,
-        pickUpBuilding,
-        pickUpStreet,
+        defaultRoom,
+        defaultFloor,
+        defaultBuilding,
+        defaultStreet,
       }),
     });
     if (resp.status === 200) {
