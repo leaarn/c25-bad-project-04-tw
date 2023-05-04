@@ -126,6 +126,7 @@ pip install --upgrade pip
 pip install ipykernel
 pip install scikit-learn
 pip install sanic
+pip install ultralytics
 ```
 - Windows
 ```
@@ -135,4 +136,5 @@ pip install --upgrade pip
 pip install scikit-learn
 pip install --upgrade tensorflow
 pip install sanic
+pip install ultralytics
 ```
