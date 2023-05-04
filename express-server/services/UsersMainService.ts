@@ -52,8 +52,9 @@ export class UsersMainService {
       })
       .returning("id");
 
-    console.log("here is testing", createOrderId);
+    console.log("here is testing", createOrderId[0].id);
 
+   
     for (let i = 0; i < input.animals_id.length; i++) {
       const animals_history_price = await this.knex("animals")
         .select("price")
@@ -61,10 +62,10 @@ export class UsersMainService {
         .first();
 
       const orderAnimal = await this.knex("order_animals").insert({
-        orders_id:createOrderId,
+        orders_id:createOrderId[0].id,
         animals_id:parseInt(input.animals_id[i]),
         animals_amount:parseInt(input.animals_amount[i]),
-        animals_history_price:animals_history_price,
+        animals_history_price:animals_history_price.price,
       });
 
       console.log("here is order anm", orderAnimal);
