@@ -22,7 +22,7 @@ export class DriversController {
       }
     } catch (err: any) {
       logger.error(err.message);
-      res.status(500).json({ message: "internal server error" });
+      res.status(400).json({ message: err.message });
     }
   };
 
@@ -59,7 +59,7 @@ export class DriversController {
       res.status(200).json({ message: "successful!" });
     } catch (err: any) {
       logger.error(err.message);
-      res.status(500).json({ message: "internal server error" });
+      res.status(400).json({ message: err.message });
     }
   };
 }
