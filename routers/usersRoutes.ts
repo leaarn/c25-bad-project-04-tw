@@ -1,10 +1,10 @@
 import { usersController } from "../app";
-import { usersLogin } from "../model";
-import { checkPassword, hashPassword } from "../utils/hash";
-import crypto from "crypto";
-import { createUsers } from "../model";
+// import { usersLogin } from "../model";
+// import { checkPassword, hashPassword } from "../utils/hash";
+// import crypto from "crypto";
+// import { createUsers } from "../model";
 import express from "express";
-import { logger } from "../utils/logger";
+// import { logger } from "../utils/logger";
 import { body, validationResult } from "express-validator";
 
 export const usersRoutes = express.Router();
@@ -26,94 +26,85 @@ usersRoutes.post(
   usersController.createAccountControl
 );
 
-async function loginUserControl(req: express.Request, res: express.Response) {
-  req.session.loginType = "user";
-  res.redirect("/connect/google");
-}
+// async function loginGoogleControl(req: express.Request, res: express.Response) {
+//   try {
+//     const accessToken = req.session?.["grant"].response.access_token;
 
-async function loginDriverControl(req: express.Request, res: express.Response) {
-  req.session.loginType = "driver";
-  res.redirect("/connect/google");
-}
+//     const fetchRes = await fetch(
+//       "https://www.googleapis.com/oauth2/v2/userinfo",
+//       {
+//         method: "get",
+//         headers: {
+//           Authorization: `Bearer ${accessToken}`,
+//         },
+//       }
+//     );
 
+//     const result = await fetchRes.json();
 
+//     if (req.session.loginType === "user") {
+//       const foundUser = await dbClient.query(
+//         /*SQL*/ `SELECT id, first_name, email FROM users WHERE email = $1 `,
+//         [result.email]
+//       );
 
-async function loginGoogleControl(req: express.Request, res: express.Response) {
-  try {
-    const accessToken = req.session?.["grant"].response.access_token;
+//       if (!foundUser.rows[0]) {
+//         logger.error("no such user,create one ");
 
-    const fetchRes = await fetch(
-      "https://www.googleapis.com/oauth2/v2/userinfo",
-      {
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
+//         const tempPass = crypto.randomBytes(20).toString("hex");
+//         const hashedPassword = await hashPassword(tempPass);
+//         await dbClient.query(
+//           `insert into "users" (email,password) values ($1,$2)`,
+//           [result.email, hashedPassword]
+//         );
+//       }
+//       req.session.users_id = foundUser.rows[0].id;
+//     }
 
-    const result = await fetchRes.json();
+//     if (req.session.loginType === "driver") {
+//       const queryResult = await dbClient.query(
+//         /*SQL*/ `SELECT id, first_name, email FROM drivers WHERE email = $1 `,
+//         [result.email]
+//       );
 
-    if (req.session.loginType === "user") {
-      const queryResult = await dbClient.query(
-        /*SQL*/ `SELECT id, first_name, email FROM users WHERE email = $1 `,
-        [result.email]
-      );
+//       console.log(queryResult.rows);
+//       if (!queryResult.rows[0]) {
+//         logger.error("no such driver,create one ");
 
-      if (!queryResult.rows[0]) {
-        logger.error("no such user,create one ");
+//         const tempPass = crypto.randomBytes(20).toString("hex");
+//         const hashedPassword = await hashPassword(tempPass);
+//         await dbClient.query(
+//           `insert into "drivers" (email,password) values ($1,$2)`,
+//           [result.email, hashedPassword]
+//         );
+//       }
+//       req.session.drivers_id = queryResult.rows[0].id;
+//     }
 
-        const tempPass = crypto.randomBytes(20).toString("hex");
-        const hashedPassword = await hashPassword(tempPass);
-        await dbClient.query(
-          `insert into "users" (email,password) values ($1,$2)`,
-          [result.email, hashedPassword]
-        );
-      }
-      req.session.users_id = queryResult.rows[0].id;
-    }
+//     if (req.session.loginType === "user") {
+//       req.session.userIsLoggedIn = true;
+//     } else if (req.session.loginType === "driver") {
+//       req.session.driverIsLoggedIn = true;
+//     } else {
+//       res.status(400).send("Incorrect login type");
+//       return;
+//     }
 
-    if (req.session.loginType === "driver") {
-      const queryResult = await dbClient.query(
-        /*SQL*/ `SELECT id, first_name, email FROM drivers WHERE email = $1 `,
-        [result.email]
-      );
+//     if (req.session.loginType === "user") {
+//       res.redirect("/usersMain.html");
+//     } else {
+//       res.redirect("/driversMain.html");
+//     }
+//   } catch (err: any) {
+//     logger.error(err.message);
+//     res.status(500).json({ message: "internal Google server error" });
+//   }
+// }
 
-      console.log(queryResult.rows);
-      if (!queryResult.rows[0]) {
-        logger.error("no such driver,create one ");
-
-        const tempPass = crypto.randomBytes(20).toString("hex");
-        const hashedPassword = await hashPassword(tempPass);
-        await dbClient.query(
-          `insert into "drivers" (email,password) values ($1,$2)`,
-          [result.email, hashedPassword]
-        );
-      }
-      req.session.drivers_id = queryResult.rows[0].id;
-    }
-
-    if (req.session.loginType === "user") {
-      req.session.userIsLoggedIn = true;
-    } else if (req.session.loginType === "driver") {
-      req.session.driverIsLoggedIn = true;
-    } else {
-      res.status(400).send("Incorrect login type");
-      return;
-    }
-
-    if (req.session.loginType === "user") {
-      res.redirect("/usersMain.html");
-    } else {
-      res.redirect("/driversMain.html");
-    }
-  } catch (err: any) {
-    logger.error(err.message);
-    res.status(500).json({ message: "internal Google server error" });
-  }
-}
-
-async function createAccountControl(req: express.Request, res: express.Response) {
+async function createAccountControl(
+  req: express.Request,
+  res: express.Response
+) {
   try {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

@@ -83,9 +83,9 @@ export interface usersLogin {
 }
 
 export interface driversLogin {
-  [x: string]: any;
-  firstName: string;
-  username: string;
+  id: number;
+  first_name: string;
+  email: string;
   password: string;
 }
 
