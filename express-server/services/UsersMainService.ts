@@ -61,6 +61,7 @@ export class UsersMainService {
         .where("id", "=", `${parseInt(input.animals_id[i])}`)
         .first();
 
+        console.log("anm!!!!",animals_history_price.price)
       const orderAnimal = await this.knex("order_animals").insert({
         orders_id:createOrderId[0].id,
         animals_id:parseInt(input.animals_id[i]),
@@ -89,6 +90,8 @@ export class UsersMainService {
         SUM(order_animals.animals_history_price * order_animals.animals_amount) AS animals_total_price, 
         max(distance_km * distance_price) + SUM(order_animals.animals_history_price * order_animals.animals_amount) AS total_price`)
       )
+      .join("order_animals", "order_animals.orders_id", "orders.id")
+      .join("animals", "animals.id", "order_animals.animals_id")
       .where("orders.orders_status", "=", "not pay yet")
       .andWhere("orders.users_id", "=", usersId)
       .groupBy(
@@ -135,13 +138,13 @@ export class UsersMainService {
       .where("orders.users_id", "=", usersId)
       .groupBy(
         "orders.id",
-        "created_at",
+        "orders.created_at",
         "remarks",
         "orders_status",
         "reference_code",
         "orders.drivers_id"
       )
-      .orderBy("created_at");
+      .orderBy("orders.created_at");
 
     return queryResult;
   };
@@ -155,7 +158,7 @@ export class UsersMainService {
       )
       .join("orders", "orders.drivers_id", "drivers.id")
       .where("orders.id", "=", orderId)
-      .where("orders.users_id", "=", "usersId")
+      .where("orders.users_id", "=", usersId)
       .first();
     return queryResult;
   };
@@ -193,7 +196,7 @@ export class UsersMainService {
       .join("animals", "animals.id", "order_animals.animals_id")
       .where("orders_status", "=", "已完成")
       .where("orders.users_id", "=", usersId)
-      .where("orders.id", "=", usersId)
+      .where("orders.id", "=", orderId)
       .groupBy("orders.id", "reference_code", "orders_status", "remarks")
       .first();
 

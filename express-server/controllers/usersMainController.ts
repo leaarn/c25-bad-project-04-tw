@@ -101,6 +101,7 @@ export class UsersMainController {
   payOrder = async (req: Request, res: Response) => {
     try {
       const usersId = req.session.users_id!;
+      console.log("here is user id",usersId)
       const orderToPay = await this.usersMainService.payOrder(usersId);
       res.status(200).json(orderToPay);
     } catch (err: any) {
