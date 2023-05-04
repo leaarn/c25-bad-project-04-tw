@@ -11,7 +11,7 @@ const knex = Knex(config[process.env.NODE_ENV || "development"]);
 
 const grantExpress = grant.express({
   defaults: {
-    origin: "44.199.150.85",
+    origin: "http://localhost:8080",
     transport: "session",
     state: true,
   },
@@ -87,7 +87,7 @@ const driversMainService = new DriversMainService(knex);
 export const driversMainController = new DriversMainController(driversMainService);
 
 // Section 2: Route Handlers
-import { authRoutes } from "./routers/authRoutes";
+// import { authRoutes } from "./routers/authRoutes";
 import { usersRoutes } from "./routers/usersRoutes";
 import { driversRoutes } from "./routers/driversRoutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
@@ -102,7 +102,7 @@ import { receiverRoutes } from "./routers/receiversRoutes";
 import { logger } from "./utils/logger";
 import { logoutRoutes } from "./utils/logout";
 
-app.use("/login", authRoutes);
+// app.use("/login", authRoutes);
 app.use("/userslogin", usersRoutes);
 app.use("/driverslogin", driversRoutes);
 app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);

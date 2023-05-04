@@ -104,9 +104,14 @@ export interface createUsers {
 }
 
 export interface createDrivers {
-  [x: string]: any;
-  username: string;
+  lastName: string;
+  firstName: string;
+  title: string;
+  email: string;
   password: string;
+  contactNum: Number;
+  carLicenseNum: string;
+  carType: string;
 }
 
 export interface createOrder {
