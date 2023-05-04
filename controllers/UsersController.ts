@@ -1,7 +1,6 @@
 import { UsersService } from "../services/UsersService";
 import { Request, Response } from "express";
 import { logger } from "../utils/logger";
-import { checkPassword, hashPassword } from "../utils/hash";
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
@@ -17,16 +16,6 @@ export class UsersController {
         req.session.firstName = foundUser.first_name;
         res.json({ message: "login success" });
       }
-
-      if (!foundUser) {
-        res.status(400).json({ message: "invalid email address " });
-        return;
-      }
-
-      if (!(await checkPassword(password, foundUser.password))) {
-        res.status(400).json({ message: "invalid password" });
-        return;
-      }
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
@@ -34,6 +23,8 @@ export class UsersController {
   };
 
   loginUserControl = async (req: Request, res: Response) => {
+    req.session.loginType = "user";
+    res.redirect("/connect/google");
     try {
     } catch (err: any) {
       logger.error(err.message);
@@ -42,6 +33,8 @@ export class UsersController {
   };
 
   loginDriverControl = async (req: Request, res: Response) => {
+    req.session.loginType = "driver";
+    res.redirect("/connect/google");
     try {
     } catch (err: any) {
       logger.error(err.message);
@@ -51,6 +44,37 @@ export class UsersController {
 
   loginGoogleControl = async (req: Request, res: Response) => {
     try {
+      const accessToken = req.session?.["grant"].response.access_token;
+
+      const fetchRes = await fetch(
+        "https://www.googleapis.com/oauth2/v2/userinfo",
+        {
+          method: "get",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      const result = await fetchRes.json();
+
+      if (req.session.loginType === "user") {
+        let finalResult = await this.usersService.loginGoogle(result);
+        if (finalResult) {
+          req.session.userIsLoggedIn = true;
+          req.session.users_id = finalResult.id;
+          res.json({ message: "users OAuth login success" });
+        }
+      }
+
+      if (req.session.loginType === "driver") {
+        let finalResult = await this.usersService.loginGoogle(result);
+        if (finalResult) {
+          req.session.driverIsLoggedIn = true;
+          req.session.drivers_id = finalResult.id;
+          res.json({ message: "drivers OAuth login success" });
+        }
+      }
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
