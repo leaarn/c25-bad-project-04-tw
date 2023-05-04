@@ -5,7 +5,7 @@ import { usersController } from "../app";
 // import { createUsers } from "../model";
 import express from "express";
 // import { logger } from "../utils/logger";
-import { body, validationResult } from "express-validator";
+// import { body, validationResult } from "express-validator";
 
 export const usersRoutes = express.Router();
 
@@ -15,14 +15,14 @@ usersRoutes.get("/driversGoogle", usersController.loginDriverControl);
 usersRoutes.get("/google", usersController.loginGoogleControl);
 usersRoutes.post(
   "/createaccount",
-  body("password")
-    .isStrongPassword({
-      minLength: 6,
-      minLowercase: 0,
-      minUppercase: 0,
-      minSymbols: 0,
-    })
-    .withMessage("Length>6,No Symbol"),
+  // body("password")
+  //   .isStrongPassword({
+  //     minLength: 6,
+  //     minLowercase: 0,
+  //     minUppercase: 0,
+  //     minSymbols: 0,
+  //   })
+  //   .withMessage("Length>6,No Symbol"),
   usersController.createAccountControl
 );
 
@@ -119,10 +119,10 @@ async function createAccountControl(
     const password: string = req.body.password;
     const contactNum: Number = req.body.contactNum;
     const defaultDistrict: string = req.body.defaultDistrict;
-    const pickUpRoom: string = req.body.pickUpRoom;
-    const pickUpFloor: string = req.body.pickUpFloor;
-    const pickUpBuilding: string = req.body.pickUpBuilding;
-    const pickUpStreet: string = req.body.pickUpStreet;
+    const defaultRoom: string = req.body.defaultRoom;
+    const defaultFloor: string = req.body.defaultFloor;
+    const defaultBuilding: string = req.body.defaultBuilding;
+    const defaultStreet: string = req.body.defaultStreet;
 
     if (!email || !password) {
       res.status(400).json({ message: "please input the correct information" });
@@ -150,10 +150,10 @@ async function createAccountControl(
         hashedPassword,
         contactNum,
         defaultDistrict,
-        pickUpRoom,
-        pickUpFloor,
-        pickUpBuilding,
-        pickUpStreet,
+        defaultRoom,
+        defaultFloor,
+        defaultBuilding,
+        defaultStreet,
       ]
     );
     req.session.userIsLoggedIn = true;
