@@ -60,14 +60,16 @@ app.use((req, _res, next) => {
 import { UsersController } from "./controllers/UsersController";
 import { DriversController } from "./controllers/DriversController";
 import { ReceiversController } from "./controllers/ReceiversController";
-import {UsersMainController} from "./controllers/usersMainController"
+import { UsersMainController } from "./controllers/usersMainController"
+import { DriversMainController } from "./controllers/DriversMainController";
 
 
 // Services
-import { UsersService } from "./Services/UsersService";
-import { DriversService } from "./Services/DriversService";
-import { ReceiversService } from "./Services/ReceiverService";
+import { UsersService } from "./services/UsersService";
+import { DriversService } from "./services/DriversService";
+import { ReceiversService } from "./services/ReceiversService";
 import {UsersMainService} from "./services/UsersMainService"
+import { DriversMainService } from "./services/DriversMainService";
 
 const usersService = new UsersService(knex);
 export const usersController = new UsersController(usersService);
@@ -81,8 +83,11 @@ export const receiversController = new ReceiversController(receiversService);
 const usersMainService = new UsersMainService(knex)
 export const usersMainController = new UsersMainController(usersMainService)
 
+const driversMainService = new DriversMainService(knex);
+export const driversMainController = new DriversMainController(driversMainService);
+
 // Section 2: Route Handlers
-// import { authRoutes } from "./routers/authRoutes";
+import { authRoutes } from "./routers/authRoutes";
 import { usersRoutes } from "./routers/usersRoutes";
 import { driversRoutes } from "./routers/driversRoutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
@@ -97,7 +102,7 @@ import { receiverRoutes } from "./routers/receiversRoutes";
 import { logger } from "./utils/logger";
 import { logoutRoutes } from "./utils/logout";
 
-// app.use("/login", authRoutes);
+app.use("/login", authRoutes);
 app.use("/userslogin", usersRoutes);
 app.use("/driverslogin", driversRoutes);
 app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
@@ -106,6 +111,7 @@ app.use("/receivertoken", receiverRoutes);
 app.use("/logout", logoutRoutes);
 
 // Section 3: Serve
+
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
