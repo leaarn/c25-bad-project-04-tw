@@ -90,7 +90,6 @@ export interface driversLogin {
 }
 
 export interface createUsers {
-  [x: string]: any;
   lastName: string;
   firstName: string;
   title: string;

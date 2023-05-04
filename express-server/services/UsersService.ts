@@ -60,5 +60,31 @@ export class UsersService {
     return true;
   };
 
-  
+  createAccount = async (input: createUsers) => {
+    const result = await this.knex<createUsers>("users")
+      .select("id", "email")
+      .where("email", input.email)
+      .first();
+
+    if (result) {
+      throw new Error("existing users!");
+    }
+
+    const hashedPassword = await hashPassword(input.password);
+    await this.knex<createUsers>("users")
+    .insert({
+      last_name: input.lastName,
+      first_name: input.firstName,
+      title: input.title,
+      email: input.email,
+      password: hashedPassword,
+      contact_num: input.contactNum,
+      default_district: input.defaultDistrict,
+      default_room: input.defaultRoom,
+      default_floor: input.defaultFloor,
+      default_building: input.defaultBuilding,
+      default_street: input.defaultStreet,
+    });
+    return true;
+  };
 }

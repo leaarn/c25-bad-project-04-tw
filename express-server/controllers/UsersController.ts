@@ -83,6 +83,40 @@ export class UsersController {
 
   createAccountControl = async (req: Request, res: Response) => {
     try {
+      const lastName: string = req.body.lastName;
+      const firstName: string = req.body.firstName;
+      const title: string = req.body.title;
+      const email: string = req.body.email;
+      const password: string = req.body.password;
+      const contactNum: Number = req.body.contactNum;
+      const defaultDistrict: string = req.body.defaultDistrict;
+      const defaultRoom: string = req.body.defaultRoom;
+      const defaultFloor: string = req.body.defaultFloor;
+      const defaultBuilding: string = req.body.defaultBuilding;
+      const defaultStreet: string = req.body.defaultStreet;
+
+      await this.usersService.createAccount({
+        lastName,
+        firstName,
+        title,
+        email,
+        password,
+        contactNum,
+        defaultDistrict,
+        defaultRoom,
+        defaultFloor,
+        defaultBuilding,
+        defaultStreet,
+      });
+
+      if (!email || !password) {
+        res
+          .status(400)
+          .json({ message: "please input the correct information" });
+        return;
+      }
+      req.session.userIsLoggedIn = true;
+      res.status(200).json({ message: "successful!" });
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
