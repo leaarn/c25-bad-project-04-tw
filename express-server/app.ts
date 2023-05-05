@@ -11,7 +11,7 @@ const knex = Knex(config[process.env.NODE_ENV || "development"]);
 
 const grantExpress = grant.express({
   defaults: {
-    origin: "http://localhost:8080",
+    origin: "44.199.150.85",
     transport: "session",
     state: true,
   },
