@@ -45,7 +45,7 @@ jobs:
             yarn install
             yarn knex migrate:latest --env production
             forever restart -c 'yarn start'
-          host: 44.199.150.85
+          host: 34.233.164.139
           username: ubuntu
           port: 22
           key: ${{secrets.SSH_PRIVATE_KEY}}
