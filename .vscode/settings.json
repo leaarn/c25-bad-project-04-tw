@@ -5,8 +5,8 @@
       "server": "localhost",
       "port": 5432,
       "driver": "PostgreSQL",
-      "name": "wspproject",
-      "database": "demo",
+      "name": "project2",
+      "database": "project2",
       "username": "postgres",
       "password": "postgres"
     },
@@ -15,8 +15,8 @@
       "server": "localhost",
       "port": 5432,
       "driver": "PostgreSQL",
-      "name": "project2",
-      "database": "project2",
+      "name": "project3",
+      "database": "project3",
       "username": "postgres",
       "password": "postgres"
     }
