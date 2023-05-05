@@ -10,9 +10,10 @@ model = YOLO('yolov8n.pt', task='detect') # [detect, classify, segment]
 
 @app.post("/")
 def callModel(request):
-    content = request
+    content = request.json
+    link = os.path.join(os.getcwd(), '../express-server/uploads/', content.newFileName)
 
-    results = model.predict(source=content, save=False, imgsz=500, conf=0.5, show=True)
+    results = model.predict(source=link, save=False, imgsz=500, conf=0.5, show=True)
 
     print(results[0].boxes.data) # object position [x1, y1, x2, y2, score, label]
 
