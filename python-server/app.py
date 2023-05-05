@@ -2,34 +2,33 @@ from sanic import Sanic
 from sanic.response import json
 import tensorflow as tf
 import numpy as np
+from ultralytics import YOLO
 
-class_names = ['bird', 'cat', 'dog', 'horse', 'elephant', 'bear', 'zebra', 'giraffe']
+app = Sanic("chicken-van")
 
-app = Sanic("Python-Hosted-Model")
-
-model = tf.saved_model.load('./')
+model = YOLO('yolov8n.pt', task='detect') # [detect, classify, segment]
 
 @app.post("/")
 def callModel(request):
-    content = request.json
+    content = request
 
-    predict_dataset = tf.convert_to_tensor(content)
+    results = model.predict(source=content, save=False, imgsz=500, conf=0.5, show=True)
 
-    predictions = model(predict_dataset, training=False)
-    probs = tf.nn.softmax(predictions)
+    print(results[0].boxes.data) # object position [x1, y1, x2, y2, score, label]
 
-    class_indexes = tf.argmax(probs, axis = 1).numpy()
-    results = []
+    no_of_objects = len(results[0].boxes)
+    print(f"Number of objects: {no_of_objects}")
+    result_list = []
 
-    for i, class_idx in enumerate(class_indexes):
-        name = class_names[class_idx]
-        p = np.max(probs[i].numpy())
-        results.append({
-            "name": name,
-            "probability": float(p)
-        })
+    for result in results[0].boxes:
+        object = results[0].names[result.data.numpy()[0,5]]
+        result_list.append(object)
+        position = result.data.numpy()[0,0:4]
+        print(f"[{object}] - position: {position}")
+    
+    print(result_list)
 
-    return json({ "data": results })
+    return json({ "data": result_list })
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8000, single_process=True)
