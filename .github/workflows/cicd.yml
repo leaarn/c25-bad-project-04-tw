@@ -1,4 +1,4 @@
-name: project2
+name: project3
 on:
   push:
     branches:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  POSTGRES_DB: project2
+  POSTGRES_DB: project3
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: postgres
   POSTGRES_HOST: postgres
@@ -41,10 +41,14 @@ jobs:
         with:
           script: |
             cd c25-bad-project-04-tw
+            cd express-server
             git pull origin main
             yarn install
+            yarn knex migrate:rollback --env production
             yarn knex migrate:latest --env production
-            forever restart -c 'yarn start'
+            yarn knex seed:run --env production
+            pm2 start 'yarn start'
+            pm2 start 'python app.py'
           host: 34.233.164.139
           username: ubuntu
           port: 22
