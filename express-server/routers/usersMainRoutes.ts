@@ -20,3 +20,7 @@ usersMainRoutes.get("/orderstatus", usersMainController.orderStatus);
 usersMainRoutes.get("/orderstatus/:oid", usersMainController.orderStatusDetails);
 usersMainRoutes.get("/history", usersMainController.historyOrders);
 usersMainRoutes.get("/history/:oid", usersMainController.historyOrderDetails);
+usersMainRoutes.post(
+  "/aiCreateOrder",
+  usersMainController.aiCreateOrderController
+);

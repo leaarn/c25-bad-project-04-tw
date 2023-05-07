@@ -1,7 +1,6 @@
 import { ReceiversController } from "../controllers/ReceiversController";
 import { ReceiversService } from "../services/ReceiversService";
 import { getRequest, getResponse } from "./utils";
-// import type { Request, Response } from "express";
 import express from "express";
 let req: express.Request;
 let res: express.Response;
