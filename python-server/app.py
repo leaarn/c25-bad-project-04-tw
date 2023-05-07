@@ -11,7 +11,7 @@ model = YOLO('yolov8n.pt', task='detect') # [detect, classify, segment]
 @app.post("/")
 def callModel(request):
     content = request.json
-    link = os.path.join(os.getcwd(), '../express-server/uploads/', content.newFileName)
+    link = os.path.join(os.getcwd(), '../express-server/private/usersPrivate/uploads/', content.newFileName)
 
     results = model.predict(source=link, save=False, imgsz=500, conf=0.5, show=True)
 

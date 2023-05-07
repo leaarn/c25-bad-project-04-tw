@@ -1,8 +1,7 @@
 import type { Knex } from "knex";
 import { createOrder } from "../model";
 import { aiCreateOrder } from "../model";
-import { orderTable, uploadTable } from "../migrations/20230503035349_init-db";
-import { orderAnimalTable } from "../migrations/20230503035349_init-db";
+import { uploadTable } from "../migrations/20230503035349_init-db";
 
 export class UsersMainService {
   constructor(private knex: Knex) {}

@@ -1,9 +1,11 @@
 import formidable from "formidable";
 import IncomingForm from "formidable/Formidable";
+import fs from "fs";
 
 import express from "express";
 
 const uploadDir = "./private/usersPrivate/uploads"
+fs.mkdirSync(uploadDir, { recursive: true });
 
 export const form = formidable({
     uploadDir,
