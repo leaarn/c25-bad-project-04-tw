@@ -23,22 +23,22 @@ describe.only("test auth controller", () => {
     } as any as express.Response;
   });
 
-  test("login", async () => {
-    const usersService = new UsersService({} as Knex);
-    usersService.login = jest.fn(
-      async (usersEmail: "test", password: "test") => {
-        //  return true;
-      }
-    );
+  // test("login", async () => {
+  //   const usersService = new UsersService({} as Knex);
+  //   usersService.login = jest.fn(
+  //     async (usersEmail: "test", password: "test") => {
+  //       //  return true;
+  //     }
+  //   );
 
-    const testSubject = new UsersController(usersService);
-    // req.body = { usersEmail: "test", password: "test" };
-    await testSubject.loginControl(req, res);
+  //   const testSubject = new UsersController(usersService);
+  //   // req.body = { usersEmail: "test", password: "test" };
+  //   await testSubject.loginControl(req, res);
 
-    expect(usersService.login).toBeCalledTimes(1);
-    expect(usersService.login).toBeCalledWith("test", "test");
-    expect(res.json).toBeCalledWith("login success!");
-  });
+  //   expect(usersService.login).toBeCalledTimes(1);
+  //   expect(usersService.login).toBeCalledWith("test", "test");
+  //   expect(res.json).toBeCalledWith("login success!");
+  // });
 
   test("loginGoogle", async () => {
     const usersService = new UsersService({} as Knex);

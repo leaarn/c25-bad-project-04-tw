@@ -1,92 +1,63 @@
 import { Knex } from "knex";
-import { UsersController } from "../controllers/UsersController";
-import { UsersService } from "../services/UsersService";
-// import { getRequest, getResponse } from "./utils";
+import { DriversController } from "../controllers/DriversController";
+import { DriversService } from "../services/DriversService";
+import { getRequest, getResponse } from "./utils";
 // import type { Request, Response } from "express";
 import express from "express";
 let req: express.Request;
 let res: express.Response;
-let usersService: UsersService;
-let usersController: UsersController;
+let driversService: DriversService;
+let driversController: DriversController;
 
 describe.only("test auth controller", () => {
   beforeEach(() => {
-    req = {
-      params: {},
-      body: {},
-      session: {},
-    } as express.Request;
-
-    res = {
-      status: jest.fn(() => res),
-      json: jest.fn(),
-    } as any as express.Response;
+    req = getRequest();
+    res = getResponse();
   });
 
-  test("login", async () => {
-    const usersService = new UsersService({} as Knex);
-    usersService.login = jest.fn(
-      async (usersEmail: "test", password: "test") => {
-        //  return true;
-      }
-    );
+//   test("login", async () => {
+//     const driversService = new DriversService({} as Knex);
+//     driversService.login = jest.fn(
+//       async (usersEmail: "test", password: "test") => {
+//         //  return true;
+//       }
+//     );
+//     const testSubject = new DriversController(driversService);
+//     // req.body = { usersEmail: "test", password: "test" };
+//     await testSubject.loginControl(req, res);
 
-    const testSubject = new UsersController(usersService);
-    // req.body = { usersEmail: "test", password: "test" };
-    await testSubject.loginControl(req, res);
+//     expect(driversService.login).toBeCalledTimes(1);
+//     expect(driversService.login).toBeCalledWith("test", "test");
+//     expect(res.json).toBeCalledWith("login success!");
+//   });
 
-    expect(usersService.login).toBeCalledTimes(1);
-    expect(usersService.login).toBeCalledWith("test", "test");
-    expect(res.json).toBeCalledWith("login success!");
-  });
-
-  test("loginGoogle", async () => {
-    const usersService = new UsersService({} as Knex);
-    usersService.loginGoogle = jest.fn(async () => {
-      return true;
-    });
-
-    const testSubject = new UsersController(usersService);
-    req.body = { usersEmail: "test", password: "test" };
-    await testSubject.loginControl(req, res);
-
-    expect(usersService.login).toBeCalledTimes(1);
-    expect(usersService.login).toBeCalledWith("test", "test");
-    // expect(res.json).toBeCalledWith("login success!");
-  });
 
   test("createAccount", async () => {
     (req.body as jest.Mock).mockImplementationOnce(() =>
       Promise.resolve({
         last_name: "Julia",
-        first_name: "Wong",
+        first_name: "iWong",
         title: "Miss",
-        email: "abc@gmail.com",
-        password: "abc12",
-        contact_num: "123123",
-        default_district: "東區",
-        default_room: "123123",
-        default_floor: "123123",
-        default_building: "123123",
-        default_street: "123123",
+        email: "abd@gmail.com",
+        password: "123abc",
+        contact_num: "12345",
+        car_license_num: "12345",
+        car_type: "van",
       })
     );
-    await usersController.createAccountControl(req, res);
+    await driversController.createAccountControl(req, res);
 
-    expect(usersService.createAccount).toBeCalledWith(
-      "Julia",
-      "Wong",
-      "Miss",
-      "abc@gmail.com",
-      "abc12",
-      "123123",
-      "東區",
-      "123123",
-      "123123",
-      "123123",
-      "123123"
+    expect(driversService.createAccount).toBeCalledWith(
+        "Julia",
+        "iWong",
+        "Miss",
+        "abd@gmail.com",
+        "123abc",
+        "12345",
+        "12345",
+        "van",
     );
-    expect(usersService.createAccount).toBeCalledTimes(1);
+    expect(driversService.createAccount).toBeCalledTimes(1);
     expect(res.json).toBeCalledWith([{ message: "successful" }]);
   });
 });
