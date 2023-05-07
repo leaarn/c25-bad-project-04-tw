@@ -6,6 +6,7 @@ export const orderTable = "orders";
 export const paymentTable = "payment_method";
 export const animalTable = "animals";
 export const orderAnimalTable = "order_animals";
+export const uploadTable = "upload";
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(userTable, (table) => {
@@ -93,9 +94,15 @@ export async function up(knex: Knex): Promise<void> {
     table.boolean("is_AI").defaultTo(false)
     table.integer("AI_rating",1-5)
   });
+
+  await knex.schema.createTable(uploadTable, (table) => {
+    table.increments('id').primary(); // id
+    table.string("image");
+  })
 }
 
 export async function down(knex: Knex): Promise<void> {
+  await knex.schema.dropTableIfExists(uploadTable);
   await knex.schema.dropTableIfExists(orderAnimalTable);
   await knex.schema.dropTableIfExists(animalTable);
   await knex.schema.dropTableIfExists(paymentTable);

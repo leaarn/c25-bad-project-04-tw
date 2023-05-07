@@ -1,6 +1,8 @@
 import type { Knex } from "knex";
 import { createOrder } from "../model";
-import {aiCreateOrder} from "../model";
+import { aiCreateOrder } from "../model";
+import { orderTable, uploadTable } from "../migrations/20230503035349_init-db";
+import { orderAnimalTable } from "../migrations/20230503035349_init-db";
 
 export class UsersMainService {
   constructor(private knex: Knex) {}
@@ -228,5 +230,11 @@ export class UsersMainService {
     return this.aiCreateOrder;
   };
   //Julia end
-}
 
+  // Yannes part
+  uploadImage = async (imageFilename: string) => {
+    await this.knex(uploadTable).insert({ image: imageFilename });
+    return this.uploadImage;
+  };
+  // Yannes part
+}
