@@ -60,7 +60,7 @@ export class UsersController {
 
       // if (req.session.loginType === "user") {
       let userType = req.session.loginType;
-      let foundUser: { id: number } | null = null;
+      let foundUser: { id: number } | null = null; 
       let foundDriver: { id: number } | null = null;
       // let foundUser: { id: number; name: string } | null = null;
       if (userType) {
