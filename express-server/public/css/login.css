@@ -13,14 +13,14 @@ body {
 
 ::placeholder {
   color: rgb(255, 157, 29);
-  font-size: 90%;
+  font-size: 120%;
   font-weight: Thin;
 }
 .word {
   color: rgb(255, 157, 29);
   padding: 20px;
   font-weight: bold;
-  font-size: 180%;
+  font-size: 200%;
 }
 
 .word2 {
@@ -43,7 +43,7 @@ input {
   border-radius: 2px;
   border: 1px solid rgb(255, 157, 29);
   width: 35vw;
-  height: 5vh;
+  height: 8vh;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
@@ -53,9 +53,9 @@ input {
   border: 0;
   border-radius: 15px;
   width: 35vw;
-  height: 5vh;
+  height: 8vh;
   color: rgb(255, 157, 29);
-  font-size: 130%;
+  font-size: 180%;
   font-weight: bold;
   margin-bottom: 1vw;
   box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
@@ -82,7 +82,7 @@ input {
   border: 0;
   border-radius: 15px;
   width: 35vw;
-  height: 5vh;;
+  height: 8vh;;
   color: rgb(255, 227, 155);
   margin: 10px 0;
   font-size: 130%;
