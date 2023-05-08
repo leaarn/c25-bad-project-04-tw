@@ -28,6 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - run: |
+          cd express-server
           yarn install 
           yarn knex migrate:rollback --env test
           yarn knex migrate:latest --env test
