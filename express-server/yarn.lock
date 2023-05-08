@@ -2840,7 +2840,7 @@ playwright-core@1.33.0:
 
 playwright@^1.33.0:
   version "1.33.0"
-  resolved "https://registry.npmjs.org/playwright/-/playwright-1.33.0.tgz"
+  resolved "https://registry.yarnpkg.com/playwright/-/playwright-1.33.0.tgz#88df1cffe97718ab8a02303e12c9133681ec7fab"
   integrity sha512-+zzU3V2TslRX2ETBRgQKsKytYBkJeLZ2xzUj4JohnZnxQnivoUvOvNbRBYWSYykQTO0Y4zb8NwZTYFUO+EpPBQ==
   dependencies:
     playwright-core "1.33.0"
