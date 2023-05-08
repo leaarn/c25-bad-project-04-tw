@@ -344,4 +344,57 @@ describe("UsersMainController TestsCases", () => {
     expect(usersMainService.historyOrderDetails).toBeCalledTimes(0);
     expect(res.json).toBeCalledWith({ message: "invalid order id" });
   });
+  // Julia
+  test("aiCreateAccount", async () => {
+    (req.body as jest.Mock).mockImplementationOnce(() =>
+      Promise.resolve({
+        orderId: "1",
+        pick_up_date: "2023-03-01",
+        pick_up_time: "11:03:00",
+        pick_up_district: "東區",
+        pick_up_room: "abc12",
+        pick_up_floor: "123123",
+        pick_up_building: "東區",
+        pick_up_street: "123123",
+        deliver_district: "東區",
+        deliver_room: "123123",
+        deliver_floor: "123123",
+        deliver_building: "123123",
+        deliver_street: "123123",
+        users_id: "1",
+        receiver_name: "123123",
+        receiver_contact: "123123",
+        remarks: "123",
+        distance_km: "123",
+        token: "123",
+      })
+    );
+    await usersMainController.aiCreateOrderController(req, res);
+
+    expect(usersMainService.aiCreateOrder).toBeCalledWith(
+      "1",
+      "2023-03-01",
+      "11:03:00",
+      "東區",
+      "abc12",
+      "123123",
+      "東區",
+      "123123",
+      "東區",
+      "123123",
+      "123123",
+      "123123",
+      "123123",
+      "1",
+      "123123",
+      "123123",
+      "123",
+      "123",
+      "123"
+    );
+    expect(usersMainService.aiCreateOrder).toBeCalledTimes(1);
+    expect(res.json).toBeCalledWith([{ message: "AI create order success" }]);
+  });
+
+  //Julia
 });
