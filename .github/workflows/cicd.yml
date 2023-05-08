@@ -25,15 +25,18 @@ jobs:
           POSTGRES_HOST: ${{env.POSTGRES_HOST}}
         ports:
           - 5432:5432
+    defaults:
+      run:
+        working-directory: ./express-server
     steps:
       - uses: actions/checkout@v3
       - run: |
-          cd express-server
           yarn install 
           yarn knex migrate:rollback --env test
           yarn knex migrate:latest --env test
           yarn knex seed:run --env test
           yarn jest
+
   deploy:
     if: github.ref_name == 'production'
     runs-on: ubuntu-latest
