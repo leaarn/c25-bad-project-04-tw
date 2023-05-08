@@ -6,6 +6,7 @@ export const orderTable = "orders";
 export const paymentTable = "payment_method";
 export const animalTable = "animals";
 export const orderAnimalTable = "order_animals";
+export const uploadTable = "upload";
 
 export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable(userTable, (table) => {
@@ -40,31 +41,30 @@ export async function up(knex: Knex): Promise<void> {
 
   await knex.schema.createTable(orderTable, (table) => {
     table.increments('id').primary(); // id
-    table.date("pick_up_date").notNullable();
-    table.time("pick_up_time").notNullable();
-    table.string("pick_up_district").notNullable();
-    table.string("pick_up_room").notNullable();
-    table.string("pick_up_floor").notNullable();
-    table.string("pick_up_building").notNullable();
-    table.string("pick_up_street").notNullable();
+    table.date("pick_up_date");
+    table.time("pick_up_time");
+    table.string("pick_up_district");
+    table.string("pick_up_room");
+    table.string("pick_up_floor");
+    table.string("pick_up_building");
+    table.string("pick_up_street");
     table.string("pick_up_coordinates");
-    table.string("deliver_district").notNullable();
-    table.string("deliver_room").notNullable();
-    table.string("deliver_floor").notNullable();
-    table.string("deliver_building").notNullable();
-    table.string("deliver_street").notNullable();
+    table.string("deliver_district");
+    table.string("deliver_room");
+    table.string("deliver_floor");
+    table.string("deliver_building");
+    table.string("deliver_street");
     table.string("deliver_coordinates");
     table.integer("users_id").unsigned();
     table.foreign("users_id").references("users.id");
     table.integer("drivers_id");
     table.foreign("drivers_id").references("drivers.id");
-    table.string("receiver_name").notNullable();
-    table.integer("receiver_contact").notNullable();
-    table.integer("distance_km").notNullable();
+    table.string("receiver_name");
+    table.integer("receiver_contact");
+    table.integer("distance_km");
     table.integer("distance_price").notNullable().defaultTo("10");
     table
       .uuid("reference_code")
-      .notNullable()
       .defaultTo(knex.raw("gen_random_uuid()"));
     table.string("orders_status").notNullable().defaultTo("not pay yet");
     table.string("token");
@@ -91,10 +91,18 @@ export async function up(knex: Knex): Promise<void> {
     table.foreign("animals_id").references("animals.id");
     table.integer("animals_amount").notNullable();
     table.integer("animals_history_price").notNullable();
+    table.boolean("is_AI").defaultTo(false)
+    table.integer("AI_rating",1-5)
   });
+
+  await knex.schema.createTable(uploadTable, (table) => {
+    table.increments('id').primary(); // id
+    table.string("image");
+  })
 }
 
 export async function down(knex: Knex): Promise<void> {
+  await knex.schema.dropTableIfExists(uploadTable);
   await knex.schema.dropTableIfExists(orderAnimalTable);
   await knex.schema.dropTableIfExists(animalTable);
   await knex.schema.dropTableIfExists(paymentTable);

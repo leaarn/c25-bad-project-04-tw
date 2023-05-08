@@ -1,5 +1,7 @@
 import type { Knex } from "knex";
 import { createOrder } from "../model";
+import { aiCreateOrder } from "../model";
+import { uploadTable } from "../migrations/20230503035349_init-db";
 
 export class UsersMainService {
   constructor(private knex: Knex) {}
@@ -54,27 +56,25 @@ export class UsersMainService {
 
     console.log("here is testing", createOrderId[0].id);
 
-   
     for (let i = 0; i < input.animals_id.length; i++) {
       const animals_history_price = await this.knex("animals")
         .select("price")
         .where("id", "=", `${parseInt(input.animals_id[i])}`)
         .first();
 
-        console.log("anm!!!!",animals_history_price.price)
+      console.log("anm!!!!", animals_history_price.price);
       const orderAnimal = await this.knex("order_animals").insert({
-        orders_id:createOrderId[0].id,
-        animals_id:parseInt(input.animals_id[i]),
-        animals_amount:parseInt(input.animals_amount[i]),
-        animals_history_price:animals_history_price.price,
+        orders_id: createOrderId[0].id,
+        animals_id: parseInt(input.animals_id[i]),
+        animals_amount: parseInt(input.animals_amount[i]),
+        animals_history_price: animals_history_price.price,
       });
 
       console.log("here is order anm", orderAnimal);
-
     }
   };
 
-  payOrder = async (usersId: number) => {
+  payOrderDetails = async (usersId: number) => {
     const orderToPay = await this.knex("orders")
       .select(
         this.knex
@@ -202,4 +202,38 @@ export class UsersMainService {
 
     return queryResult;
   };
+  //Julia start
+  aiCreateOrder = async (input: aiCreateOrder, orderId: number) => {
+    await this.knex("orders")
+      .insert({
+        pick_up_date: input.pick_up_date,
+        pick_up_time: input.pick_up_time,
+        pick_up_district: input.pick_up_district,
+        pick_up_room: input.pick_up_room,
+        pick_up_floor: input.pick_up_floor,
+        pick_up_building: input.pick_up_building,
+        pick_up_street: input.pick_up_street,
+        deliver_district: input.deliver_district,
+        deliver_room: input.deliver_room,
+        deliver_floor: input.deliver_floor,
+        deliver_building: input.deliver_building,
+        deliver_street: input.deliver_street,
+        users_id: input.users_id,
+        distance_km: input.distance_km,
+        receiver_name: input.receiver_name,
+        receiver_contact: input.receiver_contact,
+        token: input.token,
+        remarks: input.remarks,
+      })
+      .where("orders.id", "=", orderId);
+    return this.aiCreateOrder;
+  };
+  //Julia end
+
+  // Yannes part
+  uploadImage = async (imageFilename: string) => {
+    const image = await this.knex(uploadTable).insert({ image: imageFilename }).returning("image");
+    return image;
+  };
+  // Yannes part
 }

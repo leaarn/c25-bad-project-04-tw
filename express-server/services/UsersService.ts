@@ -69,8 +69,6 @@ export class UsersService {
   };
 
   createAccount = async (input: createUsers) => {
-
-
     const result = await this.knex<createUsers>("users")
       .select("id", "email")
       .where("email", input.email)

@@ -18,7 +18,7 @@ export class DriversController {
         req.session.driverIsLoggedIn = true;
         req.session.drivers_id = foundDriver.id;
         req.session.firstName = foundDriver.first_name;
-        res.json({ message: "login success" });
+        res.status(200).json({ message: "login success" });
       }
     } catch (err: any) {
       logger.error(err.message);

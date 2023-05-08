@@ -14,7 +14,7 @@ export class UsersController {
         req.session.userIsLoggedIn = true;
         req.session.users_id = foundUser.id;
         req.session.firstName = foundUser.first_name;
-        res.json({ message: "login success" });
+        res.status(200).json({ message: "login success!" });
       }
     } catch (err: any) {
       logger.error(err.message);

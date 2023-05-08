@@ -26,10 +26,10 @@ export class DriversMainController {
     }
   };
 
-  getAllOrders = async (req: Request, res: Response) => {
+  getAllOrders = async (_req: Request, res: Response) => {
     try {
       const allOrders = await this.driversMainService.getAllOrders();
-      res.status(200).json(allOrders.rows);
+      res.status(200).json(allOrders);
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
@@ -38,7 +38,7 @@ export class DriversMainController {
 
   getAcceptOrders = async (req: Request, res: Response) => {
     try {
-      const ordersId = +req.params.oid;
+      const ordersId = parseInt(req.params.oid);
       if (isNaN(ordersId)) {
         res.status(400).json({ message: "invalid order id" });
         return;
@@ -46,6 +46,7 @@ export class DriversMainController {
       const acceptOrders = await this.driversMainService.getAcceptOrders(
         ordersId
       );
+
       res.status(200).json(acceptOrders.rows);
     } catch (err: any) {
       logger.error(err.message);
@@ -121,9 +122,8 @@ export class DriversMainController {
         res.status(400).json({ message: "invalid order id" });
         return;
       }
-      const driverDelivering =
-        await this.driversMainService.getDriverDelivering(ordersId, driversID);
-      res.status(200).json(driverDelivering.rows);
+      await this.driversMainService.getDriverDelivering(ordersId, driversID);
+      res.status(200).json({ message: "status changed to driver delivering" });
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
@@ -138,11 +138,8 @@ export class DriversMainController {
         res.status(400).json({ message: "invalid order id" });
         return;
       }
-      const cfmAcceptOrder = await this.driversMainService.confirmAcceptOrder(
-        driversID,
-        ordersId
-      );
-      res.status(200).json(cfmAcceptOrder.rows);
+      await this.driversMainService.confirmAcceptOrder(driversID, ordersId);
+      res.status(200).json({ message: "order accepted" });
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
@@ -157,6 +154,7 @@ export class DriversMainController {
         return;
       }
       const msgResult = await this.driversMainService.message(ordersId);
+      console.log("msgResult", msgResult)
       res.status(200).json(msgResult);
     } catch (err: any) {
       logger.error(err.message);
