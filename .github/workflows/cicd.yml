@@ -51,7 +51,6 @@ jobs:
             yarn knex migrate:latest --env production
             yarn knex seed:run --env production
             pm2 restart 'yarn start'
-
           host: 34.233.164.139
           username: ubuntu
           port: 22
