@@ -280,21 +280,21 @@ export class UsersMainController {
       res.status(500).json({ message: "internal server error" });
     }
   };
-  
+  //Julia end
   // Yannes part
-  uploadImage =async (req: Request, res: Response) => {
+  uploadImage = async (req: Request, res: Response) => {
     try {
-      const { files } = await formParsePromise(form, req)
+      const { files } = await formParsePromise(form, req);
       const imageFilename = (files.image as formidable.File).newFilename;
-      
-      await this.usersMainService.uploadImage(imageFilename)
+
+      await this.usersMainService.uploadImage(imageFilename);
 
       res.status(200).json({ message: "photo uploaded success" });
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
     }
-  }
+  };
   // Yannes part
 }
-//Julia end
+
