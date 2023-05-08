@@ -11,7 +11,7 @@ const knex = Knex(config[process.env.NODE_ENV || "development"]);
 
 const grantExpress = grant.express({
   defaults: {
-    origin: "http://localhost:8080",
+    origin: "http://34.233.164.139",
     transport: "session",
     state: true,
   },
@@ -128,6 +128,11 @@ app.use(
   "/private/usersPrivate",
   guardUsersMiddleware,
   express.static(path.join(__dirname, "private", "usersPrivate"))
+);
+app.use(
+  "/private/usersPrivate/uploads",
+  guardUsersMiddleware,
+  express.static(path.join(__dirname, "private", "usersPrivate", "uploads"))
 );
 app.use(
   "/private/driversPrivate",

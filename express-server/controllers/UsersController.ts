@@ -14,7 +14,7 @@ export class UsersController {
         req.session.userIsLoggedIn = true;
         req.session.users_id = foundUser.id;
         req.session.firstName = foundUser.first_name;
-        res.json({ message: "login success" });
+        res.json({ message: "login success!" });
       }
     } catch (err: any) {
       logger.error(err.message);
@@ -60,7 +60,7 @@ export class UsersController {
 
       // if (req.session.loginType === "user") {
       let userType = req.session.loginType;
-      let foundUser: { id: number } | null = null;
+      let foundUser: { id: number } | null = null; 
       let foundDriver: { id: number } | null = null;
       // let foundUser: { id: number; name: string } | null = null;
       if (userType) {

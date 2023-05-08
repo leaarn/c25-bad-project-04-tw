@@ -19,6 +19,8 @@ import {  randomToken } from "./utils";
 //   }
 //   return token 
 // }
+import formidable from "formidable";
+import { form, formParsePromise } from "../formidable";
 
 export class UsersMainController {
   constructor(private usersMainService: UsersMainService) {}
@@ -171,7 +173,7 @@ export class UsersMainController {
       const orderId = parseInt(req.params.oid);
 
       if (isNaN(orderId)) {
-        res.status(400).json({ message: "invalid memo id" });
+        res.status(400).json({ message: "invalid order id" });
         return;
       }
 
@@ -205,7 +207,7 @@ export class UsersMainController {
       const orderId = +req.params.oid;
 
       if (isNaN(orderId)) {
-        res.status(400).json({ message: "invalid memo id" });
+        res.status(400).json({ message: "invalid order id" });
         return;
       }
 
@@ -217,4 +219,82 @@ export class UsersMainController {
       res.status(500).json({ message: "internal server error" });
     }
   };
+
+  //Julia start
+  aiCreateOrderController = async (req: Request, res: Response) => {
+    try {
+      const orderId = +req.params.oid;
+      const pick_up_date = req.body.pick_up_date;
+      const pick_up_time = req.body.pick_up_time;
+      const pick_up_district = req.body.pick_up_district;
+      const pick_up_room = req.body.pick_up_room;
+      const pick_up_floor = req.body.pick_up_floor;
+      const pick_up_building = req.body.pick_up_building;
+      const pick_up_street = req.body.pick_up_street;
+      const deliver_district = req.body.deliver_district;
+      const deliver_room = req.body.deliver_room;
+      const deliver_floor = req.body.deliver_floor;
+      const deliver_building = req.body.deliver_building;
+      const deliver_street = req.body.deliver_street;
+      const users_id = req.session.users_id!;
+      const receiver_name = req.body.receiver_name;
+      const receiver_contact = req.body.receiver_contact;
+      const remarks = req.body.remarks;
+      const distance_km = Math.round(Math.random() * (100 - 1) + 1);
+      const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      let token = "";
+      for (let i = 0; i < 2; i++) {
+        const tokenGenerator =
+          alphabet[Math.floor(Math.random() * alphabet.length)] +
+          Math.floor(Math.random() * 99);
+        token += tokenGenerator;
+      }
+
+      await this.usersMainService.aiCreateOrder(
+        {
+          pick_up_date,
+          pick_up_time,
+          pick_up_district,
+          pick_up_room,
+          pick_up_floor,
+          pick_up_building,
+          pick_up_street,
+          deliver_district,
+          deliver_room,
+          deliver_floor,
+          deliver_building,
+          deliver_street,
+          users_id,
+          distance_km,
+          receiver_name,
+          receiver_contact,
+          token,
+          remarks,
+        },
+        orderId
+      );
+
+      res.status(200).json({ message: "AI create order success" });
+    } catch (err: any) {
+      logger.error(err.message);
+      res.status(500).json({ message: "internal server error" });
+    }
+  };
+  
+  // Yannes part
+  uploadImage =async (req: Request, res: Response) => {
+    try {
+      const { files } = await formParsePromise(form, req)
+      const imageFilename = (files.image as formidable.File).newFilename;
+      
+      await this.usersMainService.uploadImage(imageFilename)
+
+      res.status(200).json({ message: "photo uploaded success" });
+    } catch (err: any) {
+      logger.error(err.message);
+      res.status(500).json({ message: "internal server error" });
+    }
+  }
+  // Yannes part
 }
+//Julia end

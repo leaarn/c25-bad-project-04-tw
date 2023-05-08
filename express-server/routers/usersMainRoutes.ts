@@ -1,4 +1,4 @@
-import {usersMainController} from "./../app";
+import { usersMainController } from "./../app";
 import express from "express";
 
 export const usersMainRoutes = express.Router();
@@ -17,6 +17,14 @@ usersMainRoutes.put("/confirm", usersMainController.confirmOrder);
 //show all orders that not complete
 usersMainRoutes.get("/orderstatus", usersMainController.orderStatus);
 //each order details 查看你的司機資訊及位置
-usersMainRoutes.get("/orderstatus/:oid", usersMainController.orderStatusDetails);
+usersMainRoutes.get(
+  "/orderstatus/:oid",
+  usersMainController.orderStatusDetails
+);
 usersMainRoutes.get("/history", usersMainController.historyOrders);
 usersMainRoutes.get("/history/:oid", usersMainController.historyOrderDetails);
+usersMainRoutes.post(
+  "/aiCreateOrder",
+  usersMainController.aiCreateOrderController
+);
+usersMainRoutes.post("/uploads", usersMainController.uploadImage);

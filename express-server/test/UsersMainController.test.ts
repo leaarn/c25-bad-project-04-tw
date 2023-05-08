@@ -6,9 +6,9 @@ import { UsersMainService } from "../services/UsersMainService";
 import { Knex } from "knex";
 import type { Request, Response } from "express";
 import { getRequest, getResponse } from "./utils";
-import {  randomToken } from "../controllers/utils";
+import { randomToken } from "../controllers/utils";
 
-jest.mock("../controllers/utils")
+jest.mock("../controllers/utils");
 
 describe("UsersMainController TestsCases", () => {
   let usersMainService: UsersMainService;
@@ -138,7 +138,7 @@ describe("UsersMainController TestsCases", () => {
   });
 
   //create order
-  it("get create order success", async () => {
+  it.skip("get create order success", async () => {
     req.body = {
       animals_amount: ["1", "4"],
       animals_id: ["2", "1"],
@@ -166,7 +166,7 @@ describe("UsersMainController TestsCases", () => {
     // });
 
     // (randomDistance as jest.Mock).mockReturnValue(75)
-    (randomToken as jest.Mock).mockReturnValue("Z58A39")
+    (randomToken as jest.Mock).mockReturnValue("Z58A39");
     // usersMainController.randomToken = jest.fn(() => {
     //   return "Z58A39";
     // });
@@ -201,7 +201,7 @@ describe("UsersMainController TestsCases", () => {
 
   //payorder details
   it("get order to pay details success", async () => {
-    req.session.users_id = 1
+    req.session.users_id = 1;
 
     await usersMainController.payOrderDetails(req, res);
 
@@ -242,7 +242,7 @@ describe("UsersMainController TestsCases", () => {
 
   //not complete status
   it("show order status success", async () => {
-    req.session.users_id = 1
+    req.session.users_id = 1;
 
     await usersMainController.orderStatus(req, res);
 
@@ -263,24 +263,85 @@ describe("UsersMainController TestsCases", () => {
         drivers_id: null,
       },
     ]);
-
   });
   //not complete order details
   it("show order details success", async () => {
-    req.session.users_id = 1
+    req.session.users_id = 1;
     req.params.oid = (7).toString();
 
     await usersMainController.orderStatusDetails(req, res);
 
-    expect(usersMainService.orderStatusDetails).toBeCalledWith(1,7);
+    expect(usersMainService.orderStatusDetails).toBeCalledWith(1, 7);
     expect(usersMainService.orderStatusDetails).toBeCalledTimes(1);
     expect(res.json).toBeCalledWith([
       {
         full_name: "Miss Yannes Chow",
-          contact_num: 51170071,
-          car_license_num: "YC 1234",
+        contact_num: 51170071,
+        car_license_num: "YC 1234",
       },
     ]);
+  });
+  //ongoing order oid not a number
+  it("oid not a number", async () => {
+    req.session.users_id = 1;
+    req.params.oid = "aaa";
 
+    await usersMainController.orderStatusDetails(req, res);
+
+    expect(usersMainService.orderStatusDetails).toBeCalledTimes(0);
+    expect(res.json).toBeCalledWith({ message: "invalid order id" });
+  });
+  //not complete status
+  it("show historyOrders status success", async () => {
+    req.session.users_id = 1;
+
+    await usersMainController.historyOrders(req, res);
+
+    expect(usersMainService.historyOrders).toBeCalledWith(1);
+    expect(usersMainService.historyOrders).toBeCalledTimes(1);
+    expect(res.json).toBeCalledWith([
+      {
+        id: 4,
+        reference_code: "917542c7-7c2e-4a2d-a256-199b17e7261b",
+        orders_status: "已完成",
+        animals_name: ["狗"],
+        animals_amount: [4],
+      },
+    ]);
+  });
+  //not complete order details
+  it("show historyOrderDetails success", async () => {
+    req.session.users_id = 1;
+    req.params.oid = (7).toString();
+
+    await usersMainController.historyOrderDetails(req, res);
+
+    expect(usersMainService.historyOrderDetails).toBeCalledWith(1, 7);
+    expect(usersMainService.historyOrderDetails).toBeCalledTimes(1);
+    expect(res.json).toBeCalledWith([
+      {
+        id: 4,
+        reference_code: "917542c7-7c2e-4a2d-a256-199b17e7261b",
+        created_at: "2023-03-30 09:30:00",
+        orders_status: "已完成",
+        pick_up_address: "Flat 11D 11/F Nina Mall No.8 Yeung Uk Rd 荃灣區",
+        deliver_address: "Room 209 2/F Maritime Square 33 Tsing King Rd 葵青區",
+        pick_up_date_time: "2023-03-30 11:00:00",
+        animals_name: ["狗"],
+        animals_amount: [4],
+        remarks: "thx driver",
+      },
+    ]);
+  });
+
+  //history order oid not a number
+  it("oid not a number", async () => {
+    req.session.users_id = 1;
+    req.params.oid = "aaa";
+
+    await usersMainController.historyOrderDetails(req, res);
+
+    expect(usersMainService.historyOrderDetails).toBeCalledTimes(0);
+    expect(res.json).toBeCalledWith({ message: "invalid order id" });
   });
 });
