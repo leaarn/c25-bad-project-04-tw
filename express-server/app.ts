@@ -130,11 +130,6 @@ app.use(
   express.static(path.join(__dirname, "private", "usersPrivate"))
 );
 app.use(
-  "/private/usersPrivate/uploads",
-  guardUsersMiddleware,
-  express.static(path.join(__dirname, "private", "usersPrivate", "uploads"))
-);
-app.use(
   "/private/driversPrivate",
   guardDriversMiddleware,
   express.static(path.join(__dirname, "private", "driversPrivate"))
