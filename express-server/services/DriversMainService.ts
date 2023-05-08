@@ -21,15 +21,26 @@ export class DriversMainService {
   };
 
   getAllOrders = async () => {
-    const getAllOrdersResult = await this.knex
-      .raw(/*sql*/ `SELECT orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, 
+    const getAllOrdersResult = await this.knex(orderTable)
+      .select(
+        this.knex
+          .raw(`orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, 
       json_agg(animals.animals_name) AS animals_name, 
       json_agg(order_animals.animals_amount) AS animals_amount, 
-      orders_status 
-      FROM orders 
-      JOIN order_animals ON order_animals.orders_id = orders.id 
-      JOIN animals ON animals.id = order_animals.animals_id WHERE orders.orders_status = '訂單待接中'
-      GROUP BY orders.id, pick_up_district, deliver_district, pick_up_date, pick_up_time, orders_status ORDER BY pick_up_date DESC`);
+      orders_status`)
+      )
+      .join("order_animals", "order_animals.orders_id", "orders.id")
+      .join("animals", "animals.id", "order_animals.animals_id")
+      .where("orders.orders_status", "=", "訂單待接中")
+      .groupBy(
+        "orders.id",
+        "pick_up_district",
+        "deliver_district",
+        "pick_up_date",
+        "pick_up_time",
+        "orders_status"
+      )
+      .orderBy("pick_up_date", "DESC");
     return getAllOrdersResult;
   };
 
