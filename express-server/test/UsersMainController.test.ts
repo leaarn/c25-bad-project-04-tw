@@ -6,6 +6,9 @@ import { UsersMainService } from "../services/UsersMainService";
 import { Knex } from "knex";
 import type { Request, Response } from "express";
 import { getRequest, getResponse } from "./utils";
+import {  randomToken } from "../controllers/utils";
+
+jest.mock("../controllers/utils")
 
 describe("UsersMainController TestsCases", () => {
   let usersMainService: UsersMainService;
@@ -30,8 +33,9 @@ describe("UsersMainController TestsCases", () => {
         },
       ])
     );
+    usersMainService.createOrder = jest.fn();
 
-    usersMainService.payOrder = jest.fn(() =>
+    usersMainService.payOrderDetails = jest.fn(() =>
       Promise.resolve([
         {
           pick_up_date_time: "2023-03-01 11:03:00",
@@ -50,6 +54,60 @@ describe("UsersMainController TestsCases", () => {
     );
 
     usersMainService.confirmOrder = jest.fn();
+    usersMainService.orderStatus = jest.fn(() =>
+      Promise.resolve([
+        {
+          id: 1,
+          created_at: "2023-03-29 09:30:00",
+          pick_up_address: "Room 109 1/F Cityplaza 18 Tai Koo Shing Rd 東區 ",
+          deliver_address: "Room 210 2/F Times Square 1 Matheson St 灣仔區",
+          pick_up_date_time: "2023-03-29 10:00:00",
+          animals_name: ["鴨"],
+          animals_amount: [1],
+          remarks: "my dog is very cute",
+          orders_status: "訂單待接中",
+          reference_code: "f686c2a9-233d-4b90-978f-6fa28973d43b",
+          drivers_id: null,
+        },
+      ])
+    );
+    usersMainService.orderStatusDetails = jest.fn(() =>
+      Promise.resolve([
+        {
+          full_name: "Miss Yannes Chow",
+          contact_num: 51170071,
+          car_license_num: "YC 1234",
+        },
+      ])
+    );
+    usersMainService.historyOrders = jest.fn(() =>
+      Promise.resolve([
+        {
+          id: 4,
+          reference_code: "917542c7-7c2e-4a2d-a256-199b17e7261b",
+          orders_status: "已完成",
+          animals_name: ["狗"],
+          animals_amount: [4],
+        },
+      ])
+    );
+    usersMainService.historyOrderDetails = jest.fn(() =>
+      Promise.resolve([
+        {
+          id: 4,
+          reference_code: "917542c7-7c2e-4a2d-a256-199b17e7261b",
+          created_at: "2023-03-30 09:30:00",
+          orders_status: "已完成",
+          pick_up_address: "Flat 11D 11/F Nina Mall No.8 Yeung Uk Rd 荃灣區",
+          deliver_address:
+            "Room 209 2/F Maritime Square 33 Tsing King Rd 葵青區",
+          pick_up_date_time: "2023-03-30 11:00:00",
+          animals_name: ["狗"],
+          animals_amount: [4],
+          remarks: "thx driver",
+        },
+      ])
+    );
 
     usersMainController = new UsersMainController(usersMainService);
 
@@ -79,39 +137,76 @@ describe("UsersMainController TestsCases", () => {
     ]);
   });
 
+  //create order
   it("get create order success", async () => {
-    (req.body as jest.Mock).mockImplementationOnce(() =>
-      Promise.resolve({
-        animals_amount: ["1", "4"],
-        animals_id: ["2", "1"],
-        deliver_building: "rgreg",
-        deliver_district: "東區",
-        deliver_floor: "rgerg",
-        deliver_room: "rge",
-        deliver_street: "rgerg",
-        pick_up_building: "vv",
-        pick_up_date: "2023-03-01",
-        pick_up_district: "南區",
-        pick_up_floor: "sv",
-        pick_up_room: "sgf",
-        pick_up_street: "rgerg",
-        pick_up_time: "11:03",
-        receiver_contact: "12345678",
-        receiver_name: "sgerge",
-        remarks: "grgerger"
-      })
-    );
+    req.body = {
+      animals_amount: ["1", "4"],
+      animals_id: ["2", "1"],
+      deliver_building: "rgreg",
+      deliver_district: "東區",
+      deliver_floor: "rgerg",
+      deliver_room: "rge",
+      deliver_street: "rgerg",
+      pick_up_building: "vv",
+      pick_up_date: "2023-03-01",
+      pick_up_district: "南區",
+      pick_up_floor: "sv",
+      pick_up_room: "sgf",
+      pick_up_street: "rgerg",
+      pick_up_time: "11:03",
+      receiver_contact: "12345678",
+      receiver_name: "sgerge",
+      remarks: "grgerger",
+      token: "Z58A39",
+    };
+    req.session.users_id = 1;
+
+    // usersMainController.randomDistance = jest.fn(() => {
+    //   return 75;
+    // });
+
+    // (randomDistance as jest.Mock).mockReturnValue(75)
+    (randomToken as jest.Mock).mockReturnValue("Z58A39")
+    // usersMainController.randomToken = jest.fn(() => {
+    //   return "Z58A39";
+    // });
+
     await usersMainController.createOrder(req, res);
 
-    expect(usersMainService.createOrder).toBeCalledWith(["1", "4"],["2", "1"],"rgreg","東區","rgerg","rge","rgerg","vv","2023-03-01","南區","sv","sgf","rgerg","11:03","12345678","sgerge","grgerger")
+    expect(usersMainService.createOrder).toBeCalledWith({
+      animals_amount: ["1", "4"],
+      animals_id: ["2", "1"],
+      deliver_building: "rgreg",
+      deliver_district: "東區",
+      deliver_floor: "rgerg",
+      deliver_room: "rge",
+      deliver_street: "rgerg",
+      pick_up_building: "vv",
+      pick_up_date: "2023-03-01",
+      pick_up_district: "南區",
+      pick_up_floor: "sv",
+      pick_up_room: "sgf",
+      pick_up_street: "rgerg",
+      pick_up_time: "11:03",
+      receiver_contact: "12345678",
+      receiver_name: "sgerge",
+      remarks: "grgerger",
+      distance_km: 75,
+      token: "Z58A39",
+      users_id: 1,
+    });
     expect(usersMainService.createOrder).toBeCalledTimes(1);
-    expect(res.json).toBeCalledWith([{ message: "create order success" }]);
+    expect(res.json).toBeCalledWith({ message: "create order success" });
   });
 
+  //payorder details
   it("get order to pay details success", async () => {
-    await usersMainController.payOrder(req, res);
+    req.session.users_id = 1
 
-    expect(usersMainService.payOrder).toBeCalledTimes(1);
+    await usersMainController.payOrderDetails(req, res);
+
+    expect(usersMainService.payOrderDetails).toBeCalledWith(1);
+    expect(usersMainService.payOrderDetails).toBeCalledTimes(1);
     expect(res.json).toBeCalledWith([
       {
         pick_up_date_time: "2023-03-01 11:03:00",
@@ -127,5 +222,65 @@ describe("UsersMainController TestsCases", () => {
         total_price: "400",
       },
     ]);
+  });
+
+  //confirmOrder
+
+  it("confirmOrder success", async () => {
+    req.body = {
+      orderId: 1,
+    };
+    req.session.users_id = 1;
+
+    await usersMainController.confirmOrder(req, res);
+
+    expect(usersMainService.confirmOrder).toBeCalledWith(1, 1);
+
+    expect(usersMainService.confirmOrder).toBeCalledTimes(1);
+    expect(res.json).toBeCalledWith({ message: "paid" });
+  });
+
+  //not complete status
+  it("show order status success", async () => {
+    req.session.users_id = 1
+
+    await usersMainController.orderStatus(req, res);
+
+    expect(usersMainService.orderStatus).toBeCalledWith(1);
+    expect(usersMainService.orderStatus).toBeCalledTimes(1);
+    expect(res.json).toBeCalledWith([
+      {
+        id: 1,
+        created_at: "2023-03-29 09:30:00",
+        pick_up_address: "Room 109 1/F Cityplaza 18 Tai Koo Shing Rd 東區 ",
+        deliver_address: "Room 210 2/F Times Square 1 Matheson St 灣仔區",
+        pick_up_date_time: "2023-03-29 10:00:00",
+        animals_name: ["鴨"],
+        animals_amount: [1],
+        remarks: "my dog is very cute",
+        orders_status: "訂單待接中",
+        reference_code: "f686c2a9-233d-4b90-978f-6fa28973d43b",
+        drivers_id: null,
+      },
+    ]);
+
+  });
+  //not complete order details
+  it("show order details success", async () => {
+    req.session.users_id = 1
+    req.params.oid = (7).toString();
+
+    await usersMainController.orderStatusDetails(req, res);
+
+    expect(usersMainService.orderStatusDetails).toBeCalledWith(1,7);
+    expect(usersMainService.orderStatusDetails).toBeCalledTimes(1);
+    expect(res.json).toBeCalledWith([
+      {
+        full_name: "Miss Yannes Chow",
+          contact_num: 51170071,
+          car_license_num: "YC 1234",
+      },
+    ]);
+
   });
 });

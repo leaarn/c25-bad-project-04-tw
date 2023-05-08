@@ -74,7 +74,7 @@ export class UsersMainService {
     }
   };
 
-  payOrder = async (usersId: number) => {
+  payOrderDetails = async (usersId: number) => {
     const orderToPay = await this.knex("orders")
       .select(
         this.knex

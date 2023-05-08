@@ -11,7 +11,7 @@ usersMainRoutes.get("/address", usersMainController.getAddress);
 //create
 usersMainRoutes.post("/createorder", usersMainController.createOrder);
 //pay
-usersMainRoutes.get("/payorder", usersMainController.payOrder);
+usersMainRoutes.get("/payorder", usersMainController.payOrderDetails);
 // change status from not pay yet to pending
 usersMainRoutes.put("/confirm", usersMainController.confirmOrder);
 //show all orders that not complete
