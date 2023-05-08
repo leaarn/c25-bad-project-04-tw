@@ -7,7 +7,7 @@ git commit -m "msg"
 git push
 git checkout production
 git merge main
-git push origin main
+git push origin production
 git checkout main
 ```
 
