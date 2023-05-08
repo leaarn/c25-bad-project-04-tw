@@ -232,8 +232,8 @@ export class UsersMainService {
 
   // Yannes part
   uploadImage = async (imageFilename: string) => {
-    await this.knex(uploadTable).insert({ image: imageFilename });
-    return this.uploadImage;
+    const image = await this.knex(uploadTable).insert({ image: imageFilename }).returning("image");
+    return image;
   };
   // Yannes part
 }

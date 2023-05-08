@@ -98,14 +98,19 @@
       >
         <div>
           <label>上載動物圖片：</label>
-          <label class ="btns">
+          <label class="btns" for="image">
             選擇圖片
-            <input type="file" name="image" />
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/png, image/jpg, image/gif, image/jpeg"
+            />
           </label>
+          <span id="imageName"></span>
         </div>
         <div>
-          <input class ="btns" type="submit" value="上載" />
-          <input class ="btns" type="reset" value="清空" />
+          <input class="btns" type="submit" value="上載" />
         </div>
       </form>
     </div>

@@ -25,6 +25,11 @@ input[type="file"] {
   display: none;
 }
 
+#imageName {
+  color:rgb(255, 157, 29);
+  font-size: 2vw;
+}
+
 .btns {
   display: inline-block;
   background-color: rgb(255, 227, 155);

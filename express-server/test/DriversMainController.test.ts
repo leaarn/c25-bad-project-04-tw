@@ -7,8 +7,6 @@ import { Knex } from "knex";
 import type { Request, Response } from "express";
 import { getRequest, getResponse } from "./utils";
 
-jest.mock("../controllers/utils");
-
 describe("DriversMainController TestsCases", () => {
   let driversMainService: DriversMainService;
   let driversMainController: DriversMainController;
