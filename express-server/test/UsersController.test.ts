@@ -1,16 +1,20 @@
 import { Knex } from "knex";
 import { UsersController } from "../controllers/UsersController";
 import { UsersService } from "../services/UsersService";
+import {usersLogin } from "../model";
+// import { driversLogin } from "../model";
 // import { getRequest, getResponse } from "./utils";
 // import type { Request, Response } from "express";
 import express from "express";
-let req: express.Request;
-let res: express.Response;
-let usersService: UsersService;
-let usersController: UsersController;
 
-describe.only("test auth controller", () => {
+describe("test auth controller", () => {
+  let req: express.Request;
+  let res: express.Response;
+  let usersService: UsersService;
+  let usersController: UsersController;
+
   beforeEach(() => {
+    usersService = new UsersService({} as Knex);
     req = {
       params: {},
       body: {},
@@ -23,54 +27,49 @@ describe.only("test auth controller", () => {
     } as any as express.Response;
   });
 
-  // test("login", async () => {
-  //   const usersService = new UsersService({} as Knex);
-  //   usersService.login = jest.fn(
-  //     async (usersEmail: "test", password: "test") => {
-  //        return true;
-  //     }
-  //   );
-
-  //   const testSubject = new UsersController(usersService);
-  //   // req.body = { usersEmail: "test", password: "test" };
-  //   await testSubject.loginControl(req, res);
-
-  //   expect(usersService.login).toBeCalledTimes(1);
-  //   expect(usersService.login).toBeCalledWith("test", "test");
-  //   expect(res.json).toBeCalledWith("login success!");
-  // });
-
-  test("loginGoogle", async () => {
-    const usersService = new UsersService({} as Knex);
-    usersService.loginGoogle = jest.fn(async () => {
-      return true;
-    });
-
+  test("login success", async () => {
+    // arrangement
+    const foundUser: usersLogin = {
+      id: 1,
+      first_name: "Julia",
+      email: "abc@gmail.com",
+      password: "123abc",
+    };
+    usersService.login = jest.fn(
+      async (usersEmail: string, password: string) => {
+        return foundUser;
+      }
+    );
     const testSubject = new UsersController(usersService);
-    req.body = { usersEmail: "test", password: "test" };
+    req.body = { usersEmail: "abc@gmail.com", password: "123abc" };
+    // act
     await testSubject.loginControl(req, res);
-
+    // assert
     expect(usersService.login).toBeCalledTimes(1);
-    expect(usersService.login).toBeCalledWith("test", "test");
-    // expect(res.json).toBeCalledWith("login success!");
+    expect(usersService.login).toBeCalledWith("abc@gmail.com", "123abc");
+    expect(res.status).toBeCalledWith(200);
+    expect(res.json).toBeCalledWith({
+      message: "login success!",
+    });
+    expect(req.session.userIsLoggedIn).toBe(true);
+    expect(req.session.users_id).toBe(foundUser.id);
   });
 
-  test("createAccount", async () => {
-    (req.body as jest.Mock).mockImplementationOnce(() =>
-      Promise.resolve({
-        last_name: "Julia",
-        first_name: "Wong",
-        title: "Miss",
-        email: "abc@gmail.com",
-        password: "abc12",
-        contact_num: "123123",
-        default_district: "東區",
-        default_room: "123123",
-        default_floor: "123123",
-        default_building: "123123",
-        default_street: "123123",
-      })
-    );
+  test.only("createAccount", async () => {
+    req.body = {
+      lastName: "Julia",
+      firstName: "Wong",
+      title: "Miss",
+      email: "abc@gmail.com",
+      password: "abc12",
+      contactNum: "123123",
+      defaultDistrict: "東區",
+      defaultRoom: "123123",
+      defaultFloor: "123123",
+      defaultBuilding: "123123",
+      defaultStreet: "123123",
+    };req.session.users_id = 1;
+
     await usersController.createAccountControl(req, res);
 
     expect(usersService.createAccount).toBeCalledWith(
