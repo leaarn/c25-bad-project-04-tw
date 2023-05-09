@@ -1,11 +1,11 @@
 // Testing target: DriversMainController
 // Mock target : Dependency of DriversMainController
 
-import { DriversMainController } from "../controllers/DriversMainController";
-import { DriversMainService } from "../services/DriversMainService";
+import { DriversMainController } from "../../controllers/DriversMainController";
+import { DriversMainService } from "../../services/DriversMainService";
 import { Knex } from "knex";
 import type { Request, Response } from "express";
-import { getRequest, getResponse } from "./utils";
+import { getRequest, getResponse } from "../utils";
 
 describe.skip("DriversMainController TestsCases", () => {
   let driversMainService: DriversMainService;

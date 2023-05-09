@@ -1,12 +1,12 @@
 // Testing target: UsersMainController
 // Mock target : Dependency of UsersMainController
 
-import { UsersMainController } from "../controllers/usersMainController";
-import { UsersMainService } from "../services/UsersMainService";
+import { UsersMainController } from "../../controllers/usersMainController";
+import { UsersMainService } from "../../services/UsersMainService";
 import { Knex } from "knex";
 import type { Request, Response } from "express";
-import { getRequest, getResponse } from "./utils";
-import { randomToken } from "../controllers/utils";
+import { getRequest, getResponse } from "../utils";
+import { randomToken } from "../../controllers/utils";
 
 jest.mock("../controllers/utils");
 

@@ -1,12 +1,12 @@
 import Knex from "knex";
-import { DriversMainService } from "../services/DriversMainService";
+import { DriversMainService } from "../../services/DriversMainService";
 import {
   animalTable,
   driverTable,
   orderAnimalTable,
   orderTable,
   userTable,
-} from "../migrations/20230503035349_init-db";
+} from "../../migrations/20230503035349_init-db";
 
 const knexfile = require("../knexfile");
 const knex = Knex(knexfile["test2"]);

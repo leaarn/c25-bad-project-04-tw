@@ -1,7 +1,7 @@
 import Knex from "knex";
 const knexfile = require("../knexfile");
 const knex = Knex(knexfile["test2"]);
-import { UsersMainService } from "../services/UsersMainService";
+import { UsersMainService } from "../../services/UsersMainService";
 
 describe.only("Test UsersMainServiceKnex", () => {
   let usersMainService = new UsersMainService(knex);
