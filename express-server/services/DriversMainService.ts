@@ -133,7 +133,7 @@ export class DriversMainService {
     return getOngoingOrdersResult;
   };
 
-  getDriverDelivering = async (orderId: number, driverID: number) => {
+  updateDriverDelivering = async (orderId: number, driverID: number) => {
     const driverDeliveringResult = await this.knex
       .raw(/*sql*/ `UPDATE orders SET orders_status = '送貨中'
     WHERE (orders_status = '司機已接單' AND orders.id = ${orderId} AND drivers_id = ${driverID})

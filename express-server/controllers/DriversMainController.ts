@@ -114,7 +114,7 @@ export class DriversMainController {
     }
   };
 
-  getDriverDelivering = async (req: Request, res: Response) => {
+  updateDriverDelivering = async (req: Request, res: Response) => {
     try {
       const driversID = req.session.drivers_id!;
       const ordersId = +req.params.oid;
@@ -122,7 +122,7 @@ export class DriversMainController {
         res.status(400).json({ message: "invalid order id" });
         return;
       }
-      await this.driversMainService.getDriverDelivering(ordersId, driversID);
+      await this.driversMainService.updateDriverDelivering(ordersId, driversID);
       res.status(200).json({ message: "status changed to driver delivering" });
     } catch (err: any) {
       logger.error(err.message);
