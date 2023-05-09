@@ -295,10 +295,12 @@ export class UsersMainController {
       console.log('url: ', url)
       const aiResultResponse = await axios(url)
       console.log('file in db: ', image[0].image)
-      const aiResult = aiResultResponse.data
-      console.log('aiResult: ', aiResult.data)
-
-      res.status(200).json({ message: "photo uploaded success" });
+      const aiResultArr = aiResultResponse.data.data
+      console.log('aiResult: ', aiResultArr)
+      console.log("typeOf", typeof(aiResultArr))
+      
+    
+      res.status(200).json(aiResultArr);
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });

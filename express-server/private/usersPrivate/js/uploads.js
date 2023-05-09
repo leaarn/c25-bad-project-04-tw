@@ -3,6 +3,17 @@ window.onload = () => {
   usersLogout();
 };
 
+async function updateUI(result) {
+  const counts = {};
+  const sampleArray = result;
+  sampleArray.forEach(function (x) {
+    counts[x] = (counts[x] || 0) + 1;
+  });
+  console.log("counts", counts);
+
+  // filter -> dictionary
+}
+
 async function uploadPhotos() {
   let input = document.getElementById("image");
   let imageName = document.getElementById("imageName");
@@ -28,6 +39,10 @@ async function uploadPhotos() {
     const result = await resp.json();
     if (resp.status === 200) {
       alert("成功上載！");
+      console.log(`result: ${result}`);
+      console.log("type of", result);
+      updateUI(result);
+      // showResults()
     }
   });
 }

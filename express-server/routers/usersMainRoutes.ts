@@ -28,23 +28,4 @@ usersMainRoutes.post(
   usersMainController.aiCreateOrderController
 );
 usersMainRoutes.post("/uploads", usersMainController.uploadImage);
-usersMainRoutes.post("/airesults", aiResults);
-
-async function aiResults (req: express.Request, res: express.Response) {
-  const { data } = req.body;
-  const output = Array.from(data)
-  try { 
-    const resp = await fetch("http://localhost:8000/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({data: output}),
-    });
-    const result = await resp.json()
-    res.status(200).json(result);
-  } catch (e) {
-    console.log("error: ", e);
-    res.status(500).json({ msg: "internal server error" });
-  }
-}
+// usersMainRoutes.get("/uploads", usersMainController.uploadImage);
