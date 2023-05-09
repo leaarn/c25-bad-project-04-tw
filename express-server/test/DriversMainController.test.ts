@@ -121,7 +121,7 @@ describe.skip("DriversMainController TestsCases", () => {
         },
       ]})
     );
-    driversMainService.getDriverDelivering = jest.fn();
+    driversMainService.updateDriverDelivering = jest.fn();
     driversMainService.confirmAcceptOrder = jest.fn();
 
     driversMainController = new DriversMainController(driversMainService);
@@ -269,11 +269,11 @@ describe.skip("DriversMainController TestsCases", () => {
     req.params.oid = (1).toString();
     req.session.drivers_id = 1;
 
-    await driversMainController.getDriverDelivering(req, res);
+    await driversMainController.updateDriverDelivering(req, res);
 
-    expect(driversMainService.getDriverDelivering).toBeCalledWith(1, 1);
+    expect(driversMainService.updateDriverDelivering).toBeCalledWith(1, 1);
 
-    expect(driversMainService.getDriverDelivering).toBeCalledTimes(1);
+    expect(driversMainService.updateDriverDelivering).toBeCalledTimes(1);
     expect(res.json).toBeCalledWith({ message: "status changed to driver delivering" });
   });
 

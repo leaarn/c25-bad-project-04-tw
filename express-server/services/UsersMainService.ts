@@ -205,8 +205,8 @@ export class UsersMainService {
     return queryResult;
   };
   //Julia start
-  aiCreateOrder = async (input: aiCreateOrder, orderId: number) => {
-    await this.knex("orders")
+  aiCreateOrder = async (input: aiCreateOrder) => {
+    const createOrderId = await this.knex("orders")
       .insert({
         pick_up_date: input.pick_up_date,
         pick_up_time: input.pick_up_time,
@@ -226,15 +226,31 @@ export class UsersMainService {
         receiver_contact: input.receiver_contact,
         token: input.token,
         remarks: input.remarks,
+        AI_rating: input.AI_rating,
+        is_AI: input.is_AI,
       })
-      .where("orders.id", "=", orderId);
-    return this.aiCreateOrder;
+      .returning("id");
+
+    for (let i = 0; i < input.animals_id.length; i++) {
+      const animals_history_price = await this.knex("animals")
+        .select("price")
+        .where("id", "=", `${parseInt(input.animals_id[i])}`)
+        .first();
+      await this.knex("order_animals").insert({
+        orders_id: createOrderId[0].id,
+        animals_id: parseInt(input.animals_id[i]),
+        animals_amount: parseInt(input.animals_amount[i]),
+        animals_history_price: animals_history_price.price,
+      });
+    }
   };
   //Julia end
 
   // Yannes part
   uploadImage = async (imageFilename: string) => {
-    const image = await this.knex(uploadTable).insert({ image: imageFilename }).returning("image");
+    const image = await this.knex(uploadTable)
+      .insert({ image: imageFilename })
+      .returning("image");
     return image;
   };
   // Yannes part

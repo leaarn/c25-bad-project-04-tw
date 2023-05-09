@@ -14,5 +14,5 @@ driversMainRoutes.get("/history/", driverIsLoggedInApi, driversMainController.ge
 driversMainRoutes.get("/history/:oid", driverIsLoggedInApi, driversMainController.getSingleHistory);
 driversMainRoutes.get("/ongoing", driverIsLoggedInApi, driversMainController.getOngoingOrders);
 driversMainRoutes.put("/cfm-orders/:oid", driverIsLoggedInApi, driversMainController.confirmAcceptOrder);
-driversMainRoutes.put("/ongoing/:oid", driverIsLoggedInApi, driversMainController.getDriverDelivering);
+driversMainRoutes.put("/ongoing/:oid", driverIsLoggedInApi, driversMainController.updateDriverDelivering);
 driversMainRoutes.post("/msg/:oid", driverIsLoggedInApi, driversMainController.message);

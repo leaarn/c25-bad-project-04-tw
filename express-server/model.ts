@@ -156,4 +156,8 @@ export interface aiCreateOrder {
   receiver_contact: Number;
   token: string;
   remarks: string;
+  is_AI: boolean;
+  AI_rating: Number;
+  animals_id: Array<string>;
+  animals_amount: Array<string>;
 }

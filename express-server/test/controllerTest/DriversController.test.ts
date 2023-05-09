@@ -1,8 +1,8 @@
-// import { Knex } from "knex";
-import { DriversController } from "../controllers/DriversController";
-import { DriversService } from "../services/DriversService";
-import { getRequest, getResponse } from "./utils";
-import { driversLogin} from "../model"
+import { Knex } from "knex";
+import { DriversController } from "../../controllers/DriversController";
+import { DriversService } from "../../services/DriversService";
+import { getRequest, getResponse } from "../utils";
+import { driversLogin} from "../../model"
 // import type { Request, Response } from "express";
 import express from "express";
 import { Knex } from "knex";
@@ -11,7 +11,7 @@ let res: express.Response;
 // let driversService: DriversService;
 // let driversController: DriversController;
 
-describe.skip("test auth controller", () => {
+describe("test auth controller", () => {
   beforeEach(() => {
     req = getRequest();
     res = getResponse();
