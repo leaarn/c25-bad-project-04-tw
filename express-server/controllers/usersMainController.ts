@@ -291,12 +291,12 @@ export class UsersMainController {
       const image = await this.usersMainService.uploadImage(imageFilename);
 
 
-      const url = `http://localhost:8000/file?newFileName=${imageFilename}`
+      const url = `http://127.0.0.1:8000/file?newFileName=${imageFilename}`
       console.log('url: ', url)
       const aiResultResponse = await axios(url)
       console.log('file in db: ', image[0].image)
       const aiResult = aiResultResponse.data
-      console.log('aiResult: ', aiResult.image)
+      console.log('aiResult: ', aiResult.data)
 
       res.status(200).json({ message: "photo uploaded success" });
     } catch (err: any) {
