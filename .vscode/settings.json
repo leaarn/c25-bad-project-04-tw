@@ -19,6 +19,16 @@
       "database": "project3",
       "username": "postgres",
       "password": "postgres"
+    },
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "test_project3",
+      "database": "test_project3",
+      "username": "postgres",
+      "password": "postgres"
     }
   ],
   "cSpell.words": [
