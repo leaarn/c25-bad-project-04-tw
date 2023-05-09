@@ -1,8 +1,8 @@
 #%%
 from sanic import Sanic
 from sanic.response import json
-import tensorflow as tf
-import numpy as np
+# import tensorflow as tf
+# import numpy as np
 from ultralytics import YOLO
 import os
 
@@ -24,22 +24,23 @@ def callModel(request):
     link = os.path.join(os.getcwd(), '../express-server/private/usersPrivate/uploads/', image)
 
     print(f'filename: {link}')
-    return json({ "data": "result_list" })
-    # results = model.predict(source=link, save=False, imgsz=500, conf=0.5, show=True)
-
-    # print(results[0].boxes.data) # object position [x1, y1, x2, y2, score, label]
-
-    # no_of_objects = len(results[0].boxes)
-    # print(f"Number of objects: {no_of_objects}")
-    # result_list = []
-
-    # for result in results[0].boxes:
-    #     object = results[0].names[result.data.numpy()[0,5]]
-    #     result_list.append(object)
-    #     position = result.data.numpy()[0,0:4]
-    #     print(f"[{object}] - position: {position}")
     
-    # print(result_list)
+    results = model.predict(source=link, save=False, imgsz=500, conf=0.5, show=False)
+
+    print(results[0].boxes.data) # object position [x1, y1, x2, y2, score, label]
+
+    no_of_objects = len(results[0].boxes)
+    print(f"Number of objects: {no_of_objects}")
+    result_list = []
+
+    for result in results[0].boxes:
+        object = results[0].names[result.data.numpy()[0,5]]
+        result_list.append(object)
+        position = result.data.numpy()[0,0:4]
+        print(f"[{object}] - position: {position}")
+    
+    print(result_list)
+    return json({ "data": result_list })
 
 
 if __name__ == "__main__":
