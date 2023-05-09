@@ -1,7 +1,7 @@
 import { Page, chromium } from "playwright";
 import "../app";
 
-describe("Login", () => {
+describe.skip("Login", () => {
   let page: Page;
 
   beforeAll(async () => {

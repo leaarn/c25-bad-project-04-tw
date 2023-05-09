@@ -72,6 +72,7 @@ export class UsersMainService {
 
       console.log("here is order anm", orderAnimal);
     }
+    return createOrderId;
   };
 
   payOrderDetails = async (usersId: number) => {
@@ -115,6 +116,7 @@ export class UsersMainService {
         created_at: this.knex.fn.now(),
       });
   };
+  //show orders that paid and not complete
   orderStatus = async (usersId: number) => {
     const queryResult = await this.knex("orders")
       .select(
