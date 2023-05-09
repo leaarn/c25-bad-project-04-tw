@@ -1,8 +1,8 @@
 #%%
 from sanic import Sanic
 from sanic.response import json
-import tensorflow as tf
-import numpy as np
+# import tensorflow as tf
+# import numpy as np
 from ultralytics import YOLO
 import os
 
