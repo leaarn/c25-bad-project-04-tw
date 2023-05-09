@@ -81,13 +81,39 @@ export async function up(knex: Knex): Promise<void> {
     table.increments('id').primary(); // id
     table.string("animals_name").notNullable();
     table.integer("price").notNullable();
+
   });
 
+  const animal =  await knex("animals")
+  .insert([{
+    animals_name:"貓",
+    price:40
+  },{
+    animals_name:"狗",
+    price:40
+  },{
+    animals_name:"雞",
+    price:30},
+    {
+    animals_name:"鴨",
+    price:30
+  },{
+    animals_name:"鵝",
+    price:30
+  },{
+    animals_name:"龜",
+    price:30
+  },{
+    animals_name:"海洋生物",
+    price:40
+  }])
+
+  console.log("migrateanimal",animal)
   await knex.schema.createTable(orderAnimalTable, (table) => {
     table.increments('id').primary(); // id
-    table.integer("orders_id").unsigned();
+    table.integer("orders_id")
     table.foreign("orders_id").references("orders.id");
-    table.integer("animals_id").unsigned();
+    table.integer("animals_id")
     table.foreign("animals_id").references("animals.id");
     table.integer("animals_amount").notNullable();
     table.integer("animals_history_price").notNullable();

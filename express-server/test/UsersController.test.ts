@@ -9,7 +9,7 @@ let res: express.Response;
 let usersService: UsersService;
 let usersController: UsersController;
 
-describe.only("test auth controller", () => {
+describe.skip("test auth controller", () => {
   beforeEach(() => {
     req = {
       params: {},

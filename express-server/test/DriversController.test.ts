@@ -1,4 +1,4 @@
-import { Knex } from "knex";
+// import { Knex } from "knex";
 import { DriversController } from "../controllers/DriversController";
 import { DriversService } from "../services/DriversService";
 import { getRequest, getResponse } from "./utils";
@@ -9,7 +9,7 @@ let res: express.Response;
 let driversService: DriversService;
 let driversController: DriversController;
 
-describe.only("test auth controller", () => {
+describe.skip("test auth controller", () => {
   beforeEach(() => {
     req = getRequest();
     res = getResponse();

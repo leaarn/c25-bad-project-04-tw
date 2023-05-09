@@ -13,7 +13,6 @@ import {
   driverTable,
   orderTable,
   paymentTable,
-  animalTable,
   orderAnimalTable,
 } from "../migrations/20230503035349_init-db";
 import fs from "fs";
@@ -54,7 +53,7 @@ export async function seed(knex: Knex): Promise<void> {
   );
   // Deletes ALL existing entries
   await knex(orderAnimalTable).del();
-  await knex(animalTable).del();
+  // await knex(animalTable).del();
   await knex(paymentTable).del();
   await knex(orderTable).del();
   await knex(driverTable).del();
@@ -160,19 +159,19 @@ export async function seed(knex: Knex): Promise<void> {
 
   await knex(paymentTable).insert(paymentMethodRow);
 
-  let animalsArray = fs
-    .readFileSync(path.join(__dirname, "..", "db", "animals.csv"))
-    .toString()
-    .replace(/(?:\\[rn]|[\r]+)+/g, "")
-    .split("\n");
+  // let animalsArray = fs
+  //   .readFileSync(path.join(__dirname, "..", "db", "animals.csv"))
+  //   .toString()
+  //   .replace(/(?:\\[rn]|[\r]+)+/g, "")
+  //   .split("\n");
 
-  for (let i = 1; i < animalsArray.length; i++) {
-    const animal = animalsArray[i].split(",");
-    await knex(animalTable).insert({
-      animals_name: animal[0],
-      price: animal[1],
-    });
-  }
+  // for (let i = 1; i < animalsArray.length; i++) {
+  //   const animal = animalsArray[i].split(",");
+  //   await knex(animalTable).insert({
+  //     animals_name: animal[0],
+  //     price: animal[1],
+  //   });
+  // }
 
   await knex(orderAnimalTable).insert(orderAnimalsRow);
 }
