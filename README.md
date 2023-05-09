@@ -1,5 +1,16 @@
 # c25-bad-project-04-tw
 
+## CICD git command
+```
+git add .
+git commit -m "msg"
+git push
+git checkout production
+git merge main
+git push origin production
+git checkout main
+```
+
 ## NPM setup
 ```
 npm init --y
@@ -138,3 +149,4 @@ pip install --upgrade tensorflow
 pip install sanic
 pip install ultralytics
 ```
+

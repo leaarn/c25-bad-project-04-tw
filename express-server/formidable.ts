@@ -22,10 +22,10 @@ export const form = formidable({
   });
   
   export function formParsePromise(form: IncomingForm, req: express.Request) {
-    return new Promise<{ fields: formidable.Fields; files: formidable.Files }>((resolve, reject) => {
+    return new Promise<{ files: formidable.Files }>((resolve, reject) => {
       form.parse(req, (err, fields, files) => {
         if (err) reject(err);
-        else resolve({ fields, files });
+        else resolve({ files });
       });
     });
   }

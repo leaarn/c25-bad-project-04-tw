@@ -2,27 +2,38 @@ import { ReceiversController } from "../controllers/ReceiversController";
 import { ReceiversService } from "../services/ReceiversService";
 import { getRequest, getResponse } from "./utils";
 import express from "express";
+import { Knex } from "knex";
 let req: express.Request;
 let res: express.Response;
 let receiversService: ReceiversService;
-let receiversController: ReceiversController;
+// let receiversController: ReceiversController;
 
 describe.skip("test receivers controller", () => {
   beforeEach(() => {
     req = getRequest();
     res = getResponse();
+    receiversService = new ReceiversService({} as Knex);
   });
 
   test("checkToken", async () => {
-    (req.body as jest.Mock).mockImplementationOnce(() =>
-      Promise.resolve({
-        token: "abc123",
-      })
-    );
-    await receiversController.checkTokenControl(req, res);
+    const foundToken = {
+      id:1,
+      token: "123",
+    };
+    receiversService.checkToken = jest.fn(async (token) => {
+      return foundToken;
+    });
 
-    expect(receiversService.checkToken).toBeCalledWith("abc123");
+    const testSubject = new ReceiversController(receiversService);
+
+    req.body = {
+      token: "123",
+    };
+
+    await testSubject.checkTokenControl(req, res);
+
+    expect(receiversService.checkToken).toBeCalledWith("123");
     expect(receiversService.checkToken).toBeCalledTimes(1);
-    expect(res.json).toBeCalledWith([{ message: "successful" }]);
+    expect(res.json).toBeCalledWith({ message: "successful!" });
   });
 });

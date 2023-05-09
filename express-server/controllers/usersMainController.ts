@@ -2,6 +2,7 @@ import { UsersMainService } from "../services/UsersMainService";
 import type { Request, Response } from "express";
 import { logger } from "../utils/logger";
 import {  randomToken } from "./utils";
+import axios from 'axios'
 // export function randomDistance(){
 //   return  Math.round(Math.random() * (100 - 1) + 1)
 
@@ -287,7 +288,15 @@ export class UsersMainController {
       const { files } = await formParsePromise(form, req);
       const imageFilename = (files.image as formidable.File).newFilename;
 
-      await this.usersMainService.uploadImage(imageFilename);
+      const image = await this.usersMainService.uploadImage(imageFilename);
+
+
+      const url = `http://localhost:8000/file?newFileName=${imageFilename}`
+      console.log('url: ', url)
+      const aiResultResponse = await axios(url)
+      console.log('file in db: ', image[0].image)
+      const aiResult = aiResultResponse.data
+      console.log('aiResult: ', aiResult.image)
 
       res.status(200).json({ message: "photo uploaded success" });
     } catch (err: any) {
