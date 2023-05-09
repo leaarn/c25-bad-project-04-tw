@@ -26,7 +26,7 @@ function aiOrManual() {
   });
 
   manual.addEventListener("click", (event) => {
-    window.location = "/private/usersPrivate/usersMain.html";
+    window.location = "/private/usersPrivate/usersManual.html";
   });
 }
 
