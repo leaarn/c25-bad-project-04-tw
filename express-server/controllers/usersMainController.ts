@@ -222,9 +222,8 @@ export class UsersMainController {
   };
 
   //Julia start
-  aiCreateOrderController = async (req: Request, res: Response) => {
+  aiCreateOrderController  = async (req: Request, res: Response) => {
     try {
-      const orderId = +req.params.oid;
       const pick_up_date = req.body.pick_up_date;
       const pick_up_time = req.body.pick_up_time;
       const pick_up_district = req.body.pick_up_district;
@@ -232,27 +231,28 @@ export class UsersMainController {
       const pick_up_floor = req.body.pick_up_floor;
       const pick_up_building = req.body.pick_up_building;
       const pick_up_street = req.body.pick_up_street;
+      const AI_rating = req.body.AI_rating;
+      const is_AI = req.body.is_AI;
+
+      // const pick_up_coordinates =req.body.pick_up_coordinates
       const deliver_district = req.body.deliver_district;
       const deliver_room = req.body.deliver_room;
       const deliver_floor = req.body.deliver_floor;
       const deliver_building = req.body.deliver_building;
       const deliver_street = req.body.deliver_street;
+
+      // const deliver_coordinates =req.body.deliver_coordinates
+      //??
       const users_id = req.session.users_id!;
       const receiver_name = req.body.receiver_name;
       const receiver_contact = req.body.receiver_contact;
+      const animals_id = req.body.animals_id;
+      const animals_amount = req.body.animals_amount;
       const remarks = req.body.remarks;
-      const distance_km = Math.round(Math.random() * (100 - 1) + 1);
-      const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-      let token = "";
-      for (let i = 0; i < 2; i++) {
-        const tokenGenerator =
-          alphabet[Math.floor(Math.random() * alphabet.length)] +
-          Math.floor(Math.random() * 99);
-        token += tokenGenerator;
-      }
+      const distance_km = this.randomDistance();
+      const token = randomToken();
 
-      await this.usersMainService.aiCreateOrder(
-        {
+      await this.usersMainService.aiCreateOrder({
           pick_up_date,
           pick_up_time,
           pick_up_district,
@@ -271,11 +271,12 @@ export class UsersMainController {
           receiver_contact,
           token,
           remarks,
-        },
-        orderId
-      );
-
-      res.status(200).json({ message: "AI create order success" });
+        animals_id,
+        animals_amount,
+        AI_rating,
+        is_AI,
+      });
+      res.status(200).json({ message: "create order success" });
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
@@ -304,7 +305,7 @@ export class UsersMainController {
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });
-    }
+    } 
   };
   // Yannes part
 }
