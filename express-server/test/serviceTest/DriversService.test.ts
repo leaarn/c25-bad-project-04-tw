@@ -2,15 +2,15 @@ import Knex from "knex";
 const knexfile = require("../../knexfile");
 const knex = Knex(knexfile["test2"]);
 // import { hashPassword } from "../../utils/hash";
-// import { createUsers } from "../../model";
 
-import { UsersService } from "../../services/UsersService";
+
+import { DriversService } from "../../services/DriversService";
 
 describe("Test Auth Service", () => {
-  let usersService: UsersService;
+  let driverService: DriversService;
 
   beforeEach(async () => {
-    usersService = new UsersService(knex);
+    driverService = new DriversService(knex);
   });
 
   it("should create account", async () => {
@@ -21,49 +21,43 @@ describe("Test Auth Service", () => {
       email: "hihi",
       password: "123abc",
       contactNum: 123,
-      defaultDistrict: "abc",
-      defaultRoom: "123",
-      defaultFloor: "123",
-      defaultBuilding: "123",
-      defaultStreet: "123",
+      carLicenseNum: "abc",
+      carType: "123",
     };
 
-    const newUsers = await usersService.createAccount(input);
+    const newDriver = await driverService.createAccount(input);
 
-    const result = await knex("users")
-      .select("users.*")
-      .where("id", "=", newUsers[0].id);
+    const result = await knex("drivers")
+      .select("drivers")
+      .where("id", "=", newDriver[0].id);
     expect(result.length).toBe(1);
   });
 
-  it("existing users", async () => {
+  it("existing drivers", async () => {
     const input = {
       lastName: "Julia",
       firstName: "Wong",
       title: "Miss",
-      email: "hi",
+      email: "hihi",
       password: "123abc",
       contactNum: 123,
-      defaultDistrict: "abc",
-      defaultRoom: "123",
-      defaultFloor: "123",
-      defaultBuilding: "123",
-      defaultStreet: "123",
+      carLicenseNum: "abc",
+      carType: "123",
     };
 
-    await usersService.createAccount(input);
+    await driverService.createAccount(input);
 
-    const result = await knex("users")
+    const result = await knex("drivers")
       .select("id", "email")
       .where("email", input.email)
       .first();
 
     if (result) {
       const t = () => {
-        throw new TypeError("existing users!");
+        throw new TypeError("existing drivers!");
       };
       expect(t).toThrow(TypeError);
-      expect(t).toThrow("existing users!");
+      expect(t).toThrow("existing drivers!");
     }
   });
 
@@ -71,7 +65,7 @@ describe("Test Auth Service", () => {
     // Removed inserted data to keep testing database clean
     await knex("order_animals").del();
     await knex("orders").del();
-    await knex("users").del();
+    await knex("drivers").del();
   });
 
   afterAll(async () => {
