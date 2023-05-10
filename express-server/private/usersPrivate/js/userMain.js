@@ -9,11 +9,9 @@ async function userInfo() {
   console.log(userInfo);
 
   const userInfoStr = `
-  <img class="logo" src="./assets/LOGO.png" alt="logo"
-          />
   <div class="user-details">
-  <h2 class="u-text u-text-palette-1-base u-text-1">Hi, ${userInfo.first_name}</h2>
-  <p class="u-text u-text-palette-1-dark-1 u-text-2">會員</p>
+  <p class="user-name"><b>Hi, ${userInfo.first_name}</b></p>
+  <p class="role">會員</p>
   </div>
   `;
   document.querySelector(".user-info").innerHTML = userInfoStr;
