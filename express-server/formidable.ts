@@ -10,7 +10,7 @@ fs.mkdirSync(uploadDir, { recursive: true });
 export const form = formidable({
     uploadDir,
     keepExtensions: false,
-    maxFiles: 1,
+    maxFiles: 3,
     maxFileSize: 1024 ** 2 * 200, // the default limit is 1KB * 200
     filter: (part) => part.mimetype?.startsWith("image/") || false,
     filename: (_originalName, _originalExt, part) => {

@@ -289,6 +289,8 @@ export class UsersMainController {
       const { files } = await formParsePromise(form, req);
       const imageFilename = (files.image as formidable.File).newFilename;
 
+      console.log("imagefilename", imageFilename)
+
       const image = await this.usersMainService.uploadImage(imageFilename);
 
 
