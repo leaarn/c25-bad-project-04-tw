@@ -119,8 +119,7 @@
       <div class="ai-result-div"></div>
       <div class="continue-div"></div>
       <div class="ai-form"></div>
-      <button id="form-toggle">Hide order-form div</button>
-      <div class="order-form-div">
+      <div id="order-form-div" style="display: none">
         <div class="form-area">
           <div class="pick-up-time">
             <p>收貨時間</p>
@@ -254,18 +253,10 @@
       </div>
     </form>
 
-    <!-- my js -->
-        <script>
-      const orderForm = document.querySelector("#order-form-div");
-      const orderFormBtn = document.querySelector("#form-toggle");
-      orderFormBtn.onclick = function () {
-        if (orderForm.style.display !== "none") {
-          orderForm.style.display = "none";
-        } else {
-          orderForm.style.display = "block";
-        }
-      };
+    <script>
+
     </script>
+    <!-- my js -->
     <script src="./js/uploads.js"></script>
     <!-- <script src="./js/userlogout.js"></script> -->
 
@@ -277,6 +268,5 @@
     ></script>
     <!-- sweetalart js -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
   </body>
 </html>

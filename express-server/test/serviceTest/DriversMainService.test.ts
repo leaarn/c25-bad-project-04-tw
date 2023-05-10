@@ -201,7 +201,6 @@ describe("test DriversMainServiceKnex", () => {
 
   test("get all orders", async () => {
     const getAllOrders = await driversMainService.getAllOrders();
-    console.log("getAllOrders: ", getAllOrders);
     expect(getAllOrders.length).toBe(1)
     // expect(getAllOrders).toMatchObject([
     //   {
@@ -218,7 +217,6 @@ describe("test DriversMainServiceKnex", () => {
   });
 
   test("get accept orders", async () => {
-    console.log("DriverMainSerive.test.ts - orderIds: ", orderIds);
     const getAcceptOrders = await driversMainService.getAcceptOrders(
       orderIds[0]
     );

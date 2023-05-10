@@ -3,7 +3,8 @@ const { Script } = require("vm");
 window.onload = () => {
   uploadPhotos();
   usersLogout();
-  aiCreateOrder();
+  // showForm();
+  // aiCreateOrder();
 };
 
 function updateUI(result) {
@@ -26,21 +27,21 @@ function updateUI(result) {
 
   // Dictionary of animal classes
   const animalDict = {
-    bird: "家禽或鳥類",
-    cat: "貓",
-    dog: "狗",
-    horse: "馬",
-    sheep: "羊",
-    cow: "牛",
-    elephant: "大象",
-    bear: "熊",
-    zebra: "斑馬",
-    giraffe: "長頸鹿",
+    cat: ["貓",1],
+    dog: ["狗",2],
+    bird: ["家禽或鳥類",3],
+    horse: ["馬",4],
+    sheep: ["羊",5],
+    cow: ["牛",6],
+    elephant: ["大象",7],
+    bear: ["熊",8],
+    zebra: ["斑馬",9],
+    giraffe: ["長頸鹿",10]
   };
 
   let animalArr = [];
   for (i = 0; i < filtered.length; i++) {
-    animalArr.push(animalDict[filtered[i]]);
+    animalArr.push(animalDict[filtered[i]][0]);
   }
 
   // Count how many animals
@@ -69,8 +70,10 @@ function updateUI(result) {
   document.querySelector(
     ".ai-result-div"
   ).innerHTML = `<div class="result-title">AI預測結果：
-  <div class="animal-result">${animalDetails}</div></div>
-  <div class="rate"><input type="radio" id="star5" name="rate" value="5" />
+  <div class="animal-result">${animalDetails}</div>
+  </div>
+  <div class="rate">
+  <input type="radio" id="star5" name="rate" value="5" />
   <label for="star5" title="text">5 stars</label>
   <input type="radio" id="star4" name="rate" value="4" />
   <label for="star4" title="text">4 stars</label>
@@ -79,7 +82,11 @@ function updateUI(result) {
   <input type="radio" id="star2" name="rate" value="2" />
   <label for="star2" title="text">2 stars</label>
   <input type="radio" id="star1" name="rate" value="1" />
-  <label for="star1" title="text">1 star</label></div>`;
+  <label for="star1" title="text">1 star</label>
+  </div>
+  <button id="form-toggle">OK</button>
+  <button id="form-toggle-manual">Not OK</button>
+  `;
 
   // Count if animals amount is > 5
   let total = 0;
@@ -89,6 +96,7 @@ function updateUI(result) {
   if (total > 5) {
     alert("Too many animals la...");
   }
+  showForm();
 }
 
 async function uploadPhotos() {
@@ -107,7 +115,6 @@ async function uploadPhotos() {
     for (i = 0; i < inputImage.length; i++) {
       imageName.innerHTML += `${inputImage[i].name}</br>`;
     }
-
   });
   const form = document.querySelector("#upload-form");
   form.addEventListener("submit", async (e) => {
@@ -128,6 +135,7 @@ async function uploadPhotos() {
       console.log(`result: ${result}`);
       console.log("type of", result);
       updateUI(result);
+      showForm();
       // showResults()
     }
   });
@@ -147,8 +155,20 @@ async function usersLogout() {
   });
 }
 
-function aiCreateOrder() {
+async function showForm() {
+  const btn = document.querySelector("#form-toggle");
+  console.log("1");
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("2");
+    let x = document.querySelector("#order-form-div");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    }
+  });
+}
 
+async function aiCreateOrder() {
   const form = document.querySelector("#create-order-form");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -169,6 +189,30 @@ function aiCreateOrder() {
     const receiver_name = form.receiverName.value;
     const receiver_contact = form.receiverContact.value;
     const remarks = form.remarks.value;
+    const rate = form.rate.value;
+     const animals_id = [];
+     const animals_id_selects = form.querySelectorAll(
+       "select[name=animals_id]"
+     );
+     for (const select of animals_id_selects) {
+       animals_id.push(select.value);
+     }
+     console.log("here is id", animals_id);
+     const animals_amount = [];
+     const animals_amount_selects = form.querySelectorAll(
+       "select[name=animals_amount]"
+     );
+     let total = 0;
+     for (const select of animals_amount_selects) {
+       animals_amount.push(select.value);
+       total += parseInt(select.value);
+     }
+     if (total > 5) {
+       alert("Too many animals la...");
+       return;
+     }
+
+
 
     const resp = await fetch("/aiCreateOrder", {
       method: "POST",
@@ -189,6 +233,7 @@ function aiCreateOrder() {
         receiver_name,
         receiver_contact,
         remarks,
+        rate,
       }),
     });
 
