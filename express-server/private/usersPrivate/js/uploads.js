@@ -65,26 +65,7 @@ function updateUI(result) {
     animalDetails += animalName + " X " + animalCount + " ";
   }
   console.log(animalDetails);
-  document.querySelector(
-    ".ai-result-div"
-  ).innerHTML = `<div class="result-title">AI預測結果：
-  <div class="animal-result">${animalDetails}</div>
-  </div>
-  <div class="rate">
-  <input type="radio" id="star5" name="rate" value="5" />
-  <label for="star5" title="text">5 stars</label>
-  <input type="radio" id="star4" name="rate" value="4" />
-  <label for="star4" title="text">4 stars</label>
-  <input type="radio" id="star3" name="rate" value="3" />
-  <label for="star3" title="text">3 stars</label>
-  <input type="radio" id="star2" name="rate" value="2" />
-  <label for="star2" title="text">2 stars</label>
-  <input type="radio" id="star1" name="rate" value="1" />
-  <label for="star1" title="text">1 star</label>
-  </div>
-  <button id="form-toggle">OK</button>
-  <button id="form-toggle-manual">Not OK</button>
-  `;
+  
 
   // Count if animals amount is > 5
   let total = 0;
@@ -92,7 +73,36 @@ function updateUI(result) {
     total += parseInt(count);
   }
   if (total > 5) {
-    alert("Too many animals la...");
+    Swal.fire({
+      icon: "warning",
+      title: "動物數量超出訂單上限",
+      html:`AI預測結果：${animalDetails} </br></br> 請重新上載圖片 或 手動建立訂單`,
+      // showConfirmButton: false,
+      // timer: 2500,
+    }).then(function() {
+      window.location = "/private/usersPrivate/uploads.html";
+    });
+  } else {
+    document.querySelector(
+      ".ai-result-div"
+    ).innerHTML = `<div class="result-title">AI預測結果：
+    <div class="animal-result">${animalDetails}</div>
+    </div>
+    <div class="rate">
+    <input type="radio" id="star5" name="rate" value="5" />
+    <label for="star5" title="text">5 stars</label>
+    <input type="radio" id="star4" name="rate" value="4" />
+    <label for="star4" title="text">4 stars</label>
+    <input type="radio" id="star3" name="rate" value="3" />
+    <label for="star3" title="text">3 stars</label>
+    <input type="radio" id="star2" name="rate" value="2" />
+    <label for="star2" title="text">2 stars</label>
+    <input type="radio" id="star1" name="rate" value="1" />
+    <label for="star1" title="text">1 star</label>
+    </div>
+    <button id="form-toggle">OK</button>
+    <button id="form-toggle-manual">Not OK</button>
+    `;
   }
 }
 
