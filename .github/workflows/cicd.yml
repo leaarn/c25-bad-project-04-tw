@@ -45,7 +45,8 @@ jobs:
         with:
           script: |
             cd c25-bad-project-04-tw
-            git pull origin main
+            git checkout production
+            git pull origin production
             cd express-server
             yarn install
             yarn knex migrate:rollback --env production
