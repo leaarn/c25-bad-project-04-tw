@@ -9,7 +9,8 @@ async function userInfo() {
   console.log(userInfo);
 
   const userInfoStr = `
-  <i class="bi bi-person-circle"></i>
+  <img class="logo" src="./assets/LOGO.png" alt="logo"
+          />
   <div class="user-details">
   <h2 class="u-text u-text-palette-1-base u-text-1">Hi, ${userInfo.first_name}</h2>
   <p class="u-text u-text-palette-1-dark-1 u-text-2">會員</p>
