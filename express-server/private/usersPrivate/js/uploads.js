@@ -214,31 +214,31 @@ async function aiCreateOrder() {
 
 
 
-    const resp = await fetch("/aiCreateOrder", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        pick_up_date,
-        pick_up_time,
-        pick_up_district,
-        pick_up_room,
-        pick_up_floor,
-        pick_up_building,
-        pick_up_street,
-        deliver_district,
-        deliver_room,
-        deliver_floor,
-        deliver_building,
-        deliver_street,
-        receiver_name,
-        receiver_contact,
-        remarks,
-        rate,
-      }),
-    });
+//     const resp = await fetch("/aiCreateOrder", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({
+//         pick_up_date,
+//         pick_up_time,
+//         pick_up_district,
+//         pick_up_room,
+//         pick_up_floor,
+//         pick_up_building,
+//         pick_up_street,
+//         deliver_district,
+//         deliver_room,
+//         deliver_floor,
+//         deliver_building,
+//         deliver_street,
+//         receiver_name,
+//         receiver_contact,
+//         remarks,
+//         rate,
+//       }),
+//     });
 
-    if ((resp.status = 200)) {
-      window.location = "/private/usersPrivate/ordertopay.html";
-    }
-  });
-}
+//     if ((resp.status = 200)) {
+//       window.location = "/private/usersPrivate/ordertopay.html";
+//     }
+//   });
+// }
