@@ -195,18 +195,18 @@ async function usersLogout() {
   });
 }
 
-// async function showForm() {
-//   const btn = document.querySelector("#form-toggle");
-//   console.log("1");
-//   btn.addEventListener("click", (e) => {
-//     e.preventDefault();
-//     console.log("2");
-//     let x = document.querySelector("#order-form-div");
-//     if (x.style.display === "none") {
-//       x.style.display = "block";
-//     }
-//   });
-// }
+async function showForm() {
+  const btn = document.querySelector("#form-toggle");
+  console.log("1");
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log("2");
+    let x = document.querySelector("#order-form-div");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    }
+  });
+}
 
 async function aiCreateOrder() {
   const form = document.querySelector("#create-order-form");
