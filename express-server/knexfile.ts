@@ -20,7 +20,7 @@ const config: { [key: string]: Knex.Config } = {
     },
   },
 
-  test: {
+  testGithub: {
     client: "postgresql",
     connection: {
       host: process.env.POSTGRES_HOST,
@@ -36,7 +36,7 @@ const config: { [key: string]: Knex.Config } = {
       tableName: "knex_migrations",
     },
   },
-  test2: {
+  test: {
     client: "postgresql",
     connection: {
       database: process.env.TESTDB_NAME,

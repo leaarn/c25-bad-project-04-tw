@@ -5,7 +5,6 @@ import { getRequest, getResponse } from "../utils";
 import { driversLogin} from "../../model"
 // import type { Request, Response } from "express";
 import express from "express";
-import { Knex } from "knex";
 let req: express.Request;
 let res: express.Response;
 // let driversService: DriversService;

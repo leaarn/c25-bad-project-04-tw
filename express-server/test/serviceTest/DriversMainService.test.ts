@@ -8,14 +8,14 @@ import {
   userTable,
 } from "../../migrations/20230503035349_init-db";
 
-const knexfile = require("../knexfile");
-const knex = Knex(knexfile["test2"]);
+const knexfile = require("../../knexfile");
+const knex = Knex(knexfile["test"]);
 
-describe.only("test DriversMainServiceKnex", () => {
+describe("test DriversMainServiceKnex", () => {
   let driversMainService = new DriversMainService(knex);
   let orderIds: number[];
-  let driverID: number;
-  let userID: number;
+  let driverID: { id: number }[];
+  let userID: { id: number }[];
 
   beforeAll(async () => {
     userID = await knex(userTable)
@@ -217,6 +217,7 @@ describe.only("test DriversMainServiceKnex", () => {
   });
 
   test("get accept orders", async () => {
+    console.log("DriverMainSerive.test.ts - orderIds: ", orderIds);
     const getAcceptOrders = await driversMainService.getAcceptOrders(
       orderIds[0]
     );

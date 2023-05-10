@@ -1,6 +1,6 @@
 import Knex from "knex";
 const knexfile = require("../../knexfile");
-const knex = Knex(knexfile["test2"]);
+const knex = Knex(knexfile["test"]);
 // import { hashPassword } from "../../utils/hash";
 
 import { ReceiversService } from "../../services/ReceiversService";
