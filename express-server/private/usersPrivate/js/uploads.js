@@ -87,7 +87,6 @@ function updateUI(result) {
     animalDetails += animalName + " X " + animalCount + " ";
   }
   console.log(animalDetails);
-  
 
   // Count if animals amount is > 5
   let total = 0;
@@ -98,10 +97,10 @@ function updateUI(result) {
     Swal.fire({
       icon: "warning",
       title: "動物數量超出訂單上限",
-      html:`AI預測結果：${animalDetails} </br></br> 請重新上載圖片 或 手動建立訂單`,
+      html: `AI預測結果：${animalDetails} </br></br> 請重新上載圖片 或 手動建立訂單`,
       // showConfirmButton: false,
       // timer: 2500,
-    }).then(function() {
+    }).then(function () {
       window.location = "/private/usersPrivate/uploads.html";
     });
   } else {
@@ -126,6 +125,7 @@ function updateUI(result) {
     <button id="form-toggle-manual">Not OK</button>
     `;
   }
+  showForm();
 }
 
 async function uploadPhotos() {
@@ -229,25 +229,6 @@ async function aiCreateOrder() {
     const receiver_contact = form.receiverContact.value;
     const remarks = form.remarks.value;
     const rate = form.rate.value;
-    const animals_id = [];
-    const animals_id_selects = form.querySelectorAll("select[name=animals_id]");
-    for (const select of animals_id_selects) {
-      animals_id.push(select.value);
-    }
-    console.log("here is id", animals_id);
-    const animals_amount = [];
-    const animals_amount_selects = form.querySelectorAll(
-      "select[name=animals_amount]"
-    );
-    let total = 0;
-    for (const select of animals_amount_selects) {
-      animals_amount.push(select.value);
-      total += parseInt(select.value);
-    }
-    if (total > 5) {
-      alert("Too many animals la...");
-      return;
-    }
 
     const resp = await fetch("/aiCreateOrder", {
       method: "POST",
