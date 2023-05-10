@@ -32,9 +32,9 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           yarn install 
-          yarn knex migrate:latest --env testGithub
-          yarn knex seed:run --env testGithub
-          yarn jest --run-in-band
+          yarn knex migrate:rollback --env test
+          yarn knex migrate:latest --env test
+          yarn jest
 
   deploy:
     if: github.ref_name == 'production'
