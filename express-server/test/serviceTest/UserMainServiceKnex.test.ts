@@ -1,6 +1,6 @@
 import Knex from "knex";
 const knexfile = require("../../knexfile");
-const knex = Knex(knexfile["test"]);
+const knex = Knex(knexfile["testGithub"]);
 import { UsersMainService } from "../../services/UsersMainService";
 
 describe.only("Test UsersMainServiceKnex", () => {

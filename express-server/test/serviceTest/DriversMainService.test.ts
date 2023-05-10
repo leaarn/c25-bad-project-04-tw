@@ -9,7 +9,7 @@ import {
 } from "../../migrations/20230503035349_init-db";
 
 const knexfile = require("../../knexfile");
-const knex = Knex(knexfile["test"]);
+const knex = Knex(knexfile["testGithub"]);
 
 describe("test DriversMainServiceKnex", () => {
   let driversMainService = new DriversMainService(knex);
