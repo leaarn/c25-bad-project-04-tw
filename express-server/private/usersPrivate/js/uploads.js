@@ -200,10 +200,9 @@ async function showForm() {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     console.log("2");
-    let x = document.querySelector("#create-order-form");
+    let x = document.querySelector("#order-form-div");
     if (x.style.display === "none") {
       x.style.display = "block";
-      aiCreateOrder();
     }
   });
 }
