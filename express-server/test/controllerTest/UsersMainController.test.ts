@@ -8,7 +8,7 @@ import type { Request, Response } from "express";
 import { getRequest, getResponse } from "../utils";
 import { randomToken } from "../../controllers/utils";
 
-jest.mock("../controllers/utils");
+jest.mock("../../controllers/utils");
 
 describe.skip("UsersMainController TestsCases", () => {
   let usersMainService: UsersMainService;

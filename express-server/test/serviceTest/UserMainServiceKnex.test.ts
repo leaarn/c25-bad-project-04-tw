@@ -1,6 +1,6 @@
 import Knex from "knex";
-const knexfile = require("../knexfile");
-const knex = Knex(knexfile["test2"]);
+const knexfile = require("../../knexfile");
+const knex = Knex(knexfile["testGithub"]);
 import { UsersMainService } from "../../services/UsersMainService";
 
 describe.only("Test UsersMainServiceKnex", () => {
@@ -31,7 +31,7 @@ describe.only("Test UsersMainServiceKnex", () => {
       .returning("id");
 
     usersId = returningUsersId[0].id;
-    console.log("eeeeeee", usersId);
+    // console.log("eeeeeee", usersId);
 
     let returningDriversId = await knex("drivers")
       .insert([
@@ -49,7 +49,7 @@ describe.only("Test UsersMainServiceKnex", () => {
       .returning("id");
 
     driversId = returningDriversId[0].id;
-    console.log("eeeeeee", driversId);
+    // console.log("eeeeeee", driversId);
   });
   beforeEach(async () => {
     let orderIds = await knex("orders")
@@ -80,7 +80,7 @@ describe.only("Test UsersMainServiceKnex", () => {
 
     orderId = orderIds[0].id;
 
-    console.log("insert order's id", orderId);
+    // console.log("insert order's id", orderId);
 
     let animals_id = ["1", "2"];
     let animals_amount = ["1", "1"];
@@ -91,22 +91,23 @@ describe.only("Test UsersMainServiceKnex", () => {
         .where("id", "=", `${parseInt(animals_id[i])}`)
         .first();
 
-      console.log("anm!!!!", animals_history_price);
-      console.log("order id", orderId);
-      const orderAnimal = await knex("order_animals").insert({
+      // console.log("anm!!!!", animals_history_price);
+      // console.log("order id", orderId);
+      // const orderAnimal = await knex("order_animals").insert({
+      await knex("order_animals").insert({
         orders_id: orderId,
         animals_id: parseInt(animals_id[i]),
         animals_amount: parseInt(animals_amount[i]),
         animals_history_price: animals_history_price.price,
       });
-      console.log(orderAnimal);
+      // console.log(orderAnimal);
     }
   });
 
   it("get userInfo", async () => {
     const getUserInfo = await usersMainService.getUserInfo(usersId);
 
-    console.log("check cehck", getUserInfo);
+    // console.log("check cehck", getUserInfo);
     expect(getUserInfo).toMatchObject({
       first_name: "Chinny",
     });
@@ -114,7 +115,7 @@ describe.only("Test UsersMainServiceKnex", () => {
 
   it("get Address", async () => {
     const getAddress = await usersMainService.getAddress(usersId);
-    console.log("address", getAddress);
+    // console.log("address", getAddress);
 
     expect(getAddress).toMatchObject({
       default_district: "Central and Western",
@@ -150,7 +151,7 @@ describe.only("Test UsersMainServiceKnex", () => {
     };
 
     const createOrder = await usersMainService.createOrder(input);
-    console.log("createOrder id~~~~~~~~~~",createOrder)
+    // console.log("createOrder id~~~~~~~~~~", createOrder);
 
     const order = await knex("orders")
       .select(
@@ -181,7 +182,8 @@ describe.only("Test UsersMainServiceKnex", () => {
         "remarks"
       );
 
-    expect(order).toMatchObject([{
+    expect(order).toMatchObject([
+      {
         pick_up_date_time: "2023-03-29 10:00:00",
         pick_up_address: "Room 109 1/F Cityplaza 18 Tai Koo Shing Rd 東區",
         deliver_address: "Room 210 2/F Times Square 1 Matheson St 灣仔區",
@@ -193,7 +195,8 @@ describe.only("Test UsersMainServiceKnex", () => {
         receiver_contact: 51170071,
         token: "SD1234",
         remarks: "good luck",
-    }]);
+      },
+    ]);
   });
 
   it("payOrderDetails", async () => {
@@ -217,7 +220,7 @@ describe.only("Test UsersMainServiceKnex", () => {
   it("confirm order which is not pay yet ", async () => {
     await usersMainService.confirmOrder(usersId, orderId);
 
-    console.log("testing!!!!!", orderId);
+    // console.log("testing!!!!!", orderId);
     const confirmOrderResult = await knex("orders")
       .select("orders_status")
       .where("id", orderId)
@@ -265,6 +268,7 @@ describe.only("Test UsersMainServiceKnex", () => {
       usersId,
       orderId
     );
+    console.log("orderStatusDetails: ", orderStatusDetails);
 
     expect(orderStatusDetails).toMatchObject({
       full_name: "Miss Yannes Chow",

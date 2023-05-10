@@ -1,12 +1,12 @@
 import type { Knex } from "knex";
-import { userTable, orderTable } from "../migrations/20230503035349_init-db";
+import { driverTable, orderTable } from "../migrations/20230503035349_init-db";
 import { sendMessage, getTextMessageInput } from "../routers/messageHelper";
 
 export class DriversMainService {
   constructor(private knex: Knex) {}
 
   getDriverInfo = async (driverID: number) => {
-    const getDriverNameResult = await this.knex(userTable)
+    const getDriverNameResult = await this.knex(driverTable)
       .select("first_name")
       .where("id", driverID)
       .first();

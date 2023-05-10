@@ -1,11 +1,12 @@
-import { Page, chromium } from "playwright";
-import "../app";
+import { Page, chromium, Browser } from "playwright";
+// import "../app";
 
 describe.skip("Login", () => {
   let page: Page;
+  let browser: Browser;
 
   beforeAll(async () => {
-    const browser = await chromium.launch();
+    browser = await chromium.launch();
     page = await browser.newPage();
   });
 
@@ -31,5 +32,9 @@ describe.skip("Login", () => {
         (submit as HTMLInputElement).click();
       }
     });
+  });
+
+  afterAll(async () => {
+    await browser.close();
   });
 });
