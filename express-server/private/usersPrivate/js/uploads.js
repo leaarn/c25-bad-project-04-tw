@@ -5,6 +5,8 @@ window.onload = () => {
   // aiCreateOrder();
 };
 
+let dbAnimalArr;
+let animalCount;
 function updateUI(result) {
   console.log("updateUI-result", result);
   // Filter result to below classes
@@ -25,21 +27,35 @@ function updateUI(result) {
 
   // Dictionary of animal classes
   const animalDict = {
-    cat: ["貓", 1],
-    dog: ["狗", 2],
-    bird: ["家禽或鳥類", 3],
-    horse: ["馬", 4],
-    sheep: ["羊", 5],
-    cow: ["牛", 6],
-    elephant: ["大象", 7],
-    bear: ["熊", 8],
-    zebra: ["斑馬", 9],
-    giraffe: ["長頸鹿", 10],
+    cat: "貓",
+    dog: "狗",
+    bird: "家禽或鳥類",
+    horse: "馬",
+    sheep: "羊",
+    cow: "牛",
+    elephant: "大象",
+    bear: "熊",
+    zebra: "斑馬",
+    giraffe: "長頸鹿",
+  };
+
+  // Dictionary of animal Ids
+  const IdsAnimalDict = {
+    貓: 1,
+    狗: 2,
+    家禽或鳥類: 3,
+    馬: 4,
+    羊: 5,
+    牛: 6,
+    大象: 7,
+    熊: 8,
+    斑馬: 9,
+    長頸鹿: 10,
   };
 
   let animalArr = [];
   for (i = 0; i < filtered.length; i++) {
-    animalArr.push(animalDict[filtered[i]][0]);
+    animalArr.push(animalDict[filtered[i]]);
   }
 
   // Count how many animals
@@ -53,8 +69,14 @@ function updateUI(result) {
   // Transfer animal array to eg.(羊 X 1 ) format
   const animalName = Object.keys(counts);
   console.log("animalName", animalName);
-  const animalCount = Object.values(counts);
+  animalCount = Object.values(counts);
   console.log("animalCount", animalCount);
+
+  dbAnimalArr = [];
+  for (i = 0; i < animalName.length; i++) {
+    dbAnimalArr.push(IdsAnimalDict[animalName[i]]);
+  }
+  console.log("anm with id", dbAnimalArr);
 
   let animalDetails = ``;
   if (Array.isArray(animalName)) {
@@ -153,6 +175,7 @@ async function uploadPhotos() {
       updateUI(result);
       showForm();
       // showResults()
+      console.log(`seee~~~${dbAnimalArr}${animalCount}`);
     }
   });
 }
@@ -247,6 +270,8 @@ async function aiCreateOrder() {
         receiver_contact,
         remarks,
         rate,
+        dbAnimalArr,
+        animalCount,
       }),
     });
 
