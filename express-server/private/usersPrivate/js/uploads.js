@@ -1,5 +1,3 @@
-const { Script } = require("vm");
-
 window.onload = () => {
   uploadPhotos();
   usersLogout();
@@ -104,18 +102,27 @@ async function uploadPhotos() {
   let imageName = document.getElementById("imageName");
 
   input.addEventListener("change", () => {
-    let inputImage = [];
-    let filesArr = document.querySelector("input[type=file]").files;
-    for (i = 0; i < filesArr.length; i++) {
-      inputImage.push(filesArr[i]);
-    }
-    console.log("inputImage", inputImage);
+    let inputImage = document.querySelector("input[type=file]").files[0];
 
-    // let imageNameStr = ''
-    for (i = 0; i < inputImage.length; i++) {
-      imageName.innerHTML += `${inputImage[i].name}</br>`;
-    }
+    imageName.innerText = inputImage.name;
   });
+
+  // let input = document.getElementById("image");
+  // let imageName = document.getElementById("imageName");
+
+  // input.addEventListener("change", () => {
+  //   let inputImage = [];
+  //   let filesArr = document.querySelector("input[type=file]").files;
+  //   for (i = 0; i < filesArr.length; i++) {
+  //     inputImage.push(filesArr[i]);
+  //   }
+  //   console.log("inputImage", inputImage);
+
+  //   // let imageNameStr = ''
+  //   for (i = 0; i < inputImage.length; i++) {
+  //     imageName.innerHTML += `${inputImage[i].name}</br>`;
+  //   }
+  // });
   const form = document.querySelector("#upload-form");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
