@@ -20,6 +20,7 @@ body {
 .word {
   color: rgb(255, 157, 29);
   padding: 20px;
+  padding-bottom: 10px;
   font-weight: bold;
   font-size: 200%;
 }
@@ -62,8 +63,9 @@ input {
   /* color: rgb(255, 157, 29); */
   /* font-size: 180%; */
   /* font-weight: bold; */
+
   margin-bottom: 1vw;
-  /* box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px; */
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
   padding: 8px 20px;
   /* margin: 20px 30px 30px 30px; */
   border-radius: 50px;
@@ -78,13 +80,14 @@ input {
 .driver_login:hover,
 .member_googleLogin:hover {
   background-color: #ffa34d;
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
 }
 
 .member_login:active,
 .driver_login:active,
 .member_googleLogin:active {
   background-color: #ec8700;
-  box-shadow: 0 5px #905201;
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
   transform: translateY(4px);
 }
 
@@ -128,6 +131,7 @@ input {
   color: #fff;
   border: 0;
   font-weight: 600;
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
 }
 
 #member_create:hover {
@@ -136,7 +140,7 @@ input {
 
 #member_create:active {
   background-color: #ec8700;
-  box-shadow: 0 5px #905201;
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
   transform: translateY(4px);
 }
 
@@ -187,7 +191,8 @@ textarea {
   }
 
   .word2 {
-    font-size: 100%;
+    font-size: 110%;
+
   }
 
   input {
@@ -204,14 +209,13 @@ textarea {
   .member_googleLogin {
     width: 50vw;
     height: 5vh;
-    padding: 8px 20px;
     border-radius: 50px;
     background-color: #ffaa5b;
     color: #fff;
     border: 0;
-    font-weight: 600;
-    font-size: 130%;
-    margin-top: 1vw;
+    font-weight: 00;
+    font-size: 110%;
+    margin-top: 3vw;
     /* background-color: rgb(255, 227, 155);
     border: 0;
     border-radius: 15px;
@@ -224,24 +228,16 @@ textarea {
     box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px; */
   }
 
-  #users-login-form,
-  #drivers-login-form {
-    margin-bottom: 10px;
-  }
-
-
   #member_create {
 
     width: 50vw;
     height: 5vh;
 
-    font-size: 130%;
+    font-size: 110%;
     font-weight: bold;
-    margin-bottom: 10vw;
+    margin-bottom: 15vw;
     margin-top: 0vw;
     
-
-    margin-bottom: 3vw;
     padding: 8px 20px;
     border-radius: 50px;
     background-color: #ffaa5b;
@@ -250,4 +246,6 @@ textarea {
     border: 0;
     font-weight: 600;
   }
+
+
 }
