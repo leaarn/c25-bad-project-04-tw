@@ -89,7 +89,8 @@ export class UsersMainService {
         orders.id, 
         max(distance_km * distance_price) AS distance_total_price,
         SUM(order_animals.animals_history_price * order_animals.animals_amount) AS animals_total_price, 
-        max(distance_km * distance_price) + SUM(order_animals.animals_history_price * order_animals.animals_amount) AS total_price`)
+        max(distance_km * distance_price) + SUM(order_animals.animals_history_price * order_animals.animals_amount) AS total_price,
+        created_at`)
       )
       .join("order_animals", "order_animals.orders_id", "orders.id")
       .join("animals", "animals.id", "order_animals.animals_id")
@@ -101,8 +102,9 @@ export class UsersMainService {
         "pick_up_date_time",
         "pick_up_address",
         "deliver_address",
-        "orders.id"
-      )
+        "orders.id",
+        "created_at"
+      ).orderBy("created_at",'desc')
       .first();
 
     return orderToPay;
