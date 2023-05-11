@@ -228,8 +228,6 @@ export class UsersMainService {
         receiver_contact: input.receiver_contact,
         token: input.token,
         remarks: input.remarks,
-        AI_rating: input.AI_rating,
-        is_AI: input.is_AI,
       })
       .returning("id");
 
@@ -243,6 +241,8 @@ export class UsersMainService {
         animals_id: input.animals_id[i],
         animals_amount: input.animals_amount[i],
         animals_history_price: animals_history_price.price,
+        AI_rating: input.AI_rating,
+        is_AI: input.is_AI,
       });
     }
   };

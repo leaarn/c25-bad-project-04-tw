@@ -232,7 +232,6 @@ export class UsersMainController {
       const AI_rating = req.body.AI_rating;
       const is_AI = req.body.isAI;
 
-
       // const pick_up_coordinates =req.body.pick_up_coordinates
       const deliver_district = req.body.deliver_district;
       const deliver_room = req.body.deliver_room;
@@ -275,6 +274,7 @@ export class UsersMainController {
         AI_rating,
         is_AI,
       });
+      console.log("hihihi",res.status)
       res.status(200).json({ message: "create order success" });
     } catch (err: any) {
       logger.error(err.message);
