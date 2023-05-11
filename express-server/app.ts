@@ -11,7 +11,7 @@ const knex = Knex(config[process.env.NODE_ENV || "development"]);
 
 const grantExpress = grant.express({
   defaults: {
-    origin: "http://34.233.164.139",
+    origin: "https://www.chickenvan.online",
     transport: "session",
     state: true,
   },
@@ -19,7 +19,7 @@ const grantExpress = grant.express({
     key: process.env.GOOGLE_CLIENT_ID || "",
     secret: process.env.GOOGLE_CLIENT_SECRET || "",
     scope: ["profile", "email"],
-    callback: "/usersLogin/google",
+    callback: "/userslogin/google",
   },
 });
 
