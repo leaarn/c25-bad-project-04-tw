@@ -4,12 +4,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  /* position: relative; */
 }
 .user-and-btn {
   border: 0;
   border-radius: 15px;
   background-color: rgb(255, 245, 219);
-  margin: 3vw;
+  /* margin-left: 3vw; */
   /* display: flex; */
   /* align-items: center; */
   /* color: rgb(255, 157, 29); */
@@ -17,6 +18,16 @@
   /* justify-content: center; */
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
   height: fit-content;
+  position: relative;
+  right: 8%;
+  bottom: -6vw;
+  animation-name: go-left;
+  animation-duration: 2s;
+}
+
+@keyframes go-left {
+ 0% {right: 0%}
+ 100% {right: 8%}
 }
 
 .user-name {
@@ -32,9 +43,19 @@
 }
 
 .main-img {
-  margin: 3vw 0 3vw 0;
-  width: 50%
+  margin: 3vw;
+  width: 55%;
+  position: relative;
+  left: 8%;
+  animation-name: go-right;
+  animation-duration: 2s;
 }
+
+@keyframes go-right {
+  0% {left: 0%}
+  100% {left: 8%}
+ }
+
 .submit-btn {
   padding: 8px 20px;
   margin: 20px 30px 30px 30px;
@@ -64,6 +85,10 @@
   .main-img {
     margin: 3vw 0 3vw 0;
     width: 70%
+  }
+
+  .user-and-btn {
+    margin-bottom: 15vw;
   }
 
   .user-details {

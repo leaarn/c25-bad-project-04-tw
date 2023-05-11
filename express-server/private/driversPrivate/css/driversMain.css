@@ -27,16 +27,15 @@ body {
   position: sticky;
   width: 100%;
   top: 0;
+  z-index: 10;
 }
 
 .menu_btn {
-  background-color: rgb(255, 227, 155);
+  background-color: rgb(251, 232, 203);
   border: 0;
-  border-radius: 15px;
   color: rgb(255, 157, 29);
   padding: 0 10px;
   margin-left: 5vw;
-  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
 }
 
 .bi-list,
@@ -46,7 +45,7 @@ body {
 }
 
 .logo {
-  width: 12vw;
+  width: 14vw;
   text-align: center;
 }
 
@@ -60,7 +59,7 @@ body {
 }
 
 .offcanvas.offcanvas-start {
-  width: 30%
+  width: 30%;
 }
 
 .close_button {
@@ -112,7 +111,7 @@ body {
   border: 0;
   border-radius: 15px;
   background-color: rgb(255, 245, 219);
-  margin: 3vw ;
+  margin: 3vw;
   display: flex;
   align-items: center;
   color: rgb(255, 157, 29);
@@ -158,7 +157,7 @@ select :disabled {
   color: rgb(255, 157, 29);
   display: flex;
   flex-direction: row;
-  margin: 3vw ;
+  margin: 3vw;
   justify-content: space-between;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
@@ -273,4 +272,61 @@ select :disabled {
   font-size: 5vw;
   margin: 10px;
   color: rgb(255, 157, 29);
+}
+
+footer {
+  width: 100vw;
+  padding: 10px;
+  bottom: 0;
+  background-color: #ffe7c7;
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  color: #ae782e;
+}
+
+@media only screen and (max-width: 768px) {
+  .logo {
+    width: 30vw;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .menu_btn {
+    background-color: rgb(251, 232, 203);
+    border: 0;
+    color: rgb(255, 157, 29);
+    padding: 0 10px;
+    margin-left: 5vw;
+    font-size: larger;
+  }
+
+  .bi-list,
+  .bi-x-lg {
+    color: rgb(255, 157, 29);
+    font-size: 6vw;
+  }
+
+  .offcanvas.offcanvas-start {
+    width: 60%;
+  }
+
+  .logo {
+    width: 35vw;
+    text-align: center;
+  }
+
+  footer {
+    width: 100vw;
+    padding: 10px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: #ffe7c7;
+    display: flex;
+    justify-content: center;
+    font-size: 3vw;
+    color: #ae782e;
+  }
 }

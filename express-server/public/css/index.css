@@ -533,6 +533,17 @@ section {
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 2vw;
+}
+
+.plans {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.price-list {
+  width: 50vw;
 }
 
 .about .content p:last-child {
