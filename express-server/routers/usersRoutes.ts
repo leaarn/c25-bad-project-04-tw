@@ -12,7 +12,7 @@ export const usersRoutes = express.Router();
 usersRoutes.post("/", usersController.loginControl);
 usersRoutes.get("/usersGoogle", usersController.loginUserControl);
 usersRoutes.get("/driversGoogle", usersController.loginDriverControl);
-usersRoutes.get("/google", usersController.loginGoogleControl);
+// usersRoutes.get("/google", usersController.loginGoogleControl);
 usersRoutes.post(
   "/createaccount",
   // body("password")
@@ -140,7 +140,7 @@ usersRoutes.post(
 //     }
 //     const hashedPassword = await hashPassword(password);
 //     await dbClient.query(
-//       `insert into "users" (last_name, first_name, title, email, password, contact_num, default_district, default_room, default_floor, default_building, default_street) 
+//       `insert into "users" (last_name, first_name, title, email, password, contact_num, default_district, default_room, default_floor, default_building, default_street)
 //       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
 //       [
 //         lastName,
