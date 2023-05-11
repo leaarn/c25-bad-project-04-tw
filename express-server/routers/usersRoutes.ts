@@ -12,7 +12,7 @@ export const usersRoutes = express.Router();
 usersRoutes.post("/", usersController.loginControl);
 usersRoutes.get("/usersGoogle", usersController.loginUserControl);
 usersRoutes.get("/driversGoogle", usersController.loginDriverControl);
-// usersRoutes.get("/google", usersController.loginGoogleControl);
+usersRoutes.get("/google", usersController.loginGoogleControl);
 usersRoutes.post(
   "/createaccount",
   // body("password")
