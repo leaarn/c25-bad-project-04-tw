@@ -216,8 +216,26 @@ async function showForm() {
   });
 }
 
+async function defaultAddress() {
+  const resp = await fetch("/users/address");
+  const address = await resp.json();
+  console.log(address);
+  const pickUpDistrict = address.default_district;
+  const pickUpRoom = address.default_room;
+  const pickUpFloor = address.default_floor;
+  const pickUpBuilding = address.default_building;
+  const pickUpStreet = address.default_street;
+  document.querySelector(".pick-up-district").value = pickUpDistrict;
+  document.querySelector(".pick-up-room").value = pickUpRoom;
+  document.querySelector(".pick-up-floor").value = pickUpFloor;
+  document.querySelector(".pick-up-building").value = pickUpBuilding;
+  document.querySelector(".pick-up-street").value = pickUpStreet;
+}
+
+
 async function aiCreateOrder() {
   const form = document.querySelector("#create-order-form");
+  defaultAddress()
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const pick_up_date = form.date.value;
