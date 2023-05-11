@@ -40,7 +40,7 @@ function createDrivers() {
       window.location = "/driversLogin.html";
     } else {
       const data = await resp.json();
-      alert(data.message);
+      alert("請輸入資料!");
     }
   });
 }

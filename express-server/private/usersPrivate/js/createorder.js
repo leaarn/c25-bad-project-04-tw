@@ -1,6 +1,7 @@
 // 用戶落單版面
 window.onload = () => {
   // userInfo();
+  dateMinCurrentDay()
   defaultAddress();
   addAnimal();
   createOrder();
@@ -21,6 +22,12 @@ window.onload = () => {
 //   `;
 //   document.querySelector(".user-info").innerHTML = userInfoStr;
 // }
+
+function dateMinCurrentDay(){
+  let date =  document.querySelector(".date")
+  date.min = new Date().toISOString().split('T')[0]
+}
+
 
 async function defaultAddress() {
   const resp = await fetch("/users/address");

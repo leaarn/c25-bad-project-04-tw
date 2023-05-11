@@ -101,7 +101,7 @@ input, select {
 
 .orange-button:active {
   background-color: #ec8700;
-  box-shadow: 0 5px #905201;
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
   transform: translateY(4px);
 }
 
@@ -152,6 +152,6 @@ margin: 1.5vw;
     border: 0;
     font-weight: 600;
     font-size: 130%;
-    margin-top: 1vw;
+    margin-top: 6vw;
   }
 }

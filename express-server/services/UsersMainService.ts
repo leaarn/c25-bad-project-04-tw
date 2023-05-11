@@ -149,7 +149,7 @@ export class UsersMainService {
         "reference_code",
         "orders.drivers_id"
       )
-      .orderBy("orders.created_at");
+      .orderBy("orders.created_at","desc");
 
     return queryResult;
   };
