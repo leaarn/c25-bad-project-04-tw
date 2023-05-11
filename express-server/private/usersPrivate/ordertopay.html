@@ -5,7 +5,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
     <!-- nav bar css -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
@@ -14,82 +17,89 @@
       crossorigin="anonymous"
     />
     <!-- font awesome css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <!-- sweet alert css -->
     <link rel="stylesheet" href="sweetalert2.min.css" />
     <!-- my css -->
-    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/favicon.png" rel="icon" />
     <link rel="stylesheet" href="./css/navbar.css" />
     <link rel="stylesheet" href="./css/ordertopay.css" />
     <title>Chicken Van 24/7 Hailing Platform</title>
   </head>
   <body>
-        <!-- navbar -->
-        <div class="navbar">
-          <button
-            class="menu_btn"
-            data-bs-toggle="offcanvas"
-            href="#offcanvasMenu"
-            role="button"
-            aria-controls="offcanvasMenu"
-          >
-            <i class="bi bi-list"></i>
-          </button>
-    
-          <div
-            class="offcanvas offcanvas-start"
-            tabindex="-1"
-            id="offcanvasMenu"
-            aria-labelledby="offcanvasMenuLabel"
-          >
-            <div class="offcanvas-header">
-              <a href="./usersMain.html"
-                ><img
-                  class="logo offcanvas-title"
-                  id="offcanvasMenuLabel"
-                  src="./assets/LOGO.png"
-                  alt="logo"
-              /></a>
-              <i
-                class="bi bi-x-lg"
-                type="button"
-                data-bs-dismiss="offcanvas"
-                aria-label="Close"
-              ></i>
-            </div>
-            <div class="offcanvas-body">
-              <div class="menu_content">
-                <a
-                  class="menu_items"
-                  style="text-decoration: none"
-                  href="./usersMain.html"
-                  >建立訂單</a
-                >
-                <a
-                  class="menu_items"
-                  style="text-decoration: none"
-                  href="./userhistoryorder.html"
-                  >歷史訂單</a
-                >
-                <a
-                  class="menu_items"
-                  style="text-decoration: none"
-                  href="./allorderstatus.html"
-                  >實時訂單狀態</a
-                >
-              </div>
-              <button id="logout">登出</button>
-            </div>
-          </div>
-          <a href="./usersMain.html"
-            ><img class="logo" src="./assets/LOGO.png" alt="logo"
-          /></a>
-          
-          <div class="empty"></div>
-        </div>
+    <!-- navbar -->
+    <div class="navbar">
+      <button
+        class="menu_btn"
+        data-bs-toggle="offcanvas"
+        href="#offcanvasMenu"
+        role="button"
+        aria-controls="offcanvasMenu"
+      >
+        <i class="bi bi-list"></i>
+      </button>
 
+      <div
+        class="offcanvas offcanvas-start"
+        tabindex="-1"
+        id="offcanvasMenu"
+        aria-labelledby="offcanvasMenuLabel"
+      >
+        <div class="offcanvas-header">
+          <a href="./usersMain.html"
+            ><img
+              class="logo offcanvas-title"
+              id="offcanvasMenuLabel"
+              src="./assets/name.png"
+              alt="logo"
+          /></a>
+          <i
+            class="bi bi-x-lg"
+            type="button"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></i>
+        </div>
+        <div class="offcanvas-body">
+          <div class="menu_content">
+            <a
+              class="menu_items"
+              style="text-decoration: none"
+              href="./usersMain.html"
+              >建立訂單</a
+            >
+            <a
+              class="menu_items"
+              style="text-decoration: none"
+              href="./userhistoryorder.html"
+              >歷史訂單</a
+            >
+            <a
+              class="menu_items"
+              style="text-decoration: none"
+              href="./allorderstatus.html"
+              >實時訂單狀態</a
+            >
+          </div>
+          <button id="logout">登出</button>
+        </div>
+      </div>
+      <a href="./usersMain.html"
+        ><img class="logo" src="./assets/name.png" alt="logo"
+      /></a>
+
+      <div class="empty"><i class="bi bi-filter-left"></i></div>
+    </div>
+
+    <div class="banner-area">
+      <h3 class="banner"><b>確認你的訂單</b></h3>
+    </div>
+    <div class="order-div">
     <div class="order">
-      <h2><b>確認你的訂單</b></h2>
+      <h2><b>訂單資料</b></h2>
       <div class="confirm-order"></div>
 
       <h2><b>訂單總價</b></h2>
@@ -101,36 +111,51 @@
           <div class="payment-column">
             <div class="each-payment">
               <input type="radio" id="visa" name="payment" checked="checked" />
-              <label for="visa"><img src="../usersPrivate/assets/Visa.svg.png" alt="" /></label>
+              <label for="visa"
+                ><img src="../usersPrivate/assets/Visa.svg.png" alt=""
+              /></label>
             </div>
             <div class="each-payment">
               <input type="radio" id="payme" name="payment" />
-              <label for="payme"><img src="../usersPrivate/assets/pay_me.png" alt="" /></label>
+              <label for="payme"
+                ><img src="../usersPrivate/assets/pay_me.png" alt=""
+              /></label>
             </div>
             <div class="each-payment">
               <input type="radio" id="alipay" name="payment" />
-              <label for="alipay"><img src="../usersPrivate/assets/Alipay.jpg" alt="" /> </label>
+              <label for="alipay"
+                ><img src="../usersPrivate/assets/Alipay.jpg" alt="" />
+              </label>
             </div>
           </div>
 
           <div class="payment-column">
             <div class="each-payment">
               <input type="radio" id="master-card" name="payment" />
-              <label for="master-card"><img src="../usersPrivate/assets/MasterCard_Logo.svg.png" alt="" /></label>
+              <label for="master-card"
+                ><img
+                  src="../usersPrivate/assets/MasterCard_Logo.svg.png"
+                  alt=""
+              /></label>
             </div>
 
             <div class="each-payment">
               <input type="radio" id="octopus" name="payment" />
-              <label for="octopus"><img src="../usersPrivate/assets/Octopus_Logo.png" alt="" /></label>
+              <label for="octopus"
+                ><img src="../usersPrivate/assets/Octopus_Logo.png" alt=""
+              /></label>
             </div>
           </div>
         </div>
       </div>
 
       <div class="btn-div">
-        <button class="pay-btn">立即付款<i class="fa-sharp fa-solid fa-circle-chevron-right"></i></button>
+        <button class="pay-btn">
+          立即付款 <i class="fa-sharp fa-solid fa-circle-chevron-right"></i>
+        </button>
       </div>
     </div>
+  </div>
 
     <!-- my js -->
     <script src="./js/ordertopay.js"></script>
