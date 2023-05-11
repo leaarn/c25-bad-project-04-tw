@@ -50,6 +50,7 @@
   border-radius: 15px;
   padding: 0 10px;
   margin: 3vw;
+  margin-bottom: 70px;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
@@ -59,18 +60,19 @@
   text-align: center;
   /* padding-left: 5vw;
   padding-right: 8vw; */
-  font-size: 2vw;
+  font-size: 22px;
+  font-weight: bold;
 }
 
 .details-btn,
 .cancel-btn {
   border-radius: 50px;
   background-color: #ffaa5b;
-  font-size: 1.5vw;
+  font-size: 18px;
   color: #fff;
   border: 0;
   font-weight: 600;
-  margin: 3vw 0;
+  margin: 30px;
   padding: 8px 4vw;
   width: fit-content;
 }
@@ -95,13 +97,13 @@
   width: 98%;
   background-color: rgb(255, 251, 240);
   margin-bottom: 2vw;
-  padding: 1vw;
+  padding: 25px;
   border-radius: 15px;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
 .order-text {
-  font-size: 1.5vw;
+  font-size: 18px;
   line-height: 1.8;
 }
 
@@ -122,7 +124,7 @@
   /* align-items: self-start; */
   background-color: rgb(255, 245, 219);
   border-radius: 15px;
-  margin: 1vw 0;
+  margin-bottom: 40px;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 /* .p {
@@ -132,21 +134,28 @@
   display: flex;
   align-items: center;
   padding: 10px 0;
-  font-size: 1.5vw;
+  font-size: 18px;
   /* justify-content: space-between; */
   /* width: 40%; */
 }
 
 .fa-circle {
   margin-right: 2vw;
-  margin-left: 0.3vw;
-  /* margin-bottom: 1rem; */
+  font-size: 20px;
+}
+
+.bi-arrow-down {
+  font-size: 20px;
+}
+
+.pending, .driver-accepts, .driver-delivering, .receiver-received {
+  margin: 0;
 }
 
 .arrow-div {
-  padding-bottom: 1vw;
+  /* padding-bottom: 1vw; */
   padding-right: 2vw;
-  font-size: 2vw;
+  /* font-size: 2vw; */
 }
 
 .btn-div {
@@ -199,27 +208,34 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .banner {
+    width: 95vw;
+    height: 200px;
+    font-size: 40px;
+  }
+
   .details-btn,
   .cancel-btn {
     color: #fff;
-    font-size: 4vw;
+    font-size: 5vw;
+    margin: 2.3vw;
     padding: 8px 4vw;
     width: fit-content;
   }
 
   .ongoing-title{
-    font-size: 4vw
+    font-size: 5vw
   }
 
   .order-text {
-    font-size: 3vw;
+    font-size: 4vw;
   }
 
   .order-status {
-    width: 40vw;
+    width: 50vw;
   }
 
   .status-row {
-    font-size: 3vw;
+    font-size: 4vw;
   }
 }

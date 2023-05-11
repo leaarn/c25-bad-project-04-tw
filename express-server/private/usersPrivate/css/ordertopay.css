@@ -48,6 +48,7 @@
   border-radius: 15px;
   padding: 0 10px;
   margin: 3vw;
+  margin-bottom: 70px;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
@@ -80,7 +81,7 @@ h2 {
   line-height: 1.8;
 }
 
-p {
+.order-details {
   font-size: 18px;
   margin: 0;
   line-height: 1.8;
@@ -122,7 +123,7 @@ p {
 .pay-btn {
   border-radius: 50px;
   background-color: #ffaa5b;
-  font-size: 1.5vw;
+  font-size: 18px;
   color: #fff;
   border: 0;
   font-weight: 600;
@@ -171,7 +172,7 @@ input {
     font-size: 3vw;
   }
 
-  p {
+  .order-details {
     font-size: 2.5vw;
   }
 
@@ -184,17 +185,23 @@ input {
 }
 
 @media only screen and (max-width: 600px) {
-  h2 {
-    font-size: 4vw;
+  .banner {
+    width: 95vw;
+    height: 200px;
+    font-size: 40px;
   }
 
-  p {
-    font-size: 3vw;
+  h2 {
+    font-size: 5vw;
+  }
+
+  .order-details {
+    font-size: 4vw;
   }
 
   .pay-btn {
     color: #fff;
-    font-size: 4vw;
+    font-size: 5vw;
     padding: 8px 4vw;
     width: fit-content;
   }

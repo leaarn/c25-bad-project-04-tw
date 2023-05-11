@@ -12,13 +12,10 @@ async function showDriverInfo() {
   const driverInfo = await resp.json();
   console.log("driver info", driverInfo);
 
-  let htmlStr = `<i class="bi bi-person-circle"></i>
-      <div class="driver-details">
-        <p class="driver-name"><b>Hi, ${driverInfo.first_name}</b></p>
-        <p class="role">司機</p>
-      </div>`;
+  let htmlStr = `
+        <p class="driver-name"><b>Hi, ${driverInfo.first_name}</b></br>司機</p>`;
 
-  document.querySelector(".driver-info").innerHTML = htmlStr;
+  document.querySelector(".banner-area").innerHTML = htmlStr;
 }
 
 async function showCurrentDistrict() {
@@ -88,7 +85,6 @@ async function showAllOrders(district) {
     const dateStr = new Date(allOrders[i].pick_up_date).toDateString();
     htmlStr += `
       <div class="single_order">
-        <div>
           <p class="order-text">FROM</p>
           <div class="pick_up_district_time">
             <div class="pick_up_district">${allOrders[i].pick_up_district}</div>
@@ -99,7 +95,6 @@ async function showAllOrders(district) {
             <div class="deli_district">${allOrders[i].deliver_district}</div>
             <div class="animal">${animalDetails}</div>
           </div>
-        </div>
         ${acceptBtn}
       </div>
       `;

@@ -11,9 +11,12 @@ window.onload = async () => {
   console.log(orderDetails);
 
   const htmlstr = `
-  <p>司機姓名 : ${orderDetails.full_name}</p>
-  <p>司機聯絡電話: ${orderDetails.contact_num}</p>
-  <p>司機車牌: ${orderDetails.car_license_num}</p>
+  <p class="detail-text">司機姓名 : ${orderDetails.full_name}</p>
+  <p class="detail-text">司機聯絡電話: ${orderDetails.contact_num}</p>
+  <p class="detail-text">司機車牌: ${orderDetails.car_license_num}</p>
+  <div class="btn-div">
+        <a href="./allorderstatus.html"><button class="back-btn">返回你的訂單狀態</button></a>
+      </div>
   `;
   document.querySelector(".order-details").innerHTML = htmlstr;
   usersLogout();

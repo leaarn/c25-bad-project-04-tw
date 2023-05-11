@@ -50,10 +50,11 @@ margin-right: 5vw;
   border-radius: 15px;
   padding: 25px;
   margin: 15px;
+  margin-bottom: 50px;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 /* sub-title */
-p {
+.sub-title {
   color: #ae782e;
   margin-bottom: 0.5vw;
   margin-top: 1vw;
@@ -213,7 +214,7 @@ text-align: center;
     width: 95vw;
   }
 
-  p {
+  .sub-title {
     color: #ae782e;
     margin-bottom: 0.5vw;
     margin-top: 1vw;
@@ -266,12 +267,18 @@ text-align: center;
 }
 
 @media only screen and (max-width: 600px) {
-  p {
+  .banner {
+    width: 95vw;
+    height: 200px;
+    font-size: 40px;
+  }
+
+  .sub-title {
     color: #ae782e;
     margin-bottom: 0.5vw;
     margin-top: 1vw;
     text-align: left;
-    font-size: 4vw;
+    font-size: 5vw;
   }
 
   .bi-plus-circle-fill,
@@ -281,7 +288,7 @@ text-align: center;
     padding-left: 1vw;
     /* padding-top: 1vw; */
     cursor: pointer;
-    font-size: 3vw;
+    font-size: 5vw;
   }
 
   /* place holder */
@@ -289,7 +296,7 @@ text-align: center;
   textarea,
   ::placeholder {
     color: rgba(255, 157, 29, 0.5);
-    font-size: 3.5vw;
+    font-size: 4vw;
   }
 
   /* when there is input */
@@ -298,12 +305,12 @@ text-align: center;
   textarea,
   :valid {
     color: #ae782e;
-    font-size: 3.5vw;
+    font-size: 4vw;
   }
 
   .submit-btn {
     color: #fff;
-    font-size: 4vw;
+    font-size: 5vw;
     padding: 8px 4vw;
     width: fit-content;
   }

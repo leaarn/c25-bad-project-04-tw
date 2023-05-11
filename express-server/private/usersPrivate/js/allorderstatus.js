@@ -18,6 +18,7 @@ async function allOrderStatus() {
   //iterate orders haven't complete
   for (const order of notFinish) {
     const orderCode = document.createElement("p");
+    orderCode.style = "font-weight: bold"
     const createTime = document.createElement("p");
     const pickUpDateTime = document.createElement("p");
     const pickUpAddress = document.createElement("p");

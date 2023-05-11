@@ -10,10 +10,6 @@ async function loadCompleteOrder() {
   console.log("complete orders", complete);
   //  big container
   const orderContainer = document.querySelector(".all-complete-order");
-  //   title
-  const title = document.createElement("h3");
-  title.innerText = `歷史訂單`;
-  orderContainer.appendChild(title);
   //iterate orders complete
   for (const order of complete) {
     //create element
@@ -41,6 +37,9 @@ async function loadCompleteOrder() {
     orderDiv.className = "each-order";
     const orderDetailsDiv = document.createElement("div");
     orderDetailsDiv.className = "order-details";
+    referenceCode.className = "order-details"
+    orderStatus.className = "order-details"
+    animals.className = "order-details"
     //button for more details
     const detailsBtn = document.createElement("button");
     detailsBtn.textContent = `查看更多`;
