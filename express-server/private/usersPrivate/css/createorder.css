@@ -2,6 +2,12 @@
 margin-left: 5vw;
 margin-right: 5vw;
 } */
+#create-order-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
 .banner-area {
   display: flex;
@@ -42,8 +48,8 @@ margin-right: 5vw;
   text-align: left;
   border: 0;
   border-radius: 15px;
-  padding: 2vw;
-  margin: 2vw;
+  padding: 25px;
+  margin: 15px;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 /* sub-title */
@@ -52,7 +58,7 @@ p {
   margin-bottom: 0.5vw;
   margin-top: 1vw;
   text-align: left;
-  font-size: 1.5vw;
+  font-size: 20px;
 }
 
 /* div align */
@@ -69,18 +75,19 @@ p {
 }
 /* date and time width */
 .date {
-  width: 57%;
+  width: 555px;
   text-align: center;
   letter-spacing: 6px;
   padding: 5px;
-  margin-right: 0.6vw;
+  margin-right: 10px
 }
 .time {
-  width: 37%;
+  width: 370px;
   letter-spacing: 2px;
   text-align: center;
   padding: 5px;
-  margin-left: 0.5vw;
+  margin-left: 10px;
+  margin-right: 0;
 }
 
 /* border */
@@ -89,7 +96,7 @@ select,
 textarea {
   color: rgba(255, 157, 29, 0.5);
   border: 1px solid rgb(253, 202, 72);
-  margin: 1vw 1vw 1vw 0;
+  margin: 10px 10px 10px 0;
   width: 100%;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
   padding: 5px;
@@ -111,7 +118,7 @@ input,
 textarea,
 ::placeholder {
   color: rgba(255, 157, 29, 0.5);
-  font-size: 1.5vw;
+  font-size: 18px;
 }
 
 /* when there is input */
@@ -120,7 +127,7 @@ select,
 textarea,
 :valid {
   color: #ae782e;
-  font-size: 1.5vw;
+  font-size: 18px;
 }
 
 /* can't change select color yet */
@@ -160,7 +167,7 @@ text-align: center;
   padding-left: 1vw;
   /* padding-top: 1vw; */
   cursor: pointer;
-  font-size: 2.5vw;
+  font-size: 20px;
 }
 .submit-btn-flex{
   display: flex;
@@ -169,7 +176,7 @@ text-align: center;
 .submit-btn {
   border-radius: 50px;
   background-color: #ffaa5b;
-  font-size: 1.5vw;
+  font-size: 18px;
   color: #fff;
   border: 0;
   font-weight: 600;
@@ -187,12 +194,23 @@ text-align: center;
   box-shadow: 0 5px #905201;
   transform: translateY(4px);
 }
+@media only screen and (min-width: 1000px) {
+  .form-area {
+    width: 1000px;
+  }
+  
+}
+
 
 @media only screen and (max-width: 1000px) {
   .banner {
     width: 95vw;
     height: 50vh;
     font-size: 4.3vw;
+  }
+
+  .form-area {
+    width: 95vw;
   }
 
   p {

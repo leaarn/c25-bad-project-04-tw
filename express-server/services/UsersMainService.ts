@@ -85,6 +85,7 @@ export class UsersMainService {
         json_agg(animals.animals_name) AS animals_name,
         json_agg(order_animals.animals_amount) AS animals_amount,
         remarks,
+        reference_code,
         max(distance_km) AS distance_km,
         orders.id, 
         max(distance_km * distance_price) AS distance_total_price,
@@ -95,7 +96,7 @@ export class UsersMainService {
       .join("animals", "animals.id", "order_animals.animals_id")
       .where("orders.orders_status", "=", "not pay yet")
       .andWhere("orders.users_id", "=", usersId)
-      .groupBy(
+      .groupBy("reference_code",
         "remarks",
         "distance_km",
         "pick_up_date_time",

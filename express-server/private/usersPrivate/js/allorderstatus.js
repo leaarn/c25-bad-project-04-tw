@@ -12,7 +12,7 @@ async function allOrderStatus() {
   const orderContainer = document.querySelector(".all-order-status");
   //title
   const title = document.createElement("div");
-  title.textContent = `實時訂單狀態`;
+  title.textContent = `訂單資料`;
   title.className = "ongoing-title"
   orderContainer.appendChild(title);
   //iterate orders haven't complete
