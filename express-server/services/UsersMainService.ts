@@ -90,7 +90,8 @@ export class UsersMainService {
         orders.id, 
         max(distance_km * distance_price) AS distance_total_price,
         SUM(order_animals.animals_history_price * order_animals.animals_amount) AS animals_total_price, 
-        max(distance_km * distance_price) + SUM(order_animals.animals_history_price * order_animals.animals_amount) AS total_price`)
+        max(distance_km * distance_price) + SUM(order_animals.animals_history_price * order_animals.animals_amount) AS total_price,
+        created_at`)
       )
       .join("order_animals", "order_animals.orders_id", "orders.id")
       .join("animals", "animals.id", "order_animals.animals_id")
@@ -102,8 +103,9 @@ export class UsersMainService {
         "pick_up_date_time",
         "pick_up_address",
         "deliver_address",
-        "orders.id"
-      )
+        "orders.id",
+        "created_at"
+      ).orderBy("created_at",'desc')
       .first();
 
     return orderToPay;
@@ -227,8 +229,6 @@ export class UsersMainService {
         receiver_contact: input.receiver_contact,
         token: input.token,
         remarks: input.remarks,
-        AI_rating: input.AI_rating,
-        is_AI: input.is_AI,
       })
       .returning("id");
 
@@ -242,6 +242,8 @@ export class UsersMainService {
         animals_id: input.animals_id[i],
         animals_amount: input.animals_amount[i],
         animals_history_price: animals_history_price.price,
+        AI_rating: input.AI_rating,
+        is_AI: input.is_AI,
       });
     }
   };

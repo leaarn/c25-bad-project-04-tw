@@ -19,7 +19,7 @@ const grantExpress = grant.express({
     key: process.env.GOOGLE_CLIENT_ID || "",
     secret: process.env.GOOGLE_CLIENT_SECRET || "",
     scope: ["profile", "email"],
-    callback: "/userslogin/google",
+    callback: "/login/google",
   },
 });
 
@@ -60,15 +60,14 @@ app.use((req, _res, next) => {
 import { UsersController } from "./controllers/UsersController";
 import { DriversController } from "./controllers/DriversController";
 import { ReceiversController } from "./controllers/ReceiversController";
-import { UsersMainController } from "./controllers/usersMainController"
+import { UsersMainController } from "./controllers/usersMainController";
 import { DriversMainController } from "./controllers/DriversMainController";
-
 
 // Services
 import { UsersService } from "./services/UsersService";
 import { DriversService } from "./services/DriversService";
 import { ReceiversService } from "./services/ReceiversService";
-import {UsersMainService} from "./services/UsersMainService"
+import { UsersMainService } from "./services/UsersMainService";
 import { DriversMainService } from "./services/DriversMainService";
 
 const usersService = new UsersService(knex);
@@ -80,11 +79,13 @@ export const driversController = new DriversController(driversService);
 const receiversService = new ReceiversService(knex);
 export const receiversController = new ReceiversController(receiversService);
 
-const usersMainService = new UsersMainService(knex)
-export const usersMainController = new UsersMainController(usersMainService)
+const usersMainService = new UsersMainService(knex);
+export const usersMainController = new UsersMainController(usersMainService);
 
 const driversMainService = new DriversMainService(knex);
-export const driversMainController = new DriversMainController(driversMainService);
+export const driversMainController = new DriversMainController(
+  driversMainService
+);
 
 // Section 2: Route Handlers
 // import { authRoutes } from "./routers/authRoutes";
@@ -109,6 +110,7 @@ app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
 app.use("/users", userIsLoggedInApi, usersMainRoutes);
 app.use("/receivertoken", receiverRoutes);
 app.use("/logout", logoutRoutes);
+app.get("/login/google", usersController.loginGoogleControl);
 
 // Section 3: Serve
 

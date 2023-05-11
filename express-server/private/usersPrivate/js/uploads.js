@@ -261,7 +261,7 @@ async function aiCreateOrder() {
     const isAI = true
 
     console.log(`yyyyyy~~~${JSON.stringify(anmId[0])}`);
-    const resp = await fetch("/aiCreateOrder", {
+    const resp = await fetch("/users/aiCreateOrder", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
