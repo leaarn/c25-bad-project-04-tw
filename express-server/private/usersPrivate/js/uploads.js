@@ -129,12 +129,9 @@ function updateUI(result) {
     <button id="form-toggle-manual">Not OK</button>
     `;
   }
-<<<<<<< HEAD
   // showForm();
 
   return confirmedAnimals;
-=======
->>>>>>> 1188649eac14d2428879d0c6a929ae51960e7d61
 }
 
 // console.log("here is confirmed animals",confirmedAnimals)
@@ -259,30 +256,8 @@ async function aiCreateOrder() {
     const receiver_contact = form.receiverContact.value;
     const remarks = form.remarks.value;
     const rate = form.rate.value;
-<<<<<<< HEAD
     const anmId = confirmedAnimals.anmId
     const anmAmount = confirmedAnimals.anmAmount
-=======
-    const animals_id = [];
-    const animals_id_selects = form.querySelectorAll("select[name=animals_id]");
-    for (const select of animals_id_selects) {
-      animals_id.push(select.value);
-    }
-    console.log("here is id", animals_id);
-    const animals_amount = [];
-    const animals_amount_selects = form.querySelectorAll(
-      "select[name=animals_amount]"
-    );
-    let total = 0;
-    for (const select of animals_amount_selects) {
-      animals_amount.push(select.value);
-      total += parseInt(select.value);
-    }
-    if (total > 5) {
-      alert("Too many animals la...");
-      return;
-    }
->>>>>>> 1188649eac14d2428879d0c6a929ae51960e7d61
 
     console.log(`yyyyyy~~~${JSON.stringify(anmId[0])}`);
     const resp = await fetch("/aiCreateOrder", {
