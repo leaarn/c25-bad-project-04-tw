@@ -234,12 +234,12 @@ export class UsersMainService {
     for (let i = 0; i < input.animals_id.length; i++) {
       const animals_history_price = await this.knex("animals")
         .select("price")
-        .where("id", "=", `${parseInt(input.animals_id[i])}`)
+        .where("id", "=", `${input.animals_id[i]}`)
         .first();
       await this.knex("order_animals").insert({
         orders_id: createOrderId[0].id,
-        animals_id: parseInt(input.animals_id[i]),
-        animals_amount: parseInt(input.animals_amount[i]),
+        animals_id: input.animals_id[i],
+        animals_amount: input.animals_amount[i],
         animals_history_price: animals_history_price.price,
       });
     }

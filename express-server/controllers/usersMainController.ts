@@ -230,7 +230,8 @@ export class UsersMainController {
       const pick_up_building = req.body.pick_up_building;
       const pick_up_street = req.body.pick_up_street;
       const AI_rating = req.body.AI_rating;
-      const is_AI = req.body.is_AI;
+      const is_AI = req.body.isAI;
+
 
       // const pick_up_coordinates =req.body.pick_up_coordinates
       const deliver_district = req.body.deliver_district;

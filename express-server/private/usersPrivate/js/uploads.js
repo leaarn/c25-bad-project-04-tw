@@ -258,6 +258,7 @@ async function aiCreateOrder() {
     const rate = form.rate.value;
     const anmId = confirmedAnimals.anmId
     const anmAmount = confirmedAnimals.anmAmount
+    const isAI = true
 
     console.log(`yyyyyy~~~${JSON.stringify(anmId[0])}`);
     const resp = await fetch("/aiCreateOrder", {
@@ -281,7 +282,8 @@ async function aiCreateOrder() {
         remarks,
         rate,
         anmId,
-        anmAmount
+        anmAmount,
+        isAI
       }),
     });
 
