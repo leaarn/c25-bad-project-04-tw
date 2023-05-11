@@ -26,7 +26,7 @@ margin-right: 5vw;
   margin: 2vw;
   color: #ffca59;
   text-align: center;
-  font-size: 3.5vw;
+  font-size: 50px;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -205,8 +205,8 @@ text-align: center;
 @media only screen and (max-width: 1000px) {
   .banner {
     width: 95vw;
-    height: 50vh;
-    font-size: 4.3vw;
+    height: 400px;
+    font-size: 40px;
   }
 
   .form-area {
@@ -229,6 +229,15 @@ text-align: center;
     /* padding-top: 1vw; */
     cursor: pointer;
     font-size: 2.8vw;
+  }
+
+  .date {
+    width: 100%;
+    margin-right: 0px
+  }
+  .time {
+    width: 100%;
+    margin-left: 0px;
   }
 
   /* place holder */
@@ -257,10 +266,6 @@ text-align: center;
 }
 
 @media only screen and (max-width: 600px) {
-  .banner {
-    font-size: 5vw;
-  }
-
   p {
     color: #ae782e;
     margin-bottom: 0.5vw;

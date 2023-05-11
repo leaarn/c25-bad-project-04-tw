@@ -12,10 +12,10 @@
   background-image: url("../assets/banner.png");
   background-position: center;
   background-size: 80vh;
-  margin: 2vw;
+  margin: 20px;
   color: #ffca59;
   text-align: center;
-  font-size: 3.5vw;
+  font-size: 50px;
   background-size: cover;
   display: flex;
   justify-content: center;
@@ -52,12 +52,12 @@
 }
 
 h2 {
-  margin: 2vw;
+  margin: 20px;
   color: #ae782e;
   text-align: center;
   /* padding-left: 5vw;
   padding-right: 8vw; */
-  font-size: 2vw;
+  font-size: 22px;
 }
 
 #order-id {
@@ -73,10 +73,16 @@ h2 {
   text-align: left;
   border: 0;
   border-radius: 15px;
-  padding: 2vw 10px 2vw 10px;
-  margin: 2vw;
-  font-size: 1.5vw;
+  padding: 20px;
+  margin: 20px;
+  font-size: 18px;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
+  line-height: 1.8;
+}
+
+p {
+  font-size: 18px;
+  margin: 0;
   line-height: 1.8;
 }
 
@@ -88,8 +94,8 @@ h2 {
 
 .payment-div {
   width: 80%;
-  padding-right: 2vw;
-  padding-right: 7vw;
+  /* padding-right: 2vw;
+  padding-right: 7vw; */
 }
 .payment-method {
   display: flex;
@@ -103,14 +109,14 @@ h2 {
 }
 
 .payment-column img {
-  width: 10vw;
+  width: 100px;
 }
 
 .payment-column {
   margin-bottom: 1vw;
 }
 .each-payment {
-  margin: 3vw;
+  margin: 18px;
 }
 
 .pay-btn {
@@ -153,8 +159,8 @@ input {
 @media only screen and (max-width: 1000px) {
   .banner {
     width: 95vw;
-    height: 50vh;
-    font-size: 4.3vw;
+    height: 400px;
+    font-size: 40px;
   }
 
   .order {
@@ -178,10 +184,6 @@ input {
 }
 
 @media only screen and (max-width: 600px) {
-  .banner {
-    font-size: 5vw;
-  }
-
   h2 {
     font-size: 4vw;
   }

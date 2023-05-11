@@ -25,16 +25,16 @@ body {
 .bi-list,
 .bi-x-lg {
   color: rgb(255, 157, 29);
-  font-size: 3vw;
+  font-size: 50px;
 }
 
 .bi-filter-left {
   color: rgb(251, 232, 203);
-  font-size: 3vw;
+  font-size: 50px;
 }
 
 .logo {
-  width: 14vw;
+  width: 300px;
   text-align: center;
 }
 
@@ -136,8 +136,19 @@ footer {
 
 @media only screen and (max-width: 768px) {
   .logo {
-    width: 30vw;
+    width: 250px;
     text-align: center;
+  }
+
+  .bi-list,
+  .bi-x-lg {
+    color: rgb(255, 157, 29);
+    font-size: 50px;
+  }
+
+  .bi-filter-left {
+    color: rgb(251, 232, 203);
+    font-size: 50px;
   }
 }
 
@@ -151,19 +162,24 @@ footer {
     font-size: larger;
   }
 
+  .logo {
+    width: 200px;
+    text-align: center;
+  }
+
   .bi-list,
   .bi-x-lg {
     color: rgb(255, 157, 29);
-    font-size: 6vw;
+    font-size: 40px;
+  }
+
+  .bi-filter-left {
+    color: rgb(251, 232, 203);
+    font-size: 40px;
   }
 
   .offcanvas.offcanvas-start {
     width: 60%;
-  }
-
-  .logo {
-    width: 35vw;
-    text-align: center;
   }
 
   footer {
