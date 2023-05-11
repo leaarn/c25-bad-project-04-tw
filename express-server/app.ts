@@ -11,7 +11,7 @@ const knex = Knex(config[process.env.NODE_ENV || "development"]);
 
 const grantExpress = grant.express({
   defaults: {
-    origin: "https://www.chickenvan.online",
+    origin: "https://chickenvan.online",
     transport: "session",
     state: true,
   },
@@ -19,7 +19,7 @@ const grantExpress = grant.express({
     key: process.env.GOOGLE_CLIENT_ID || "",
     secret: process.env.GOOGLE_CLIENT_SECRET || "",
     scope: ["profile", "email"],
-    callback: "/login/google",
+    callback: "/userslogin/google",
   },
 });
 
@@ -110,7 +110,7 @@ app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
 app.use("/users", userIsLoggedInApi, usersMainRoutes);
 app.use("/receivertoken", receiverRoutes);
 app.use("/logout", logoutRoutes);
-app.get("/login/google", usersController.loginGoogleControl);
+// app.get("/login/google", usersController.loginGoogleControl);
 
 // Section 3: Serve
 
