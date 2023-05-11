@@ -22,20 +22,20 @@ async function loadOrderToPay() {
 
   //確認你的訂單
   const htmlstr1 = `
-  <p>Order Number : <span id='order-id'>${data.id}</span></p>
-  <p>收貨時間 : ${data.pick_up_date_time}</p>
-  <p>收貨地址 : ${data.pick_up_address}</p>
-  <p>送貨地址 : ${data.deliver_address}</p>
-  <p>動物 : ${animalDetails}</p>
-  <p>備註: ${data.remarks}</p>
+  <p>訂單號碼：${data.reference_code}<span id='order-id'>${data.id}</span></p>
+  <p>收貨時間：${data.pick_up_date_time}</p>
+  <p>收貨地址：${data.pick_up_address}</p>
+  <p>送貨地址：${data.deliver_address}</p>
+  <p>動物：${animalDetails}</p>
+  <p>備註：${data.remarks}</p>
   `;
 
   //訂單總價
   const htmlstr2 = `
-  <p>距離 : ${data.distance_km}km - HK$${data.distance_total_price} </p>
-  <p>動物 : ${animalDetails}</p> 
-  <p>動物總價 : HK$${data.animals_total_price}</p>
-  <p>合共價格 : HK$${data.total_price}</p>
+  <p>距離：${data.distance_km}km - HK$${data.distance_total_price} </p>
+  <p>動物：${animalDetails}</p> 
+  <p>動物總價：HK$${data.animals_total_price}</p>
+  <p>合共價格：HK$${data.total_price}</p>
   `;
 
   document.querySelector(".confirm-order").innerHTML = htmlstr1;

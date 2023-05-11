@@ -232,10 +232,16 @@ async function defaultAddress() {
   document.querySelector(".pick-up-street").value = pickUpStreet;
 }
 
+function dateMinCurrentDay(){
+  let date =  document.querySelector(".date")
+  date.min = new Date().toISOString().split('T')[0]
+}
+
 
 async function aiCreateOrder() {
   const form = document.querySelector("#create-order-form");
   defaultAddress()
+  dateMinCurrentDay()
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const pick_up_date = form.date.value;
@@ -261,7 +267,7 @@ async function aiCreateOrder() {
     const isAI = true
 
     console.log(`yyyyyy~~~${JSON.stringify(anmId[0])}`);
-    const resp = await fetch("/aiCreateOrder", {
+    const resp = await fetch("/users/aiCreateOrder", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

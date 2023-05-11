@@ -28,6 +28,11 @@ body {
   font-size: 3vw;
 }
 
+.bi-filter-left {
+  color: rgb(251, 232, 203);
+  font-size: 3vw;
+}
+
 .logo {
   width: 14vw;
   text-align: center;
@@ -35,7 +40,7 @@ body {
 
 .empty {
   padding: 0 10px;
-  margin: 0 6vw;
+  margin-left: 5vw;
 }
 
 #offcanvasMenu {
@@ -125,9 +130,9 @@ footer {
   color: #ae782e;
 }
 
-p {
+/* p {
   margin: 0;
-}
+} */
 
 @media only screen and (max-width: 768px) {
   .logo {

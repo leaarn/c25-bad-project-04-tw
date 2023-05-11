@@ -85,6 +85,7 @@ export class UsersMainService {
         json_agg(animals.animals_name) AS animals_name,
         json_agg(order_animals.animals_amount) AS animals_amount,
         remarks,
+        reference_code,
         max(distance_km) AS distance_km,
         orders.id, 
         max(distance_km * distance_price) AS distance_total_price,
@@ -96,7 +97,7 @@ export class UsersMainService {
       .join("animals", "animals.id", "order_animals.animals_id")
       .where("orders.orders_status", "=", "not pay yet")
       .andWhere("orders.users_id", "=", usersId)
-      .groupBy(
+      .groupBy("reference_code",
         "remarks",
         "distance_km",
         "pick_up_date_time",
@@ -148,7 +149,7 @@ export class UsersMainService {
         "reference_code",
         "orders.drivers_id"
       )
-      .orderBy("orders.created_at");
+      .orderBy("orders.created_at","desc");
 
     return queryResult;
   };
@@ -228,8 +229,6 @@ export class UsersMainService {
         receiver_contact: input.receiver_contact,
         token: input.token,
         remarks: input.remarks,
-        AI_rating: input.AI_rating,
-        is_AI: input.is_AI,
       })
       .returning("id");
 
@@ -243,6 +242,8 @@ export class UsersMainService {
         animals_id: input.animals_id[i],
         animals_amount: input.animals_amount[i],
         animals_history_price: animals_history_price.price,
+        AI_rating: input.AI_rating,
+        is_AI: input.is_AI,
       });
     }
   };

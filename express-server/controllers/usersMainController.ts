@@ -229,9 +229,8 @@ export class UsersMainController {
       const pick_up_floor = req.body.pick_up_floor;
       const pick_up_building = req.body.pick_up_building;
       const pick_up_street = req.body.pick_up_street;
-      const AI_rating = req.body.AI_rating;
+      const AI_rating = req.body.rate;
       const is_AI = req.body.isAI;
-
 
       // const pick_up_coordinates =req.body.pick_up_coordinates
       const deliver_district = req.body.deliver_district;
@@ -275,6 +274,7 @@ export class UsersMainController {
         AI_rating,
         is_AI,
       });
+      console.log("hihihi",res.status)
       res.status(200).json({ message: "create order success" });
     } catch (err: any) {
       logger.error(err.message);

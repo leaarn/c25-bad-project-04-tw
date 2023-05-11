@@ -44,6 +44,11 @@ body {
   font-size: 3vw;
 }
 
+.bi-filter-left {
+  color: rgb(251, 232, 203);
+  font-size: 3vw;
+}
+
 .logo {
   width: 14vw;
   text-align: center;
