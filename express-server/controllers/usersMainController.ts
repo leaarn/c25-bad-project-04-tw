@@ -244,8 +244,8 @@ export class UsersMainController {
       const users_id = req.session.users_id!;
       const receiver_name = req.body.receiver_name;
       const receiver_contact = req.body.receiver_contact;
-      const animals_id = req.body.animals_id;
-      const animals_amount = req.body.animals_amount;
+      const animals_id = req.body.anmId;
+      const animals_amount = req.body.anmAmount;
       const remarks = req.body.remarks;
       const distance_km = this.randomDistance();
       const token = randomToken();

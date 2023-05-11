@@ -5,8 +5,8 @@ window.onload = () => {
   // aiCreateOrder();
 };
 
-let dbAnimalArr;
-let animalCount;
+let confirmedAnimals = {}
+
 function updateUI(result) {
   console.log("updateUI-result", result);
   // Filter result to below classes
@@ -69,14 +69,18 @@ function updateUI(result) {
   // Transfer animal array to eg.(羊 X 1 ) format
   const animalName = Object.keys(counts);
   console.log("animalName", animalName);
-  animalCount = Object.values(counts);
+  const animalCount = Object.values(counts);
   console.log("animalCount", animalCount);
 
-  dbAnimalArr = [];
+  let dbAnimalArr = [];
   for (i = 0; i < animalName.length; i++) {
     dbAnimalArr.push(IdsAnimalDict[animalName[i]]);
   }
   console.log("anm with id", dbAnimalArr);
+
+  //get confirmedAnimals
+  confirmedAnimals.anmId = dbAnimalArr;
+  confirmedAnimals.anmAmount = animalCount;
 
   let animalDetails = ``;
   if (Array.isArray(animalName)) {
@@ -125,8 +129,19 @@ function updateUI(result) {
     <button id="form-toggle-manual">Not OK</button>
     `;
   }
+<<<<<<< HEAD
   showForm();
+=======
+<<<<<<< HEAD
+  // showForm();
+
+  return confirmedAnimals;
+=======
+>>>>>>> 1188649eac14d2428879d0c6a929ae51960e7d61
+>>>>>>> 50fd94db6c8dc79cc3edb1259ef175514f81ef83
 }
+
+// console.log("here is confirmed animals",confirmedAnimals)
 
 async function uploadPhotos() {
   let input = document.getElementById("image");
@@ -172,10 +187,10 @@ async function uploadPhotos() {
       alert("成功上載！");
       console.log(`result: ${result}`);
       console.log("type of", result);
-      updateUI(result);
+      confirmedAnimals = updateUI(result);
       showForm();
       // showResults()
-      console.log(`seee~~~${dbAnimalArr}${animalCount}`);
+      
     }
   });
 }
@@ -203,12 +218,31 @@ async function showForm() {
     let x = document.querySelector("#order-form-div");
     if (x.style.display === "none") {
       x.style.display = "block";
+      aiCreateOrder()
     }
   });
 }
 
+async function defaultAddress() {
+  const resp = await fetch("/users/address");
+  const address = await resp.json();
+  console.log(address);
+  const pickUpDistrict = address.default_district;
+  const pickUpRoom = address.default_room;
+  const pickUpFloor = address.default_floor;
+  const pickUpBuilding = address.default_building;
+  const pickUpStreet = address.default_street;
+  document.querySelector(".pick-up-district").value = pickUpDistrict;
+  document.querySelector(".pick-up-room").value = pickUpRoom;
+  document.querySelector(".pick-up-floor").value = pickUpFloor;
+  document.querySelector(".pick-up-building").value = pickUpBuilding;
+  document.querySelector(".pick-up-street").value = pickUpStreet;
+}
+
+
 async function aiCreateOrder() {
   const form = document.querySelector("#create-order-form");
+  defaultAddress()
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const pick_up_date = form.date.value;
@@ -229,7 +263,35 @@ async function aiCreateOrder() {
     const receiver_contact = form.receiverContact.value;
     const remarks = form.remarks.value;
     const rate = form.rate.value;
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    const anmId = confirmedAnimals.anmId
+    const anmAmount = confirmedAnimals.anmAmount
+=======
+    const animals_id = [];
+    const animals_id_selects = form.querySelectorAll("select[name=animals_id]");
+    for (const select of animals_id_selects) {
+      animals_id.push(select.value);
+    }
+    console.log("here is id", animals_id);
+    const animals_amount = [];
+    const animals_amount_selects = form.querySelectorAll(
+      "select[name=animals_amount]"
+    );
+    let total = 0;
+    for (const select of animals_amount_selects) {
+      animals_amount.push(select.value);
+      total += parseInt(select.value);
+    }
+    if (total > 5) {
+      alert("Too many animals la...");
+      return;
+    }
+>>>>>>> 1188649eac14d2428879d0c6a929ae51960e7d61
+>>>>>>> 50fd94db6c8dc79cc3edb1259ef175514f81ef83
 
+    console.log(`yyyyyy~~~${JSON.stringify(anmId[0])}`);
     const resp = await fetch("/aiCreateOrder", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -250,8 +312,8 @@ async function aiCreateOrder() {
         receiver_contact,
         remarks,
         rate,
-        dbAnimalArr,
-        animalCount,
+        anmId,
+        anmAmount
       }),
     });
 
