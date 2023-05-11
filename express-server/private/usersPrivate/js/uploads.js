@@ -232,10 +232,16 @@ async function defaultAddress() {
   document.querySelector(".pick-up-street").value = pickUpStreet;
 }
 
+function dateMinCurrentDay(){
+  let date =  document.querySelector(".date")
+  date.min = new Date().toISOString().split('T')[0]
+}
+
 
 async function aiCreateOrder() {
   const form = document.querySelector("#create-order-form");
   defaultAddress()
+  dateMinCurrentDay()
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const pick_up_date = form.date.value;
