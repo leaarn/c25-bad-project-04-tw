@@ -13,7 +13,12 @@ a:hover {
   text-decoration: none;
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: "Jost", sans-serif;
 }
 
@@ -90,7 +95,7 @@ h1,h2,h3,h4,h5,h6 {
 
 #header.header-scrolled,
 #header.header-inner-pages {
-  background:  rgb(184, 149, 58);
+  background: rgb(184, 149, 58);
 }
 
 #header .logo {
@@ -170,7 +175,7 @@ h1,h2,h3,h4,h5,h6 {
 .navbar .getstarted:hover,
 .navbar .getstarted:focus:hover {
   color: #fff;
-  background:  rgb(215, 170, 112);
+  background: rgb(215, 170, 112);
 }
 
 .navbar .dropdown ul {
@@ -512,7 +517,6 @@ section {
 }
 
 .about .content p {
-  padding-left: 28px;
   position: relative;
 }
 
@@ -533,7 +537,7 @@ section {
   display: flex;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 2vw;
+  margin-bottom: 10vw;
 }
 
 .plans {
@@ -837,7 +841,6 @@ section {
   background: rgb(215, 170, 112);
 }
 
-
 #footer .footer-top {
   padding: 60px 0 30px 0;
   background: #fff;
@@ -854,7 +857,7 @@ section {
   line-height: 1;
   text-transform: uppercase;
   font-weight: 600;
-  color:rgb(184, 149, 58);
+  color: rgb(184, 149, 58);
 }
 
 #footer .footer-top .footer-contact p {
@@ -868,7 +871,7 @@ section {
 #footer .footer-top h4 {
   font-size: 16px;
   font-weight: bold;
-  color:rgb(184, 149, 58);
+  color: rgb(184, 149, 58);
   position: relative;
   padding-bottom: 12px;
 }
@@ -885,7 +888,7 @@ section {
 
 #footer .footer-top .footer-links ul i {
   padding-right: 2px;
-  color:  rgb(215, 170, 112);
+  color: rgb(215, 170, 112);
   font-size: 18px;
   line-height: 1;
 }
@@ -928,7 +931,7 @@ section {
 }
 
 #footer .footer-top .social-links a:hover {
-  background:  rgb(215, 170, 112);
+  background: rgb(215, 170, 112);
   color: #fff;
   text-decoration: none;
 }
@@ -953,9 +956,8 @@ section {
 }
 
 @media (max-width: 768px) {
-  #footer .footer-bottom {
-    padding-top: 20px;
-    padding-bottom: 20px;
+  #footer .footer-top {
+    display: none;
   }
 
   #footer .copyright,
@@ -969,8 +971,14 @@ section {
   }
 }
 
-
-
+@media (max-width: 768px) {
+  .clients img {
+    max-width: 40%;
+  }
+  iframe {
+    max-width: 100%
+  }
+}
 
 @keyframes animate-loading {
   0% {
