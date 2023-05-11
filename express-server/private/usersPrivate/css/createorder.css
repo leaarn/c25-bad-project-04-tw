@@ -1,34 +1,58 @@
-.order-form-div {
-  background-color: rgb(255, 245, 219);
+/* .create-order-form {
+margin-left: 5vw;
+margin-right: 5vw;
+} */
+
+.banner-area {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+}
+/* title */
+.banner {
+  position: relative;
+  width: 1000px;
+  height: 400px;
+  background-image: url("../assets/banner.png");
+  background-position: center;
+  background-size: 80vh;
+  margin: 2vw;
+  color: #ffca59;
+  text-align: center;
+  font-size: 3.5vw;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-shadow: 3px 3px #905201;
+}
+
+.banner::after {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.form-area {
+  background-color: rgb(255, 245, 219);
   text-align: left;
   border: 0;
   border-radius: 15px;
-  padding: 0 10px;
-  margin: 3vw;
-  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
-}
-
-/* .create-order-form {
-  margin-left: 5vw;
-  margin-right: 5vw;
-} */
-/* title */
-h3 {
+  padding: 2vw;
   margin: 2vw;
-  color: rgb(255, 157, 29);
-  text-align: center;
-  font-size: 3.5vw;
+  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 /* sub-title */
 p {
-  color: rgb(253, 202, 72);
+  color: #ae782e;
   margin-bottom: 0.5vw;
   margin-top: 1vw;
   text-align: left;
-  font-size: 2.5vw;
+  font-size: 1.5vw;
 }
 
 /* div align */
@@ -42,7 +66,6 @@ p {
   align-items: start;
   flex-wrap: wrap;
   text-align: left;
-  
 }
 /* date and time width */
 .date {
@@ -60,16 +83,11 @@ p {
   margin-left: 0.5vw;
 }
 
-/* animal title and plus btn */
-.sub-title-and-btn {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
 /* border */
 input,
 select,
 textarea {
+  color: rgba(255, 157, 29, 0.5);
   border: 1px solid rgb(253, 202, 72);
   margin: 1vw 1vw 1vw 0;
   width: 100%;
@@ -85,14 +103,15 @@ textarea {
 
 /* select  */
 select :disabled {
+  color: rgba(255, 157, 29, 0.5);
   background-color: rgba(208, 207, 205, 0.674);
 }
 /* place holder */
 input,
 textarea,
 ::placeholder {
-  color: rgb(253, 202, 72);
-  font-size: 2vw;
+  color: rgba(255, 157, 29, 0.5);
+  font-size: 1.5vw;
 }
 
 /* when there is input */
@@ -100,17 +119,17 @@ input,
 select,
 textarea,
 :valid {
-  color: rgb(255, 157, 29);
-  font-size: 2vw;
+  color: #ae782e;
+  font-size: 1.5vw;
 }
 
 /* can't change select color yet */
 /* select option:first-child {
-  color: green;
+color: green;
 } */
-option[value="null"] {
+/* option[value="null"] {
   color: yellow;
-}
+} */
 
 textarea:focus,
 input:focus {
@@ -120,58 +139,149 @@ input:focus {
 /*anm button */
 /* .add-animal,
 .remove-animal {
-  height: 25px;
-  width: 25px;
-  border-radius: 50%;
-  background-color: rgb(253, 202, 72);
-  border: 1px solid rgb(253, 202, 72);
-  text-align: center;
+height: 25px;
+width: 25px;
+border-radius: 50%;
+background-color: rgb(253, 202, 72);
+border: 1px solid rgb(253, 202, 72);
+text-align: center;
 } */
 
+/* animal title and plus btn */
+.sub-title-and-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .bi-plus-circle-fill,
 .bi-dash-circle-fill {
   /* padding: 5; */
-  color: rgb(253, 202, 72);
+  color: #ae782e;
   padding-left: 1vw;
-  padding-top: 1vw;
+  /* padding-top: 1vw; */
   cursor: pointer;
-}
-
-.submit-btn {
-  background-color: rgb(255, 227, 155);
-  border: 0;
-  border-radius: 15px;
-  color: rgb(255, 157, 29);
-  margin: 3vw 0;
-  padding: 8px;
-  font-size: 3vw;
-}
-/* hi users */
-.user-info {
-  border: 0;
-  border-radius: 15px;
-  background-color: rgb(255, 245, 219);
-  margin: 3vw ;
-  display: flex;
-  align-items: center;
-  color: rgb(255, 157, 29);
-  padding: 0 2vw;
-  justify-content: center;
-  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
-}
-
-.bi-person-circle {
-  color: rgb(255, 157, 29);
-  font-size: 7vw;
-  margin-right: 2vw;
-}
-
-.user-name {
-  font-size: 3.5vw;
-  margin: 10px;
-}
-
-.role {
   font-size: 2.5vw;
-  margin: 10px;
+}
+.submit-btn-flex{
+  display: flex;
+  justify-content: center;
+}
+.submit-btn {
+  border-radius: 50px;
+  background-color: #ffaa5b;
+  font-size: 1.5vw;
+  color: #fff;
+  border: 0;
+  font-weight: 600;
+  margin: 3vw 0;
+  padding: 8px 4vw;
+  width: fit-content;
+}
+
+.submit-btn:hover {
+  background-color: #ffa34d;
+}
+
+.submit-btn:active {
+  background-color: #ec8700;
+  box-shadow: 0 5px #905201;
+  transform: translateY(4px);
+}
+
+@media only screen and (max-width: 1000px) {
+  .banner {
+    width: 95vw;
+    height: 50vh;
+    font-size: 4.3vw;
+  }
+
+  p {
+    color: #ae782e;
+    margin-bottom: 0.5vw;
+    margin-top: 1vw;
+    text-align: left;
+    font-size: 3vw;
+  }
+
+  .bi-plus-circle-fill,
+  .bi-dash-circle-fill {
+    /* padding: 5; */
+    color: #ae782e;
+    padding-left: 1vw;
+    /* padding-top: 1vw; */
+    cursor: pointer;
+    font-size: 2.8vw;
+  }
+
+  /* place holder */
+  input,
+  textarea,
+  ::placeholder {
+    color: rgba(255, 157, 29, 0.5);
+    font-size: 2.5vw;
+  }
+
+  /* when there is input */
+  input,
+  select,
+  textarea,
+  :valid {
+    color: #ae782e;
+    font-size: 2.5vw;
+  }
+
+  .submit-btn {
+    color: #fff;
+    font-size: 3vw;
+    padding: 8px 3vw;
+    width: fit-content;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .banner {
+    font-size: 5vw;
+  }
+
+  p {
+    color: #ae782e;
+    margin-bottom: 0.5vw;
+    margin-top: 1vw;
+    text-align: left;
+    font-size: 4vw;
+  }
+
+  .bi-plus-circle-fill,
+  .bi-dash-circle-fill {
+    /* padding: 5; */
+    color: #ae782e;
+    padding-left: 1vw;
+    /* padding-top: 1vw; */
+    cursor: pointer;
+    font-size: 3vw;
+  }
+
+  /* place holder */
+  input,
+  textarea,
+  ::placeholder {
+    color: rgba(255, 157, 29, 0.5);
+    font-size: 3.5vw;
+  }
+
+  /* when there is input */
+  input,
+  select,
+  textarea,
+  :valid {
+    color: #ae782e;
+    font-size: 3.5vw;
+  }
+
+  .submit-btn {
+    color: #fff;
+    font-size: 4vw;
+    padding: 8px 4vw;
+    width: fit-content;
+  }
 }

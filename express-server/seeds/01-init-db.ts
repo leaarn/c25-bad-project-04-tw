@@ -3,7 +3,7 @@ import path from "path";
 import xlsx from "xlsx";
 import { hashPassword } from "../utils/hash";
 import {
-  UsersRow,
+  // UsersRow,
   DriversRow,
   PaymentMethodRow,
   OrderAnimalsRow,
@@ -18,8 +18,8 @@ import {
 import fs from "fs";
 
 export async function seed(knex: Knex): Promise<void> {
-  const usersFile = path.join(__dirname, "..", "db", "users.csv");
-  const users = xlsx.readFile(usersFile);
+  // const usersFile = path.join(__dirname, "..", "db", "users.csv");
+  // const users = xlsx.readFile(usersFile);
 
   const driversFile = path.join(__dirname, "..", "db", "drivers.csv");
   const drivers = xlsx.readFile(driversFile);
@@ -40,7 +40,7 @@ export async function seed(knex: Knex): Promise<void> {
   );
   const order_animals = xlsx.readFile(orderAnimalsFile);
 
-  const userRows = xlsx.utils.sheet_to_json<UsersRow>(users.Sheets["Sheet1"]);
+  // const userRows = xlsx.utils.sheet_to_json<UsersRow>(users.Sheets["Sheet1"]);
   const driverRows = xlsx.utils.sheet_to_json<DriversRow>(
     drivers.Sheets["Sheet1"]
   );
@@ -59,24 +59,48 @@ export async function seed(knex: Knex): Promise<void> {
   await knex(driverTable).del();
   await knex(userTable).del();
 
-  const insertUserRows = await Promise.all(
-    userRows.map(async (row) => ({
-      last_name: row.last_name,
-      first_name: row.first_name,
-      title: row.title,
-      email: row.email,
-      password: await hashPassword(row.password),
-      contact_num: row.contact_num,
-      default_district: row.default_district,
-      default_room: row.default_room,
-      default_floor: row.default_floor,
-      default_building: row.default_building,
-      default_street: row.default_street,
-      default_coordinates: row.default_coordinates,
-    }))
-  );
-  // Inserts seed entries
-  await knex(userTable).insert(insertUserRows);
+  // const insertUserRows = await Promise.all(
+  //   userRows.map(async (row) => ({
+  //     last_name: row.last_name,
+  //     first_name: row.first_name,
+  //     title: row.title,
+  //     email: row.email,
+  //     password: await hashPassword(row.password),
+  //     contact_num: row.contact_num,
+  //     default_district: row.default_district,
+  //     default_room: row.default_room,
+  //     default_floor: row.default_floor,
+  //     default_building: row.default_building,
+  //     default_street: row.default_street,
+  //     default_coordinates: row.default_coordinates,
+  //   }))
+  // );
+  // // Inserts seed entries
+  // await knex(userTable).insert(insertUserRows);
+
+  let usersArray = fs
+    .readFileSync(path.join(__dirname, "..", "db", "users.csv"))
+    .toString()
+    .replace(/(?:\\[rn]|[\r]+)+/g, "")
+    .split("\n");
+
+    for (let i = 1; i < usersArray.length; i++) {
+        const user = usersArray[i].split(",");
+        await knex(userTable).insert({
+          last_name: user[0],
+          first_name: user[1],
+          title: user[2],
+          email: user[3],
+          password: await hashPassword(user[4]),
+          contact_num: user[5],
+          default_district: user[6],
+          default_room: user[7],
+          default_floor: user[8],
+          default_building: user[9],
+          default_street: user[10],
+          default_coordinates: user[11],
+        });
+      }
 
   const insertDriverRows = await Promise.all(
     driverRows.map(async (row) => ({

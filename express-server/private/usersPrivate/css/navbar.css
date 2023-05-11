@@ -10,16 +10,16 @@ body {
   position: sticky;
   width: 100%;
   top: 0;
+  z-index: 10;
 }
 
 .menu_btn {
-  background-color: rgb(255, 227, 155);
+  background-color: rgb(251, 232, 203);
   border: 0;
-  border-radius: 15px;
   color: rgb(255, 157, 29);
   padding: 0 10px;
   margin-left: 5vw;
-  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
+  /* box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px; */
 }
 
 .bi-list,
@@ -29,7 +29,7 @@ body {
 }
 
 .logo {
-  width: 12vw;
+  width: 14vw;
   text-align: center;
 }
 
@@ -43,7 +43,7 @@ body {
 }
 
 .offcanvas.offcanvas-start {
-  width: 30%
+  width: 30%;
 }
 
 .close_button {
@@ -126,26 +126,38 @@ footer {
 }
 
 p {
-  margin: 0
+  margin: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .logo {
+    width: 30vw;
+    text-align: center;
+  }
 }
 
 @media only screen and (max-width: 600px) {
   .menu_btn {
-    background-color: rgb(255, 227, 155);
+    background-color: rgb(251, 232, 203);
     border: 0;
-    border-radius: 15px;
     color: rgb(255, 157, 29);
     padding: 0 10px;
     margin-left: 5vw;
-    box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
+    font-size: larger;
+  }
+
+  .bi-list,
+  .bi-x-lg {
+    color: rgb(255, 157, 29);
+    font-size: 6vw;
   }
 
   .offcanvas.offcanvas-start {
-    width: 60%
+    width: 60%;
   }
 
   .logo {
-    width: 40vw;
+    width: 35vw;
     text-align: center;
   }
 

@@ -1,26 +1,26 @@
 // 用戶落單版面
 window.onload = () => {
-  userInfo();
+  // userInfo();
   defaultAddress();
   addAnimal();
   createOrder();
   usersLogout() ;
 };
 
-async function userInfo() {
-  const resp = await fetch("/users/userinfo");
-  const userInfo = await resp.json();
-  console.log(userInfo);
+// async function userInfo() {
+//   const resp = await fetch("/users/userinfo");
+//   const userInfo = await resp.json();
+//   console.log(userInfo);
 
-  const userInfoStr = `
-  <i class="bi bi-person-circle"></i>
-  <div class="user-details">
-  <p class="user-name"><b>Hi, ${userInfo.first_name}</b></p>
-  <p class="role">會員</p>
-  </div>
-  `;
-  document.querySelector(".user-info").innerHTML = userInfoStr;
-}
+//   const userInfoStr = `
+//   <i class="bi bi-person-circle"></i>
+//   <div class="user-details">
+//   <p class="user-name"><b>Hi, ${userInfo.first_name}</b></p>
+//   <p class="role">會員</p>
+//   </div>
+//   `;
+//   document.querySelector(".user-info").innerHTML = userInfoStr;
+// }
 
 async function defaultAddress() {
   const resp = await fetch("/users/address");

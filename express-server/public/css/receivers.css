@@ -21,12 +21,14 @@ body {
 }
 
 input, select, textarea{
-    color: rgb(255, 157, 29);
+  color: rgb(255, 157, 29);
+  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
 }
 
 textarea:focus, input:focus {
     color: rgb(255, 157, 29);
 }
+
 .word {
   color: rgb(255, 157, 29);
   padding: 20px;
@@ -43,22 +45,75 @@ input {
 }
 
 .orange-button {
-  background-color: rgb(255, 157, 29);
-  border: 0;
-  border-radius: 5px;
+  /* background-color: rgb(255, 227, 155); */
+  /* border: 0; */
+  /* border-radius: 15px; */
   width: 35vw;
-  height: 4vh;;
-  color: rgb(255, 227, 155);
-  margin-top: 2vh;
-  font-weight: bold;
-  margin-bottom: 3vh;
+  /* height: 8vh; */
+  /* color: rgb(255, 157, 29); */
+  /* font-size: 180%; */
+  /* font-weight: bold; */
+  margin-bottom: 1vw;
+  /* box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px; */
+  padding: 8px 20px;
+  margin: 20px 30px 30px 30px;
+  border-radius: 50px;
+  background-color: #ffaa5b;
+  font-size: 1.8vw;
+  color: #fff;
+  border: 0;
+  font-weight: 600;
+}
+
+.orange-button:hover {
+  background-color: #ffa34d;
+}
+
+.orange-button:active {
+  background-color: #ec8700;
+  box-shadow: 0 5px #905201;
+  transform: translateY(4px);
 }
 
 .logo-img{
 width: 15vw;
+margin: 1.5vw;
 }
 
 .logo{
   display: flex;
   justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .logo-img {
+    width: 45vw;
+    margin: 2vw;
+  }
+
+  .word {
+    font-size: 180%;
+  }
+
+  input, select {
+    margin-top: 10px;
+    border-radius: 2px;
+    border: 1px solid rgb(255, 157, 29);
+    width: 50vw;
+    height: 5vh;
+    box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
+  }
+
+  .orange-button {
+    width: 50vw;
+    height: 5vh;
+    padding: 8px 20px;
+    border-radius: 50px;
+    background-color: #ffaa5b;
+    color: #fff;
+    border: 0;
+    font-weight: 600;
+    font-size: 130%;
+    margin-top: 1vw;
+  }
 }
