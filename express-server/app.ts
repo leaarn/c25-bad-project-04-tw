@@ -19,7 +19,7 @@ const grantExpress = grant.express({
     key: process.env.GOOGLE_CLIENT_ID || "",
     secret: process.env.GOOGLE_CLIENT_SECRET || "",
     scope: ["profile", "email"],
-    callback: "connect/google/callback",
+    callback: "/connect/google/callback",
   },
 });
 
