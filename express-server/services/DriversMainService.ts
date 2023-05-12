@@ -150,29 +150,47 @@ export class DriversMainService {
   };
 
   message = async (orderId: number) => {
-    const contact = await this.knex.raw(
-      /*SQL*/ `SELECT receiver_contact FROM orders WHERE orders.id = ${orderId} `
-    );
-    const name = await this.knex.raw(
-      /*SQL*/ `SELECT receiver_name FROM orders WHERE orders.id = ${orderId} `
-    );
-    const tokenResult = await this.knex.raw(
-      /*SQL*/ `SELECT token FROM orders WHERE orders.id = ${orderId} `
-    );
-    console.log("contact", contact);
-    console.log("name", name);
+    const receiverContact = await this.knex("orders")
+      .select("receiver_contact")
+      .where("orders.id", "=", orderId)
+      .first();
+
+    console.log("receiverContact:", receiverContact);
+
+    const receiverName = await this.knex("orders")
+      .select("receiver_name")
+      .where("orders.id", "=", orderId)
+      .first();
+    console.log("receiverName:", receiverName);
+
+    const tokenResult = await this.knex("orders")
+      .select("token")
+      .where("orders.id", "=", orderId)
+      .first();
+    console.log("tokenResult:", tokenResult);
+    // const contact = await this.knex.raw(
+    //   /*SQL*/ `SELECT receiver_contact FROM orders WHERE orders.id = ${orderId} `
+    // );
+    // const name = await this.knex.raw(
+    //   /*SQL*/ `SELECT receiver_name FROM orders WHERE orders.id = ${orderId} `
+    // );
+    // const tokenResult = await this.knex.raw(
+    //   /*SQL*/ `SELECT token FROM orders WHERE orders.id = ${orderId} `
+    // );
+    console.log("contact", receiverContact);
+    console.log("name", receiverName);
     console.log("tokenResult", tokenResult);
 
-    const receiverContact = contact.rows[0];
-    const receiverName = name.rows[0];
-    const token = tokenResult.rows[0];
+    // const receiverContact = contact.rows[0];
+    // const receiverName = name.rows[0];
+    // const token = tokenResult.rows[0];
 
-    console.log("check receiver name ", receiverName);
     const data = getTextMessageInput(
       "852" + receiverContact.receiver_contact.toString(),
-      `Hi ${receiverName.receiver_name}! Here is your receiver token: ${token.token}. Click the link https://chickenvan.online/receivers.html to input your verification code. Have a great day!`
+      `Hi ${receiverName.receiver_name}! Here is your receiver token: ${tokenResult.token}. Click the link https://chickenvan.online/receivers.html to input your verification code. Have a great day!`
     );
-    const resp = await sendMessage(data);
-    return resp;
+
+    await sendMessage(data);
+    return data;
   };
 }
