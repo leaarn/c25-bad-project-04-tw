@@ -32,6 +32,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: |
           yarn install 
+          yarn playwright install-deps
           yarn knex migrate:latest --env testGithub
           yarn jest --run-in-band
 
