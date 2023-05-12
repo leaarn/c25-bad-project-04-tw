@@ -1,5 +1,5 @@
 import { Page, chromium, Browser } from "playwright";
-// import "../app";
+import "../app";
 
 describe("Login", () => {
   let page: Page;
