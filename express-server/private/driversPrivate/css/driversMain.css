@@ -6,11 +6,11 @@ body {
   position:fixed;
   width: 100%;
   /* right: 20%; */
-  /* bottom: 0; */
+  /* bottom: 20%; */
   /* height: 100%; */
   /* Add the blur effect */
-  filter: blur(30px);
-  -webkit-filter: blur(30px);
+  filter: blur(10px);
+  -webkit-filter: blur(10px);
   z-index: -10;
 }
 
@@ -360,7 +360,8 @@ p.copyright {
 }
 
 footer {
-  width: 100vw;
+  width: 100%;
+
   padding: 10px;
   bottom: 0;
   background-color: #ffe7c7;
