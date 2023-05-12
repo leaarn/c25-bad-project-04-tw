@@ -1,7 +1,7 @@
 import { Page, chromium, Browser } from "playwright";
 // import "../app";
 
-describe.skip("Login", () => {
+describe("Login", () => {
   let page: Page;
   let browser: Browser;
 
