@@ -368,7 +368,6 @@ describe("UsersMainController TestsCases", () => {
       receiver_contact: "12345678",
       receiver_name: "sgerge",
       remarks: "grgerger",
-      token: "Z58A39",
       AI_rating: [4],
       is_AI: "true",
     };
@@ -387,8 +386,8 @@ describe("UsersMainController TestsCases", () => {
     await usersMainController.aiCreateOrderController(req, res);
 
     expect(usersMainService.aiCreateOrder).toBeCalledWith({
-      animals_amount: ["1", "4"],
-      animals_id: ["2", "1"],
+      animals_amount: [1, 4],
+      animals_id: [2, 1],
       deliver_building: "rgreg",
       deliver_district: "東區",
       deliver_floor: "rgerg",
@@ -407,8 +406,8 @@ describe("UsersMainController TestsCases", () => {
       distance_km: 75,
       token: "Z58A39",
       users_id: 1,
-      AI_rating: 4,
-      is_AI: true,
+      AI_rating: [4],
+      is_AI: "true",
     });
     expect(usersMainService.aiCreateOrder).toBeCalledTimes(1);
     expect(res.json).toBeCalledWith({ message: "create order success" });
