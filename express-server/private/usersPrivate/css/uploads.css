@@ -53,7 +53,7 @@
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
-.title_div, .result-title, .animal-result {
+.title_div, .result-title, .animal-result, .rating-title {
   margin-top: 20px;
   margin-bottom: 10px;
   color: #ae782e;
@@ -100,6 +100,7 @@ input[type="file"] {
   width: fit-content;
   margin-left: 10px;
   margin-right: 10px;
+  cursor: pointer;
 }
 
 .btns:hover,
@@ -135,7 +136,7 @@ form {
 }
 .rate:not(:checked) > input {
   position: absolute;
-  top: -9999px;
+  display: none;
 }
 .rate:not(:checked) > label {
   float: right;

@@ -5,7 +5,7 @@ window.onload = () => {
   // aiCreateOrder();
 };
 
-let confirmedAnimals = {}
+let confirmedAnimals = {};
 
 function updateUI(result) {
   console.log("updateUI-result", result);
@@ -114,6 +114,7 @@ function updateUI(result) {
     <div class="animal-result">${animalDetails}</div>
     
     <div class="rate">
+    <div class="rating-title"><b>請為AI預測的結果評分</b></div>
     <input type="radio" id="star5" name="rate" value="5" />
     <label for="star5" title="text">5 stars</label>
     <input type="radio" id="star4" name="rate" value="4" />
@@ -126,8 +127,8 @@ function updateUI(result) {
     <label for="star1" title="text">1 star</label>
     </div>
     <div class="btn-gp">
-    <button id="form-toggle">OK</button>
-    <button id="form-toggle-manual">Not OK</button>
+    <button id="form-toggle">滿意結果並繼續建立訂單</button>
+    <button id="form-toggle-manual"><a style="text-decoration: none ; color: #fff;" href="./usersManual.html">返回手動建立訂單</a></button>
     </div>
     `;
   }
@@ -135,6 +136,15 @@ function updateUI(result) {
 
   return confirmedAnimals;
 }
+
+// function returnManual() {
+//   document
+//     .querySelector("#form-toggle-manual")
+//     .addEventListener("click", (e) => {
+//       e.preventDefault();
+//       location.replace("http://localhost:8080/private/usersPrivate/usersManual.html") ;
+//     });
+// }
 
 // console.log("here is confirmed animals",confirmedAnimals)
 
@@ -148,22 +158,6 @@ async function uploadPhotos() {
     imageName.innerText = inputImage.name;
   });
 
-  // let input = document.getElementById("image");
-  // let imageName = document.getElementById("imageName");
-
-  // input.addEventListener("change", () => {
-  //   let inputImage = [];
-  //   let filesArr = document.querySelector("input[type=file]").files;
-  //   for (i = 0; i < filesArr.length; i++) {
-  //     inputImage.push(filesArr[i]);
-  //   }
-  //   console.log("inputImage", inputImage);
-
-  //   // let imageNameStr = ''
-  //   for (i = 0; i < inputImage.length; i++) {
-  //     imageName.innerHTML += `${inputImage[i].name}</br>`;
-  //   }
-  // });
   const form = document.querySelector("#upload-form");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -185,7 +179,6 @@ async function uploadPhotos() {
       confirmedAnimals = updateUI(result);
       showForm();
       // showResults()
-      
     }
   });
 }
@@ -213,7 +206,7 @@ async function showForm() {
     let x = document.querySelector("#order-form-div");
     if (x.style.display === "none") {
       x.style.display = "block";
-      aiCreateOrder()
+      aiCreateOrder();
     }
   });
 }
@@ -234,18 +227,17 @@ async function defaultAddress() {
   document.querySelector(".pick-up-street").value = pickUpStreet;
 }
 
-function dateTimeMinCurrentDay(){
-  let date =  document.querySelector(".date")
-  date.min = new Date().toISOString().split('T')[0]
+function dateTimeMinCurrentDay() {
+  let date = document.querySelector(".date");
+  date.min = new Date().toISOString().split("T")[0];
   // let time =  document.querySelector(".time")
   // time.min = new Date().toISOString().split()
 }
 
-
 async function aiCreateOrder() {
   const form = document.querySelector("#create-order-form");
-  defaultAddress()
-  dateTimeMinCurrentDay()
+  defaultAddress();
+  dateTimeMinCurrentDay();
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const pick_up_date = form.date.value;
@@ -266,9 +258,9 @@ async function aiCreateOrder() {
     const receiver_contact = form.receiverContact.value;
     const remarks = form.remarks.value;
     const rate = form.rate.value;
-    const anmId = confirmedAnimals.anmId
-    const anmAmount = confirmedAnimals.anmAmount
-    const isAI = true
+    const anmId = confirmedAnimals.anmId;
+    const anmAmount = confirmedAnimals.anmAmount;
+    const isAI = true;
 
     console.log(`yyyyyy~~~${JSON.stringify(anmId[0])}`);
     const resp = await fetch("/users/aiCreateOrder", {
@@ -293,7 +285,7 @@ async function aiCreateOrder() {
         rate,
         anmId,
         anmAmount,
-        isAI
+        isAI,
       }),
     });
 

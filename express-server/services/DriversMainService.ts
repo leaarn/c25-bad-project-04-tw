@@ -170,7 +170,7 @@ export class DriversMainService {
     console.log("check receiver name ", receiverName);
     const data = getTextMessageInput(
       "852" + receiverContact.receiver_contact.toString(),
-      `Hi ${receiverName.receiver_name}! Here is your receiver token: ${token.token}. Click the link http://localhost:8080/receivers.html to input your verification code. Have a great day!`
+      `Hi ${receiverName.receiver_name}! Here is your receiver token: ${token.token}. Click the link https://chickenvan.online/receivers.html to input your verification code. Have a great day!`
     );
     const resp = await sendMessage(data);
     return resp;
