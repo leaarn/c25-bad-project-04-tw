@@ -3,14 +3,14 @@ body {
 }
 
 .bg-img {
-  position: fixed;
+  position:fixed;
   width: 100%;
   /* right: 20%; */
-  /* bottom: 0; */
+  /* bottom: 20%; */
   /* height: 100%; */
   /* Add the blur effect */
-  filter: blur(30px);
-  -webkit-filter: blur(30px);
+  filter: blur(10px);
+  -webkit-filter: blur(10px);
   z-index: -10;
 }
 
@@ -117,6 +117,33 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+/* title */
+.banner {
+  position: relative;
+  width: 1000px;
+  height: 400px;
+  background-image: url("../assets/banner.png");
+  background-position: center;
+  background-size: 80vh;
+  margin: 2vw;
+  color: #ffca59;
+  text-align: center;
+  font-size: 50px;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-shadow: 3px 3px #905201;
+}
+
+.banner::after {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 /* title */
 .driver-name {
@@ -232,6 +259,7 @@ select:valid {
 .btn-div {
   display: flex;
   justify-content: flex-end;
+  margin: 20px;
 }
 
 .cfm-accept-order,
@@ -244,7 +272,7 @@ select:valid {
   color: #fff;
   border: 0;
   font-weight: 600;
-  margin: 3vw 0;
+  /* margin: 3vw 0; */
   padding: 8px 4vw;
   width: fit-content;
   height: fit-content;
@@ -290,38 +318,35 @@ select:valid {
 
 .confirm_order_title,
 .driver_fee_title {
-  padding: 2vw 10px 0 10px;
-  margin: 2vw;
-  font-size: 3.5vw;
-  color: rgb(255, 157, 29);
+  margin: 20px;
+  color: #ae782e;
   text-align: center;
+  /* padding-left: 5vw;
+  padding-right: 8vw; */
+  font-size: 22px;
 }
 
 .confirm_order_text,
 .driver_fee_text {
+  color: #ae782e;
+  /* width: 100%; */
+  background-color: rgb(255, 251, 240);
+  text-align: left;
   border: 0;
   border-radius: 15px;
-  background-color: rgb(255, 251, 240);
-  color: rgb(253, 202, 72);
-  padding: 2vw 10px 2vw 10px;
-  margin: 2vw;
-  font-size: 2.5vw;
+  padding: 20px;
+  margin: 20px;
+  font-size: 18px;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
+  line-height: 1.8;
 }
 
 .order-success {
-  border: 0;
-  border-radius: 15px;
-  background-color: rgb(255, 245, 219);
-  margin: 3vw;
-  color: rgb(255, 157, 29);
   margin: 3vw 15vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 30vw;
-  box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
 .success {
@@ -335,7 +360,8 @@ p.copyright {
 }
 
 footer {
-  width: 100vw;
+  width: 100%;
+
   padding: 10px;
   bottom: 0;
   background-color: #ffe7c7;
@@ -347,7 +373,11 @@ footer {
 
 @media only screen and (min-width: 1000px) {
   select,
-  #all_orders {
+  #all_orders,
+  .confirm_order,
+  #ongoing_orders,
+  #order_history,
+  .single-history {
     width: 1000px;
   }
 
@@ -367,11 +397,12 @@ footer {
     font-size: 40px;
   }
 
-  select {
-    width: 95vw;
-  }
-
-  #all_orders {
+  select,
+  #all_orders,
+  .confirm_order,
+  #ongoing_orders,
+  #order_history,
+  .single-history {
     width: 95vw;
   }
 
@@ -391,6 +422,11 @@ footer {
     font-size: 3vw;
     padding: 8px 4vw;
     width: fit-content;
+  }
+
+  .confirm_order_title,
+  .driver_fee_title {
+    font-size: 3vw;
   }
 }
 
@@ -513,7 +549,7 @@ footer {
   }
 
   .single_order {
-    display: block
+    display: block;
   }
 
   /* form , to */
@@ -532,5 +568,10 @@ footer {
     font-size: 5vw;
     padding: 8px 5vw;
     width: fit-content;
+  }
+
+  .confirm_order_title,
+  .driver_fee_title {
+    font-size: 5vw;
   }
 }

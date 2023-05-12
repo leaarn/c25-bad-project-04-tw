@@ -11,7 +11,7 @@ async function userInfo() {
   const userInfoStr = `
   <div class="user-details">
   <p class="user-name"><b>Hi, ${userInfo.first_name}</b></p>
-  <p class="role">會員</p>
+  <p class="role"><i class="bi bi-person-circle"> 會員</i></p>
   </div>
   `;
   document.querySelector(".user-info").innerHTML = userInfoStr;

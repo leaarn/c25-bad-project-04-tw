@@ -29,7 +29,7 @@ async function toAcceptOrder(id) {
     animalDetails +=
       acceptOrder.animals_name + " X " + acceptOrder.animals_amount + " ";
   }
-  let htmlStr = `<div class="confirm_order_title"><b>確認將接下的訂單</b></div>
+  let htmlStr = `<div class="confirm_order_title"><b>訂單資訊</b></div>
       <div class="confirm_order_text"><p>客人姓名：${acceptOrder.user_full_name} </p>
       <p>客人聯絡電話：${acceptOrder.contact_num} </p>
       <p>送貨時間：${acceptOrder.pick_up_date_time} </p>

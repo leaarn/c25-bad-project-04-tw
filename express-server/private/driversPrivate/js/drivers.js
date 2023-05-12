@@ -13,7 +13,7 @@ async function showDriverInfo() {
   console.log("driver info", driverInfo);
 
   let htmlStr = `
-        <p class="banner driver-name"><b>Hi, ${driverInfo.first_name}</b>司機</p>`;
+        <p class="banner driver-name"><b>Hi, ${driverInfo.first_name}</b><i class="bi bi-truck"> 司機</i></p>`;
 
   document.querySelector(".banner-area").innerHTML = htmlStr;
 }
