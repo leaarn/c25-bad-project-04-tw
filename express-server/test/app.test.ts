@@ -5,10 +5,6 @@ describe("Login", () => {
   let page: Page;
   let browser: Browser;
 
-  beforeAll((done) => {
-    done();
-  });
-
   beforeAll(async () => {
     browser = await chromium.launch();
     page = await browser.newPage();
@@ -42,7 +38,4 @@ describe("Login", () => {
     await browser.close();
   });
 
-  afterAll(done => {
-    done()
-  })
 });

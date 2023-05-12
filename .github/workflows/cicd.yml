@@ -35,6 +35,7 @@ jobs:
           yarn playwright install-deps
           yarn knex migrate:latest --env testGithub
           yarn jest --run-in-band
+          yarn jest --detectOpenHandles --forceExit
 
   deploy:
     if: github.ref_name == 'production'
