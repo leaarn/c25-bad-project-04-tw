@@ -34,6 +34,7 @@ describe("UsersMainController TestsCases", () => {
       ])
     );
     usersMainService.createOrder = jest.fn();
+    usersMainService.aiCreateOrder = jest.fn();
 
     usersMainService.payOrderDetails = jest.fn(() =>
       Promise.resolve([
