@@ -161,9 +161,9 @@ describe("UsersMainController TestsCases", () => {
     };
     req.session.users_id = 1;
 
-    // usersMainController.randomDistance = jest.fn(() => {
-    //   return 75;
-    // });
+    usersMainController.randomDistance = jest.fn(() => {
+      return 75;
+    });
 
     // (randomDistance as jest.Mock).mockReturnValue(75)
     (randomToken as jest.Mock).mockReturnValue("Z58A39");
@@ -345,56 +345,122 @@ describe("UsersMainController TestsCases", () => {
     expect(res.json).toBeCalledWith({ message: "invalid order id" });
   });
   // Julia
-  test("aiCreateAccount", async () => {
-    (req.body as jest.Mock).mockImplementationOnce(() =>
-      Promise.resolve({
-        orderId: "1",
-        pick_up_date: "2023-03-01",
-        pick_up_time: "11:03:00",
-        pick_up_district: "東區",
-        pick_up_room: "abc12",
-        pick_up_floor: "123123",
-        pick_up_building: "東區",
-        pick_up_street: "123123",
-        deliver_district: "東區",
-        deliver_room: "123123",
-        deliver_floor: "123123",
-        deliver_building: "123123",
-        deliver_street: "123123",
-        users_id: "1",
-        receiver_name: "123123",
-        receiver_contact: "123123",
-        remarks: "123",
-        distance_km: "123",
-        token: "123",
-      })
-    );
+
+  it("get create ai order success", async () => {
+    req.body = {
+      animals_amount: ["1", "4"],
+      animals_id: ["2", "1"],
+      deliver_building: "rgreg",
+      deliver_district: "東區",
+      deliver_floor: "rgerg",
+      deliver_room: "rge",
+      deliver_street: "rgerg",
+      pick_up_building: "vv",
+      pick_up_date: "2023-03-01",
+      pick_up_district: "南區",
+      pick_up_floor: "sv",
+      pick_up_room: "sgf",
+      pick_up_street: "rgerg",
+      pick_up_time: "11:03",
+      receiver_contact: "12345678",
+      receiver_name: "sgerge",
+      remarks: "grgerger",
+      token: "Z58A39",
+      AI_rating: 4,
+      is_AI: true,
+    };
+    req.session.users_id = 1;
+
+    usersMainController.randomDistance = jest.fn(() => {
+      return 75;
+    });
+
+    // (randomDistance as jest.Mock).mockReturnValue(75)
+    (randomToken as jest.Mock).mockReturnValue("Z58A39");
+    // usersMainController.randomToken = jest.fn(() => {
+    //   return "Z58A39";
+    // });
+
     await usersMainController.aiCreateOrderController(req, res);
 
-    expect(usersMainService.aiCreateOrder).toBeCalledWith(
-      "1",
-      "2023-03-01",
-      "11:03:00",
-      "東區",
-      "abc12",
-      "123123",
-      "東區",
-      "123123",
-      "東區",
-      "123123",
-      "123123",
-      "123123",
-      "123123",
-      "1",
-      "123123",
-      "123123",
-      "123",
-      "123",
-      "123"
-    );
+    expect(usersMainService.aiCreateOrder).toBeCalledWith({
+      animals_amount: ["1", "4"],
+      animals_id: ["2", "1"],
+      deliver_building: "rgreg",
+      deliver_district: "東區",
+      deliver_floor: "rgerg",
+      deliver_room: "rge",
+      deliver_street: "rgerg",
+      pick_up_building: "vv",
+      pick_up_date: "2023-03-01",
+      pick_up_district: "南區",
+      pick_up_floor: "sv",
+      pick_up_room: "sgf",
+      pick_up_street: "rgerg",
+      pick_up_time: "11:03",
+      receiver_contact: "12345678",
+      receiver_name: "sgerge",
+      remarks: "grgerger",
+      distance_km: 75,
+      token: "Z58A39",
+      users_id: 1,
+      AI_rating: 4,
+      is_AI: true,
+    });
     expect(usersMainService.aiCreateOrder).toBeCalledTimes(1);
-    expect(res.json).toBeCalledWith([{ message: "AI create order success" }]);
+    expect(res.json).toBeCalledWith({ message: "create order success" });
   });
+
+  // test("aiCreateOrder", async () => {
+  //   (req.body as jest.Mock).mockImplementationOnce(() =>
+  //     Promise.resolve({
+  //       orderId: "1",
+  //       pick_up_date: "2023-03-01",
+  //       pick_up_time: "11:03:00",
+  //       pick_up_district: "東區",
+  //       pick_up_room: "abc12",
+  //       pick_up_floor: "123123",
+  //       pick_up_building: "東區",
+  //       pick_up_street: "123123",
+  //       deliver_district: "東區",
+  //       deliver_room: "123123",
+  //       deliver_floor: "123123",
+  //       deliver_building: "123123",
+  //       deliver_street: "123123",
+  //       users_id: "1",
+  //       receiver_name: "123123",
+  //       receiver_contact: "123123",
+  //       remarks: "123",
+  //       distance_km: "123",
+  //       token: "123",
+  //     })
+  //   );
+  //   await usersMainController.aiCreateOrderController(req, res);
+
+  //   expect(usersMainService.aiCreateOrder).toBeCalledWith(
+  //     "1",
+  //     "2023-03-01",
+  //     "11:03:00",
+  //     "東區",
+  //     "abc12",
+  //     "123123",
+  //     "東區",
+  //     "123123",
+  //     "東區",
+  //     "123123",
+  //     "123123",
+  //     "123123",
+  //     "123123",
+  //     "1",
+  //     "123123",
+  //     "123123",
+  //     "123",
+  //     "123",
+  //     "123"
+  //   );
+  //   expect(usersMainService.aiCreateOrder).toBeCalledTimes(1);
+  //   expect(res.json).toBeCalledWith([{ message: "AI create order success" }]);
+  // });
 
   //Julia
 });
