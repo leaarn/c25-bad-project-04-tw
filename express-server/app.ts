@@ -19,7 +19,7 @@ const grantExpress = grant.express({
     key: process.env.GOOGLE_CLIENT_ID || "",
     secret: process.env.GOOGLE_CLIENT_SECRET || "",
     scope: ["profile", "email"],
-    callback: "/google",
+    callback: "/userslogin/google",
   },
 });
 
@@ -109,7 +109,7 @@ app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
 app.use("/users", userIsLoggedInApi, usersMainRoutes);
 app.use("/receivertoken", receiverRoutes);
 app.use("/logout", logoutRoutes);
-app.get("/google", usersController.loginGoogleControl);
+// app.get("/google", usersController.loginGoogleControl);
 
 // Section 3: Serve
 
