@@ -274,7 +274,6 @@ export class UsersMainController {
         AI_rating,
         is_AI,
       });
-      console.log("hihihi",res.status)
       res.status(200).json({ message: "create order success" });
     } catch (err: any) {
       logger.error(err.message);

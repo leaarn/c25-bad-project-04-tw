@@ -109,6 +109,7 @@ app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
 app.use("/users", userIsLoggedInApi, usersMainRoutes);
 app.use("/receivertoken", receiverRoutes);
 app.use("/logout", logoutRoutes);
+// app.get("/google", usersController.loginGoogleControl);
 
 // Section 3: Serve
 
