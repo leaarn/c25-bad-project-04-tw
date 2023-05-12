@@ -10,7 +10,7 @@ import { randomToken } from "../../controllers/utils";
 
 jest.mock("../../controllers/utils");
 
-describe.skip("UsersMainController TestsCases", () => {
+describe("UsersMainController TestsCases", () => {
   let usersMainService: UsersMainService;
   let usersMainController: UsersMainController;
   let req: Request;
@@ -138,7 +138,7 @@ describe.skip("UsersMainController TestsCases", () => {
   });
 
   //create order
-  it.skip("get create order success", async () => {
+  it("get create order success", async () => {
     req.body = {
       animals_amount: ["1", "4"],
       animals_id: ["2", "1"],

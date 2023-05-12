@@ -7,7 +7,7 @@ import { Knex } from "knex";
 import type { Request, Response } from "express";
 import { getRequest, getResponse } from "../utils";
 
-describe.skip("DriversMainController TestsCases", () => {
+describe("DriversMainController TestsCases", () => {
   let driversMainService: DriversMainService;
   let driversMainController: DriversMainController;
   let req: Request;

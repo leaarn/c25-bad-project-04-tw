@@ -16,7 +16,7 @@ describe("test auth controller", () => {
     res = getResponse();
   });
 
- test.skip("login success", async () => {
+ test("login success", async () => {
    // arrangement
    const driversService = new DriversService({} as Knex);
    const foundDriver: driversLogin = {
