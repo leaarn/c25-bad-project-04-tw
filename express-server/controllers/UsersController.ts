@@ -115,7 +115,7 @@ export class UsersController {
       // }
     } catch (err: any) {
       logger.error(err.message);
-      res.status(500).json({ message: "internal server error" });
+      res.status(500).json({ message: "internal server error hihihii" });
     }
   };
 
