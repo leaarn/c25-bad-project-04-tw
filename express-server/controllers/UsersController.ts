@@ -76,7 +76,7 @@ export class UsersController {
         req.session.userIsLoggedIn = true;
         req.session.users_id = foundUser.id;
         req.session.loginType === "user";
-        res.redirect("/private/usersPrivate/usersMain.html");
+        // res.redirect("/private/usersPrivate/usersMain.html");
         // req.session.firstName = foundUser.name;
         // res.status(200).json({ message: "user OAuth login success" });
       }
@@ -85,7 +85,7 @@ export class UsersController {
         req.session.driverIsLoggedIn = true;
         req.session.drivers_id = foundDriver.id;
         req.session.loginType === "driver";
-        res.redirect("/private/driversPrivate/driversMain.html");
+        // res.redirect("/private/driversPrivate/driversMain.html");
         // req.session.firstName = foundUser.name;
         // res.status(200).json({ message: "driver OAuth login success" });
       }
@@ -109,11 +109,11 @@ export class UsersController {
       //   return;
       // }
 
-      // if (req.session.loginType === "user") {
-      //   res.redirect("/private/usersPrivate/usersMain.html");
-      // } else {
-      //   res.redirect("/private/driversPrivate/driversMain.html");
-      // }
+      if (req.session.loginType === "user") {
+        res.redirect("/private/usersPrivate/usersMain.html");
+      } else {
+        res.redirect("/private/driversPrivate/driversMain.html");
+      }
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error hihihii" });
