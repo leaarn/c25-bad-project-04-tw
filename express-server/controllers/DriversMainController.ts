@@ -1,6 +1,7 @@
 import { DriversMainService } from "../services/DriversMainService";
 import type { Request, Response } from "express";
 import { logger } from "../utils/logger";
+// import { sendMessage } from "../routers/messageHelper";
 
 export class DriversMainController {
   constructor(private driversMainService: DriversMainService) {}
@@ -149,13 +150,16 @@ export class DriversMainController {
   message = async (req: Request, res: Response) => {
     try {
       const ordersId = +req.params.oid;
+      console.log("order", ordersId);
       if (isNaN(ordersId)) {
         res.status(400).json({ message: "invalid order id" });
         return;
       }
       const msgResult = await this.driversMainService.message(ordersId);
       console.log("msgResult", msgResult)
-      res.status(200).json(msgResult);
+
+      // await sendMessage(msgResult);
+      res.status(200).json({ message: "message sent!" });
     } catch (err: any) {
       logger.error(err.message);
       res.status(500).json({ message: "internal server error" });

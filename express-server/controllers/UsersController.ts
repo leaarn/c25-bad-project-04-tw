@@ -47,7 +47,6 @@ export class UsersController {
   loginGoogleControl = async (req: Request, res: Response) => {
     try {
       const accessToken = req.session?.["grant"].response.access_token;
-      console.log("6");
       const fetchRes = await fetch(
         "https://www.googleapis.com/oauth2/v2/userinfo",
         {
@@ -57,35 +56,29 @@ export class UsersController {
           },
         }
       );
-      console.log("7");
       const result = await fetchRes.json();
-      console.log("5");
 
       // if (req.session.loginType === "user") {
       let userType = req.session.loginType;
       let foundUser: { id: number } | null = null;
       let foundDriver: { id: number } | null = null;
       // let foundUser: { id: number; name: string } | null = null;
-      console.log("1");
       if (userType) {
         foundUser = await this.usersService.loginGoogle(userType, result);
         foundDriver = await this.usersService.loginGoogle(userType, result);
       }
-      console.log("2");
       if (foundUser) {
         req.session.userIsLoggedIn = true;
         req.session.users_id = foundUser.id;
         req.session.loginType === "user";
-        // res.redirect("/private/usersPrivate/usersMain.html");
         // req.session.firstName = foundUser.name;
         // res.status(200).json({ message: "user OAuth login success" });
       }
-      console.log("3");
+
       if (foundDriver) {
         req.session.driverIsLoggedIn = true;
         req.session.drivers_id = foundDriver.id;
         req.session.loginType === "driver";
-        // res.redirect("/private/driversPrivate/driversMain.html");
         // req.session.firstName = foundUser.name;
         // res.status(200).json({ message: "driver OAuth login success" });
       }
