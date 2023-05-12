@@ -110,9 +110,9 @@ function updateUI(result) {
   } else {
     document.querySelector(
       ".ai-result-div"
-    ).innerHTML = `<div class="result-title">AI預測結果：
+    ).innerHTML = `<div class="result-title"><b>AI預測結果</b></div>
     <div class="animal-result">${animalDetails}</div>
-    </div>
+    
     <div class="rate">
     <input type="radio" id="star5" name="rate" value="5" />
     <label for="star5" title="text">5 stars</label>
@@ -125,8 +125,10 @@ function updateUI(result) {
     <input type="radio" id="star1" name="rate" value="1" />
     <label for="star1" title="text">1 star</label>
     </div>
+    <div class="btn-gp">
     <button id="form-toggle">OK</button>
     <button id="form-toggle-manual">Not OK</button>
+    </div>
     `;
   }
   // showForm();

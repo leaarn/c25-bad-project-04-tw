@@ -92,19 +92,28 @@ export async function up(knex: Knex): Promise<void> {
     animals_name:"狗",
     price:40
   },{
-    animals_name:"雞",
+    animals_name:"家禽或鳥類",
     price:30},
     {
-    animals_name:"鴨",
-    price:30
+    animals_name:"馬",
+    price:40
   },{
-    animals_name:"鵝",
-    price:30
+    animals_name:"羊",
+    price:40
   },{
-    animals_name:"龜",
-    price:30
+    animals_name:"牛",
+    price:40
   },{
-    animals_name:"海洋生物",
+    animals_name:"大象",
+    price:40
+  },{
+    animals_name:"熊",
+    price:40
+  },{
+    animals_name:"斑馬",
+    price:40
+  },{
+    animals_name:"長頸鹿",
     price:40
   }])
 

@@ -1,4 +1,45 @@
-.upload-div {
+.banner-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+/* title */
+.banner {
+  position: relative;
+  width: 1000px;
+  height: 400px;
+  background-image: url("../assets/banner.png");
+  background-position: center;
+  background-size: 80vh;
+  margin: 2vw;
+  color: #ffca59;
+  text-align: center;
+  font-size: 50px;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  text-shadow: 3px 3px #905201;
+}
+
+.banner::after {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.2);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.ai_order {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-div, .ai-result-div {
   background-color: rgb(255, 245, 219);
   display: flex;
   flex-direction: column;
@@ -12,13 +53,22 @@
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
-h3 {
-  margin-top: 2vw;
-  color: rgb(255, 157, 29);
-  text-align: left;
-  padding-left: 5vw;
-  padding-right: 8vw;
-  font-size: 3.5vw;
+.title_div, .result-title, .animal-result {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #ae782e;
+  text-align: center;
+  /* padding-left: 5vw;
+  padding-right: 8vw; */
+  font-size: 24px;
+}
+
+.restrictions {
+  color: #e19f44;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 20px;
+  line-height: 1.8;
 }
 
 input[type="file"] {
@@ -26,29 +76,52 @@ input[type="file"] {
 }
 
 #imageName {
-  color: rgb(255, 157, 29);
-  font-size: 2vw;
+  color: #e19f44;
+  font-size: 20px;
 }
 
-.btns {
-  display: inline-block;
-  background-color: rgb(255, 227, 155);
+.btn-gp {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.btns, #form-toggle, #form-toggle-manual {
+  border-radius: 50px;
+  background-color: #ffaa5b;
+  font-size: 18px;
+  color: #fff;
   border: 0;
-  border-radius: 15px;
-  color: rgb(255, 157, 29);
-  margin: 2vw;
-  padding: 8px;
-  font-size: 2vw;
-  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
-  cursor: pointer;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  padding: 8px 4vw;
+  width: fit-content;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-label {
+.btns:hover,
+#form-toggle:hover,
+#form-toggle-manual:hover {
+  background-color: #ffa34d;
+}
+
+.btns:active,
+#form-toggle:active,
+#form-toggle-manual:active {
+  background-color: #ec8700;
+  box-shadow: 0 5px #905201;
+  transform: translateY(4px);
+}
+
+/* label {
   font-size: 2.5vw;
   padding-top: 2vw;
   margin: 0%;
   text-align: left;
-}
+} */
 
 form {
   display: flex;
@@ -58,7 +131,6 @@ form {
 
 .rate {
   float: left;
-  height: 46px;
   padding: 0 10px;
 }
 .rate:not(:checked) > input {
@@ -71,7 +143,7 @@ form {
   overflow: hidden;
   white-space: nowrap;
   cursor: pointer;
-  font-size: 30px;
+  font-size: 60px;
   color: #ccc;
 }
 .rate:not(:checked) > label:before {
@@ -90,4 +162,86 @@ form {
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
   color: #c59b08;
+}
+
+@media only screen and (min-width: 1000px) {
+  .upload-div, .ai-result-div {
+    width: 1000px;
+  }
+  
+}
+
+
+@media only screen and (max-width: 1000px) {
+  .banner {
+    width: 95vw;
+    height: 400px;
+    font-size: 40px;
+  }
+
+  .upload-div,.ai-result-div {
+    width: 95vw;
+  }
+
+  .sub-title {
+    color: #ae782e;
+    margin-bottom: 0.5vw;
+    margin-top: 1vw;
+    text-align: left;
+    font-size: 3vw;
+  }
+
+  .btns {
+    color: #fff;
+    font-size: 3vw;
+    padding: 8px 3vw;
+    width: fit-content;
+  }
+
+  .date {
+    width: 100%;
+    margin-right: 0px
+  }
+  .time {
+    width: 100%;
+    margin-left: 0px;
+  }
+
+  .submit-btn {
+    color: #fff;
+    font-size: 3vw;
+    padding: 8px 3vw;
+    width: fit-content;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .banner {
+    width: 95vw;
+    height: 200px;
+    font-size: 40px;
+  }
+
+  .sub-title {
+    color: #ae782e;
+    margin-bottom: 0.5vw;
+    margin-top: 1vw;
+    text-align: left;
+    font-size: 5vw;
+  }
+
+  .btns {
+    color: #fff;
+    font-size: 5vw;
+    padding: 8px 4vw;
+    width: fit-content;
+  }
+
+
+  .submit-btn {
+    color: #fff;
+    font-size: 5vw;
+    padding: 8px 4vw;
+    width: fit-content;
+  }
 }
