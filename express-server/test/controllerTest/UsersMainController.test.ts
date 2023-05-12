@@ -345,12 +345,14 @@ describe("UsersMainController TestsCases", () => {
     expect(usersMainService.historyOrderDetails).toBeCalledTimes(0);
     expect(res.json).toBeCalledWith({ message: "invalid order id" });
   });
+
+
   // Julia
 
   it("get create ai order success", async () => {
     req.body = {
-      animals_amount: ["1", "4"],
-      animals_id: ["2", "1"],
+      animals_amount: [1, 4],
+      animals_id: [2, 1],
       deliver_building: "rgreg",
       deliver_district: "東區",
       deliver_floor: "rgerg",
@@ -367,8 +369,8 @@ describe("UsersMainController TestsCases", () => {
       receiver_name: "sgerge",
       remarks: "grgerger",
       token: "Z58A39",
-      AI_rating: 4,
-      is_AI: true,
+      AI_rating: [4],
+      is_AI: "true",
     };
     req.session.users_id = 1;
 
