@@ -13,7 +13,7 @@ async function showDriverInfo() {
   console.log("driver info", driverInfo);
 
   let htmlStr = `
-        <p class="driver-name"><b>Hi, ${driverInfo.first_name}</b></br>司機</p>`;
+        <p class="banner driver-name"><b>Hi, ${driverInfo.first_name}</b>司機</p>`;
 
   document.querySelector(".banner-area").innerHTML = htmlStr;
 }
@@ -84,19 +84,25 @@ async function showAllOrders(district) {
     const acceptBtn = `<button class="accept-order" onClick="acceptOrdersDetail(${allOrders[i].id})">接單</button>`;
     const dateStr = new Date(allOrders[i].pick_up_date).toDateString();
     htmlStr += `
+    <div class="order_with_btn">
       <div class="single_order">
+        <div class="order_form">
           <p class="order-text">FROM</p>
           <div class="pick_up_district_time">
             <div class="pick_up_district">${allOrders[i].pick_up_district}</div>
             <div class="pick_up_time">${dateStr} ${allOrders[i].pick_up_time}</div>
           </div>
+        </div>
+        <div class="order_to">
           <p class="order-text">TO</p>
           <div class="deli_district_animal">
             <div class="deli_district">${allOrders[i].deliver_district}</div>
             <div class="animal">${animalDetails}</div>
           </div>
-        ${acceptBtn}
+        </div>
       </div>
+      ${acceptBtn}
+    </div>
       `;
   }
   document.querySelector("#all_orders").innerHTML = htmlStr;
