@@ -78,7 +78,7 @@ export class UsersController {
         req.session.loginType === "user";
         res.redirect("/private/usersPrivate/usersMain.html");
         // req.session.firstName = foundUser.name;
-        res.status(200).json({ message: "user OAuth login success" });
+        // res.status(200).json({ message: "user OAuth login success" });
       }
       console.log("3");
       if (foundDriver) {
@@ -87,7 +87,7 @@ export class UsersController {
         req.session.loginType === "driver";
         res.redirect("/private/driversPrivate/driversMain.html");
         // req.session.firstName = foundUser.name;
-        res.status(200).json({ message: "driver OAuth login success" });
+        // res.status(200).json({ message: "driver OAuth login success" });
       }
       // }
 
