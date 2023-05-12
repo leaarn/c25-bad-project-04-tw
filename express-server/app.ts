@@ -103,14 +103,12 @@ import { receiverRoutes } from "./routers/receiversRoutes";
 import { logger } from "./utils/logger";
 import { logoutRoutes } from "./utils/logout";
 
-// app.use("/login", authRoutes);
 app.use("/userslogin", usersRoutes);
 app.use("/driverslogin", driversRoutes);
 app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
 app.use("/users", userIsLoggedInApi, usersMainRoutes);
 app.use("/receivertoken", receiverRoutes);
 app.use("/logout", logoutRoutes);
-// app.get("/login/google", usersController.loginGoogleControl);
 
 // Section 3: Serve
 

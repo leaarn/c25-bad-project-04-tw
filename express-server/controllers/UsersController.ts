@@ -70,6 +70,7 @@ export class UsersController {
       if (foundUser) {
         req.session.userIsLoggedIn = true;
         req.session.users_id = foundUser.id;
+        req.session.loginType === "user";
         // req.session.firstName = foundUser.name;
         // res.status(200).json({ message: "OAuth login success" });
       }
@@ -77,6 +78,7 @@ export class UsersController {
       if (foundDriver) {
         req.session.driverIsLoggedIn = true;
         req.session.drivers_id = foundDriver.id;
+        req.session.loginType === "driver";
         // req.session.firstName = foundUser.name;
         // res.status(200).json({ message: "OAuth login success" });
       }
