@@ -23,54 +23,38 @@
   </head>
   <body>
     <!-- navbar -->
-    <div class="navbar">
-      <button
-        class="menu_btn"
-        data-bs-toggle="offcanvas"
-        href="#offcanvasMenu"
-        role="button"
-        aria-controls="offcanvasMenu"
-      >
-        <i class="bi bi-list"></i>
-      </button>
-
-      <div
-        class="offcanvas offcanvas-start"
-        tabindex="-1"
-        id="offcanvasMenu"
-        aria-labelledby="offcanvasMenuLabel"
-      >
-        <div class="offcanvas-header">
-          <a href="./usersMain.html"
-            ><img
-              class="logo offcanvas-title"
-              id="offcanvasMenuLabel"
-              src="./assets/name.png"
-              alt="logo"
-          /></a>
-          <i
-            class="bi bi-x-lg"
-            type="button"
-            data-bs-dismiss="offcanvas"
-            aria-label="Close"
-          ></i>
-        </div>
-        <div class="offcanvas-body">
-          <div class="menu_content">
+    <div class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="./usersMain.html"
+        ><img class="logo" src="./assets/name.png" alt="logo"
+      /></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="nav-div collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
             <a
-              class="menu_items"
+              class="menu_items nav-link active"
               style="text-decoration: none"
               href="./usersMain.html"
-              >建立訂單</a
+              >會員主頁</a
             >
             <a
-              class="menu_items"
+              class="menu_items nav-link"
               style="text-decoration: none"
               href="./userhistoryorder.html"
               >歷史訂單</a
             >
             <a
-              class="menu_items"
+              class="menu_items nav-link"
               style="text-decoration: none"
               href="./allorderstatus.html"
               >實時訂單狀態</a
@@ -79,11 +63,6 @@
           <button id="logout">登出</button>
         </div>
       </div>
-      <a href="./usersMain.html"
-        ><img class="logo" src="./assets/name.png" alt="logo"
-      /></a>
-      
-      <div class="empty"><i class="bi bi-filter-left"></i></div>
     </div>
     <!-- content -->
     <div class="banner-area">

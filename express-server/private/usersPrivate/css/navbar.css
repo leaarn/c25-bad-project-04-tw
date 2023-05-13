@@ -3,23 +3,10 @@ body {
   color: rgb(253, 202, 72);
 }
 
-.navbar {
-  background-color: #ffe7c7;
+.nav-div {
   display: flex;
   flex-direction: row;
-  position: sticky;
-  width: 100%;
-  top: 0;
-  z-index: 10;
-}
-
-.menu_btn {
-  background-color: rgb(251, 232, 203);
-  border: 0;
-  color: rgb(255, 157, 29);
-  padding: 0 10px;
-  margin-left: 5vw;
-  /* box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px; */
+  justify-content: space-between;
 }
 
 .bi-list,
@@ -28,67 +15,82 @@ body {
   font-size: 50px;
 }
 
-.bi-filter-left {
-  color: rgb(251, 232, 203);
-  font-size: 50px;
+.navbar {
+  width: 100%;
+  position: sticky;
+  /* overflow: hidden; */
+  background-color: #ffe7c7;
+  z-index: 10;
+  top: 0;
+  /* display: flex; */
+}
+
+.navbar-nav {
+  color: #ae782e;
+  font-size: 25px;
 }
 
 .logo {
-  width: 300px;
+  width: 180px;
   text-align: center;
 }
 
-.empty {
-  padding: 0 10px;
-  margin-left: 5vw;
+.navbar-brand {
+  color: #ae782e;
+  font-size: 25px;
 }
 
-#offcanvasMenu {
-  background-color: rgb(255, 251, 240);
+.navbar-brand:hover {
+  color: #855614;
 }
 
-.offcanvas.offcanvas-start {
-  width: 30%;
+.navbar-nav:hover {
+  color: #855614;
 }
 
-.close_button {
-  border: 0;
-  color: none;
+.navbar-brand:focus {
+  color: #855614
 }
 
-.offcanvas-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-grow: 0;
+.navbar-toggler {
+  border:0 ;
 }
 
-.menu_content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex-grow: 0;
+.navbar-toggler:focus {
+  border:0 ;
+  box-shadow: none;
 }
 
-.menu_items,
-.menu_subitems {
-  text-align: center;
-  color: rgb(255, 157, 29);
+.nav-link {
+  font-weight: bold;
+  color: #ae782e !important;
+}
+
+.nav-link:hover {
+  color: #855614 !important;
 }
 
 .menu_items {
-  font-size: 40px;
-  margin-top: 50px;
+  font-size: 22px;
+  margin-right: 20px;
+  margin-left: 20px;
 }
 
-.menu_subitems {
-  font-size: 2vw;
+#logout {
+  margin: 0 50px;
+  padding: 8px 25px;
+  border-radius: 50px;
+  background-color: #ffbf82;
+  font-size: 22px;
+  color: #fff;
+  border: 0;
+  font-weight: 600;
+  /* position: fixed */
 }
 
-/* .logout {
-  display: flex;
-  justify-content: center;
-} */
+#logout:hover {
+  background-color: #ffa34d;
+}
 
 .pay-btn,
 .details-btn,
@@ -101,22 +103,6 @@ body {
   padding: 8px;
   font-size: 2.5vw;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
-}
-
-#logout {
-  padding: 8px 20px;
-  margin: 50px 30px 30px 30px;
-  border-radius: 50px;
-  background-color: #ffbf82;
-  font-size: 40px;
-  color: #fff;
-  border: 0;
-  font-weight: 600;
-  /* position: fixed */
-}
-
-#logout:hover {
-  background-color: #ffa34d;
 }
 
 footer {
@@ -134,74 +120,7 @@ p.copyright {
   margin: 0;
 }
 
-@media only screen and (max-width: 768px) {
-  .logo {
-    width: 250px;
-    text-align: center;
-  }
-
-  .bi-list,
-  .bi-x-lg {
-    color: rgb(255, 157, 29);
-    font-size: 50px;
-  }
-
-  .bi-filter-left {
-    color: rgb(251, 232, 203);
-    font-size: 50px;
-  }
-
-  .offcanvas.offcanvas-start {
-    width: 70%;
-  }
-
-  .menu_items {
-    font-size: 25px;
-    margin-top: 30px;
-  }
-
-  #logout {
-    padding: 8px 20px;
-    margin: 30px;
-    border-radius: 50px;
-    background-color: #ffbf82;
-    font-size: 25px;
-    color: #fff;
-    border: 0;
-    font-weight: 600;
-    /* position: fixed */
-  }
-}
-
 @media only screen and (max-width: 600px) {
-  .menu_btn {
-    background-color: rgb(251, 232, 203);
-    border: 0;
-    color: rgb(255, 157, 29);
-    padding: 0 10px;
-    margin-left: 5vw;
-    font-size: larger;
-  }
-
-  .logo {
-    width: 200px;
-    text-align: center;
-  }
-
-  .bi-list,
-  .bi-x-lg {
-    color: rgb(255, 157, 29);
-    font-size: 40px;
-  }
-
-  .bi-filter-left {
-    color: rgb(251, 232, 203);
-    font-size: 40px;
-  }
-
-  .offcanvas.offcanvas-start {
-    width: 75%;
-  }
 
   footer {
     width: 100vw;
@@ -216,20 +135,4 @@ p.copyright {
     color: #ae782e;
   }
 
-  .menu_items {
-    font-size: 20px;
-    margin-top: 25px;
-  }
-
-  #logout {
-    padding: 8px 20px;
-    margin: 25px;
-    border-radius: 50px;
-    background-color: #ffbf82;
-    font-size: 20px;
-    color: #fff;
-    border: 0;
-    font-weight: 600;
-    /* position: fixed */
-  }
 }
