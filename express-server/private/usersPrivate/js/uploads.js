@@ -125,6 +125,7 @@ function updateUI(result) {
     <label for="star2" title="text">2 stars</label>
     <input type="radio" id="star1" name="rate" value="1" />
     <label for="star1" title="text">1 star</label>
+    <error-message></error-message>
     </div>
     <div class="btn-gp">
     <button id="form-toggle">滿意結果並繼續建立訂單</button>
@@ -234,8 +235,65 @@ function dateTimeMinCurrentDay() {
   // time.min = new Date().toISOString().split()
 }
 
+
+const form = document.getElementById("create-order-form");
+const inputs = form.querySelectorAll('input:not([name="remarks"]), select');
+
+inputs.forEach((input) => {
+  input.addEventListener("blur", () => {
+    if (input.value.trim() === "") {
+      input.classList.add("is-invalid");
+      const errorElement = input.nextElementSibling;
+      if (errorElement) {
+        errorElement.innerHTML = '<em style="color: red;">此欄必須填寫</em>';
+      }
+      input.style.borderColor = "red";
+      input.style.borderWidth = "medium";
+    } else {
+      input.classList.remove("is-invalid");
+      const errorElement = input.nextElementSibling;
+      if (errorElement) {
+        errorElement.innerHTML = "";
+      }
+      input.style.borderColor = "";
+    }
+  });
+});
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  let isValid = true;
+
+  inputs.forEach((input) => {
+    if (input.value.trim() === "") {
+      input.classList.add("is-invalid");
+      const errorElement = input.nextElementSibling;
+      if (errorElement) {
+        errorElement.innerHTML = '<em style="color: red;">此欄必須填寫</em>';
+      }
+      input.style.borderColor = "red";
+      input.style.borderWidth = "medium";
+      isValid = false;
+    } else {
+      input.classList.remove("is-invalid");
+      const errorElement = input.nextElementSibling;
+      if (errorElement) {
+        errorElement.innerHTML = "";
+      }
+      input.style.borderColor = "";
+    }
+  });
+
+  if (isValid) {
+    // form.submit();
+    aiCreateOrder();
+  }
+});
+
+
 async function aiCreateOrder() {
-  const form = document.querySelector("#create-order-form");
+  // const form = document.querySelector("#create-order-form");
   defaultAddress();
   dateTimeMinCurrentDay();
   form.addEventListener("submit", async (e) => {

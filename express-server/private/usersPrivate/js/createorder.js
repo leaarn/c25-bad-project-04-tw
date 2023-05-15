@@ -4,7 +4,7 @@ window.onload = () => {
   dateMinCurrentDay()
   defaultAddress();
   addAnimal();
-  createOrder();
+  // createOrder();
   usersLogout() ;
 };
 
@@ -83,8 +83,67 @@ async function addAnimal() {
 //   console.log(options);
 // });
 
+const form = document.getElementById('create-order-form');
+
+form.addEventListener('blur', (event) => {
+  const input = event.target;
+
+  if (input.value.trim() === '' && input.name !== 'remarks') {
+    input.classList.add('is-invalid');
+    const errorElement = input.nextElementSibling;
+    if (errorElement) {
+      errorElement.innerHTML = '<em style="color: red;">此欄必須填寫</em>';
+    }
+    input.style.borderColor = 'red';
+    input.style.borderWidth = "medium";
+  } else {
+    input.classList.remove('is-invalid');
+    const errorElement = input.nextElementSibling;
+    if (errorElement) {
+      errorElement.innerHTML = '';
+    }
+    input.style.borderColor = '';
+  }
+}, true);
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const inputs = form.querySelectorAll('input:not([name="remarks"]), select');
+
+  let isValid = true;
+
+  inputs.forEach((input) => {
+    if (input.value.trim() === '') {
+      input.classList.add('is-invalid');
+      const errorElement = input.nextElementSibling;
+      if (errorElement) {
+        errorElement.innerHTML = '<em style="color: red;">此欄必須填寫</em>';
+      }
+      input.style.borderColor = 'red';
+      input.style.borderWidth = "medium";
+      isValid = false;
+    } else {
+      input.classList.remove('is-invalid');
+      const errorElement = input.nextElementSibling;
+      if (errorElement) {
+        errorElement.innerHTML = '';
+      }
+      input.style.borderColor = '';
+    }
+  });
+
+  if (isValid) {
+    // form.submit();
+    createOrder()
+  }
+});
+
+
+
+
 function createOrder() {
-  const form = document.querySelector("#create-order-form");
+  // const form = document.querySelector("#create-order-form");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const pick_up_date = form.date.value;

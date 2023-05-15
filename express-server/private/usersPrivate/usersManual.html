@@ -91,7 +91,9 @@
           <div class="pick-up-time">
             <p class="sub-title">收貨時間</p>
             <input type="date" name="date" class="date" />
+            <error-message></error-message>
             <input type="time" name="time" class="time" />
+            <error-message></error-message>
           </div>
 
           <p class="sub-title">接貨地址</p>
@@ -118,6 +120,7 @@
               <option value="屯門區">屯門區</option>
               <option value="元朗區">元朗區</option>
             </select>
+            <error-message></error-message>
             <!-- 英文版 -->
             <!-- <select class="pick-up-district" name="pickUpDistrict">
               <option value="" disabled selected>地區</option>
@@ -148,6 +151,7 @@
               placeholder="室號"
               value=""
             />
+            <error-message></error-message>
             <input
               type="text"
               class="pick-up-floor"
@@ -155,6 +159,7 @@
               placeholder="樓層"
               value="20"
             />
+            <error-message></error-message>
             <input
               type="text"
               class="pick-up-building"
@@ -162,6 +167,7 @@
               placeholder="大廈及屋苑"
               value=""
             />
+            <error-message></error-message>
             <input
               type="text"
               class="pick-up-street"
@@ -169,6 +175,7 @@
               placeholder="街號及街道名稱"
               value=""
             />
+            <error-message></error-message>
           </div>
 
           <div class="deliver-address">
@@ -195,6 +202,7 @@
               <option value="屯門區">屯門區</option>
               <option value="元朗區">元朗區</option>
             </select>
+            <error-message></error-message>
 
             <!--英文版  -->
             <!-- <select name="deliverDistrict">
@@ -220,24 +228,28 @@
             </select> -->
 
             <input type="text" name="deliverRoom" placeholder="室號" value="" />
+            <error-message></error-message>
             <input
               type="text"
               name="deliverFloor"
               placeholder="樓層"
               value=""
             />
+            <error-message></error-message>
             <input
               type="text"
               name="deliverBuilding"
               placeholder="大廈及屋苑"
               value=""
             />
+            <error-message></error-message>
             <input
               type="text"
               name="deliverStreet"
               placeholder="街號及街道名稱"
               value=""
             />
+            <error-message></error-message>
           </div>
 
           <div class="receiver-contact">
@@ -248,12 +260,14 @@
               placeholder="姓名"
               value=""
             />
+            <error-message></error-message>
             <input
               type="text"
               name="receiver_contact"
               placeholder="聯絡電話"
               value=""
             />
+            <error-message></error-message>
           </div>
 
           <div class="animals-section">
@@ -275,6 +289,7 @@
               <option value="9">斑馬</option>
               <option value="10">長頸鹿</option>
             </select>
+            <error-message></error-message>
             <select name="animals_amount" class="num-of-anm">
               <option value="" disabled selected>動物數量</option>
               <option value="1">1</option>
@@ -283,6 +298,7 @@
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
+            <error-message></error-message>
 
             <template id="new-animal-column">
               <div class="clone-animal">
