@@ -13,12 +13,12 @@ async function allOrderStatus() {
   //title
   const title = document.createElement("div");
   title.textContent = `訂單資料`;
-  title.className = "ongoing-title"
+  title.className = "ongoing-title";
   orderContainer.appendChild(title);
   //iterate orders haven't complete
   for (const order of notFinish) {
     const orderCode = document.createElement("p");
-    orderCode.style = "font-weight: bold"
+    orderCode.style = "font-weight: bold";
     const createTime = document.createElement("p");
     const pickUpDateTime = document.createElement("p");
     const pickUpAddress = document.createElement("p");
@@ -103,7 +103,8 @@ async function allOrderStatus() {
     let animalDetails = ``;
     if (Array.isArray(order.animals_name)) {
       for (let i = 0; i < order.animals_name.length; i++) {
-        animalDetails += order.animals_name[i] + " X " + order.animals_amount[i] + " ";
+        animalDetails +=
+          order.animals_name[i] + " X " + order.animals_amount[i] + " ";
       }
     } else {
       animalDetails += order.animals_name + " X " + order.animals_amount + " ";
@@ -141,6 +142,7 @@ async function allOrderStatus() {
     if (order.orders_status === "訂單待接中") {
       circle1.style.color = "rgb(255, 157, 29)";
       pending.style.color = "rgb(255, 157, 29)";
+      btnDiv.appendChild(cancelOrderBtn);
     } else if (order.orders_status === "司機已接單") {
       circle2.style.color = "rgb(255, 157, 29)";
       driverAccepts.style.color = "rgb(255, 157, 29)";
@@ -176,7 +178,6 @@ async function allOrderStatus() {
     } else {
       btnDiv.appendChild(detailsBtn);
     }
-    btnDiv.appendChild(cancelOrderBtn);
 
     detailsBtn.addEventListener("click", () => {
       window.location = `/private/usersPrivate/ongoingdt.html?oid=${order.id}`;
