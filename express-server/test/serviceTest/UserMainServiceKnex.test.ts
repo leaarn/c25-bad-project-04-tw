@@ -1,8 +1,9 @@
 import Knex from "knex";
 import dotenv from "dotenv"
-dotenv.config
-const knexfile = require("../../knexfile");
-const knex = Knex(knexfile[`${process.env.NODE_ENV}`]);
+dotenv.config()
+
+import config from "../../knexfile";
+const knex = Knex(config[process.env.NODE_ENV || "development"]);
 import { UsersMainService } from "../../services/UsersMainService";
 
 describe("Test UsersMainServiceKnex", () => {

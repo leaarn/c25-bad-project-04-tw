@@ -1,8 +1,9 @@
 import Knex from "knex";
 import dotenv from "dotenv";
 dotenv.config();
-const knexfile = require("../../knexfile");
-const knex = Knex(knexfile[`${process.env.NODE_ENV}`]);
+
+import config from "../../knexfile";
+const knex = Knex(config[process.env.NODE_ENV || "development"]);
 // import { hashPassword } from "../../utils/hash";
 
 import { DriversService } from "../../services/DriversService";
