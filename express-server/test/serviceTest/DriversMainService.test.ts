@@ -1,4 +1,5 @@
 import Knex from "knex";
+
 import { DriversMainService } from "../../services/DriversMainService";
 import {
   animalTable,
@@ -8,9 +9,10 @@ import {
   userTable,
 } from "../../migrations/20230503035349_init-db";
 
+import dotenv from "dotenv"
+dotenv.config()
 const knexfile = require("../../knexfile");
-const knex = Knex(knexfile["testGithub"]);
-
+const knex = Knex(knexfile[`${process.env.NODE_ENV}`]);
 describe("test DriversMainServiceKnex", () => {
   let driversMainService = new DriversMainService(knex);
   let orderIds: number[];
@@ -299,19 +301,6 @@ describe("test DriversMainServiceKnex", () => {
 
     expect(getOngoingOrdersResult).toMatchObject([
       {
-        id: orderIds[1],
-        reference_code: "0753cde0-350c-4131-a276-13a30962acbf",
-        user_full_name: "Miss Chinny Kam",
-        contact_num: 51170071,
-        pick_up_date_time: "2023-03-01 11:03:00",
-        pick_up_address: "203 15/F TML street 南區",
-        deliver_address: "204 20/F TML street 南區",
-        animals_name: ["貓", "狗"],
-        animals_amount: [1, 1],
-        remarks: "no remarks",
-        orders_status: "司機已接單",
-      },
-      {
         id: orderIds[2],
         reference_code: "0753cde0-350c-4131-a276-13a30962acbf",
         user_full_name: "Miss Chinny Kam",
@@ -323,6 +312,19 @@ describe("test DriversMainServiceKnex", () => {
         animals_amount: [1, 1],
         remarks: "no remarks",
         orders_status: "送貨中",
+      },
+      {
+        id: orderIds[1],
+        reference_code: "0753cde0-350c-4131-a276-13a30962acbf",
+        user_full_name: "Miss Chinny Kam",
+        contact_num: 51170071,
+        pick_up_date_time: "2023-03-01 11:03:00",
+        pick_up_address: "203 15/F TML street 南區",
+        deliver_address: "204 20/F TML street 南區",
+        animals_name: ["貓", "狗"],
+        animals_amount: [1, 1],
+        remarks: "no remarks",
+        orders_status: "司機已接單",
       },
     ]);
   });

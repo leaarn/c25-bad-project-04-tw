@@ -1,9 +1,11 @@
 import Knex from "knex";
+import dotenv from "dotenv"
+dotenv.config
 const knexfile = require("../../knexfile");
-const knex = Knex(knexfile["testGithub"]);
+const knex = Knex(knexfile[`${process.env.NODE_ENV}`]);
 import { UsersMainService } from "../../services/UsersMainService";
 
-describe.only("Test UsersMainServiceKnex", () => {
+describe("Test UsersMainServiceKnex", () => {
   let usersMainService = new UsersMainService(knex);
   let orderId: number;
   let usersId: number;

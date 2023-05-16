@@ -8,7 +8,7 @@ let res: express.Response;
 let receiversService: ReceiversService;
 // let receiversController: ReceiversController;
 
-describe.only("test receivers controller", () => {
+describe("test receivers controller", () => {
   beforeEach(() => {
     req = getRequest();
     res = getResponse();

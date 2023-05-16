@@ -1,7 +1,7 @@
 import { Page, chromium, Browser } from "playwright";
 // import "../app";
 
-describe.skip("Login", () => {
+describe("Login", () => {
   let page: Page;
   let browser: Browser;
 
@@ -36,6 +36,7 @@ describe.skip("Login", () => {
 
   afterAll(async () => {
     await browser.close();
+    console.log("test ended")
   });
 
 });

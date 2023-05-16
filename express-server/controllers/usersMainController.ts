@@ -1,12 +1,9 @@
 import { UsersMainService } from "../services/UsersMainService";
 import type { Request, Response } from "express";
 import { logger } from "../utils/logger";
-import { randomToken } from "./utils";
+import { randomToken} from "./utils";
+import { randomDistance } from "./random";
 import axios from "axios";
-// export function randomDistance(){
-//   return  Math.round(Math.random() * (100 - 1) + 1)
-
-// }
 
 // export function randomToken() {
 //   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -26,9 +23,9 @@ import { form, formParsePromise } from "../formidable";
 export class UsersMainController {
   constructor(private usersMainService: UsersMainService) {}
 
-  randomDistance = () => {
-    return Math.round(Math.random() * (100 - 1) + 1);
-  };
+  // randomDistance = () => {
+  //   return Math.round(Math.random() * (100 - 1) + 1);
+  // };
 
   // randomToken = () =>{
   //   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -96,7 +93,7 @@ export class UsersMainController {
       const animals_id = req.body.animals_id;
       const animals_amount = req.body.animals_amount;
       const remarks = req.body.remarks;
-      const distance_km = this.randomDistance();
+      const distance_km = randomDistance();
       const token = randomToken();
 
       await this.usersMainService.createOrder({
@@ -247,7 +244,7 @@ export class UsersMainController {
       const animals_id = req.body.anmId;
       const animals_amount = req.body.anmAmount;
       const remarks = req.body.remarks;
-      const distance_km = this.randomDistance();
+      const distance_km = randomDistance();
       const token = randomToken();
 
       await this.usersMainService.aiCreateOrder({

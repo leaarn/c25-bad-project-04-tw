@@ -6,7 +6,8 @@ import { UsersMainService } from "../../services/UsersMainService";
 import { Knex } from "knex";
 import type { Request, Response } from "express";
 import { getRequest, getResponse } from "../utils";
-import { randomToken } from "../../controllers/utils";
+import { randomToken} from "../../controllers/utils";
+import * as RandomDistance from '../../controllers/random'
 
 jest.mock("../../controllers/utils");
 
@@ -162,9 +163,11 @@ describe("UsersMainController TestsCases", () => {
     };
     req.session.users_id = 1;
 
-    usersMainController.randomDistance = jest.fn(() => {
-      return 75;
-    });
+
+    const spy_1 = jest.spyOn(RandomDistance,'randomDistance');
+    // usersMainController.randomDistance = jest.fn(() => {
+    //   return 75;
+    // });
 
     // (randomDistance as jest.Mock).mockReturnValue(75)
     (randomToken as jest.Mock).mockReturnValue("Z58A39");
@@ -174,6 +177,9 @@ describe("UsersMainController TestsCases", () => {
 
     await usersMainController.createOrder(req, res);
 
+    let check = spy_1.mock.results[0]
+    console.log("spy on random distance fucntion to get the value",check.value)
+    
     expect(usersMainService.createOrder).toBeCalledWith({
       animals_amount: ["1", "4"],
       animals_id: ["2", "1"],
@@ -192,7 +198,7 @@ describe("UsersMainController TestsCases", () => {
       receiver_contact: "12345678",
       receiver_name: "sgerge",
       remarks: "grgerger",
-      distance_km: 75,
+      distance_km: check.value,
       token: "Z58A39",
       users_id: 1,
     });
@@ -373,9 +379,9 @@ describe("UsersMainController TestsCases", () => {
     };
     req.session.users_id = 1;
 
-    usersMainController.randomDistance = jest.fn(() => {
-      return 75;
-    });
+    // usersMainController.randomDistance = jest.fn(() => {
+    //   return 75;
+    // });
 
     // (randomDistance as jest.Mock).mockReturnValue(75)
     (randomToken as jest.Mock).mockReturnValue("Z58A39");
@@ -383,8 +389,14 @@ describe("UsersMainController TestsCases", () => {
     //   return "Z58A39";
     // });
 
+    const spy_2 = jest.spyOn(RandomDistance,'randomDistance');
+
     await usersMainController.aiCreateOrderController(req, res);
 
+   
+    let check = spy_2.mock.results[0]
+    console.log("spy on random distance fucntion to get the value",check.value)
+    
     expect(usersMainService.aiCreateOrder).toBeCalledTimes(1);
     expect(res.json).toBeCalledWith({ message: "create order success" });
   });

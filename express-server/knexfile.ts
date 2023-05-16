@@ -19,7 +19,6 @@ const config: { [key: string]: Knex.Config } = {
       tableName: "knex_migrations",
     },
   },
-
   testGithub: {
     client: "postgresql",
     connection: {
