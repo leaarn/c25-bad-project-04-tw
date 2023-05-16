@@ -129,7 +129,7 @@ export class DriversMainService {
     JOIN animals ON animals.id = order_animals.animals_id
     WHERE (orders.orders_status = '司機已接單' OR orders.orders_status = '送貨中') AND drivers_id = ${driverID}
     GROUP BY orders.id, reference_code, user_full_name, contact_num, pick_up_date_time, pick_up_address, deliver_address, remarks, orders_status
-    ORDER BY orders_status ASC`);
+    ORDER BY orders.id ASC`);
     return getOngoingOrdersResult;
   };
 
