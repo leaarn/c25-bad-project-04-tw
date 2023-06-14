@@ -2,6 +2,9 @@
 window.onload = () => {
   allOrderStatus();
   usersLogout();
+
+  const socket = io.connect(); 
+  socket
 };
 
 async function allOrderStatus() {

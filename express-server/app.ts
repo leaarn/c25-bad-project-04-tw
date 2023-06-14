@@ -9,6 +9,9 @@ import config from "./knexfile";
 import Knex from "knex";
 const knex = Knex(config[process.env.NODE_ENV || "development"]);
 
+import http from "http";
+import { Server as SocketIO } from "socket.io";
+
 const grantExpress = grant.express({
   defaults: {
     origin: "https://chickenvan.online",
@@ -36,6 +39,12 @@ declare module "express-session" {
 }
 
 const app = express();
+const server = new http.Server(app);
+const io = new SocketIO(server);
+
+io.on("connection", function (socket) {
+  console.log(socket)
+})
 
 // Section 1: Middleware
 app.use(express.urlencoded({ extended: true }));
@@ -144,6 +153,6 @@ app.use((_req, res) => {
 
 const PORT = 8080;
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT}/`);
 });

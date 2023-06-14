@@ -63,6 +63,7 @@
     "node-fetch": "2.6.0",
     "path": "^0.12.7",
     "ps": "^1.0.0",
+    "socket.io": "^4.6.1",
     "sweetalert2": "^11.7.3",
     "v8-compile-cache-lib": "^3.0.1",
     "yn": "^3.1.1"
