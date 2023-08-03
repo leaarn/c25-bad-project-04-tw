@@ -1,8 +1,6 @@
 #%%
 from sanic import Sanic
 from sanic.response import json
-# import tensorflow as tf
-# import numpy as np
 from ultralytics import YOLO
 import os
 
@@ -15,8 +13,6 @@ model = YOLO('yolov8n.pt', task='detect') # [detect, classify, segment]
 @app.get("/file")
 def callModel(request):
     #%%
-    # content = request.json
-    # print(content)
 
     image = request.args.get("newFileName")
 
