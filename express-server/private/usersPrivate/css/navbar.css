@@ -18,11 +18,9 @@ body {
 .navbar {
   width: 100%;
   position: sticky;
-  /* overflow: hidden; */
   background-color: #ffe7c7;
   z-index: 10;
   top: 0;
-  /* display: flex; */
 }
 
 .navbar-nav {
@@ -85,7 +83,6 @@ body {
   color: #fff;
   border: 0;
   font-weight: 600;
-  /* position: fixed */
 }
 
 #logout:hover {

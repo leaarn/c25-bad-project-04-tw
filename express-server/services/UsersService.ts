@@ -1,5 +1,4 @@
 import { usersLogin } from "../model";
-// import { driversLogin } from "../model";
 import { createUsers } from "../model";
 import { checkPassword, hashPassword } from "../utils/hash";
 import type { Knex } from "knex";
@@ -31,7 +30,6 @@ export class UsersService {
     if (userType === "user") {
       const foundUser = await this.knex("users")
         .select("id",)
-        // .select("id", "first_name AS name")
         .where("email", result.email)
         .first();
       if (!foundUser) {
@@ -41,10 +39,8 @@ export class UsersService {
           .insert({
             email: result.email,
             password: hashedPassword,
-            // first_name: result.name,
           })
           .returning(["id"]);
-          // .returning(["id", "first_name AS name"]);
         return user;
       }
       return foundUser;

@@ -20,10 +20,7 @@ body {
   margin-left: 20vw;
   margin-right: 20vw;
 }
-/* .bottom-container {
-  margin-top: 20px;
-  text-align: center;
-} */
+
 
 ::placeholder {
   color: rgb(255, 157, 29);
@@ -47,15 +44,7 @@ textarea:focus, input:focus, select:focus {
   font-weight: bold;
   font-size: 180%;
 }
-/* .word2 {
-  color: rgb(255, 157, 29);
-  font-weight: thin;
-  font-size: 90%;
-} */
 
-/* ::placeholder {
-  font-size: 2vw;
-} */
 
 input, select, textarea {
   margin: 0;
@@ -75,16 +64,8 @@ input, select {
 }
 
 .orange-button {
-  /* background-color: rgb(255, 227, 155); */
-  /* border: 0; */
-  /* border-radius: 15px; */
   width: 35vw;
-  /* height: 8vh; */
-  /* color: rgb(255, 157, 29); */
-  /* font-size: 180%; */
-  /* font-weight: bold; */
   margin-bottom: 1vw;
-  /* box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px; */
   padding: 8px 20px;
   margin: 20px 30px 30px 30px;
   border-radius: 50px;

@@ -1,4 +1,3 @@
-// const { body } = require("express-validator");
 
 window.onload = () => {
   createUsers();
@@ -46,11 +45,3 @@ function createUsers() {
     }
   });
 }
-
-// const userForm = e.target;
-// const formData = new FormData(userForm);
-
-// const resp = await fetch("/usersLogin/createAccount", {
-//   method: "POST",
-//   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-//   body: formData,

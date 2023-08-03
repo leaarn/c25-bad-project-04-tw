@@ -18,8 +18,7 @@ import {
 import fs from "fs";
 
 export async function seed(knex: Knex): Promise<void> {
-  // const usersFile = path.join(__dirname, "..", "db", "users.csv");
-  // const users = xlsx.readFile(usersFile);
+
 
   const driversFile = path.join(__dirname, "..", "db", "drivers.csv");
   const drivers = xlsx.readFile(driversFile);
@@ -53,30 +52,11 @@ export async function seed(knex: Knex): Promise<void> {
   );
   // Deletes ALL existing entries
   await knex(orderAnimalTable).del();
-  // await knex(animalTable).del();
   await knex(paymentTable).del();
   await knex(orderTable).del();
   await knex(driverTable).del();
   await knex(userTable).del();
 
-  // const insertUserRows = await Promise.all(
-  //   userRows.map(async (row) => ({
-  //     last_name: row.last_name,
-  //     first_name: row.first_name,
-  //     title: row.title,
-  //     email: row.email,
-  //     password: await hashPassword(row.password),
-  //     contact_num: row.contact_num,
-  //     default_district: row.default_district,
-  //     default_room: row.default_room,
-  //     default_floor: row.default_floor,
-  //     default_building: row.default_building,
-  //     default_street: row.default_street,
-  //     default_coordinates: row.default_coordinates,
-  //   }))
-  // );
-  // // Inserts seed entries
-  // await knex(userTable).insert(insertUserRows);
 
   let usersArray = fs
     .readFileSync(path.join(__dirname, "..", "db", "users.csv"))
@@ -182,20 +162,5 @@ export async function seed(knex: Knex): Promise<void> {
   }
 
   await knex(paymentTable).insert(paymentMethodRow);
-
-  // let animalsArray = fs
-  //   .readFileSync(path.join(__dirname, "..", "db", "animals.csv"))
-  //   .toString()
-  //   .replace(/(?:\\[rn]|[\r]+)+/g, "")
-  //   .split("\n");
-
-  // for (let i = 1; i < animalsArray.length; i++) {
-  //   const animal = animalsArray[i].split(",");
-  //   await knex(animalTable).insert({
-  //     animals_name: animal[0],
-  //     price: animal[1],
-  //   });
-  // }
-
   await knex(orderAnimalTable).insert(orderAnimalsRow);
 }

@@ -56,8 +56,6 @@ h2 {
   margin: 20px;
   color: #ae782e;
   text-align: center;
-  /* padding-left: 5vw;
-  padding-right: 8vw; */
   font-size: 22px;
 }
 
@@ -95,8 +93,6 @@ h2 {
 
 .payment-div {
   width: 80%;
-  /* padding-right: 2vw;
-  padding-right: 7vw; */
 }
 .payment-method {
   display: flex;
@@ -141,10 +137,6 @@ h2 {
   box-shadow: 0 5px #905201;
   transform: translateY(4px);
 }
-
-/* .fa-sharp .fa-solid .fa-circle-chevron-right ::before {
-  padding-top: 1vw;
-} */
 
 input {
   font-size: 3vw;

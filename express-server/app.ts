@@ -97,7 +97,6 @@ export const driversMainController = new DriversMainController(
 );
 
 // Section 2: Route Handlers
-// import { authRoutes } from "./routers/authRoutes";
 import { usersRoutes } from "./routers/usersRoutes";
 import { driversRoutes } from "./routers/driversRoutes";
 import { driversMainRoutes } from "./routers/driversMainRoutes";
@@ -118,7 +117,6 @@ app.use("/driversMain", driverIsLoggedInApi, driversMainRoutes);
 app.use("/users", userIsLoggedInApi, usersMainRoutes);
 app.use("/receivertoken", receiverRoutes);
 app.use("/logout", logoutRoutes);
-// app.get("/google", usersController.loginGoogleControl);
 
 // Section 3: Serve
 
@@ -148,7 +146,6 @@ app.use(
 // Section 4: Error Handling
 app.use((_req, res) => {
   res.sendFile(path.join(__dirname, "public", "404.html"));
-  // res.redirect("/404.html")
 });
 
 const PORT = 8080;

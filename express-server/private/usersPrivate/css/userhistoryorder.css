@@ -58,7 +58,6 @@
   color: #ae782e;
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
   width: 98%;
   background-color: rgb(255, 251, 240);
   margin-bottom: 2vw;
@@ -76,8 +75,6 @@
   margin: 2vw;
   color: #ae782e;
   text-align: center;
-  /* padding-left: 5vw;
-  padding-right: 8vw; */
   font-size: 22px;
   font-weight: bold;
 }

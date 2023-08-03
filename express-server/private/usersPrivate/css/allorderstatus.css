@@ -58,8 +58,6 @@
   margin: 2vw;
   color: #ae782e;
   text-align: center;
-  /* padding-left: 5vw;
-  padding-right: 8vw; */
   font-size: 22px;
   font-weight: bold;
 }
@@ -93,7 +91,6 @@
   color: #ae782e;
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
   width: 98%;
   background-color: rgb(255, 251, 240);
   margin-bottom: 2vw;
@@ -109,7 +106,6 @@
 
 .order-status-div {
   display: flex;
-  /* height: 50vh; */
   justify-content: center;
   align-items: center;
 }
@@ -121,22 +117,17 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: self-start; */
   background-color: rgb(255, 245, 219);
   border-radius: 15px;
   margin-bottom: 40px;
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
-/* .p {
-  text-align: left;
-} */
+
 .status-row {
   display: flex;
   align-items: center;
   padding: 10px 0;
   font-size: 18px;
-  /* justify-content: space-between; */
-  /* width: 40%; */
 }
 
 .fa-circle {
@@ -153,9 +144,7 @@
 }
 
 .arrow-div {
-  /* padding-bottom: 1vw; */
   padding-right: 2vw;
-  /* font-size: 2vw; */
 }
 
 .btn-div {

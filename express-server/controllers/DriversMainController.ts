@@ -1,7 +1,7 @@
 import { DriversMainService } from "../services/DriversMainService";
 import type { Request, Response } from "express";
 import { logger } from "../utils/logger";
-// import { sendMessage } from "../routers/messageHelper";
+
 
 export class DriversMainController {
   constructor(private driversMainService: DriversMainService) {}
@@ -158,7 +158,6 @@ export class DriversMainController {
       const msgResult = await this.driversMainService.message(ordersId);
       console.log("msgResult", msgResult)
 
-      // await sendMessage(msgResult);
       res.status(200).json({ message: "message sent!" });
     } catch (err: any) {
       logger.error(err.message);

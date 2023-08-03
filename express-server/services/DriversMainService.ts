@@ -168,22 +168,11 @@ export class DriversMainService {
       .where("orders.id", "=", orderId)
       .first();
     console.log("tokenResult:", tokenResult);
-    // const contact = await this.knex.raw(
-    //   /*SQL*/ `SELECT receiver_contact FROM orders WHERE orders.id = ${orderId} `
-    // );
-    // const name = await this.knex.raw(
-    //   /*SQL*/ `SELECT receiver_name FROM orders WHERE orders.id = ${orderId} `
-    // );
-    // const tokenResult = await this.knex.raw(
-    //   /*SQL*/ `SELECT token FROM orders WHERE orders.id = ${orderId} `
-    // );
     console.log("contact", receiverContact);
     console.log("name", receiverName);
     console.log("tokenResult", tokenResult);
 
-    // const receiverContact = contact.rows[0];
-    // const receiverName = name.rows[0];
-    // const token = tokenResult.rows[0];
+
 
     const data = getTextMessageInput(
       "852" + receiverContact.receiver_contact.toString(),

@@ -55,19 +55,10 @@ input {
 .member_login,
 .driver_login,
 .member_googleLogin {
-  /* background-color: rgb(255, 227, 155); */
-  /* border: 0; */
-  /* border-radius: 15px; */
   width: 35vw;
-  /* height: 8vh; */
-  /* color: rgb(255, 157, 29); */
-  /* font-size: 180%; */
-  /* font-weight: bold; */
-
   margin-bottom: 1vw;
   box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
   padding: 8px 20px;
-  /* margin: 20px 30px 30px 30px; */
   border-radius: 50px;
   background-color: #ffaa5b;
   font-size: 1.8vw;
@@ -96,30 +87,12 @@ input {
   margin-bottom: 10px;
 }
 
-/* .member_googleLogin{
-  margin-bottom: 2vw;
-  box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px;
-
-} */
 
 #password {
   margin-bottom: 1vw;
   margin-top: 1vw;
 }
 
-/* #member_create {
-  background-color: rgb(255, 157, 29);
-  border: 0;
-  border-radius: 15px;
-  width: 35vw;
-  height: 8vh;;
-  color: rgb(255, 227, 155);
-  margin: 10px 0;
-  font-size: 130%;
-  font-weight: bold;
-  margin-bottom: 3vw;
-  box-shadow: rgba(225, 127, 0, 0.5) 0px 3px 8px;
-} */
 
 #member_create {
   width: 35vw;
@@ -216,16 +189,6 @@ textarea {
     font-weight: 00;
     font-size: 110%;
     margin-top: 3vw;
-    /* background-color: rgb(255, 227, 155);
-    border: 0;
-    border-radius: 15px;
-    width: 50vw;
-    height: 5vh;
-    color: rgb(255, 157, 29);
-    font-size: 130%;
-    font-weight: bold;
-    margin-bottom: 2vw;
-    box-shadow: rgba(255, 157, 29, 0.5) 0px 3px 8px; */
   }
 
   #member_create {

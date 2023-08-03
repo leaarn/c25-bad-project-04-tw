@@ -6,7 +6,6 @@ import { Knex } from "knex";
 let req: express.Request;
 let res: express.Response;
 let receiversService: ReceiversService;
-// let receiversController: ReceiversController;
 
 describe.only("test receivers controller", () => {
   beforeEach(() => {

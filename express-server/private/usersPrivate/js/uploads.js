@@ -1,8 +1,6 @@
 window.onload = () => {
   uploadPhotos();
   usersLogout();
-  // showForm();
-  // aiCreateOrder();
 };
 
 let confirmedAnimals = {};
@@ -102,8 +100,6 @@ function updateUI(result) {
       icon: "warning",
       title: "動物數量超出訂單上限",
       html: `AI預測結果：${animalDetails} </br></br> 請重新上載圖片 或 手動建立訂單`,
-      // showConfirmButton: false,
-      // timer: 2500,
     }).then(function () {
       window.location = "/private/usersPrivate/uploads.html";
     });
@@ -133,21 +129,10 @@ function updateUI(result) {
     </div>
     `;
   }
-  // showForm();
 
   return confirmedAnimals;
 }
 
-// function returnManual() {
-//   document
-//     .querySelector("#form-toggle-manual")
-//     .addEventListener("click", (e) => {
-//       e.preventDefault();
-//       location.replace("http://localhost:8080/private/usersPrivate/usersManual.html") ;
-//     });
-// }
-
-// console.log("here is confirmed animals",confirmedAnimals)
 
 async function uploadPhotos() {
   let input = document.getElementById("image");
@@ -179,7 +164,6 @@ async function uploadPhotos() {
       console.log("type of", result);
       confirmedAnimals = updateUI(result);
       showForm();
-      // showResults()
     }
   });
 }
@@ -231,8 +215,6 @@ async function defaultAddress() {
 function dateTimeMinCurrentDay() {
   let date = document.querySelector(".date");
   date.min = new Date().toISOString().split("T")[0];
-  // let time =  document.querySelector(".time")
-  // time.min = new Date().toISOString().split()
 }
 
 
@@ -286,14 +268,12 @@ form.addEventListener("submit", (event) => {
   });
 
   if (isValid) {
-    // form.submit();
     aiCreateOrder();
   }
 });
 
 
 async function aiCreateOrder() {
-  // const form = document.querySelector("#create-order-form");
   defaultAddress();
   dateTimeMinCurrentDay();
   form.addEventListener("submit", async (e) => {
@@ -305,13 +285,11 @@ async function aiCreateOrder() {
     const pick_up_floor = form.pickUpFloor.value;
     const pick_up_building = form.pickUpBuilding.value;
     const pick_up_street = form.pickUpStreet.value;
-    // const pick_up_coordinates =form.pick_up_coordinates
     const deliver_district = form.deliverDistrict.value;
     const deliver_room = form.deliverRoom.value;
     const deliver_floor = form.deliverFloor.value;
     const deliver_building = form.deliverBuilding.value;
     const deliver_street = form.deliverStreet.value;
-    // const deliver_coordinates =form.deliver_coordinates
     const receiver_name = form.receiverName.value;
     const receiver_contact = form.receiverContact.value;
     const remarks = form.remarks.value;

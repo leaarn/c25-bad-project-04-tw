@@ -28,4 +28,3 @@ usersMainRoutes.post(
   usersMainController.aiCreateOrderController
 );
 usersMainRoutes.post("/uploads", usersMainController.uploadImage);
-// usersMainRoutes.get("/uploads", usersMainController.uploadImage);

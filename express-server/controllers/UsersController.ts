@@ -58,11 +58,9 @@ export class UsersController {
       );
       const result = await fetchRes.json();
 
-      // if (req.session.loginType === "user") {
       let userType = req.session.loginType;
       let foundUser: { id: number } | null = null;
       let foundDriver: { id: number } | null = null;
-      // let foundUser: { id: number; name: string } | null = null;
       if (userType) {
         foundUser = await this.usersService.loginGoogle(userType, result);
         foundDriver = await this.usersService.loginGoogle(userType, result);
@@ -71,36 +69,15 @@ export class UsersController {
         req.session.userIsLoggedIn = true;
         req.session.users_id = foundUser.id;
         req.session.loginType === "user";
-        // req.session.firstName = foundUser.name;
-        // res.status(200).json({ message: "user OAuth login success" });
+
       }
 
       if (foundDriver) {
         req.session.driverIsLoggedIn = true;
         req.session.drivers_id = foundDriver.id;
         req.session.loginType === "driver";
-        // req.session.firstName = foundUser.name;
-        // res.status(200).json({ message: "driver OAuth login success" });
+
       }
-      // }
-
-      // if (req.session.loginType === "driver") {
-      //   let foundDriver = await this.usersService.loginGoogle(result);
-      //   if (foundDriver) {
-      //     req.session.driverIsLoggedIn = true;
-      //     req.session.drivers_id = foundDriver.id;
-      //     res.json({ message: "drivers OAuth login success" });
-      //   }
-      // }
-
-      // if (req.session.loginType === "user") {
-      //   req.session.userIsLoggedIn = true;
-      // } else if (req.session.loginType === "driver") {
-      //   req.session.driverIsLoggedIn = true;
-      // } else {
-      //   res.status(400).send("Incorrect login type");
-      //   return;
-      // }
 
       if (req.session.loginType === "user") {
         res.redirect("/private/usersPrivate/usersMain.html");

@@ -153,7 +153,6 @@ describe("DriversMainController TestsCases", () => {
     await driversMainController.getAllOrders(req, res);
 
     expect(driversMainService.getAllOrders).toBeCalledTimes(1);
-    // expect(driversMainService.getAllOrders).toBeCalledWith(1);
     expect(res.json).toBeCalledWith([
       {
         id: 6,

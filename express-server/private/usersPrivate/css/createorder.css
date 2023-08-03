@@ -1,7 +1,4 @@
-/* .create-order-form {
-margin-left: 5vw;
-margin-right: 5vw;
-} */
+
 #create-order-form {
   display: flex;
   flex-direction: column;
@@ -131,29 +128,14 @@ textarea,
   font-size: 18px;
 }
 
-/* can't change select color yet */
-/* select option:first-child {
-color: green;
-} */
-/* option[value="null"] {
-  color: yellow;
-} */
+
 
 textarea:focus,
 input:focus {
   background: rgba(230, 227, 223, 0.453);
 }
 
-/*anm button */
-/* .add-animal,
-.remove-animal {
-height: 25px;
-width: 25px;
-border-radius: 50%;
-background-color: rgb(253, 202, 72);
-border: 1px solid rgb(253, 202, 72);
-text-align: center;
-} */
+
 
 /* animal title and plus btn */
 .sub-title-and-btn {
@@ -163,10 +145,8 @@ text-align: center;
 }
 .bi-plus-circle-fill,
 .bi-dash-circle-fill {
-  /* padding: 5; */
   color: #ae782e;
   padding-left: 1vw;
-  /* padding-top: 1vw; */
   cursor: pointer;
   font-size: 20px;
 }
@@ -224,10 +204,8 @@ text-align: center;
 
   .bi-plus-circle-fill,
   .bi-dash-circle-fill {
-    /* padding: 5; */
     color: #ae782e;
     padding-left: 1vw;
-    /* padding-top: 1vw; */
     cursor: pointer;
     font-size: 2.8vw;
   }
@@ -283,10 +261,8 @@ text-align: center;
 
   .bi-plus-circle-fill,
   .bi-dash-circle-fill {
-    /* padding: 5; */
     color: #ae782e;
     padding-left: 1vw;
-    /* padding-top: 1vw; */
     cursor: pointer;
     font-size: 5vw;
   }

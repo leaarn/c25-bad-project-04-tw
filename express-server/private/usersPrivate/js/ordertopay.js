@@ -46,7 +46,6 @@ async function confirmToPay() {
   document.querySelector(".pay-btn").addEventListener("click", async () => {
     const orderId = document.querySelector("#order-id").innerText;
     console.log("orderId: ", orderId);
-    ////err:fetch but status not change????
     const resp = await fetch("/users/confirm", {
       method: "PUT",
       headers: {

@@ -1,27 +1,10 @@
 // 用戶落單版面
 window.onload = () => {
-  // userInfo();
   dateMinCurrentDay()
   defaultAddress();
   addAnimal();
-  // createOrder();
   usersLogout() ;
 };
-
-// async function userInfo() {
-//   const resp = await fetch("/users/userinfo");
-//   const userInfo = await resp.json();
-//   console.log(userInfo);
-
-//   const userInfoStr = `
-//   <i class="bi bi-person-circle"></i>
-//   <div class="user-details">
-//   <p class="user-name"><b>Hi, ${userInfo.first_name}</b></p>
-//   <p class="role">會員</p>
-//   </div>
-//   `;
-//   document.querySelector(".user-info").innerHTML = userInfoStr;
-// }
 
 function dateMinCurrentDay(){
   let date =  document.querySelector(".date")
@@ -63,25 +46,6 @@ async function addAnimal() {
     animalSection.appendChild(clone);
   });
 }
-
-// old ver.
-// async function addAnimal() {
-//   console.log("triggered");
-//   let animalSection = document.querySelector(".animals-section");
-//   let template = document.querySelector("#new-animal-column");
-
-//   const clone = template.content.cloneNode(true);
-//   console.log(clone);
-//   animalSection.appendChild(clone);
-// }
-
-// let count = 5;
-
-// const numOfAnimal = document.querySelector(".num-of-anm");
-// numOfAnimal.addEventListener("click", function () {
-//   let options = numOfAnimal.querySelectorAll("option");
-//   console.log(options);
-// });
 
 const form = document.getElementById('create-order-form');
 
@@ -134,7 +98,6 @@ form.addEventListener('submit', (event) => {
   });
 
   if (isValid) {
-    // form.submit();
     createOrder()
   }
 });
@@ -143,7 +106,6 @@ form.addEventListener('submit', (event) => {
 
 
 function createOrder() {
-  // const form = document.querySelector("#create-order-form");
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const pick_up_date = form.date.value;
@@ -162,7 +124,6 @@ function createOrder() {
     const deliver_floor = form.deliverFloor.value;
     const deliver_building = form.deliverBuilding.value;
     const deliver_street = form.deliverStreet.value;
-    // const deliver_coordinates =form.deliver_coordinates
     const receiver_name = form.receiverName.value;
     const receiver_contact = form.receiver_contact.value;
     const animals_id = [];

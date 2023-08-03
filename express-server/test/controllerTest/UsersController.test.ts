@@ -2,16 +2,12 @@ import { Knex } from "knex";
 import { UsersController } from "../../controllers/UsersController";
 import { UsersService } from "../../services/UsersService";
 import {usersLogin } from "../../model";
-// import { driversLogin } from "../model";
-// import { getRequest, getResponse } from "./utils";
-// import type { Request, Response } from "express";
 import express from "express";
 
 describe("test auth controller", () => {
   let req: express.Request;
   let res: express.Response;
   let usersService: UsersService;
-  // let usersController: UsersController;
 
   beforeEach(() => {
     usersService = new UsersService({} as Knex);
@@ -55,37 +51,4 @@ describe("test auth controller", () => {
     expect(req.session.users_id).toBe(foundUser.id);
   });
 
-  // test("createAccount", async () => {
-  //   req.body = {
-  //     lastName: "Julia",
-  //     firstName: "Wong",
-  //     title: "Miss",
-  //     email: "abc@gmail.com",
-  //     password: "abc12",
-  //     contactNum: "123123",
-  //     defaultDistrict: "東區",
-  //     defaultRoom: "123123",
-  //     defaultFloor: "123123",
-  //     defaultBuilding: "123123",
-  //     defaultStreet: "123123",
-  //   };req.session.users_id = 1;
-
-  //   await usersController.createAccountControl(req, res);
-
-  //   expect(usersService.createAccount).toBeCalledWith(
-  //     "Julia",
-  //     "Wong",
-  //     "Miss",
-  //     "abc@gmail.com",
-  //     "abc12",
-  //     "123123",
-  //     "東區",
-  //     "123123",
-  //     "123123",
-  //     "123123",
-  //     "123123"
-  //   );
-  //   expect(usersService.createAccount).toBeCalledTimes(1);
-  //   expect(res.json).toBeCalledWith([{ message: "successful" }]);
-  // });
 });

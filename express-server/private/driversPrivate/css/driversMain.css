@@ -5,9 +5,6 @@ body {
 .bg-img {
   position:fixed;
   width: 100%;
-  /* right: 20%; */
-  /* bottom: 20%; */
-  /* height: 100%; */
   /* Add the blur effect */
   filter: blur(10px);
   -webkit-filter: blur(10px);
@@ -28,11 +25,11 @@ body {
 .navbar {
   width: 100%;
   position: sticky;
-  /* overflow: hidden; */
+
   background-color: #ffe7c7;
   z-index: 10;
   top: 0;
-  /* display: flex; */
+  
 }
 
 .navbar-nav {
@@ -95,7 +92,6 @@ body {
   color: #fff;
   border: 0;
   font-weight: 600;
-  /* position: fixed */
 }
 
 #logout:hover {
@@ -276,7 +272,6 @@ select:valid {
   color: #fff;
   border: 0;
   font-weight: 600;
-  /* margin: 200px 50px; */
   padding: 8px 4vw;
 }
 
@@ -311,15 +306,12 @@ select:valid {
   margin: 20px;
   color: #ae782e;
   text-align: center;
-  /* padding-left: 5vw;
-  padding-right: 8vw; */
   font-size: 22px;
 }
 
 .confirm_order_text,
 .driver_fee_text {
   color: #ae782e;
-  /* width: 100%; */
   background-color: rgb(255, 251, 240);
   text-align: left;
   border: 0;

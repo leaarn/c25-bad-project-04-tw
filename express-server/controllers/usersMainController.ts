@@ -3,23 +3,6 @@ import type { Request, Response } from "express";
 import { logger } from "../utils/logger";
 import { randomToken } from "./utils";
 import axios from "axios";
-// export function randomDistance(){
-//   return  Math.round(Math.random() * (100 - 1) + 1)
-
-// }
-
-// export function randomToken() {
-//   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-//   let token = "";
-
-//   for (let i = 0; i < 2; i++) {
-//     const tokenGenerator =
-//       alphabet[Math.floor(Math.random() * alphabet.length)] +
-//       Math.floor(Math.random() * 99);
-//     token += tokenGenerator;
-//   }
-//   return token
-// }
 import formidable from "formidable";
 import { form, formParsePromise } from "../formidable";
 
@@ -30,18 +13,6 @@ export class UsersMainController {
     return Math.round(Math.random() * (100 - 1) + 1);
   };
 
-  // randomToken = () =>{
-  //   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  //   let token = "";
-
-  //   for (let i = 0; i < 2; i++) {
-  //     const tokenGenerator =
-  //       alphabet[Math.floor(Math.random() * alphabet.length)] +
-  //       Math.floor(Math.random() * 99);
-  //     token += tokenGenerator;
-  //   }
-  //   return token
-  // }
   //user info
   getUserInfo = async (req: Request, res: Response) => {
     try {
@@ -81,15 +52,12 @@ export class UsersMainController {
       const pick_up_building = req.body.pick_up_building;
       const pick_up_street = req.body.pick_up_street;
 
-      // const pick_up_coordinates =req.body.pick_up_coordinates
       const deliver_district = req.body.deliver_district;
       const deliver_room = req.body.deliver_room;
       const deliver_floor = req.body.deliver_floor;
       const deliver_building = req.body.deliver_building;
       const deliver_street = req.body.deliver_street;
 
-      // const deliver_coordinates =req.body.deliver_coordinates
-      //??
       const users_id = req.session.users_id!;
       const receiver_name = req.body.receiver_name;
       const receiver_contact = req.body.receiver_contact;
@@ -232,15 +200,13 @@ export class UsersMainController {
       const AI_rating = req.body.rate;
       const is_AI = req.body.isAI;
 
-      // const pick_up_coordinates =req.body.pick_up_coordinates
       const deliver_district = req.body.deliver_district;
       const deliver_room = req.body.deliver_room;
       const deliver_floor = req.body.deliver_floor;
       const deliver_building = req.body.deliver_building;
       const deliver_street = req.body.deliver_street;
 
-      // const deliver_coordinates =req.body.deliver_coordinates
-      //??
+
       const users_id = req.session.users_id!;
       const receiver_name = req.body.receiver_name;
       const receiver_contact = req.body.receiver_contact;

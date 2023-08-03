@@ -27,13 +27,6 @@ function createDrivers() {
         carLicenseNum,
         carType,
       }),
-      // const userForm = e.target;
-      // const formData = new FormData(userForm);
-      // const resp = await fetch("/driversLogin/createAccount", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      //   body:formData,
-      //   }),
     });
     if (resp.status === 200) {
       alert("登記成功!");

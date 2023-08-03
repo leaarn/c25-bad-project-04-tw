@@ -166,12 +166,7 @@ describe("UsersMainController TestsCases", () => {
       return 75;
     });
 
-    // (randomDistance as jest.Mock).mockReturnValue(75)
     (randomToken as jest.Mock).mockReturnValue("Z58A39");
-    // usersMainController.randomToken = jest.fn(() => {
-    //   return "Z58A39";
-    // });
-
     await usersMainController.createOrder(req, res);
 
     expect(usersMainService.createOrder).toBeCalledWith({
@@ -377,11 +372,8 @@ describe("UsersMainController TestsCases", () => {
       return 75;
     });
 
-    // (randomDistance as jest.Mock).mockReturnValue(75)
     (randomToken as jest.Mock).mockReturnValue("Z58A39");
-    // usersMainController.randomToken = jest.fn(() => {
-    //   return "Z58A39";
-    // });
+   
 
     await usersMainController.aiCreateOrderController(req, res);
 
