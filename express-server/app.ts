@@ -14,7 +14,7 @@ import { Server as SocketIO } from "socket.io";
 
 const grantExpress = grant.express({
   defaults: {
-    origin: "https://chickenvan.online",
+    origin: "https://chickenvan.site",
     transport: "session",
     state: true,
   },
