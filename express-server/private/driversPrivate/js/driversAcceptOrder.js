@@ -32,9 +32,9 @@ async function toAcceptOrder(id) {
   let htmlStr = `<div class="confirm_order_title"><b>訂單資訊</b></div>
       <div class="confirm_order_text"><p>客人姓名：${acceptOrder.user_full_name} </p>
       <p>客人聯絡電話：${acceptOrder.contact_num} </p>
-      <p>送貨時間：${acceptOrder.pick_up_date_time} </p>
-      <p>收貨地址：${acceptOrder.pick_up_address} </p>
-      <p>送貨地址：${acceptOrder.deliver_address} </p>
+      <p>接收寵物時間：${acceptOrder.pick_up_date_time} </p>
+      <p>司機提取寵物地址：${acceptOrder.pick_up_address} </p>
+      <p>客人接收寵物地址：${acceptOrder.deliver_address} </p>
       <p>動物：${animalDetails} </p>
       <p>備註：${acceptOrder.remarks}</p></div>
       <div class="driver_fee_title"><b>司機收費</b></div>

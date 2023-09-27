@@ -11,6 +11,7 @@ function dateMinCurrentDay(){
   date.min = new Date().toISOString().split('T')[0]
 }
 
+// add a button(hide), when click call get default address function and append the value in it
 
 async function defaultAddress() {
   const resp = await fetch("/users/address");

@@ -22,9 +22,9 @@ window.onload = async () => {
   const htmlstr = `
   <p class="order-details"><b>訂單號碼 : ${historyOrderDetails.reference_code}</b></p>
   <p class="order-details">訂單狀態 : 已完成</p>
-  <p class="order-details">收貨時間 : ${historyOrderDetails.pick_up_date_time}</p>
-  <p class="order-details">收貨地址 : ${historyOrderDetails.pick_up_address}</p>
-  <p class="order-details">送貨地址 : ${historyOrderDetails.deliver_address}</p>
+  <p class="order-details">接收寵物時間 : ${historyOrderDetails.pick_up_date_time}</p>
+  <p class="order-details">司機提取寵物地址 : ${historyOrderDetails.pick_up_address}</p>
+  <p class="order-details">客人接收寵物地址 : ${historyOrderDetails.deliver_address}</p>
   <p class="order-details">備註 : ${historyOrderDetails.remarks}</p>
   `;
   document.querySelector(".order-details-div").innerHTML = htmlstr;

@@ -99,9 +99,9 @@ async function allOrderStatus() {
     //text content
     orderCode.textContent = `訂單號碼 : ${order.reference_code}`;
     createTime.textContent = `訂單建立時間 : ${order.created_at}`;
-    pickUpDateTime.textContent = `預計收貨時間 : ${order.pick_up_date_time}`;
-    pickUpAddress.textContent = `收貨地址 : ${order.pick_up_address}`;
-    deliverAddress.textContent = `送貨地址 : ${order.deliver_address}`;
+    pickUpDateTime.textContent = `預計接收寵物時間 : ${order.pick_up_date_time}`;
+    pickUpAddress.textContent = `司機提取寵物地址 : ${order.pick_up_address}`;
+    deliverAddress.textContent = `客人接收寵物地址 : ${order.deliver_address}`;
     //for loop animals
     let animalDetails = ``;
     if (Array.isArray(order.animals_name)) {
@@ -117,9 +117,9 @@ async function allOrderStatus() {
     orderStatusTitle.textContent = `訂單狀態 : `;
     // 訂單狀態 :
     pending.textContent = `正在等待司機接單`;
-    driverAccepts.textContent = `司機正在前往接貨`;
-    driverDelivering.textContent = `司機正前往送貨`;
-    receiverReceived.textContent = `客人已收貨`;
+    driverAccepts.textContent = `司機正前往提取寵物`;
+    driverDelivering.textContent = `司機正前往運送寵物`;
+    receiverReceived.textContent = `客人已接收寵物`;
     //button
     detailsBtn.textContent = `查看你的司機資訊及位置`;
     cancelOrderBtn.textContent = `取消訂單`;

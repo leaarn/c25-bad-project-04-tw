@@ -23,9 +23,9 @@ async function loadOrderToPay() {
   //確認你的訂單
   const htmlstr1 = `
   <p class="order-details">訂單號碼：${data.reference_code}<span id='order-id'>${data.id}</span></p>
-  <p class="order-details">收貨時間：${data.pick_up_date_time}</p>
-  <p class="order-details">收貨地址：${data.pick_up_address}</p>
-  <p class="order-details">送貨地址：${data.deliver_address}</p>
+  <p class="order-details">接收寵物時間：${data.pick_up_date_time}</p>
+  <p class="order-details">司機提取寵物地址：${data.pick_up_address}</p>
+  <p class="order-details">客人接收寵物地址：${data.deliver_address}</p>
   <p class="order-details">動物：${animalDetails}</p>
   <p class="order-details">備註：${data.remarks}</p>
   `;
