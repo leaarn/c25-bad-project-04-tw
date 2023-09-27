@@ -39,7 +39,8 @@
   justify-content: center;
 }
 
-.upload-div, .ai-result-div {
+.upload-div,
+.ai-result-div {
   background-color: rgb(255, 245, 219);
   display: flex;
   flex-direction: column;
@@ -53,7 +54,10 @@
   box-shadow: rgba(255, 157, 29, 0.24) 0px 3px 8px;
 }
 
-.title_div, .result-title, .animal-result, .rating-title {
+.title_div,
+.result-title,
+.animal-result,
+.rating-title {
   margin-top: 20px;
   margin-bottom: 10px;
   color: #ae782e;
@@ -85,7 +89,9 @@ input[type="file"] {
   justify-content: center;
 }
 
-.btns, #form-toggle, #form-toggle-manual {
+.btns,
+#form-toggle,
+#form-toggle-manual {
   border-radius: 50px;
   background-color: #ffaa5b;
   font-size: 18px;
@@ -158,12 +164,11 @@ form {
 }
 
 @media only screen and (min-width: 1000px) {
-  .upload-div, .ai-result-div {
+  .upload-div,
+  .ai-result-div {
     width: 1000px;
   }
-  
 }
-
 
 @media only screen and (max-width: 1000px) {
   .banner {
@@ -172,7 +177,8 @@ form {
     font-size: 40px;
   }
 
-  .upload-div,.ai-result-div {
+  .upload-div,
+  .ai-result-div {
     width: 95vw;
   }
 
@@ -193,7 +199,7 @@ form {
 
   .date {
     width: 100%;
-    margin-right: 0px
+    margin-right: 0px;
   }
   .time {
     width: 100%;
@@ -230,11 +236,27 @@ form {
     width: fit-content;
   }
 
-
   .submit-btn {
     color: #fff;
     font-size: 5vw;
     padding: 8px 4vw;
     width: fit-content;
   }
+}
+
+.default-address-btn {
+  margin-left: 10px;
+  border-radius: 50px;
+  background-color: #ffaa5b;
+  color: #fff;
+  border: 0;
+  font-weight: 600;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-text {
+  margin: 0;
 }

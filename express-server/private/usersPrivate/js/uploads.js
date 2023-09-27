@@ -133,7 +133,6 @@ function updateUI(result) {
   return confirmedAnimals;
 }
 
-
 async function uploadPhotos() {
   let input = document.getElementById("image");
   let imageName = document.getElementById("imageName");
@@ -212,11 +211,17 @@ async function defaultAddress() {
   document.querySelector(".pick-up-street").value = pickUpStreet;
 }
 
+const useDefaultAddress = document.querySelector(".default-address-btn");
+
+useDefaultAddress.addEventListener("click", (e) => {
+  e.preventDefault();
+  defaultAddress();
+});
+
 function dateTimeMinCurrentDay() {
   let date = document.querySelector(".date");
   date.min = new Date().toISOString().split("T")[0];
 }
-
 
 const form = document.getElementById("create-order-form");
 const inputs = form.querySelectorAll('input:not([name="remarks"]), select');
@@ -272,9 +277,8 @@ form.addEventListener("submit", (event) => {
   }
 });
 
-
 async function aiCreateOrder() {
-  defaultAddress();
+  // defaultAddress();
   dateTimeMinCurrentDay();
   form.addEventListener("submit", async (e) => {
     e.preventDefault();

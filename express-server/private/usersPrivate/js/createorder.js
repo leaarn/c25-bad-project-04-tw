@@ -1,14 +1,14 @@
 // 用戶落單版面
 window.onload = () => {
-  dateMinCurrentDay()
-  defaultAddress();
+  dateMinCurrentDay();
+  // defaultAddress();
   addAnimal();
-  usersLogout() ;
+  usersLogout();
 };
 
-function dateMinCurrentDay(){
-  let date =  document.querySelector(".date")
-  date.min = new Date().toISOString().split('T')[0]
+function dateMinCurrentDay() {
+  let date = document.querySelector(".date");
+  date.min = new Date().toISOString().split("T")[0];
 }
 
 // add a button(hide), when click call get default address function and append the value in it
@@ -29,6 +29,13 @@ async function defaultAddress() {
   document.querySelector(".pick-up-street").value = pickUpStreet;
 }
 
+const useDefaultAddress = document.querySelector(".default-address-btn");
+
+useDefaultAddress.addEventListener("click", (e) => {
+  e.preventDefault();
+  defaultAddress();
+});
+
 async function addAnimal() {
   document.querySelector(".add-animal").addEventListener("click", (e) => {
     e.preventDefault();
@@ -48,30 +55,34 @@ async function addAnimal() {
   });
 }
 
-const form = document.getElementById('create-order-form');
+const form = document.getElementById("create-order-form");
 
-form.addEventListener('blur', (event) => {
-  const input = event.target;
+form.addEventListener(
+  "blur",
+  (event) => {
+    const input = event.target;
 
-  if (input.value.trim() === '' && input.name !== 'remarks') {
-    input.classList.add('is-invalid');
-    const errorElement = input.nextElementSibling;
-    if (errorElement) {
-      errorElement.innerHTML = '<em style="color: red;">此欄必須填寫</em>';
+    if (input.value.trim() === "" && input.name !== "remarks") {
+      input.classList.add("is-invalid");
+      const errorElement = input.nextElementSibling;
+      if (errorElement) {
+        errorElement.innerHTML = '<em style="color: red;">此欄必須填寫</em>';
+      }
+      input.style.borderColor = "red";
+      input.style.borderWidth = "medium";
+    } else {
+      input.classList.remove("is-invalid");
+      const errorElement = input.nextElementSibling;
+      if (errorElement) {
+        errorElement.innerHTML = "";
+      }
+      input.style.borderColor = "";
     }
-    input.style.borderColor = 'red';
-    input.style.borderWidth = "medium";
-  } else {
-    input.classList.remove('is-invalid');
-    const errorElement = input.nextElementSibling;
-    if (errorElement) {
-      errorElement.innerHTML = '';
-    }
-    input.style.borderColor = '';
-  }
-}, true);
+  },
+  true
+);
 
-form.addEventListener('submit', (event) => {
+form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const inputs = form.querySelectorAll('input:not([name="remarks"]), select');
@@ -79,32 +90,29 @@ form.addEventListener('submit', (event) => {
   let isValid = true;
 
   inputs.forEach((input) => {
-    if (input.value.trim() === '') {
-      input.classList.add('is-invalid');
+    if (input.value.trim() === "") {
+      input.classList.add("is-invalid");
       const errorElement = input.nextElementSibling;
       if (errorElement) {
         errorElement.innerHTML = '<em style="color: red;">此欄必須填寫</em>';
       }
-      input.style.borderColor = 'red';
+      input.style.borderColor = "red";
       input.style.borderWidth = "medium";
       isValid = false;
     } else {
-      input.classList.remove('is-invalid');
+      input.classList.remove("is-invalid");
       const errorElement = input.nextElementSibling;
       if (errorElement) {
-        errorElement.innerHTML = '';
+        errorElement.innerHTML = "";
       }
-      input.style.borderColor = '';
+      input.style.borderColor = "";
     }
   });
 
   if (isValid) {
-    createOrder()
+    createOrder();
   }
 });
-
-
-
 
 function createOrder() {
   form.addEventListener("submit", async (e) => {
@@ -134,7 +142,9 @@ function createOrder() {
     }
     console.log("here is id", animals_id);
     const animals_amount = [];
-    const animals_amount_selects = form.querySelectorAll("select[name=animals_amount]");
+    const animals_amount_selects = form.querySelectorAll(
+      "select[name=animals_amount]"
+    );
     let total = 0;
     for (const select of animals_amount_selects) {
       animals_amount.push(select.value);
@@ -177,7 +187,6 @@ function createOrder() {
     }
   });
 }
-
 
 async function usersLogout() {
   const logout = document.querySelector("#logout");
