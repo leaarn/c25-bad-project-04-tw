@@ -277,6 +277,27 @@ form.addEventListener("submit", (event) => {
   }
 });
 
+const useAutoForm = document.querySelector(".auto-form-btn");
+
+useAutoForm.addEventListener("click", (e) => {
+  e.preventDefault();
+  autoForm();
+});
+
+function autoForm() {
+  form.date.value = new Date().toISOString().split("T")[0];
+  form.time.value = "20:42";
+
+  form.deliverDistrict.value = "灣仔區";
+  form.deliverRoom.value = "Flat E";
+  form.deliverFloor.value = "30/F";
+  form.deliverBuilding.value = "Star Crest Tower 1";
+  form.deliverStreet.value = "9 Star Street";
+  form.receiverName.value = "Julia";
+  form.receiver_contact.value = "94240074";
+  form.remarks.value = "please take care of my cat";
+}
+
 async function aiCreateOrder() {
   // defaultAddress();
   dateTimeMinCurrentDay();

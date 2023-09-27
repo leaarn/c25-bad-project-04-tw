@@ -244,6 +244,11 @@ form {
   }
 }
 
+.default-address-title,
+.auto-form-container {
+  display: flex;
+}
+
 .default-address-btn {
   margin-left: 10px;
   border-radius: 50px;
@@ -255,9 +260,28 @@ form {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .btn-text {
   margin: 0;
-  padding:5px;
+  padding: 5px;
+}
+.auto-form-btn {
+  margin-left: 10px;
+  border-radius: 50px;
+  background-color: rgb(255, 245, 219);
+  color: rgb(255, 245, 219);
+  border: 0;
+  font-weight: 600;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.auto-form-btn-text {
+  margin: 0;
+  padding: 5px;
 }

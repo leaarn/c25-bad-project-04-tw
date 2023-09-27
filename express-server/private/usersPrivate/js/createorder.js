@@ -1,7 +1,6 @@
 // 用戶落單版面
 window.onload = () => {
   dateMinCurrentDay();
-  // defaultAddress();
   addAnimal();
   usersLogout();
 };
@@ -11,7 +10,6 @@ function dateMinCurrentDay() {
   date.min = new Date().toISOString().split("T")[0];
 }
 
-// add a button(hide), when click call get default address function and append the value in it
 
 async function defaultAddress() {
   const resp = await fetch("/users/address");
@@ -200,4 +198,40 @@ async function usersLogout() {
       alert(data.message);
     }
   });
+}
+
+const useAutoForm = document.querySelector(".auto-form-btn");
+
+useAutoForm.addEventListener("click", (e) => {
+  e.preventDefault();
+  autoForm();
+});
+
+function autoForm() {
+  form.date.value = new Date().toISOString().split("T")[0];
+  form.time.value = "20:42";
+
+  form.deliverDistrict.value = "灣仔區";
+  form.deliverRoom.value = "Flat E";
+  form.deliverFloor.value = "30/F";
+  form.deliverBuilding.value = "Star Crest Tower 1";
+  form.deliverStreet.value = "9 Star Street";
+  form.receiverName.value = "Julia";
+  form.receiver_contact.value = "94240074";
+  // const animals_id = [];
+  // const animals_id_selects = form.querySelectorAll("select[name=animals_id]");
+  // for (const select of animals_id_selects) {
+  //   animals_id.push(select.value);
+  // }
+  // console.log("here is id", animals_id);
+  // const animals_amount = [];
+  // const animals_amount_selects = form.querySelectorAll(
+  //   "select[name=animals_amount]"
+  // );
+  // let total = 0;
+  // for (const select of animals_amount_selects) {
+  //   animals_amount.push(select.value);
+  //   total += parseInt(select.value);
+  // }
+  form.remarks.value = "please take care of my cat";
 }
