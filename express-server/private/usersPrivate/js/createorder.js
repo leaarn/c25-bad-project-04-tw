@@ -217,7 +217,7 @@ function autoForm() {
   form.deliverBuilding.value = "Star Crest Tower 1";
   form.deliverStreet.value = "9 Star Street";
   form.receiverName.value = "Julia";
-  form.receiver_contact.value = "94240074";
+  form.receiverContact.value = "94240074";
   // const animals_id = [];
   // const animals_id_selects = form.querySelectorAll("select[name=animals_id]");
   // for (const select of animals_id_selects) {
