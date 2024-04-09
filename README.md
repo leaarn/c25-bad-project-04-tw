@@ -1,152 +1,50 @@
-# c25-bad-project-04-tw
+# Introducing Chicken Van
+## Chicken Van: Delivering Joy, One Paw at a Time
 
-## CICD git command
-```
-git add .
-git commit -m "msg"
-git push
-git checkout production
-git merge main
-git push origin production
-git checkout main
-```
+**Chicken Van is an on-demand animal delivery platform, empowering to make the delivery flexible, tech-driven and reliable. Users can book a delivery of your fur baby anytime without sacrificing speed and cost, while real-time tracking provides end-to-end transparency. Additionally, our hybrid supply model that leverages a mix of freelancers and part-time drivers, as well as full-time drivers, gives us the flexibility to manage their supply accordingly to handle fluctuating levels of demand. We seamlessly connects users and drivers to move things that matter.**
+<br>
+<br>
 
-## NPM setup
-```
-npm init --y
+### Objective
+**On-demand animal delivery platform. Book flexible, reliable deliveries for your pets. Real-time tracking and hybrid supply model ensure efficient service, connecting users and drivers seamlessly.**
+<br>
+<br>
 
-npm pkg set scripts.dev="ts-node-dev app.ts"
+### Tech Stack
+HTML5, CSS3, TypeScript, Node.js, Express.js, PostgreSQL, PyTorch, ultralytics YOLOv8, Jest, Knex
+<br>
+<br>
 
-npm pkg set scripts.start="node index.js"
+### DevOps
+GitHub Actions, EC2, Route53
+<br>
+<br>
+<br>
 
-npm install express express-session ts-node typescript dotenv pg formidable winston -save-dev --save-exact prettier xlsx uuid express-validator
+### Member Main Page - Efficiently manage your deliveries and track your orders
 
-npm install -D @types/express-session @types/express @types/pg @types/node ts-node-dev @types/formidable @types/uuid
-```
-```
-echo '{
-    "compilerOptions": {
-    "strict": true,
-    "module": "commonjs",
-    "target": "es5",
-    "lib": ["es6", "dom"],
-    "sourceMap": true,
-    "allowJs": true,
-    "jsx": "react",
-    "esModuleInterop": true,
-    "moduleResolution": "node",
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true
-  },
-  "exclude": ["node_modules", "build", "scripts", "index.js"]
-}' > tsconfig.json
-```
+The Member Main Page is your gateway to managing deliveries and tracking orders seamlessly. Access all your delivery information in one place, including upcoming deliveries, order history, and real-time tracking. Stay informed of your pet's deliveries with Chicken Van's intuitive Member Main Page.
 
-```
-echo `
-    SESSION_SECRET=
-    DB_NAME=
-    DB_USERNAME=
-    DB_PASSWORD=
-    ` > .env
-```
+![chick2](https://github.com/leaarn/c25-bad-project-04-tw/assets/125840819/8bd0588f-c88d-47a3-94ad-cb685ac89d06)
 
-```
-echo 'node_modules .env .DS_Store' > .gitignore
-```
+<br>
 
-```
-echo '
-    require("ts-node/register");
-    require("./app.ts");
-    ' > index.js
-```
 
-## Folder setup
 
-- [ ] utils
-    - [ ] logger.ts
-    - [ ] hash.ts
+### AI Create Order - Streamline order creation with AI tech to automatically identify animal species and quantities
 
-- [ ] routers
-    - [ ] personalAuthRoutes.ts
-    - [ ] driverAuthRoutes.ts
-    - [ ] tbc...
+AI Create Order revolutionizes how users place delivery requests on Chicken Van. By leveraging AI powered by PyTorch and YOLOv8, users can simply input information about their animals, and the system intelligently identifies the species and quantities. This automated process saves time, reduces errors, and enhances user experience, making ordering on Chicken Van effortless and efficient.
 
-- [ ] db
-    - [ ] any csv / xlsx file to store the data
 
-- [ ] public 
-     - [ ] assets
-     - [ ] js
-        - [ ] index.js
-     - [ ] css
-        - [ ] index.css
-     - [ ] index.html
-     - [ ] 404.html
 
-## Yarn setup
-```
-yarn init -y
-yarn add --dev jest
-yarn add --dev typescript ts-jest @types/jest @types/node ts-node ts-node-dev
-yarn ts-jest config:init
-yarn add knex pg @types/pg
-yarn knex init -x ts
-yarn add --dev playwright
-```
+<br>
+![ai](https://github.com/leaarn/just-for-testing/assets/125840819/91cd39e6-15d7-49da-acf3-5fb62cb9924b)
 
-## Migration
-- Create
-```
-yarn knex migrate:make {create any tables}
-```
-- Running migration
-```
-yarn knex migrate:latest
-```
-- Roll back
-```
-yarn knex migrate:rollback
-```
 
-## Seed
-- Generate
-```
-yarn knex seed:make init-db
-```
-- Running
-```
-yarn knex seed:run
-```
+### Driver Main Page - Empower your delivery drivers with a dedicated platform to manage deliveries and optimize routes
 
-## Python setup
-- Apple
-```
-pyenv local miniforge3
-conda install -c apple tensorflow-deps
-python -m pip install tensorflow-macos
-python -m pip install tensorflow-metal
-python -m venv .venv --system-site-packages
-source .venv/bin/activate
-pip install --upgrade pip
-pip install ipykernel
-pip install scikit-learn
-pip install sanic
-pip install ultralytics
-```
-- Windows
-```
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-pip install --upgrade pip
-pip install scikit-learn
-pip install --upgrade tensorflow
-pip install sanic
-pip install ultralytics
-```
+The Driver Main Page equips Chicken Van's delivery drivers with essential tools to streamline their deliveries. Drivers can view upcoming deliveries, optimize routes for efficiency, and update delivery statuses in real-time. This ensures prompt and reliable deliveries, enhancing customer satisfaction and driver productivity.
+
+![driver](https://github.com/leaarn/c25-bad-project-04-tw/assets/125840819/7deef80a-99a4-4a58-81eb-a4741e0de457)
+
 
