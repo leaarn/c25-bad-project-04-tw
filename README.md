@@ -35,10 +35,11 @@ The Member Main Page is your gateway to managing deliveries and tracking orders 
 
 AI Create Order revolutionizes how users place delivery requests on Chicken Van. By leveraging AI powered by PyTorch and YOLOv8, users can simply input information about their animals, and the system intelligently identifies the species and quantities. This automated process saves time, reduces errors, and enhances user experience, making ordering on Chicken Van effortless and efficient.
 
-
+<p align="center">
+ <img src="https://github.com/leaarn/c25-bad-project-04-tw/assets/125840819/02f981fa-c672-4dbd-842e-a1fca2869c8b" alt="ai" width=80%/>
+</p>
 
 <br>
-![ai](https://github.com/leaarn/just-for-testing/assets/125840819/91cd39e6-15d7-49da-acf3-5fb62cb9924b)
 
 
 ### Driver Main Page - Empower your delivery drivers with a dedicated platform to manage deliveries and optimize routes
